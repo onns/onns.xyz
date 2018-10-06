@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="2018 Computational Intelligence Homework No.1"/>
+
+
+
+
+  <meta name="keywords" content="computational intelligence, Onns Blog" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="Onns Blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://onns.xyz/2018/09/29/2018-computational-intelligence-homework-no.1/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.6.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-127068305-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script>
+
+
+
+
+
+    <title> 2018 Computational Intelligence Homework No.1 - Onns Blog </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/blog/home">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/blog/archives">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/blog/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/blog/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/blog/links">
+        <li class="mobile-menu-item">
+          
+          
+            Links
+          
+        </li>
+      </a>
+    
+      <a href="/blog/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            
+            
+              Links
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          2018 Computational Intelligence Homework No.1
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-09-29
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/blog/categories/code/">code</a>
+            
+          </div>
+        
+        
+        <div class="post-visits"
+             data-url="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/"
+             data-title="2018 Computational Intelligence Homework No.1">
+            阅读次数
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的数据结构表示问题状态"><span class="toc-text">选择合适的数据结构表示问题状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定智能算子，用以变化状态的规则"><span class="toc-text">确定智能算子，用以变化状态的规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定搜索方法"><span class="toc-text">确定搜索方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p>
+<a id="more"></a>
+<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><h3 id="选择合适的数据结构表示问题状态"><a href="#选择合适的数据结构表示问题状态" class="headerlink" title="选择合适的数据结构表示问题状态"></a>选择合适的数据结构表示问题状态</h3><p>用向量<code>(T, S, Q)</code>表示状态, <code>E</code>表示10斤瓶中的油量, <code>S</code>表示7斤瓶中的油量, <code>Q</code>表示3斤瓶中的油量.</p>
+<p>问题的起始状态: <font color="#FF0000">(10, 0, 0)</font></p>
+<p>问题的目标状态: <font color="#FF0000">(5, 5, 0)</font></p>
+<h3 id="确定智能算子，用以变化状态的规则"><a href="#确定智能算子，用以变化状态的规则" class="headerlink" title="确定智能算子，用以变化状态的规则"></a>确定智能算子，用以变化状态的规则</h3><center id="rulelist">规则表</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left">规则号</th>
+<th style="text-align:left">规则</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">(T, S, Q) and S&lt;7 and T+S≥7 → (T+S-7, 7, Q)</td>
+<td style="text-align:left">用10斤瓶油装满7斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">(T, S, Q) and Q&lt;3 and T+Q≥3 → (T+Q-3, S, 3)</td>
+<td style="text-align:left">用10斤瓶油装满3斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">(T, S, Q) and T&lt;10 and T+S≥10 → (10, T+S-10, Q)</td>
+<td style="text-align:left">用7斤瓶油装满10斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">(T, S, Q) and Q&lt;3 and S+Q≥3 → (T, S+Q-3, 3)</td>
+<td style="text-align:left">用7斤瓶油装满3斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">(T, S, Q) and T&lt;10 and T+Q≥10 → (10, S, T+Q-10)</td>
+<td style="text-align:left">用3斤瓶油装满10斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">(T, S, Q) and S&lt;7 and S+Q≥7 → (T, 7, S+Q-7)</td>
+<td style="text-align:left">用3斤瓶油装满7斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">(T, S, Q) and T&gt;0 and T+S≤7 → (0, T+S, Q)</td>
+<td style="text-align:left">10斤瓶油全部倒入7斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">(T, S, Q) and T&gt;0 and T+Q≤3 → (0, S, T+Q)</td>
+<td style="text-align:left">10斤瓶油全部倒入3斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">(T, S, Q) and S&gt;0 and T+S≤10 → (T+S, 0, Q)</td>
+<td style="text-align:left">7斤瓶油全部倒入10斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">(T, S, Q) and S&gt;0 and S+Q≤3 → (T, 0, S+Q)</td>
+<td style="text-align:left">7斤瓶油全部倒入3斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">(T, S, Q) and Q&gt;0 and T+Q≤10 → (T+Q, S, 0)</td>
+<td style="text-align:left">3斤瓶油全部倒入10斤瓶</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left">(T, S, Q) and Q&gt;0 and S+Q≤7 → (T, S+Q, 0)</td>
+<td style="text-align:left">3斤瓶油全部倒入7斤瓶</td>
+</tr>
+</tbody>
+</table>
+<h3 id="确定搜索方法"><a href="#确定搜索方法" class="headerlink" title="确定搜索方法"></a>确定搜索方法</h3><p>最基本的搜索方法为<code>深度优先搜索</code>和<code>广度优先搜索</code>, 考虑到本题目存在着无限深度的情况, 故选用<code>广度优先搜索</code>方法来实现.</p>
+<h2 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h2><p>大体的程序流程如图1所示</p>
+<center><br><br><div id="flowchart-0" class="flow-chart"></div><br>图1 程序流程图<br></center>
+
+<h2 id="核心伪代码"><a href="#核心伪代码" class="headerlink" title="核心伪代码"></a>核心伪代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//取出当前队列的头部节点</span></span><br><span class="line">  currNode = list.shift();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//队列为空, 搜索失败</span></span><br><span class="line">  <span class="keyword">if</span>(currNode == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断是否为目标状态</span></span><br><span class="line">  <span class="keyword">if</span>(checkNode(currNode)) &#123;</span><br><span class="line">    printPath(currNode);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//将所有可能的下一步状态加入队列尾部</span></span><br><span class="line">  pour(currNode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码运行及测试"><a href="#代码运行及测试" class="headerlink" title="代码运行及测试"></a>代码运行及测试</h2><p>代码运行结果如图2所示, 由于并未对状态进行优化, 首次出现的目标状态在<code>第十层</code>, 有<code>190221</code>个重复状态, 严重影响了运算速度.</p>
+<center><br><br><img src="https://onns.xyz/blog/image/20180930-1.png" alt="代码运行结果图"><br><br>图2 代码运行结果图<br></center>
+
+<p>改进方法是在对目标状态进行搜索的过程中, 对于那些在之前存在过的状态进行剔除, 只保留新状态, 改进后的代码运行结果如图3所示.</p>
+<center><br><br><img src="https://onns.xyz/blog/image/20180930-2.png" alt="改进后代码运行结果图"><br><br>图3 改进后代码运行结果图<br></center>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>从<font color="#FF0000">(10, 0, 0)</font>到<font color="#FF0000">(5, 5, 0)</font>的分油方法为:</p>
+<ul>
+<li>用10斤瓶油装满7斤瓶 (10, 0, 0) -&gt; (3, 7, 0)</li>
+<li>用7斤瓶油装满3斤瓶 (3, 7, 0) -&gt; (3, 4, 3)</li>
+<li>3斤瓶油全部倒入10斤瓶 (3, 4, 3) -&gt; (6, 4, 0)</li>
+<li>用7斤瓶油装满3斤瓶 (6, 4, 0) -&gt; (6, 1, 3)</li>
+<li>3斤瓶油全部倒入10斤瓶 (6, 1, 3) -&gt; (9, 1, 0)</li>
+<li>7斤瓶油全部倒入3斤瓶 (9, 1, 0) -&gt; (9, 0, 1)</li>
+<li>用10斤瓶油装满7斤瓶 (9, 0, 1) -&gt; (2, 7, 1)</li>
+<li>用7斤瓶油装满3斤瓶 (2, 7, 1) -&gt; (2, 5, 3)</li>
+<li>3斤瓶油全部倒入10斤瓶 (2, 5, 3) -&gt; (5, 5, 0)</li>
+</ul>
+<p>如图4所示红色箭头即为分油方法.</p>
+<center><br><br><p>
+<svg width="266pt" height="843pt" viewbox="0.00 0.00 265.56 843.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 839.2)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-839.2 261.56,-839.2 261.56,4 -4,4"/>
+<!-- (10,0,0) -->
+<g id="node1" class="node">
+<title>(10,0,0)</title>
+<ellipse fill="none" stroke="#000000" cx="174.78" cy="-817.2" rx="41.7172" ry="18"/>
+<text text-anchor="middle" x="174.78" y="-813" font-family="Times,serif" font-size="14.00" fill="#000000">(10,0,0)</text>
+</g>
+<!-- (3,7,0) -->
+<g id="node2" class="node">
+<title>(3,7,0)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-728.4" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-724.2" font-family="Times,serif" font-size="14.00" fill="#000000">(3,7,0)</text>
+</g>
+<!-- (10,0,0)&#45;&gt;(3,7,0) -->
+<g id="edge1" class="edge">
+<title>(10,0,0)&#45;&gt;(3,7,0)</title>
+<path fill="none" stroke="#ff0000" d="M165.4712,-799.23C158.8814,-786.5088 149.934,-769.2364 142.5246,-754.9331"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="145.6255,-753.3097 137.9179,-746.0402 139.4099,-756.5295 145.6255,-753.3097"/>
+<text text-anchor="middle" x="160.28" y="-768.6" font-family="Times,serif" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- (7,0,3) -->
+<g id="node3" class="node">
+<title>(7,0,3)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-728.4" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-724.2" font-family="Times,serif" font-size="14.00" fill="#000000">(7,0,3)</text>
+</g>
+<!-- (10,0,0)&#45;&gt;(7,0,3) -->
+<g id="edge2" class="edge">
+<title>(10,0,0)&#45;&gt;(7,0,3)</title>
+<path fill="none" stroke="#000000" d="M184.0888,-799.23C190.6786,-786.5088 199.626,-769.2364 207.0354,-754.9331"/>
+<polygon fill="#000000" stroke="#000000" points="210.1501,-756.5295 211.642,-746.0402 203.9345,-753.3097 210.1501,-756.5295"/>
+<text text-anchor="middle" x="206.28" y="-768.6" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- (0,7,3) -->
+<g id="node4" class="node">
+<title>(0,7,3)</title>
+<ellipse fill="none" stroke="#000000" cx="36.78" cy="-639.6" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="36.78" y="-635.4" font-family="Times,serif" font-size="14.00" fill="#000000">(0,7,3)</text>
+</g>
+<!-- (3,7,0)&#45;&gt;(0,7,3) -->
+<g id="edge3" class="edge">
+<title>(3,7,0)&#45;&gt;(0,7,3)</title>
+<path fill="none" stroke="#000000" d="M111.9058,-712.1127C97.6404,-698.3435 77.0263,-678.4465 60.9989,-662.9765"/>
+<polygon fill="#000000" stroke="#000000" points="63.1731,-660.2106 53.5472,-655.784 58.3117,-665.2472 63.1731,-660.2106"/>
+<text text-anchor="middle" x="95.28" y="-679.8" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- (3,4,3) -->
+<g id="node5" class="node">
+<title>(3,4,3)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-639.6" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-635.4" font-family="Times,serif" font-size="14.00" fill="#000000">(3,4,3)</text>
+</g>
+<!-- (3,7,0)&#45;&gt;(3,4,3) -->
+<g id="edge4" class="edge">
+<title>(3,7,0)&#45;&gt;(3,4,3)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-710.0006C128.78,-697.8949 128.78,-681.8076 128.78,-668.0674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-667.672 128.78,-657.672 125.2801,-667.6721 132.2801,-667.672"/>
+<text text-anchor="middle" x="132.28" y="-679.8" font-family="Times,serif" font-size="14.00" fill="#000000">4</text>
+</g>
+<!-- (7,3,0) -->
+<g id="node6" class="node">
+<title>(7,3,0)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-639.6" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-635.4" font-family="Times,serif" font-size="14.00" fill="#000000">(7,3,0)</text>
+</g>
+<!-- (7,0,3)&#45;&gt;(7,3,0) -->
+<g id="edge5" class="edge">
+<title>(7,0,3)&#45;&gt;(7,3,0)</title>
+<path fill="none" stroke="#000000" d="M220.78,-710.0006C220.78,-697.8949 220.78,-681.8076 220.78,-668.0674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-667.672 220.78,-657.672 217.2801,-667.6721 224.2801,-667.672"/>
+<text text-anchor="middle" x="227.78" y="-679.8" font-family="Times,serif" font-size="14.00" fill="#000000">12</text>
+</g>
+<!-- (6,4,0) -->
+<g id="node7" class="node">
+<title>(6,4,0)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-550.8" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-546.6" font-family="Times,serif" font-size="14.00" fill="#000000">(6,4,0)</text>
+</g>
+<!-- (3,4,3)&#45;&gt;(6,4,0) -->
+<g id="edge6" class="edge">
+<title>(3,4,3)&#45;&gt;(6,4,0)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-621.2006C128.78,-609.0949 128.78,-593.0076 128.78,-579.2674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-578.872 128.78,-568.872 125.2801,-578.8721 132.2801,-578.872"/>
+<text text-anchor="middle" x="135.78" y="-591" font-family="Times,serif" font-size="14.00" fill="#000000">11</text>
+</g>
+<!-- (4,3,3) -->
+<g id="node8" class="node">
+<title>(4,3,3)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-550.8" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-546.6" font-family="Times,serif" font-size="14.00" fill="#000000">(4,3,3)</text>
+</g>
+<!-- (7,3,0)&#45;&gt;(4,3,3) -->
+<g id="edge7" class="edge">
+<title>(7,3,0)&#45;&gt;(4,3,3)</title>
+<path fill="none" stroke="#000000" d="M220.78,-621.2006C220.78,-609.0949 220.78,-593.0076 220.78,-579.2674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-578.872 220.78,-568.872 217.2801,-578.8721 224.2801,-578.872"/>
+<text text-anchor="middle" x="224.28" y="-591" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- (6,1,3) -->
+<g id="node9" class="node">
+<title>(6,1,3)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-462" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-457.8" font-family="Times,serif" font-size="14.00" fill="#000000">(6,1,3)</text>
+</g>
+<!-- (6,4,0)&#45;&gt;(6,1,3) -->
+<g id="edge8" class="edge">
+<title>(6,4,0)&#45;&gt;(6,1,3)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-532.4006C128.78,-520.2949 128.78,-504.2076 128.78,-490.4674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-490.072 128.78,-480.072 125.2801,-490.0721 132.2801,-490.072"/>
+<text text-anchor="middle" x="132.28" y="-502.2" font-family="Times,serif" font-size="14.00" fill="#000000">4</text>
+</g>
+<!-- (4,6,0) -->
+<g id="node10" class="node">
+<title>(4,6,0)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-462" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-457.8" font-family="Times,serif" font-size="14.00" fill="#000000">(4,6,0)</text>
+</g>
+<!-- (4,3,3)&#45;&gt;(4,6,0) -->
+<g id="edge9" class="edge">
+<title>(4,3,3)&#45;&gt;(4,6,0)</title>
+<path fill="none" stroke="#000000" d="M220.78,-532.4006C220.78,-520.2949 220.78,-504.2076 220.78,-490.4674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-490.072 220.78,-480.072 217.2801,-490.0721 224.2801,-490.072"/>
+<text text-anchor="middle" x="227.78" y="-502.2" font-family="Times,serif" font-size="14.00" fill="#000000">12</text>
+</g>
+<!-- (9,1,0) -->
+<g id="node11" class="node">
+<title>(9,1,0)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-373.2" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-369" font-family="Times,serif" font-size="14.00" fill="#000000">(9,1,0)</text>
+</g>
+<!-- (6,1,3)&#45;&gt;(9,1,0) -->
+<g id="edge10" class="edge">
+<title>(6,1,3)&#45;&gt;(9,1,0)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-443.6006C128.78,-431.4949 128.78,-415.4076 128.78,-401.6674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-401.272 128.78,-391.272 125.2801,-401.2721 132.2801,-401.272"/>
+<text text-anchor="middle" x="135.78" y="-413.4" font-family="Times,serif" font-size="14.00" fill="#000000">11</text>
+</g>
+<!-- (1,6,3) -->
+<g id="node12" class="node">
+<title>(1,6,3)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-373.2" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-369" font-family="Times,serif" font-size="14.00" fill="#000000">(1,6,3)</text>
+</g>
+<!-- (4,6,0)&#45;&gt;(1,6,3) -->
+<g id="edge11" class="edge">
+<title>(4,6,0)&#45;&gt;(1,6,3)</title>
+<path fill="none" stroke="#000000" d="M220.78,-443.6006C220.78,-431.4949 220.78,-415.4076 220.78,-401.6674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-401.272 220.78,-391.272 217.2801,-401.2721 224.2801,-401.272"/>
+<text text-anchor="middle" x="224.28" y="-413.4" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- (9,0,1) -->
+<g id="node13" class="node">
+<title>(9,0,1)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-284.4" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-280.2" font-family="Times,serif" font-size="14.00" fill="#000000">(9,0,1)</text>
+</g>
+<!-- (9,1,0)&#45;&gt;(9,0,1) -->
+<g id="edge12" class="edge">
+<title>(9,1,0)&#45;&gt;(9,0,1)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-354.8006C128.78,-342.6949 128.78,-326.6076 128.78,-312.8674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-312.472 128.78,-302.472 125.2801,-312.4721 132.2801,-312.472"/>
+<text text-anchor="middle" x="135.78" y="-324.6" font-family="Times,serif" font-size="14.00" fill="#000000">10</text>
+</g>
+<!-- (1,7,2) -->
+<g id="node14" class="node">
+<title>(1,7,2)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-284.4" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-280.2" font-family="Times,serif" font-size="14.00" fill="#000000">(1,7,2)</text>
+</g>
+<!-- (1,6,3)&#45;&gt;(1,7,2) -->
+<g id="edge13" class="edge">
+<title>(1,6,3)&#45;&gt;(1,7,2)</title>
+<path fill="none" stroke="#000000" d="M220.78,-354.8006C220.78,-342.6949 220.78,-326.6076 220.78,-312.8674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-312.472 220.78,-302.472 217.2801,-312.4721 224.2801,-312.472"/>
+<text text-anchor="middle" x="224.28" y="-324.6" font-family="Times,serif" font-size="14.00" fill="#000000">6</text>
+</g>
+<!-- (2,7,1) -->
+<g id="node15" class="node">
+<title>(2,7,1)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-195.6" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">(2,7,1)</text>
+</g>
+<!-- (9,0,1)&#45;&gt;(2,7,1) -->
+<g id="edge14" class="edge">
+<title>(9,0,1)&#45;&gt;(2,7,1)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-266.0006C128.78,-253.8949 128.78,-237.8076 128.78,-224.0674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-223.672 128.78,-213.672 125.2801,-223.6721 132.2801,-223.672"/>
+<text text-anchor="middle" x="132.28" y="-235.8" font-family="Times,serif" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- (8,0,2) -->
+<g id="node16" class="node">
+<title>(8,0,2)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-195.6" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">(8,0,2)</text>
+</g>
+<!-- (1,7,2)&#45;&gt;(8,0,2) -->
+<g id="edge15" class="edge">
+<title>(1,7,2)&#45;&gt;(8,0,2)</title>
+<path fill="none" stroke="#000000" d="M220.78,-266.0006C220.78,-253.8949 220.78,-237.8076 220.78,-224.0674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-223.672 220.78,-213.672 217.2801,-223.6721 224.2801,-223.672"/>
+<text text-anchor="middle" x="224.28" y="-235.8" font-family="Times,serif" font-size="14.00" fill="#000000">9</text>
+</g>
+<!-- (2,5,3) -->
+<g id="node17" class="node">
+<title>(2,5,3)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-106.8" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">(2,5,3)</text>
+</g>
+<!-- (2,7,1)&#45;&gt;(2,5,3) -->
+<g id="edge16" class="edge">
+<title>(2,7,1)&#45;&gt;(2,5,3)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-177.2006C128.78,-165.0949 128.78,-149.0076 128.78,-135.2674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-134.872 128.78,-124.872 125.2801,-134.8721 132.2801,-134.872"/>
+<text text-anchor="middle" x="132.28" y="-147" font-family="Times,serif" font-size="14.00" fill="#000000">4</text>
+</g>
+<!-- (8,2,0) -->
+<g id="node18" class="node">
+<title>(8,2,0)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-106.8" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">(8,2,0)</text>
+</g>
+<!-- (8,0,2)&#45;&gt;(8,2,0) -->
+<g id="edge17" class="edge">
+<title>(8,0,2)&#45;&gt;(8,2,0)</title>
+<path fill="none" stroke="#000000" d="M220.78,-177.2006C220.78,-165.0949 220.78,-149.0076 220.78,-135.2674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-134.872 220.78,-124.872 217.2801,-134.8721 224.2801,-134.872"/>
+<text text-anchor="middle" x="227.78" y="-147" font-family="Times,serif" font-size="14.00" fill="#000000">12</text>
+</g>
+<!-- (5,5,0) -->
+<g id="node19" class="node">
+<title>(5,5,0)</title>
+<ellipse fill="none" stroke="#000000" cx="128.78" cy="-18" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="128.78" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">(5,5,0)</text>
+</g>
+<!-- (2,5,3)&#45;&gt;(5,5,0) -->
+<g id="edge18" class="edge">
+<title>(2,5,3)&#45;&gt;(5,5,0)</title>
+<path fill="none" stroke="#ff0000" d="M128.78,-88.4006C128.78,-76.2949 128.78,-60.2076 128.78,-46.4674"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="132.2801,-46.072 128.78,-36.072 125.2801,-46.0721 132.2801,-46.072"/>
+<text text-anchor="middle" x="135.78" y="-58.2" font-family="Times,serif" font-size="14.00" fill="#000000">11</text>
+</g>
+<!-- (5,2,3) -->
+<g id="node20" class="node">
+<title>(5,2,3)</title>
+<ellipse fill="none" stroke="#000000" cx="220.78" cy="-18" rx="36.5613" ry="18"/>
+<text text-anchor="middle" x="220.78" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">(5,2,3)</text>
+</g>
+<!-- (8,2,0)&#45;&gt;(5,2,3) -->
+<g id="edge19" class="edge">
+<title>(8,2,0)&#45;&gt;(5,2,3)</title>
+<path fill="none" stroke="#000000" d="M220.78,-88.4006C220.78,-76.2949 220.78,-60.2076 220.78,-46.4674"/>
+<polygon fill="#000000" stroke="#000000" points="224.2801,-46.072 220.78,-36.072 217.2801,-46.0721 224.2801,-46.072"/>
+<text text-anchor="middle" x="224.28" y="-58.2" font-family="Times,serif" font-size="14.00" fill="#000000">2</text>
+</g>
+</g>
+</svg></p><br><br>图4 分油方法示意图<br></center>
+
+<p><a href="#rulelist">注:箭头上方数字即为规则号</a></p>
+<p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列
+e1=>end: 未找到目标状态
+e2=>end: 达到目标状态(5, 5, 0)
+op1=>operation: 取出队列头部中的第一个状态
+cond1=>condition: 此状态是否为空?
+cond2=>condition: 是否为目标状态?
+op2=>operation: 将所有可能下一步状态加入队列尾部
+
+st->op1->cond1
+cond1(yes)->e1
+cond1(no)->cond2
+cond2(yes)->e2
+cond2(no)->op2
+op2->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/blog/tags/computational-intelligence/">computational intelligence</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/blog/2018/10/03/linux-command-list/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">linux常用命令整理</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/blog/2018/04/03/mysql-string-search/">
+        <span class="next-text nav-default">Mysql拼接字符串搜索</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        
+      
+    
+    
+    
+  </div>
+
+<div class="copyright">
+  <span class="pull-right"><a href="http://www.miitbeian.gov.cn/" target="_blank">FUJIAN-ICP PREPARED No. 15022938-2</a></span>
+</div>
+<div class="copyright">
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/blog/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/blog/js/src/bootstrap.js?v=2.6.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+  </body>
+</html>

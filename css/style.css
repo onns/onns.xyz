@@ -1,0 +1,147 @@
+@font-face {
+  font-family: 'Patrick Hand SC';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Patrick Hand SC'), local('PatrickHandSC-Regular'), url(https://onns.xyz/font/patrick-hand-sc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Patrick Hand SC';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Patrick Hand SC'), local('PatrickHandSC-Regular'), url(https://onns.xyz/font/patrick-hand-sc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Patrick Hand SC';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Patrick Hand SC'), local('PatrickHandSC-Regular'), url(https://onns.xyz/font/patrick-hand-sc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #F0F0D8;
+  font-family: 'Patrick Hand SC', cursive;
+}
+html h1, body h1 {
+  /*margin-top: -5rem;*/
+  text-align: center;
+  color: #41403E;
+  font-size: 8rem;
+}
+html h2, body h2 {
+  /*margin-top: -5rem;*/
+  text-align: center;
+  color: #41403E;
+  font-size: 3rem;
+}
+html section, body section {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: 3rem;
+}
+html section button, body section button, html section input, html section input {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  background: transparent;
+  padding: 1rem 1rem;
+  margin: 0 1rem;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  color: #41403E;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  /*
+  Above is shorthand for:
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius:15px 255px;
+  */
+}
+html section button:hover, body section button:hover, html section input:hover, body section input:hover  {
+  box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
+}
+html section button.lined.thick, body section button.lined.thick {
+  border: solid 7px #41403E;
+}
+html section button.dotted.thick, body section button.dotted.thick {
+  border: dotted 5px #41403E;
+}
+html section button.dashed.thick, body section button.dashed.thick {
+  border: dashed 5px #41403E;
+}
+html section button.lined.thin, body section button.lined.thin, html section input.lined.thin, body section input.lined.thin  {
+  border: solid 2px #41403E;
+}
+html section button.dotted.thin, body section button.dotted.thin {
+  border: dotted 2px #41403E;
+}
+html section button.dashed.thin, body section button.dashed.thin {
+  border: dashed 2px #41403E;
+}
+
+@media (max-width: 620px) {
+  body h1 {
+    margin-top: 2rem;
+  }
+  body section {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-bottom: 1rem;
+  }
+  body section button, body section input {
+    -webkit-align-self: center;
+        -ms-flex-item-align: center;
+            align-self: center;
+    margin-bottom: 2rem;
+  }
+}

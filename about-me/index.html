@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<title>About Me</title>
+	<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<audio src="bgm.mp3" autoplay=""></audio>
+	<section>
+		<button id='time' class='lined thin' style='opacity: 0;'></button>
+		<button id='event' class='lined thin' style='opacity: 0;'></button>
+	</section>
+	<script type="text/javascript">
+		window.onload = function(){
+			var timeline = new Array(
+				'2014.08.23', 
+				'2014.09.28', 
+				'2014.11.01', 
+				'2015.06.25', 
+				'2015.09.03', 
+				'2015.10.08', 
+				'2015.11.10', 
+				'2015.12.13', 
+				'2015.12.20', 
+				'2016.03.07',
+				'2016.08.15',
+				'2016.09.13',
+				'2016.09.17',
+				'2016.10.01',
+				'2017.01.05',
+				'2017.03.18',
+				'刘潘'
+				);
+			var event = new Array(
+				'来到厦门大学信息科学与技术学院', 
+				'加入学生会宣传部,学习Photoshop', 
+				'加入厦大青年宣传中心,学习宣传策划', 
+				'开始接触XML,HTML,CSS,JS', 
+				'开始接触PHP', 
+				'加入厦门大学学生会,学习新媒体运营与微信开发', 
+				'主导策划光棍节主题系列两篇推送,阅读量破万', 
+				'个人博客blog.onns.xyz上线', 
+				'合作开发"厦门大学跨年晚会微信心愿墙"上线', 
+				'合作开发"厦门大学学生会女生节心愿墙"上线',
+				'加入大创,使用Python爬取淘宝数据',
+				'加入厦门大学通识中心,运营网站',
+				'加入厦门大学官方微信运营团队,和团队进行新媒体策划运营',
+				'爬虫2.0失败,淘宝反爬升级,开始使用firefox爬取数据',
+				'加入队伍参加"华为杯"中国大学生智能设计竞赛',
+				'开始学习ROS',
+				'onns@onns.xyz 13219960804'
+				);
+			var n = 0;
+			var opacity = 48;
+
+			var timeButton = document.getElementById("time");
+			var eventButton = document.getElementById("event");
+
+			var time = setInterval(function(){
+				if(opacity == 0) {
+					timeButton.innerHTML = timeline[n];
+					eventButton.innerHTML = event[n];
+					opacity -= 4;
+				} else if(opacity == -200) {
+					n++;
+					if(n == timeline.length) {
+						clearTimeout(time);
+					}
+					opacity = 200;
+				} else {
+					opacity -= 4;
+					timeButton.style.opacity = (Math.abs(opacity) > 100) ? 1 : ('0.' + (Math.abs(opacity) - 50 < 0 ? 0 : Math.abs(opacity) - 50));
+					eventButton.style.opacity = (Math.abs(opacity) > 100) ? 1 : ('0.' + (Math.abs(opacity) - 50 < 0 ? 0 : Math.abs(opacity) - 50));
+				}
+			}, 50); 
+
+		}
+	</script>
+</body>
+</html>
