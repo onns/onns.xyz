@@ -806,18 +806,6 @@ h6 {
       content: " · Go"; }
     .post .post-content .highlight.go figcaption + table::after {
       display: none; }
-    .post .post-content .highlight.markdown > table::after {
-      content: "Markdown"; }
-    .post .post-content .highlight.markdown > figcaption > span::after {
-      content: " · Markdown"; }
-    .post .post-content .highlight.markdown figcaption + table::after {
-      display: none; }
-    .post .post-content .highlight.latex > table::after {
-      content: "LaTeX"; }
-    .post .post-content .highlight.latex > figcaption > span::after {
-      content: " · LaTeX"; }
-    .post .post-content .highlight.latex figcaption + table::after {
-      display: none; }
     .post .post-content .highlight figcaption {
       position: absolute;
       top: 0;
