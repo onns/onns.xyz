@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello building!</title>
+    <link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+    <script src="//docs.xbim.net/XbimWebUI/scripts/xbim-viewer.debug.bundle.js"></script>
+</head>
+<body>
+    <div id="content">
+        <canvas id="viewer" style="display: block;"></canvas>
+        <script type="text/javascript">
+            var canvas = document.getElementById('viewer');
+            canvas.width = document.documentElement.clientWidth;
+            canvas.height = document.documentElement.clientHeight;
+            var viewer = new xViewer('viewer');
+            viewer.load('m6.wexbim');
+            viewer.start();
+        </script>
+    </div>    
+</body>
+</html>
