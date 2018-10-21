@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Word</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/sheets-of-paper-a4.css">
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<style type="text/css">
+		button{
+			margin-left: 50px;
+			width:200px;
+			height:80px;
+			position:relative;
+			background: #56c5ff;
+			text-transform:uppercase;
+			color:#ffffff;
+			font-weight:700;
+			letter-spacing:1px;
+			border:none;
+			font-size:15px;
+			outline:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="document" id="document">
+		<div id="sidebar">
+			<div class="sidebar__inner">
+				  <button id="btn1">转换</button>
+			</div>
+		</div>
+		<div class="page" contenteditable="true"></div>
+	</div>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sticky-sidebar@3.3.1/dist/sticky-sidebar.min.js"></script>
+	<script type="text/javascript">
+		var a = new StickySidebar('#sidebar', {
+			topSpacing: 20,
+			bottomSpacing: 20,
+			containerSelector: '.document',
+			innerWrapperSelector: '.sidebar__inner'
+		});
+	</script>
+	<script type="text/javascript">
+		document.getElementById('btn1').onclick = function() {
+			var content = document.getElementsByClassName('page')[0];
+			temp = content.innerText.replace(/\n/g,"-enter-").replace(/\s/g,"").replace(/：/g,":").replace(/（/g, "(").replace(/）/g, ")").replace(/-enter-/g, " ");
+			lectureList = temp.match(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/g);
+
+			lectureData = Array(lectureList.length);
+			for(var i = 0; i < lectureList.length; i++) {
+				lectureData[i] = Array();
+				// console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
+				lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]);
+
+				for(var j = 1; j < lectureTemp.length; j++) {
+					if(lectureTemp[j].trim() != "") {
+						lectureData[i].push(lectureTemp[j]);
+					}
+				}
+			}
+			content.innerHTML = "var lecture_data = " + JSON.stringify(lectureData) + ';</br>';
+			content.innerHTML += 'if(app.documents.length != 0){</br>	var doc = app.activeDocument;</br></br>	for(var i = 0; i < doc.layerSets.length; i++) {</br>		if(doc.layerSets[i].name == "模板") {</br>			for(var j = 0; j < lecture_data.length; j++) {</br>				var temp = doc.layerSets[i].duplicate();</br>				temp.name = lecture_data[j][1];</br>				temp.layers[0].textItem.contents = lecture_data[j][1];</br>				temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";</br>				temp.layers[2].textItem.contents = lecture_data[j][3];</br>				temp.layers[3].textItem.contents = "主讲：" </br>				+ lecture_data[j][5] + "  " </br>				+ lecture_data[j][6] + "\\r\\r\\r\\r主持人：" </br>				+ lecture_data[j][8] + "  " </br>				+ lecture_data[j][9] + "\\r时间：" </br>				+ lecture_data[j][10] + "（" </br>				+ lecture_data[j][11] + "） " </br>				+ lecture_data[j][12] + " - " </br>				+ lecture_data[j][13] + "\\r地点：" </br>				+ lecture_data[j][14];</br>				temp.layers[4].textItem.contents = lecture_data[j][7];</br>			}</br>			break;</br>		}</br>	}</br>}';
+			// console.log(lectureData);
+		}
+	</script>
+</body>
+</html>
