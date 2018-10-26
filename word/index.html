@@ -48,14 +48,14 @@
 	<script type="text/javascript">
 		document.getElementById('btn1').onclick = function() {
 			var content = document.getElementsByClassName('page')[0];
-			temp = content.innerText.replace(/\n/g,"-enter-").replace(/\s/g,"").replace(/：/g,":").replace(/（/g, "(").replace(/）/g, ")").replace(/-enter-/g, " ");
-			lectureList = temp.match(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/g);
+			temp = content.innerText.replace(/\n/g,"-enter-").replace(/\s/g,"").replace(/:/g,"：").replace(/\(/g, "（").replace(/\)/g, "）").replace(/-enter-/g, " ");
+			lectureList = temp.match(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/g);
 
 			lectureData = Array(lectureList.length);
 			for(var i = 0; i < lectureList.length; i++) {
 				lectureData[i] = Array();
-				// console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
-				lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)\(([\S]+)\)([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)\(([\S]+)\)([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]);
+				// console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
+				lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/.exec(lectureList[i]);
 
 				for(var j = 1; j < lectureTemp.length; j++) {
 					if(lectureTemp[j].trim() != "") {
