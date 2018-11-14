@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>GaTSP Visualization</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+    <script src='//api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <script src='data.js'></script>
+    <link href='//api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #content {
+            position: relative;
+            float: right;
+            color: #ffffff;
+            background: #ed6498;
+            margin-right: 30px;
+            margin-top: 30px;
+            font-size: 40px;
+            /* bottom: 0; */
+        }
+
+        button {
+            position: relative;
+            margin-left: 10px;
+            background: #ed6498;
+            color: #ffffff;
+            border: none;
+            outline: none;
+        }
+
+        input {
+            position: relative;
+            border: none;
+            margin: 10px;
+        }
+
+        .text {
+            position: relative;
+            color: #ed6498;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div id='content'></div>
+    <input id='data' /><br />
+    <button id='start'>开始</button>
+    <button id='rerun'>重置</button>
+    <br /><br />
+    <button id='fast'>加速</button>
+    <button id='slow'>减速</button>
+    <br /><br />
+    <button>
+        当前迭代次数：<span id='number'>尚未开始</span>
+    </button>
+    <br /><br />
+    <button>
+        当前距离结果：<span id='result'>0</span>
+    </button>
+    <script>
+        // 数组随机，无数据时随机用
+        // if (!Array.prototype.shuffle) {
+        //     Array.prototype.shuffle = function () {
+        //         for (var j, x, i = this.length; i; j = parseInt(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+        //         return this;
+        //     };
+        // }
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoib25ucyIsImEiOiJjam11OGU4dGIydWJ5M3BtbHVid2FzcHh5In0.ft__eX1roLrBlqLnJeoGPQ';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [108.50, 35.00],
+            zoom: 4
+        });
+
+        var old_data = [];
+        var new_data = [];
+        var point_data = [];
+
+        var data_input = document.getElementById('data');
+        var start = document.getElementById('start');
+        var rerun = document.getElementById('rerun');
+        var fast = document.getElementById('fast');
+        var slow = document.getElementById('slow');
+        var number = document.getElementById('number');
+        var result = document.getElementById('result');
+        var text_content = document.getElementById('content');
+
+        var speed = 1.0;
+        var rate = 0.8;
+        var is_start = 0;
+        var timer = null;
+        var n = 0;
+        var i = 0;
+        var j = 0;
+        var flag = 0;
+        var distance = 0;
+
+        var geojson = {
+            "type": "FeatureCollection",
+            "features": new_data
+        };
+
+        // 最后的旅行演示，为了演示效果将速度固定
+        function fly() {
+            speed = 2.0;
+            reload_data();
+        }
+
+        // 经纬度转换成三角函数中度分表形式
+        function rad(d) {
+            return d * Math.PI / 180.0;
+        }
+
+        // 计算两个坐标间的距离
+        function get_distance(lng1, lat1, lng2, lat2) {
+            var radLat1 = rad(lat1);
+            var radLat2 = rad(lat2);
+            var a = radLat1 - radLat2;
+            var b = rad(lng1) - rad(lng2);
+            var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+            s = s * 6378.137;
+            s = Math.round(s * 10000) / 10000;
+            return s;
+        }
+
+        // 判断线段是否相等
+        function is_equal(data1, data2) {
+            if (data1[0] == data2[0] && data1[1] == data2[1] && data1[2] == data2[2] && data1[3] == data2[3]) {
+                return true;
+            }
+            if (data1[0] == data2[2] && data1[1] == data2[3] && data1[2] == data2[0] && data1[3] == data2[1]) {
+                return true;
+            }
+            return false;
+        }
+
+        // 前一代中存在的线段和不存在的线段分颜色渲染
+        function separate_data() {
+            new_data = [];
+            old_data = [];
+            distance = 0;
+
+            // 迭代次数展示完成，开始旅行！
+            if (n >= path_list_data.length) {
+
+                // 旅行完成，动画终止
+                if (n >= path_list_data.length + path_list_data[path_list_data.length - 1].length + 1) {
+                    clearInterval(timer);
+                    start.innerText = '完成';
+                    return;
+                }
+
+                // 为了动画效果，固定时间
+                if (speed != 2) {
+                    map.setZoom(5);
+                    fly();
+                }
+                for (i = 0; i < n - path_list_data.length - 1; i++) {
+                    new_data.push(list_to_object([path_list_data[path_list_data.length - 1][i], path_list_data[path_list_data.length - 1][i + 1]], '#F7455D'));
+                }
+                map.flyTo({
+                    center: path_list_data[path_list_data.length - 1][i]
+                });
+                text_content.innerHTML = text_data[path_list_data[path_list_data.length - 1][i][0] + '-' + path_list_data[path_list_data.length - 1][i][1]];
+                geojson = {
+                    "type": "FeatureCollection",
+                    "features": new_data
+                };
+                n++;
+                return;
+            }
+
+            // 第一次不需要对比重复数据，直接渲染
+            if (n == 0) {
+                new_data.push(list_to_object(path_list_data[n], '#33C9EB'));
+                for (i = 0; i < path_list_data[n].length - 1; i++) {
+                    distance += get_distance(path_list_data[n][i][0], path_list_data[n][i][1], path_list_data[n][i + 1][0], path_list_data[n][i + 1][1]);
+                }
+            } else {
+                // 如果是新线段渲染红色，否则蓝色
+                for (i = 0; i < path_list_data[n - 1].length - 1; i++) {
+                    old_data.push([path_list_data[n - 1][i][0], path_list_data[n - 1][i][1], path_list_data[n - 1][i + 1][0], path_list_data[n - 1][i + 1][1]]);
+                }
+
+                for (i = 0; i < path_list_data[n].length - 1; i++) {
+                    distance += get_distance(path_list_data[n][i][0], path_list_data[n][i][1], path_list_data[n][i + 1][0], path_list_data[n][i + 1][1]);
+                    flag = 0;
+                    for (j = 0; j < old_data.length; j++) {
+                        if (is_equal(old_data[j], [path_list_data[n][i][0], path_list_data[n][i][1], path_list_data[n][i + 1][0], path_list_data[n][i + 1][1]])) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 1) {
+                        new_data.push(list_to_object([path_list_data[n][i], path_list_data[n][i + 1]], '#33C9EB'));
+                    } else {
+                        new_data.push(list_to_object([path_list_data[n][i], path_list_data[n][i + 1]], '#F7455D'));
+                    }
+                }
+            }
+
+            geojson = {
+                "type": "FeatureCollection",
+                "features": new_data
+            };
+            n++;
+            number.innerHTML = n;
+            result.innerHTML = distance.toFixed(4);
+        }
+        
+        // 构造mapbox接受的geojson格式数据
+        function list_to_object(list_data, color = '#33C9EB', type = 'LineString') {
+            return {
+                'type': 'Feature',
+                'properties': {
+                    'color': color
+                },
+                'geometry': {
+                    'type': type,
+                    'coordinates': list_data
+                }
+            }
+        }
+
+        // 描绘城市点
+        function make_point_data() {
+            for (i = 0; i < path_list_data[0].length; i++) {
+                point_data.push(list_to_object(path_list_data[0][i], '#9966cc', 'Point'));
+            }
+        }
+
+        // 重新加载点数据
+        function reload_data() {
+            clearInterval(timer);
+            timer = window.setInterval(function () {
+                separate_data();
+                map.getSource('path').setData(geojson);
+            }, speed * 1000);
+        }
+
+        start.onclick = function () {
+            if (start.innerText == '开始') {
+
+                // 提供输入数据功能，具体数据格式见data.js
+                if (data_input.value != '') {
+                    if (JSON.parse(data_input.value).length != undefined) {
+                        path_list_data = JSON.parse(data_input.value);
+                    }
+                }
+                start.innerText = '暂停';
+                if (is_start) {
+                    reload_data();
+                } else {
+                    is_start = 1;
+
+                    reload_data();
+
+                    // 加载线数据
+                    map.addSource('path', { type: 'geojson', data: geojson });
+                    map.addLayer({
+                        'id': 'line',
+                        'type': 'line',
+                        'source': 'path',
+                        'paint': {
+                            'line-color': ['get', 'color'],
+                            'line-width': 4,
+                            'line-opacity': .8
+                        }
+                    });
+
+                    
+                    // 加载点数据
+                    make_point_data();
+                    map.addSource('point', {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": point_data
+                        }
+                    });
+                    map.addLayer({
+                        "id": "point",
+                        "source": "point",
+                        "type": "circle",
+                        "paint": {
+                            "circle-radius": 10,
+                            "circle-color": "#9966cc"
+                        }
+                    });
+                }
+            } else {
+                start.innerText = '开始';
+                clearInterval(timer);
+            }
+        }
+
+        rerun.onclick = function () {
+            clearInterval(timer);
+            n = 0;
+            number.innerHTML = '尚未开始';
+            result.innerHTML = '0';
+            start.innerText = '开始';
+            data_input.value = '';
+            map.getSource('path').setData({
+                "type": "FeatureCollection",
+                "features": [{
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': []
+                    }
+                }]
+            });
+        }
+
+        fast.onclick = function () {
+            start.innerText = '暂停';
+            speed *= rate;
+            reload_data();
+        }
+
+        slow.onclick = function () {
+            start.innerText = '暂停';
+            speed /= rate;
+            reload_data();
+        }
+
+    </script>
+
+</body>
+
+</html>
