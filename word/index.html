@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Word</title>
 	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
@@ -11,27 +12,28 @@
 		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
 	<![endif]-->
 	<style type="text/css">
-		button{
+		button {
 			margin-left: 50px;
-			width:200px;
-			height:80px;
-			position:relative;
+			width: 200px;
+			height: 80px;
+			position: relative;
 			background: #56c5ff;
-			text-transform:uppercase;
-			color:#ffffff;
-			font-weight:700;
-			letter-spacing:1px;
-			border:none;
-			font-size:15px;
-			outline:none;
+			text-transform: uppercase;
+			color: #ffffff;
+			font-weight: 700;
+			letter-spacing: 1px;
+			border: none;
+			font-size: 15px;
+			outline: none;
 		}
 	</style>
 </head>
+
 <body>
 	<div class="document" id="document">
 		<div id="sidebar">
 			<div class="sidebar__inner">
-				  <button id="btn1">转换</button>
+				<button id="btn1">转换</button>
 			</div>
 		</div>
 		<div class="page" contenteditable="true"></div>
@@ -46,27 +48,90 @@
 		});
 	</script>
 	<script type="text/javascript">
-		document.getElementById('btn1').onclick = function() {
+		document.getElementById('btn1').onclick = function () {
 			var content = document.getElementsByClassName('page')[0];
-			temp = content.innerText.replace(/\n/g,"-enter-").replace(/\s/g,"").replace(/:/g,"：").replace(/\(/g, "（").replace(/\)/g, "）").replace(/-enter-/g, " ");
+			temp = content.innerText.replace(/\n/g, "-enter-").replace(/\s/g, "").replace(/:/g, "：").replace(/\(/g, "（").replace(/\)/g, "）").replace(/-enter-/g, " ");
 			lectureList = temp.match(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/g);
 
 			lectureData = Array(lectureList.length);
-			for(var i = 0; i < lectureList.length; i++) {
+			for (var i = 0; i < lectureList.length; i++) {
 				lectureData[i] = Array();
 				// console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
 				lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/.exec(lectureList[i]);
 
-				for(var j = 1; j < lectureTemp.length; j++) {
-					if(lectureTemp[j].trim() != "") {
+				for (var j = 1; j < lectureTemp.length; j++) {
+					if (lectureTemp[j].trim() != "") {
 						lectureData[i].push(lectureTemp[j]);
 					}
 				}
 			}
 			content.innerHTML = "var lecture_data = " + JSON.stringify(lectureData) + ';</br>';
-			content.innerHTML += 'if(app.documents.length != 0){</br>	var doc = app.activeDocument;</br></br>	for(var i = 0; i < doc.layerSets.length; i++) {</br>		if(doc.layerSets[i].name == "模板") {</br>			for(var j = 0; j < lecture_data.length; j++) {</br>				var temp = doc.layerSets[i].duplicate();</br>				temp.name = lecture_data[j][1];</br>				temp.layers[0].textItem.contents = lecture_data[j][1];</br>				temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";</br>				temp.layers[2].textItem.contents = lecture_data[j][3];</br>				temp.layers[3].textItem.contents = "主讲：" </br>				+ lecture_data[j][5] + "  " </br>				+ lecture_data[j][6] + "\\r\\r\\r\\r主持人：" </br>				+ lecture_data[j][8] + "  " </br>				+ lecture_data[j][9] + "\\r时间：" </br>				+ lecture_data[j][10] + "（" </br>				+ lecture_data[j][11] + "） " </br>				+ lecture_data[j][12] + " - " </br>				+ lecture_data[j][13] + "\\r地点：" </br>				+ lecture_data[j][14];</br>				temp.layers[4].textItem.contents = lecture_data[j][7];</br>			}</br>			break;</br>		}</br>	}</br>}';
+			content.innerHTML += `
+if (app.documents.length == 2) {
+    var led_index = 0;
+    var post_index = 1;
+
+    app.activeDocument = app.documents[led_index];
+    var doc = app.activeDocument;
+    for (var i = 0; i < doc.layerSets.length; i++) {
+        if (doc.layerSets[i].name == "模板") {
+            for (var j = 0; j < lecture_data.length; j++) {
+                var temp = doc.layerSets[i].duplicate();
+                temp.name = lecture_data[j][1];
+                temp.layers[0].textItem.contents = lecture_data[j][1];
+                temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";
+                temp.layers[2].textItem.contents = lecture_data[j][3];
+                temp.layers[3].textItem.contents = "主讲："
+                    + lecture_data[j][5] + " "
+                    + lecture_data[j][6] + "\\r\\r\\r\\r主持人："
+                    + lecture_data[j][8] + " "
+                    + lecture_data[j][9] + "\\r时间："
+                    + lecture_data[j][10] + "（"
+                    + lecture_data[j][11] + "） "
+                    + lecture_data[j][12] + " - "
+                    + lecture_data[j][13] + "\\r地点："
+                    + lecture_data[j][14];
+                temp.layers[4].textItem.contents = lecture_data[j][7];
+            }
+            break;
+        }
+    }
+    
+    var color = new RGBColor();
+    color.hexValue = "000000";
+    app.activeDocument = app.documents[post_index];
+    var doc = app.activeDocument;
+    for (var i = 0; i < doc.layerSets.length; i++) {
+        if (doc.layerSets[i].name == "标题") {
+            doc.layerSets[i].layers[0].textItem.contents = lecture_data[0][4].replace("讲", "") + "-" + lecture_data[lecture_data.length - 1][4].replace("总第", "");
+            doc.layerSets[i].layers[0].textItem.color.rgb = color;
+            doc.layerSets[i].layers[0].textItem.size = 55.46;
+        }
+        if (doc.layerSets[i].name == (lecture_data.length + "门课")) {
+            for (var j = 0; j < lecture_data.length; j++) {
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.contents = lecture_data[j][1];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.size = 55.46;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.contents = lecture_data[j][5];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.size = 55.52;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.contents = lecture_data[j][10];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.size = 55.52;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.contents = lecture_data[j][3];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.size = 40;
+            }
+        }
+    }
+}
+			`;
 			// console.log(lectureData);
 		}
 	</script>
 </body>
+
 </html>
