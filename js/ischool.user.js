@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.2.2
+// @version      0.2.3
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -10,6 +10,10 @@
 // @run-at       document-end
 // ==/UserScript==
 
+/*
+0.2.3 增加对提前开放讲座的支持
+0.2.2 修复时间单位不统一导致的不刷新的bug
+*/
 (function () {
     'use strict';
 
@@ -78,7 +82,10 @@
                 var remainTime = ((new Date(/<td align="center">预约起始时间<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1]).getTime()) - (new Date().getTime())) / 1000;
                 if (remainTime > 0) {
                     if (remainTime < COUNTDOWN) {
-                        COUNTDOWN = remainTime - 0.950;
+                        COUNTDOWN = remainTime - 0.950 - 120;
+                    }
+                    if (COUNTDOWN < 0) {
+                        COUNTDOWN = COUNTDOWNFORFULL - 0.950;
                     }
                 }
             }
