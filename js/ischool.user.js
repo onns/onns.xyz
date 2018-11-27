@@ -1,30 +1,72 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @version      0.3.0
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
 // @match        *://ischoolgu.xmu.edu.cn/*
 // @grant        none
 // @run-at       document-end
+// @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
 // ==/UserScript==
 
 /*
+0.3.0 增加GM_config以及通配符"%"
 0.2.3 增加对提前开放讲座的支持
 0.2.2 修复时间单位不统一导致的不刷新的bug
 */
 (function () {
     'use strict';
+    var setting = document.createElement('div');
+    setting.innerHTML = '设置';
+    setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FF0000;';
+    setting.onclick = function () {
+        GM_config.open();
+    }
+    document.body.appendChild(setting);
+    GM_config.init({
+        'id': 'MyConfig',
+        'title': '个人信息设置',
+        'fields':
+        {
+            'XMUID': {
+                'label': '学号',
+                'type': 'text',
+                'default': ''
+            },
+            'XMUPASSWORD': {
+                'label': '密码',
+                'type': 'text',
+                'default': ''
+            },
+            'COUNTDOWNFORFULL': {
+                'label': '刷新时间(1-3600s)',
+                'type': 'int',
+                'min': 1,
+                'max': 3600,
+                'default': 5
+            },
+            'INTERESTED': {
+                'label': '想抢的讲座(回车分隔，"%"则全抢)',
+                'type': 'textarea',
+                'default': '%'
+            }
+        },
+        'css': ""
+    });
 
     // 全局定义
-    var XMUID = '';
-    var XMUPASSWORD = '';
-    var COUNTDOWNFORFULL = 5;
-    var INTERESTED = ['数据科学： 理论与应用（四）'];
+    var XMUID = GM_config.get('XMUID');
+    var XMUPASSWORD = GM_config.get('XMUPASSWORD');
+    var COUNTDOWNFORFULL = GM_config.get('COUNTDOWNFORFULL');
+    var INTERESTED = GM_config.get('INTERESTED').split('\n');
 
+    console.log(INTERESTED);
+    // 
     if (XMUID == '' || XMUPASSWORD == '') {
-        alert('请先修改学号、密码、刷新时间！(默认5s)和感兴趣的讲座(只抢感兴趣的讲座)');
+        GM_config.open();
+        // alert('请先修改学号、密码、刷新时间！(默认5s)和感兴趣的讲座(只抢感兴趣的讲座)');
     }
 
     var COUNTDOWN = 3600;
@@ -66,7 +108,7 @@
                 }
 
                 for (var j = 0; j < INTERESTED.length; j++) {
-                    if (INTERESTED[j] == lectureName) {
+                    if (INTERESTED[j].trim() == lectureName.trim() || INTERESTED[j] == '%') {
                         if (dataRaw[i].match(/input/g).length != 1) {
                             document.getElementsByTagName('input')[COUNTINPUT - 1].click();
                             continue;
