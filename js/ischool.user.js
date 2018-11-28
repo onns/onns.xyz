@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3.2
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 /*
+0.3.2 针对提前开放讲座问题进行修复
 0.3.1 修复无限刷新bug
 0.3.0 增加GM_config以及通配符"%"
 0.2.3 增加对提前开放讲座的支持
@@ -48,6 +49,13 @@
                 'max': 3600,
                 'default': 5
             },
+            'COUNTDOWNFORAHEAD': {
+                'label': '提前刷新时间(讲座可能会提前开放)',
+                'type': 'int',
+                'min': 1,
+                'max': 3600,
+                'default': 600
+            },
             'INTERESTED': {
                 'label': '想抢的讲座(回车分隔，"%"则全抢)',
                 'type': 'textarea',
@@ -61,6 +69,7 @@
     var XMUID = GM_config.get('XMUID');
     var XMUPASSWORD = GM_config.get('XMUPASSWORD');
     var COUNTDOWNFORFULL = GM_config.get('COUNTDOWNFORFULL');
+    var COUNTDOWNFORAHEAD = GM_config.get('COUNTDOWNFORAHEAD');
     var INTERESTED = GM_config.get('INTERESTED').split('\n');
 
     console.log(INTERESTED);
@@ -124,7 +133,7 @@
                     var remainTime = ((new Date(/<td align="center">预约起始时间<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1]).getTime()) - (new Date().getTime())) / 1000;
                     if (remainTime > 0) {
                         if (remainTime < COUNTDOWN) {
-                            COUNTDOWN = remainTime - 0.950 - 120;
+                            COUNTDOWN = remainTime - 0.950 - COUNTDOWNFORAHEAD;
                         }
                         if (COUNTDOWN < 0) {
                             COUNTDOWN = COUNTDOWNFORFULL - 0.950;
