@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.2
+// @version      0.3.3
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 /*
+0.3.3 优化修改设置时的体验
 0.3.2 针对提前开放讲座问题进行修复
 0.3.1 修复无限刷新bug
 0.3.0 增加GM_config以及通配符"%"
@@ -21,9 +22,11 @@
 (function () {
     'use strict';
     var setting = document.createElement('div');
+    var timer = null;
     setting.innerHTML = '设置';
     setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FF0000;';
     setting.onclick = function () {
+        clearTimeout(timer);
         GM_config.open();
     }
     document.body.appendChild(setting);
@@ -53,7 +56,7 @@
                 'label': '提前刷新时间(讲座可能会提前开放)',
                 'type': 'int',
                 'min': 1,
-                'max': 3600,
+                'max': 600,
                 'default': 600
             },
             'INTERESTED': {
@@ -136,7 +139,7 @@
                             COUNTDOWN = remainTime - 0.950 - COUNTDOWNFORAHEAD;
                         }
                         if (COUNTDOWN < 0) {
-                            COUNTDOWN = COUNTDOWNFORFULL - 0.950;
+                            COUNTDOWN = 0.950;
                         }
                     }
                 }
@@ -147,7 +150,7 @@
                     }
                 }
                 console.log(COUNTDOWN);
-                setTimeout(function () { location.reload(); }, COUNTDOWN * 1000);
+                timer = setTimeout(function () { location.reload(); }, COUNTDOWN * 1000);
             } else {
                 window.location.href = 'http://ischoolgu.xmu.edu.cn/admin_bookChair.aspx';
             }
