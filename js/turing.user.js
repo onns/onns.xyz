@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TURING AUTO CHECK
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
+// @version      0.0.2
 // @updateURL    https://onns.xyz/js/turing.user.js
 // @description  none
 // @author       Onns
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 /* 更新日志
+0.0.2 流程优化
 0.0.1 自动显示答案
 */
 
@@ -25,6 +26,10 @@
     var questionName = '';
     var questionAnswer = '';
 
+    if (dataList.length == 0 && window.location.href.indexOf("learn.php") == -1) {
+        window.location.href = 'http://turing.xmu.edu.cn/dtzs/learn.php';
+        alert('等待5s加载题库');
+    }
     function refresh_data() {
         if (window.location.href.indexOf("learn.php") > -1) {
             dataList = [];
@@ -51,8 +56,6 @@
 
     function print_answer() {
         if (window.location.href.indexOf("exam.php") > -1) {
-
-
             var questionList = document.querySelectorAll('[data-role="content"]');
             var questionNum = window.location.href.split('#')[1]
             if (questionNum == undefined) {
@@ -70,7 +73,7 @@
                     break;
                 }
             }
-            if(questionAnswer == '没找到') {
+            if (questionAnswer == '没找到') {
                 console.log(questionName);
             }
             console.clear();
