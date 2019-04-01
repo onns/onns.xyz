@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TURING AUTO CHECK
 // @namespace    http://tampermonkey.net/
-// @version      0.0.2
+// @version      0.0.3
 // @updateURL    https://onns.xyz/js/turing.user.js
 // @description  none
 // @author       Onns
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 /* 更新日志
+0.0.3 取消计时
 0.0.2 流程优化
 0.0.1 自动显示答案
 */
@@ -103,6 +104,7 @@
     setTimeout(function () { print_answer(); }, 1000 * 2);
     document.body.onhashchange = function () {
         print_answer();
+        window.clearTimeout(vartt);
     }
 
 })();
