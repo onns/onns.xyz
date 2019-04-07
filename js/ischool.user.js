@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.3
+// @version      0.3.4
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 /*
+0.3.4 优化设置后自动刷新
 0.3.3 优化修改设置时的体验
 0.3.2 针对提前开放讲座问题进行修复
 0.3.1 修复无限刷新bug
@@ -65,7 +66,20 @@
                 'default': '%'
             }
         },
-        'css': ""
+        'events': {
+            //         'init': function() { alert('onInit()'); },
+            // 'open': function() { alert('onOpen()'); },
+            // 'save': function() { alert('onSave()'); },
+            // 'close': function() { alert('onClose()'); },
+            // 'reset': function() { alert('onReset()'); }
+            'close': function () {
+                location.reload();
+            },
+            'save': function () {
+                location.reload();
+            }
+        },
+        'css': ''
     });
 
     // 全局定义
