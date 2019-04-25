@@ -1,17 +1,18 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4
+// @version      0.3.5
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
 // @match        *://ischoolgu.xmu.edu.cn/*
 // @grant        none
 // @run-at       document-end
-// @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
+// @require      https://onns.xyz/js/gm_config.js
 // ==/UserScript==
 
 /*
+0.3.5 更新JS源
 0.3.4 优化设置后自动刷新
 0.3.3 优化修改设置时的体验
 0.3.2 针对提前开放讲座问题进行修复
