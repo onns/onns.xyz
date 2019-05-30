@@ -45,7 +45,7 @@
         for (var i = 1; i < course_number; i++) {
             var jxbid = document.getElementById('view_table').getElementsByTagName("tr")[i].getElementsByTagName("a")[0].id;
             console.log(jxbid);
-            document.getElementById('view_table').getElementsByTagName("tr")[i].children[11].innerHTML = '<a href="http://bkxk.xmu.edu.cn/xsxk/elect.html?method=handleZxxk&jxbid=' + jxbid + '&xxlx=' + xxlx + '&xklc=' + xklc + '" style="font-size:12px;font-weight:bold;color:blue" target="blank">抢课</a>';
+            document.getElementById('view_table').getElementsByTagName("tr")[i].children[11].innerHTML = '<a href="http://bkxk.xmu.edu.cn/xsxk/elect.html?method=handleZxxk&jxbid=' + jxbid + '&xxlx=' + xxlx + '&xklc=' + xklc + '" style="font-size:12px;font-weight:bold;color:blue" target="_blank">抢课</a>';
         }
     }
 
@@ -81,6 +81,19 @@
                 'label': '选课轮次',
                 'type': 'text',
                 'default': ''
+            }
+        },
+        'events': {
+            //         'init': function() { alert('onInit()'); },
+            // 'open': function() { alert('onOpen()'); },
+            // 'save': function() { alert('onSave()'); },
+            // 'close': function() { alert('onClose()'); },
+            // 'reset': function() { alert('onReset()'); }
+            'close': function () {
+                location.reload();
+            },
+            'save': function () {
+                location.reload();
             }
         },
         'css': ""
