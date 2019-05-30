@@ -1,18 +1,18 @@
 // ==UserScript==
 // @name         BKXK AUTO LOGIN
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
+// @version      0.0.2
 // @updateURL    https://onns.xyz/js/bkxk.user.js
 // @description  none
 // @author       Onns
 // @match        *://bkxk.xmu.edu.cn/xsxk/*
 // @grant        none
 // @run-at       document-end
-// @require      https://openuserjs.org/src/libs/sizzle/GM_config.js
+// @require      https://onns.xyz/js/gm_config.js
 // ==/UserScript==
 
 /* 更新日志
-
+0.0.2 选课轮次题型
 0.0.1 自动登录，自动抢课
 */
 /* TODO List
@@ -45,20 +45,26 @@
         for (var i = 1; i < course_number; i++) {
             var jxbid = document.getElementById('view_table').getElementsByTagName("tr")[i].getElementsByTagName("a")[0].id;
             console.log(jxbid);
-            document.getElementById('view_table').getElementsByTagName("tr")[i].children[11].innerHTML = '<a href="http://bkxk.xmu.edu.cn/xsxk/elect.html?method=handleZxxk&jxbid=' + jxbid + '&xxlx=' + xxlx + '&xklc=' + xklc + '" style="font-size:12px;font-weight:bold;color:blue" target="blank">抢课</a>';
+            document.getElementById('view_table').getElementsByTagName("tr")[i].children[11].innerHTML = '<a href="http://bkxk.xmu.edu.cn/xsxk/elect.html?method=handleZxxk&jxbid=' + jxbid + '&xxlx=' + xxlx + '&xklc=' + xklc + '" style="font-size:12px;font-weight:bold;color:blue" target="_blank">抢课</a>';
         }
     }
 
     var setting = document.createElement('div');
     var timer = null;
     setting.innerHTML = '设置';
-    setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FF0000;';
+    setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FFFFFF;';
     setting.onclick = function () {
         clearTimeout(timer);
         GM_config.open();
     }
 
     if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("logout.html") > -1 || window.location.href.indexOf("login.html") > -1) {
+        if(typeof xklcList != 'undefined') {
+            setting.innerHTML += '<br/>选课轮次:';
+            for (var key in xklcList) {
+                setting.innerHTML += key + ', ';
+            }
+        }
         document.body.appendChild(setting);
     }
 
@@ -83,6 +89,19 @@
                 'default': ''
             }
         },
+        'events': {
+            //         'init': function() { alert('onInit()'); },
+            // 'open': function() { alert('onOpen()'); },
+            // 'save': function() { alert('onSave()'); },
+            // 'close': function() { alert('onClose()'); },
+            // 'reset': function() { alert('onReset()'); }
+            'close': function () {
+                location.reload();
+            },
+            'save': function () {
+                location.reload();
+            }
+        },
         'css': ""
     });
 
@@ -103,6 +122,10 @@
             }
             if (document.body.innerText.indexOf('本学期已选过相同的课程，不可重复选择！') > -1) {
                 alert('Success!');
+            }
+            if (document.body.innerText.indexOf('轮次ID不合法！') > -1) {
+                alert('请查看首页推荐轮次ID，修改尝试');
+                window.location.href = 'http://bkxk.xmu.edu.cn/xsxk/index.html';
             }
         } else if (window.location.href.indexOf("yxbxk.html") > -1) {
             xxlx = 2;
