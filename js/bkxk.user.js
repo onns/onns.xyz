@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BKXK AUTO LOGIN
 // @namespace    http://tampermonkey.net/
-// @version      0.0.2
+// @version      0.0.3
 // @updateURL    https://onns.xyz/js/bkxk.user.js
 // @description  none
 // @author       Onns
@@ -12,8 +12,9 @@
 // ==/UserScript==
 
 /* 更新日志
-0.0.2 选课轮次题型
-0.0.1 自动登录，自动抢课
+0.0.3 修复密码错误无限刷新 0.5h
+0.0.2 选课轮次题型，若干bug修复 2h
+0.0.1 自动登录，自动抢课 6h
 */
 /* TODO List
 选课轮次尚需手动输入，未来可以改为自动修改。
@@ -52,7 +53,7 @@
     var setting = document.createElement('div');
     var timer = null;
     setting.innerHTML = '设置';
-    setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FFFFFF;';
+    setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#000000;';
     setting.onclick = function () {
         clearTimeout(timer);
         GM_config.open();
@@ -152,7 +153,11 @@
                 }
                 document.getElementById("username").value = XMUID;
                 document.getElementById("password").value = XMUPASSWORD;
-                form_submit();
+                if(document.getElementById("loginForm").innerText.indexOf("用户名或密码错误！") > -1) {
+                    alert('用户名或密码错误！');
+                } else {
+                    form_submit();
+                }
             }
         }
 
