@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BKXK AUTO LOGIN
 // @namespace    http://tampermonkey.net/
-// @version      0.0.3
+// @version      0.0.4
 // @updateURL    https://onns.xyz/js/bkxk.user.js
 // @description  none
 // @author       Onns
@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 /* 更新日志
+0.0.4 提示更新 0.5h
 0.0.3 修复密码错误无限刷新 0.5h
 0.0.2 选课轮次题型，若干bug修复 2h
 0.0.1 自动登录，自动抢课 6h
@@ -85,7 +86,7 @@
                 'default': ''
             },
             'xklc': {
-                'label': '选课轮次',
+                'label': '选课轮次(7位数字，依次尝试)',
                 'type': 'text',
                 'default': ''
             }
@@ -110,6 +111,7 @@
     var XMUID = GM_config.get('XMUID');
     var XMUPASSWORD = GM_config.get('XMUPASSWORD');
     var xklc = GM_config.get('xklc');
+    var refresh = 1;
 
     if (XMUID == '' || XMUPASSWORD == '') {
         GM_config.open();
@@ -121,7 +123,12 @@
                 console.log('refresh');
                 setTimeout(function () { window.location.reload(); }, 1000);
             }
+            if (document.body.innerText.indexOf('true') > -1) {
+                refresh = 0;
+                alert('Success!');
+            }
             if (document.body.innerText.indexOf('本学期已选过相同的课程，不可重复选择！') > -1) {
+                refresh = 0;
                 alert('Success!');
             }
             if (document.body.innerText.indexOf('轮次ID不合法！') > -1) {
@@ -161,7 +168,9 @@
             }
         }
 
-        setTimeout(function () { window.location.reload(); }, 1000 * 60 * 5);
-        console.log('refresh main page.');
+        if(refresh) {
+            setTimeout(function () { window.location.reload(); }, 1000 * 60 * 5);
+            console.log('refresh main page.');
+        }
     }
 })();
