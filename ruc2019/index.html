@@ -123,7 +123,7 @@
         <div class="logo"></div>
 
     </div>
-    <p class="text-center" style="margin: 0;color: #FFF;background-color: rgb(174, 10, 42);line-height: 1.5; position: absolute;left: 0;bottom: 0; min-width: 100%;">
+    <p class="text-center" id ="copyright" style="margin: 0;color: #FFF;background-color: rgb(174, 10, 42);line-height: 1.5; position: fixed;left: 0;bottom: 0; min-width: 100%;">
         <small>
             Powered by <a style="color: #fb8964;" href="https://github.com/fengyuanchen/cropperjs">CropperJS</a>
             <br>
@@ -140,5 +140,9 @@
 
 
 </body>
-
+<script>
+    document.body.onscroll = function() {
+        document.getElementById('footer').style.marginBottom = '60px';
+    }
+</script>
 </html>
