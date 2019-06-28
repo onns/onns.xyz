@@ -1,0 +1,187 @@
+/**
+ * Created by L.L. on 2017/3/24.
+ */
+
+body {
+    font-family: "微软雅黑", STXihei, "黑体";
+    background-image: url("http://sinacloud.net/illuminatorslab/ruc80/bg.jpg");
+    background-size: 755px;
+    background-repeat:no-repeat;
+    background-position:center top;
+}
+
+body div{
+    max-width: 755px;
+}
+
+#header-img {
+    margin: 20px auto;
+}
+
+.heading {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 2em;
+    max-width: 85%;
+    background-image: url("http://sinacloud.net/illuminatorslab/ruc80/heading-bg.png");
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-position:center center;
+    min-height: 17%;
+}
+
+.heading .heading-title {
+    font-weight: 700;
+    text-align: left;
+    color: #e1e1e1;
+    padding-top: 7%;
+    padding-left: 10%;
+}
+
+.panel-ruc80 {
+    border-color: rgba(174, 10, 42,.5);
+}
+
+.panel-ruc80>.panel-heading {
+    color: rgb(174, 10, 42);
+    background-color: rgba(174, 10, 42,.2);
+    border-color: rgba(174, 10, 42,.5);
+}
+
+.btn-ruc80 {
+    color: rgb(174, 10, 42);
+    background-color: rgba(174, 10, 42,.2);
+    border-color: rgba(174, 10, 42,.5);
+}
+
+.btn-tpl {
+    margin: 2px auto;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    min-height: 80px;
+    width: 32%;
+    color: rgba(225, 225, 225, 0);
+    background-color: #FFF;
+    border: none;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* background-color: rgb(174, 10, 42);  */
+    /* border-color: rgb(174, 10, 42); */
+}
+
+.btn-tpl:hover,.btn-tpl:focus {
+    color: rgba(225, 225, 225, 0);
+}
+
+.jumbotron {
+    padding: 0 0!important;
+    width: 80%;
+    margin: 10px auto 35px auto;
+    background-color: rgba(255,255,255, 0);
+}
+
+#imgSpace {
+    margin: 20px auto 0 auto;
+    background-image: url("http://sinacloud.net/illuminatorslab/ruc80/middle-bg.jpg");
+    background-size: 100%;
+    background-repeat:repeat-y;
+    background-position:center top;
+}
+
+#imgSpace .btn {
+    margin-top: 25px;
+    margin-left: 64%;
+}
+
+.hidden {
+    display: none;
+}
+
+.imgPreview {
+    overflow: hidden;
+}
+
+#avatarPreview {
+    width: 155px;
+    height: 155px;
+    position: absolute;
+    top: 0px;
+    border: 1px solid rgb(174, 10, 42);
+}
+
+#cropperSpace {
+    max-width: 80%;
+    margin: 25px auto;
+}
+
+.panel-ruc80 h6{
+    margin-bottom: -5px;
+}
+
+#cropperCanvas {
+    padding: 0 0;
+    max-height: 640px;
+}
+
+#image {
+    max-width: 100%;
+}
+
+#canvasSpace {
+    margin-top: 25px;
+}
+
+#outputSpace {
+    max-width: 80%;
+    margin: -25px auto 25px auto;
+}
+
+#footer {
+    padding-top: 18%;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-image: url("footer-bg.jpg");
+    background-size: auto 100%;
+    background-repeat:no-repeat;
+    background-position:center top;
+}
+
+#footer p{
+    margin: 50px 0 0 0;
+    color: #FFF;
+    background-color: rgb(174, 10, 42);
+    line-height: 1.5;
+}
+
+#footer p a{
+    color: #fb8964;
+}
+
+@media (max-width: 555px) {
+    body {
+        background-size: 100%;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .heading {
+        min-height: 15%;
+    }
+
+    .heading .heading-title {
+        padding-top: 13%;
+        padding-left: 13%;
+    }
+
+    #imgSpace .btn {
+        margin-left: 25%;
+    }
+
+    #footer {
+        padding-top: 30%;
+    }
+}
