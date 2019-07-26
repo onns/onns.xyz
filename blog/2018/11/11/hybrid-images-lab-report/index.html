@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="hybrid images lab report"><meta name="keywords" content="computer vision, matlab, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2018/11/11/hybrid-images-lab-report/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/blog/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>hybrid images lab report - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">hybrid images lab report
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-11
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2018/11/11/hybrid-images-lab-report/" data-title="hybrid images lab report">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集分析"><span class="toc-text">数据集分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验方法"><span class="toc-text">实验方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验流程"><span class="toc-text">实验流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滤波器1"><span class="toc-text">滤波器1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#理想的低通滤波器"><span class="toc-text">理想的低通滤波器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#巴特沃斯低通滤波器"><span class="toc-text">巴特沃斯低通滤波器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高斯低通滤波器"><span class="toc-text">高斯低通滤波器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验过程"><span class="toc-text">实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编程语言介绍"><span class="toc-text">编程语言介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像预处理"><span class="toc-text">图像预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序编写"><span class="toc-text">程序编写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#空域图像滤波"><span class="toc-text">空域图像滤波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#频域图像滤波"><span class="toc-text">频域图像滤波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图像融合"><span class="toc-text">图像融合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果分析"><span class="toc-text">实验结果分析</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>该实验的目标是编写一个图像过滤功能的代码，并使用它来创建混合图像。混合图像是静态图像，其视觉效果随观察距离的变化而变化。基本思想是人的感知对于<code>高频率</code>更加敏感，但是在远处只能看到信号的<code>低频(平滑)</code>部分。通过将一个图像的高频部分与另一个图像的低频部分混合，可以获得混合图像，从而在不同距离处产生不同的视觉效果。实验数据集在<code>proj1.rar</code>中。</p>
+<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><p>实验数据集如下所示，由十张不同的<code>bmp</code>图像构成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── bicycle.bmp</span><br><span class="line">├── bird.bmp</span><br><span class="line">├── cat.bmp</span><br><span class="line">├── dog.bmp</span><br><span class="line">├── einstein.bmp</span><br><span class="line">├── fish.bmp</span><br><span class="line">├── marilyn.bmp</span><br><span class="line">├── motorcycle.bmp</span><br><span class="line">├── plane.bmp</span><br><span class="line">└── submarine.bmp</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="实验方法"><a href="#实验方法" class="headerlink" title="实验方法"></a>实验方法</h2><h3 id="实验流程"><a href="#实验流程" class="headerlink" title="实验流程"></a>实验流程</h3><p>本实验的流程如<code>图1</code>所示。</p>
+<center><br><br><div id="flowchart-0" class="flow-chart"></div><br>图1 实验流程图<br></center>
+
+<h3 id="滤波器1"><a href="#滤波器1" class="headerlink" title="滤波器1"></a>滤波器<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h3><p>高通滤波器可以通过低通滤波器取反得到，故不再区分高/低通滤波器。<br>下面对比结果的输入图像如<code>图2</code>所示。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-1.jpg" alt="滤波器输入图像"><br>图2 输入图像<br></center>
+
+<h4 id="理想的低通滤波器"><a href="#理想的低通滤波器" class="headerlink" title="理想的低通滤波器"></a>理想的低通滤波器</h4><p>$$<br>H(u,v)=<br>\begin{cases}<br>1,&amp;{D(u,v) \leq D_0} \<br>0,&amp;{D(u,v) &gt; D_0}<br>\end{cases}<br>\tag{1}<br>$$</p>
+<p>其中，$D_0$表示通带的半径。$D(u,v)$的计算方式也就是两点间的距离，计算公式如<code>公式2.2</code>所示。</p>
+<p>$$<br>D(u,v)=\sqrt{\left( u-\frac{P}{2} \right)^{2} </p>
+<ul>
+<li>\left( v-\frac{Q}{2} \right)^{2}}<br>\tag{2}<br>$$</li>
+</ul>
+<p>低通滤波器所得到的结果如下所示。低通滤波器滤除了高频成分，所以使得图像模糊。由于理想低通滤波器的过度特性过于急峻，所以会产生了振铃现象。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-2.jpg" alt="理想的低通滤波器"><br><img src="//onns.xyz/blog/image/20181117-3.jpg" alt="理想的低通滤波器"><br>图3 理想的低通滤波器<br></center>
+
+<h4 id="巴特沃斯低通滤波器"><a href="#巴特沃斯低通滤波器" class="headerlink" title="巴特沃斯低通滤波器"></a>巴特沃斯低通滤波器</h4><p>$$<br>H(u,v)=\frac{1}{1+\left(D(u,v) / {D_0} \right)^{2n}}<br>\tag{3}<br>$$</p>
+<p>$D_0$表示通带的半径，$n$表示的是巴特沃斯滤波器的次数。随着次数的增加，振铃现象会越来越明显。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-4.jpg" alt="理想的低通滤波器"><br><img src="//onns.xyz/blog/image/20181117-5.jpg" alt="理想的低通滤波器"><br>图4 巴特沃斯低通滤波器<br></center>
+
+<h4 id="高斯低通滤波器"><a href="#高斯低通滤波器" class="headerlink" title="高斯低通滤波器"></a>高斯低通滤波器</h4><p>$$<br>H(u,v)=e^<br>{\frac{-D^2(u,v)}<br>{2{D_0}^2}}<br>\tag{4}<br>$$</p>
+<p>$D_0$表示通带的半径，高斯滤波器的过度特性非常平坦，不会产生振铃现象的。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-6.jpg" alt="理想的低通滤波器"><br><img src="//onns.xyz/blog/image/20181117-7.jpg" alt="理想的低通滤波器"><br>图5 高斯低通滤波器<br></center>
+
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>综合以上分析, 我们最终选择了<code>高斯低通滤波器</code>. </p>
+<h2 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h2><h3 id="编程语言介绍"><a href="#编程语言介绍" class="headerlink" title="编程语言介绍"></a>编程语言介绍</h3><p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
+<h3 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h3><p><code>10张</code>bmp图像可以分成<code>5对</code>图像进行实验，如<code>图6</code>所示，大小都是<code>225*265</code>，故不需要进行缩放。若选取的图像大小不一，需要先对图像进行大小调整，用<code>Matlab</code>的<code>imresize</code>函数。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-einstein.bmp" alt="原图以及HOG特征图"><img src="//onns.xyz/blog/image/20181117-marilyn.bmp" alt="原图以及HOG特征图"><br>图6 样例图像<br></center>
+
+<h3 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h3><h4 id="空域图像滤波"><a href="#空域图像滤波" class="headerlink" title="空域图像滤波"></a>空域图像滤波</h4><p>将模板在图像中逐像素移动，将卷积核的每个元素分别和图像矩阵对应位置元素相乘并将结果累加，累加和作为模板中心对应像素点的卷积结果。通俗的讲，卷积就是对整幅图像进行加权平均的过程，每一个像素点的值，都由其本身和邻域内的其他像素值经过加权平均后得到。在像素的处理上，是先将结果暂存在于一个副本，最后统一拷贝，故不会出现处理顺序不同而结果不同的情况。<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+<p>滤波结果如<code>图7</code>所示。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-8.jpg" alt="高通滤波结果图"><img src="//onns.xyz/blog/image/20181117-9.jpg" alt="低通滤波结果图"><br>图7 空域图像滤波结果图<br></center>
+
+<h4 id="频域图像滤波"><a href="#频域图像滤波" class="headerlink" title="频域图像滤波"></a>频域图像滤波</h4><p>先对图像进行傅里叶变换，转换至频率域，在频域使用滤波函数进行滤波，最后将结果反变换至空间域。</p>
+<p>滤波结果如<code>图8</code>所示。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-11.jpg" alt="高通滤波结果图"><img src="//onns.xyz/blog/image/20181117-12.jpg" alt="低通滤波结果图"><br>图8 频域图像滤波结果图<br></center>
+
+<h4 id="图像融合"><a href="#图像融合" class="headerlink" title="图像融合"></a>图像融合</h4><p>在Matlab中将两个滤波后的图像<code>相加</code>即可得到融合图像。</p>
+<p>结果如<code>图9</code>所示。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181117-10.jpg" alt="空域图像滤波融合图"><img src="//onns.xyz/blog/image/20181117-13.jpg" alt="频域图像滤波融合图"><br>图9 图像融合结果图<br></center>
+
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><center><br><br><img src="//onns.xyz/blog/image/20181117-14.png" alt="程序可视化界面图"><br>图10 程序可视化界面图<br></center>
+
+<h3 id="实验结果分析"><a href="#实验结果分析" class="headerlink" title="实验结果分析"></a>实验结果分析</h3><p>给定频率域滤波器，可对其进行傅里叶逆变换得到对应的空域滤波器；滤波在频域更为直观，但空域适合使用更小的滤波模板以提高滤波速度。因为相同尺寸下，频域滤波器效率高于空域滤波器，故空域滤波需要一个更小尺寸的模板近似得到需要的滤波结果。<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st1=>start: 开始
+e1=>end: 结束
+io1=>inputoutput: 输入图像1
+io2=>inputoutput: 输入图像2
+io3=>inputoutput: 输出混合图像
+op1=>operation: 通过低通滤波器得到低频部分
+op2=>operation: 通过高通滤波器得到高频部分
+op3=>operation: 将两部分相加得到混合图像
+
+st1->io1->op1->io2->op2->op3->io3->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/zhoufan900428/article/details/17194289" target="_blank" rel="noopener">基础与低通滤波器</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/u010839382/article/details/41908541" target="_blank" rel="noopener">空域高斯滤波与频域高斯滤波</a></span><a href="#fnref:2" rev="footnote"> ↩</a></li></ol></div></div></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/computer-vision/">computer vision</a>
+            <a href="/blog/tags/matlab/">matlab</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2018/10/31/2018-computational-intelligence-homework-no.2/">
+        <span class="next-text nav-default">2018 Computational Intelligence Homework No.2</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
