@@ -38,7 +38,7 @@ $(function () {
                     initPlayer();
                 }
             } else {
-                songs = songs.concat(JSON.parse('[{"album":"Jar of Hearts","trackName":"Christina Perri","albumArtwork":"https:\/\/y.gtimg.cn\/music\/photo_new\/T002R300x300M000004Fr90V4KL1Tu.jpg","trackUrl":"\/\/onns.xyz\/player\/file\/Christina Perri-Jar of Hearts.mp3"}]'));
+                songs = songs.concat(JSON.parse('[{"album":"Curiosity","trackName":"Carly Rae Jepsen","albumArtwork":"https:\/\/y.gtimg.cn\/music\/photo_new\/T002R300x300M0000045YohW0S6Mnb.jpg","trackUrl":"\/\/onns.xyz\/player\/file\/Curiosity - Carly Rae Jepsen.mp3"},{"album":"Jar of Hearts","trackName":"Christina Perri","albumArtwork":"https:\/\/y.gtimg.cn\/music\/photo_new\/T002R300x300M000004Fr90V4KL1Tu.jpg","trackUrl":"\/\/onns.xyz\/player\/file\/Christina Perri-Jar of Hearts.mp3"},{"album":"Jar of Hearts","trackName":"Christina Perri","albumArtwork":"https:\/\/y.gtimg.cn\/music\/photo_new\/T002R300x300M000004Fr90V4KL1Tu.jpg","trackUrl":"\/\/onns.xyz\/player\/file\/Christina Perri-Jar of Hearts.mp3"}]'));
                 if (currIndex == -1) {
                     initPlayer();
                 }

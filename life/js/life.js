@@ -22,7 +22,7 @@ function draw() {
 	var rangeValue = percent;
 	var nowRange = 0;
 	var lineWidth = 2;
-	var r = height / 2; 
+	var r = height / 2;
 	var cR = r - 16 * lineWidth;
 	var sX = 0;
 	var sY = height / 2;
@@ -32,31 +32,31 @@ function draw() {
 	var speed = 0.09;
 	var xOffset = 0;
 	content.lineWidth = lineWidth;
-	var drawSin = function(xOffset){
+	var drawSin = function (xOffset) {
 		content.save();
-		var points=[];
+		var points = [];
 		content.beginPath();
-		for(var x = sX; x < sX + axisLength; x += 20 / axisLength){
+		for (var x = sX; x < sX + axisLength; x += 20 / axisLength) {
 			var y = -Math.sin((sX + x) * waveWidth + xOffset);
-			var dY = height * (1 - nowRange / 100 );
+			var dY = height * (1 - nowRange / 100);
 			points.push([x, dY + y * waveHeight]);
-			content.lineTo(x, dY + y * waveHeight);  
+			content.lineTo(x, dY + y * waveHeight);
 		}
 		content.lineTo(axisLength, height);
 		content.lineTo(sX, height);
-		content.lineTo(points[0][0],points[0][1]);
+		content.lineTo(points[0][0], points[0][1]);
 		content.fillStyle = '#06B9D1';
 		content.fill();
 		content.restore();
 	};
-	var render = function(){
+	var render = function () {
 		content.clearRect(0, 0, width, height);
 		rangeValue = percent;
-		if(nowRange <= rangeValue){
+		if (nowRange <= rangeValue) {
 			var tmp = 1;
 			nowRange += tmp;
 		}
-		if(nowRange > rangeValue){
+		if (nowRange > rangeValue) {
 			var tmp = 1;
 			nowRange -= tmp;
 		}
@@ -64,21 +64,21 @@ function draw() {
 		xOffset += speed;
 		stop = requestAnimationFrame(render);
 	}
-	render();  
+	render();
 }
-window.onresize = function(){
+window.onresize = function () {
 	window.cancelAnimationFrame(stop);
 	draw();
 }
 
-window.onload = function(){
+window.onload = function () {
 	draw();
-	setInterval(function(){
+	setInterval(function () {
 		var date = new Date();
 		b = date.getTime();
 		a = 839088000000;
 		c = 3205843200000;
 		document.getElementById("day").innerHTML = Math.floor((b - a) / 86400000) + " days";
-		document.getElementById("percent").innerHTML = ((b - a) / (c - a) * 100).toFixed(8) + " %";
+		document.getElementById("percent").innerHTML = "xx" + ((b - a) / (c - a) * 100).toFixed(8).slice(2) + " %";
 	}, 100);
 }
