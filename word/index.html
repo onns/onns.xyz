@@ -67,6 +67,7 @@
 <script type="text/javascript">
     document.getElementById("btn1").onclick = function () {
         var content = document.getElementsByClassName("page")[0];
+        var data = '';
         temp = content.innerText
             .replace(/\n/g, "-enter-")
             .replace(/\s/g, "")
@@ -75,14 +76,14 @@
             .replace(/\)/g, "）")
             .replace(/-enter-/g, " ");
         lectureList = temp.match(
-            /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/g
+            /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/g
         );
 
         lectureData = Array(lectureList.length);
         for (var i = 0; i < lectureList.length; i++) {
             lectureData[i] = Array();
             // console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
-            lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持人：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/.exec(
+            lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持：([\S]+[^助理副])(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点：([\S]+)/.exec(
                 lectureList[i]
             );
 
@@ -92,72 +93,73 @@
                 }
             }
         }
-        content.innerHTML =
-            "var lecture_data = " + JSON.stringify(lectureData) + ";</br>";
-        content.innerHTML += `
-            if (app.documents.length == 2) {
-                var led_index = 0;
-                var post_index = 1;
+        data =
+            "var lecture_data = " + JSON.stringify(lectureData) + ";";
+        data += `
+if (app.documents.length == 2) {
+    var led_index = 0;
+    var post_index = 1;
 
-                app.activeDocument = app.documents[led_index];
-                var doc = app.activeDocument;
-                for (var i = 0; i < doc.layerSets.length; i++) {
-                    if (doc.layerSets[i].name == "模板") {
-                        for (var j = 0; j < lecture_data.length; j++) {
-                            var temp = doc.layerSets[i].duplicate();
-                            temp.name = lecture_data[j][1];
-                            temp.layers[0].textItem.contents = lecture_data[j][1];
-                            temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";
-                            temp.layers[2].textItem.contents = lecture_data[j][3];
-                            temp.layers[3].textItem.contents = "主讲："
-                                + lecture_data[j][5] + " "
-                                + lecture_data[j][6] + "\\r\\r\\r\\r主持人："
-                                + lecture_data[j][8] + " "
-                                + lecture_data[j][9] + "\\r时间："
-                                + lecture_data[j][10] + "（"
-                                + lecture_data[j][11] + "） "
-                                + lecture_data[j][12] + " - "
-                                + lecture_data[j][13] + "\\r地点："
-                                + lecture_data[j][14];
-                            temp.layers[4].textItem.contents = lecture_data[j][7];
-                        }
-                        break;
-                    }
-                }
-
-                var color = new RGBColor();
-                color.hexValue = "000000";
-                app.activeDocument = app.documents[post_index];
-                var doc = app.activeDocument;
-                for (var i = 0; i < doc.layerSets.length; i++) {
-                    if (doc.layerSets[i].name == "标题") {
-                        doc.layerSets[i].layers[0].textItem.contents = lecture_data[0][4].replace("讲", "") + "-" + lecture_data[lecture_data.length - 1][4].replace("总第", "");
-                        doc.layerSets[i].layers[0].textItem.color.rgb = color;
-                        doc.layerSets[i].layers[0].textItem.size = 55.46;
-                    }
-                    if (doc.layerSets[i].name == (lecture_data.length + "门课")) {
-                        for (var j = 0; j < lecture_data.length; j++) {
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.contents = lecture_data[j][1];
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.color.rgb = color;
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.size = 55.46;
-
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.contents = lecture_data[j][5];
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.color.rgb = color;
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.size = 55.52;
-
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.contents = lecture_data[j][10];
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.color.rgb = color;
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.size = 55.52;
-
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.contents = lecture_data[j][3];
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.color.rgb = color;
-                            doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.size = 40;
-                        }
-                    }
-                }
+    app.activeDocument = app.documents[led_index];
+    var doc = app.activeDocument;
+    for (var i = 0; i < doc.layerSets.length; i++) {
+        if (doc.layerSets[i].name == "模板") {
+            for (var j = 0; j < lecture_data.length; j++) {
+                var temp = doc.layerSets[i].duplicate();
+                temp.name = lecture_data[j][1];
+                temp.layers[0].textItem.contents = lecture_data[j][1];
+                temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";
+                temp.layers[2].textItem.contents = lecture_data[j][3];
+                temp.layers[3].textItem.contents = "主讲："
+                    + lecture_data[j][5] + " "
+                    + lecture_data[j][6] + "\\r\\r\\r\\r主持："
+                    + lecture_data[j][8] + " "
+                    + lecture_data[j][9] + "\\r时间："
+                    + lecture_data[j][10] + "（"
+                    + lecture_data[j][11] + "） "
+                    + lecture_data[j][12] + " - "
+                    + lecture_data[j][13] + "\\r地点："
+                    + lecture_data[j][14];
+                temp.layers[4].textItem.contents = lecture_data[j][7];
             }
+            break;
+        }
+    }
+
+    var color = new RGBColor();
+    color.hexValue = "000000";
+    app.activeDocument = app.documents[post_index];
+    var doc = app.activeDocument;
+    for (var i = 0; i < doc.layerSets.length; i++) {
+        if (doc.layerSets[i].name == "标题") {
+            doc.layerSets[i].layers[0].textItem.contents = lecture_data[0][4].replace("讲", "") + "-" + lecture_data[lecture_data.length - 1][4].replace("总第", "");
+            doc.layerSets[i].layers[0].textItem.color.rgb = color;
+            doc.layerSets[i].layers[0].textItem.size = 55.46;
+        }
+        if (doc.layerSets[i].name == (lecture_data.length + "门课")) {
+            for (var j = 0; j < lecture_data.length; j++) {
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.contents = lecture_data[j][1];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length].textItem.size = 55.46;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.contents = lecture_data[j][5];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 1].textItem.size = 55.52;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.contents = lecture_data[j][10];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 2].textItem.size = 55.52;
+
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.contents = lecture_data[j][3];
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.color.rgb = color;
+                doc.layerSets[i].layers[j * 4 + lecture_data.length + 3].textItem.size = 40;
+            }
+        }
+    }
+}
             			`;
         // console.log(lectureData);
+        downloadString(data, "text/csv; charset=utf-8", lectureData[0][4].replace("讲", "") + "-" + lectureData[lectureData.length - 1][4].replace("总第", "") + ".js");
     };
 
     function compareTwoStrings(first, second) {
