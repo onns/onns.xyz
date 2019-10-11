@@ -93,6 +93,16 @@
                 }
             }
         }
+        // https://segmentfault.com/a/1190000015961859
+        function compare(p){ 
+            return function(m,n){
+                var a = parseInt(m[p].replace("讲", "").replace("总第", ""));
+                var b = parseInt(n[p].replace("讲", "").replace("总第", ""));
+                return a - b;
+            }
+        }
+        lectureData.sort(compare(4));
+        console.log(lectureData);
         data =
             "var lecture_data = " + JSON.stringify(lectureData) + ";";
         data += `
