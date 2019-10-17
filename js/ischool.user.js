@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.7
+// @version      0.3.9
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -12,6 +12,8 @@
 // ==/UserScript==
 
 /*
+0.3.9 增加日历支持 1h
+0.3.8 增加讲座计数
 0.3.7 增加页面跳转
 0.3.6 增加错误控制
 0.3.5 更新JS源
@@ -87,6 +89,22 @@
         'css': ''
     });
 
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
     function f(key, value = "defaultValue") {
         if (value == "defaultValue") {
             return window.localStorage && window.localStorage.getItem(key);
@@ -103,6 +121,7 @@
     var INTERESTED = GM_config.get('INTERESTED').split('\n');
     var ERRORTIME = f('errorTime');
     var STOPCTL = f('stopControl');
+    var LECTIMES = f('lectimes');
     // console.log(STOPCTL);
     // console.log(ERRORTIME);
     console.log(INTERESTED);
@@ -125,6 +144,8 @@
         }
     }
 
+    console.log(window.location.href);
+
     //
     if (STOPCTL == 'false') {
         if (XMUID == '' || XMUPASSWORD == '') {
@@ -137,7 +158,7 @@
             var COUNTINPUT = 3;
 
             // 若未登录则先进行登录
-            if (window.location.href.indexOf("Default.aspx") > -1) {
+            if (window.location.href.indexOf("Default.aspx") > -1 || window.location.href == 'http://ischoolgu.xmu.edu.cn/') {
                 console.log("Login step");
                 f('errorTime', ERRORTIME++);
                 document.getElementById("userName").value = XMUID;
@@ -149,6 +170,7 @@
                 // 登录后直接跳转到讲座预约页面
                 f('errorTime', 0);
                 window.localStorage && window.localStorage.setItem('errorTime', ERRORTIME);
+                
                 if (window.location.href.indexOf("admin_bookChair.aspx") > -1) {
                     /*
                     逻辑顺序：
@@ -158,10 +180,24 @@
                     4.否则等待下一次讲座预约，进入慢刷新模式
                     */
                     // <td align="center">预约起始时间</td><td align="center">2018/10/23 19:00:00</td>
+
+                    if(LECTIMES != null) {
+                        document.getElementsByClassName('tt')[0].innerHTML += ' （已听讲座<font color="red">' +LECTIMES+ '</font>次）';
+                    }
+
                     var dataRaw = document.body.innerHTML.split('<td align="center" style="width:100px;">讲座日期</td>');
                     dataRaw.shift();
+                    var lectureData = new Object();
                     for (var i = 0; i < dataRaw.length; i++) {
                         var lectureName = /<td align="center">讲座名称<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
+                        var lectureSpeaker = /<td align="center">主 讲 人<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
+                        var lectureStartTime = /<td align="center">讲座时间<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
+                        var lecturePlace = /<td align="center">讲座地点<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
+
+                        var lectureEndTime = new Date(new Date(lectureStartTime).getTime() +7200*1000).Format("yyyyMMddThhmmss");
+                        var lectureStartTime = new Date(lectureStartTime).Format("yyyyMMddThhmmss");
+                        
+                        lectureData[lectureName] = [lectureSpeaker,lectureStartTime,lectureEndTime,lecturePlace];
 
                         var lectureMsg = /<td align="center" colspan="2">([\S]+)<\/td>/.exec(dataRaw[i]);
                         if (lectureMsg != null) {
@@ -200,17 +236,28 @@
                         }
                     }
 
+                    console.log(lectureData);
+                    var tdList = document.getElementsByTagName('td');
+                    for (let i = 0; i < tdList.length; i++) {
+                        if(tdList[i].innerText == "讲座名称") {
+                            tdList[i].nextSibling.innerHTML = '<a style="color:blue;" href="https://www.google.com/calendar/render?action=TEMPLATE&text='+ encodeURI(tdList[i].nextSibling.innerHTML) +'&details=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][0]) + '&location=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][3]) + '&dates=' + lectureData[tdList[i].nextSibling.innerHTML][1] + '/' + lectureData[tdList[i].nextSibling.innerHTML][2] + '" target="_blank">' + tdList[i].nextSibling.innerHTML + '</a>';
+                        }
+                    }
                     if (ISFULL) {
                         if (COUNTDOWN > COUNTDOWNFORFULL) {
                             COUNTDOWN = COUNTDOWNFORFULL;
                         }
                     }
-                    console.log(COUNTDOWN);
+                    console.log(new Date(new Date().getTime() +3600*1000).Format("yyyy-MM-dd hh:mm:ss"));
                     timer = setTimeout(function () {
                         location.reload();
                     }, COUNTDOWN * 1000);
                 } else if (window.location.href.indexOf("admin_chaircheck.aspx") > -1) {
+                    if(document.getElementsByTagName('select')[0].value == "0") {
+                        f('lectimes', document.getElementsByTagName('tr').length-2);
+                    }
                 } else {
+                    console.log("relocation");
                     window.location.href = 'http://ischoolgu.xmu.edu.cn/admin_bookChair.aspx';
                 }
             }
