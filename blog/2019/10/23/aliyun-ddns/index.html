@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="阿里云动态修改域名解析"><meta name="keywords" content="ddns, aliyun, python, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2019/10/23/aliyun-ddns/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":"","toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>阿里云动态修改域名解析 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">阿里云动态修改域名解析
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-10-23
+        </span><span class="post-category">
+            <a href="/blog/categories/linux/">linux</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装环境"><span class="toc-text">安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pip"><span class="toc-text">pip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gcc"><span class="toc-text">gcc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aliyun-sdk"><span class="toc-text">aliyun-sdk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行"><span class="toc-text">执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>宿舍放着一台换下来的旧手机 Mi5，平时除了双开好像就没用过，抱着闲置物品再利用的原则，在上面装了个 centos 系统，但由于宿舍的宽带是动态 ip 的，如果每次都要手动重新解析域名，那也太麻烦了。于是想设定定时任务自动解析，折腾一番，记录之。</p>
+<a id="more"></a>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p>因为是最小化安装所以 pip 都没装…<br>直接<a href="https://pip.pypa.io/en/stable/installing/" target="_blank" rel="noopener">官网</a>安装即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">python get-pip.py</span><br></pre></td></tr></table></figure>
+<h3 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h3><p>是的 gcc 也没有，要自己装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc -y</span><br></pre></td></tr></table></figure>
+<h3 id="aliyun-sdk"><a href="#aliyun-sdk" class="headerlink" title="aliyun-sdk"></a>aliyun-sdk</h3><p>阿里云已经把框架写好了，我们直接调用就行，省去了自己造轮子的麻烦。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install aliyun-python-sdk-alidns</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>阿里云已经把框架写好了，我们直接调用就行，省去了自己造轮子的麻烦。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> aliyunsdkcore <span class="keyword">import</span> client</span><br><span class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> DescribeDomainRecordsRequest</span><br><span class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> DescribeDomainRecordInfoRequest</span><br><span class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> UpdateDomainRecordRequest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 阿里云 Access Key ID</span></span><br><span class="line">access_key_id = <span class="string">""</span></span><br><span class="line"><span class="comment"># 阿里云 Access Key Secret</span></span><br><span class="line">access_key_secret = <span class="string">""</span></span><br><span class="line"><span class="comment"># 阿里云 一级域名</span></span><br><span class="line">rc_domain = <span class="string">'onns.xyz'</span></span><br><span class="line"><span class="comment"># 阿里云 二级域名前缀</span></span><br><span class="line">rc_subdomain = <span class="string">'xm'</span></span><br><span class="line"><span class="comment"># 返回内容格式</span></span><br><span class="line">rc_format = <span class="string">'json'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_records</span><span class="params">(dns_domain)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    获取域名的解析信息</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    clt = client.AcsClient(access_key_id, access_key_secret, <span class="string">'cn-hangzhou'</span>)</span><br><span class="line">    request = DescribeDomainRecordsRequest.DescribeDomainRecordsRequest()</span><br><span class="line">    request.set_DomainName(dns_domain)</span><br><span class="line">    request.set_accept_format(rc_format)</span><br><span class="line">    result = clt.do_action(request)</span><br><span class="line">    result = json.JSONDecoder().decode(result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_old_ip</span><span class="params">(record_id)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    根据域名解析记录ID查询上一次的IP记录</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    clt = client.AcsClient(access_key_id, access_key_secret, <span class="string">'cn-hangzhou'</span>)</span><br><span class="line">    request = DescribeDomainRecordInfoRequest.DescribeDomainRecordInfoRequest()</span><br><span class="line">    request.set_RecordId(record_id)</span><br><span class="line">    request.set_accept_format(rc_format)</span><br><span class="line">    result = clt.do_action(request)</span><br><span class="line">    result = json.JSONDecoder().decode(result)</span><br><span class="line">    result = result[<span class="string">'Value'</span>]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_dns</span><span class="params">(dns_rr, dns_type, dns_value, dns_record_id, dns_ttl, dns_format)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    更新阿里云域名解析记录信息</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    clt = client.AcsClient(access_key_id, access_key_secret, <span class="string">'cn-hangzhou'</span>)</span><br><span class="line">    request = UpdateDomainRecordRequest.UpdateDomainRecordRequest()</span><br><span class="line">    request.set_RR(dns_rr)</span><br><span class="line">    request.set_Type(dns_type)</span><br><span class="line">    request.set_Value(dns_value)</span><br><span class="line">    request.set_RecordId(dns_record_id)</span><br><span class="line">    request.set_TTL(dns_ttl)</span><br><span class="line">    request.set_accept_format(dns_format)</span><br><span class="line">    result = clt.do_action(request)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_my_publick_ip</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    获取当前主机的外网IP</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        u = urllib2.urlopen(<span class="string">'http://members.3322.org/dyndns/getip'</span>)</span><br><span class="line">        <span class="keyword">return</span> u.read().strip(<span class="string">'\n'</span>)</span><br><span class="line">    <span class="keyword">except</span> HTTPError <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">'getMyIp:'</span>, e)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_to_file</span><span class="params">(new_ip)</span>:</span></span><br><span class="line">    time_now = datetime.now().strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>)</span><br><span class="line">    write_log = open(<span class="string">'aliyun_ddns.txt'</span>, <span class="string">'a'</span>)</span><br><span class="line">    write_log.write(time_now + <span class="string">' '</span> + str(new_ip) + <span class="string">'\n'</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 之前的解析记录</span></span><br><span class="line">    old_ip = <span class="string">""</span></span><br><span class="line">    record_id = <span class="string">""</span></span><br><span class="line">    dns_records = check_records(rc_domain)</span><br><span class="line">    <span class="keyword">for</span> record <span class="keyword">in</span> dns_records[<span class="string">"DomainRecords"</span>][<span class="string">"Record"</span>]:</span><br><span class="line">        <span class="keyword">if</span> record[<span class="string">"Type"</span>] == <span class="string">'A'</span> <span class="keyword">and</span> record[<span class="string">"RR"</span>] == rc_subdomain:</span><br><span class="line">            record_id = record[<span class="string">"RecordId"</span>]</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"%s.%s recordID is %s"</span> % (rc_subdomain, rc_domain, record_id)</span><br><span class="line">            <span class="keyword">if</span> record_id != <span class="string">""</span>:</span><br><span class="line">                old_ip = get_old_ip(record_id)</span><br><span class="line"></span><br><span class="line">    old_ip = get_old_ip(record_id)</span><br><span class="line">    <span class="comment"># 获取主机当前的IP</span></span><br><span class="line">    now_ip = get_my_publick_ip()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"now host ip is %s, dns ip is %s"</span> % (now_ip, old_ip)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> old_ip == now_ip:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"The specified value of parameter Value is the same as old"</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        rc_rr = rc_subdomain        <span class="comment"># 解析记录</span></span><br><span class="line">        rc_type = <span class="string">'a'</span>               <span class="comment"># 记录类型, DDNS填写A记录</span></span><br><span class="line">        rc_value = now_ip           <span class="comment"># 新的解析记录值</span></span><br><span class="line">        rc_record_id = record_id    <span class="comment"># 记录ID</span></span><br><span class="line">        rc_ttl = <span class="string">'600'</span>              <span class="comment"># 解析记录有效生存时间TTL,单位:秒</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> update_dns(rc_rr, rc_type, rc_value, rc_record_id, rc_ttl, rc_format)</span><br><span class="line"></span><br><span class="line">        write_to_file(now_ip)</span><br></pre></td></tr></table></figure>
+<p>代码拷贝自：<a href="https://www.vincents.cn/2017/03/27/aliyun-ddns/" target="_blank" rel="noopener">阿里云 DNS 动态解析</a>，略作修改。<br>这里只需要改前几行（15-22 行）的值即可，阿里云的<code>accesskey</code>从<a href="https://usercenter.console.aliyun.com/#/manage/ak" target="_blank" rel="noopener">这里</a>获取。</p>
+<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><p>可以手动先执行一下命令看下结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python ddns.py</span><br><span class="line"></span><br><span class="line">xm.onns.xyz recordID is XXXXXXXXXXXXXXX</span><br><span class="line">now host ip is XXXXXXXXXXXXXXX, dns ip is XXXXXXXXXXXXXXX</span><br><span class="line">&#123;<span class="string">"RecordId"</span>:<span class="string">"XXXXXXXXXXXXXXX"</span>,<span class="string">"RequestId"</span>:<span class="string">"XXXXXXXXXXXXXXX"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>接着设置 crontab 定时任务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加如下一条记录，为了避免错误，写绝对地址。</span></span><br><span class="line">*/10 * * * * /usr/bin/python /home/android/ddns.py /dev/null 1&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p>很尴尬的是，不仅仅是最小化安装，连一些 service 的服务都没有写入，所以要手动打开…<code>crontab</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/sbin/crond -s</span><br></pre></td></tr></table></figure>
+<p>然后就可以愉快的使（wan）用（shua）了。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://www.vincents.cn/2017/03/27/aliyun-ddns/" target="_blank" rel="noopener">阿里云 DNS 动态解析</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/ddns/">ddns</a>
+            <a href="/blog/tags/aliyun/">aliyun</a>
+            <a href="/blog/tags/python/">python</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2019/08/07/c-in-mac/">
+        <span class="next-text nav-default">Teamviewer商用解决方案</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_page_pv">
+    view <span id="busuanzi_value_page_pv"></span> times
+  </span>
+  <span id="busuanzi_container_site_pv">, <span id="busuanzi_value_site_pv"></span> times in total.</span>
+</div>
+
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

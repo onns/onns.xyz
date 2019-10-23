@@ -170,7 +170,7 @@
                 // 登录后直接跳转到讲座预约页面
                 f('errorTime', 0);
                 window.localStorage && window.localStorage.setItem('errorTime', ERRORTIME);
-                
+
                 if (window.location.href.indexOf("admin_bookChair.aspx") > -1) {
                     /*
                     逻辑顺序：
@@ -181,8 +181,8 @@
                     */
                     // <td align="center">预约起始时间</td><td align="center">2018/10/23 19:00:00</td>
 
-                    if(LECTIMES != null) {
-                        document.getElementsByClassName('tt')[0].innerHTML += ' （已听讲座<font color="red">' +LECTIMES+ '</font>次）';
+                    if (LECTIMES != null) {
+                        document.getElementsByClassName('tt')[0].innerHTML += ' （已听讲座<font color="red">' + LECTIMES + '</font>次）';
                     }
 
                     var dataRaw = document.body.innerHTML.split('<td align="center" style="width:100px;">讲座日期</td>');
@@ -194,10 +194,10 @@
                         var lectureStartTime = /<td align="center">讲座时间<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
                         var lecturePlace = /<td align="center">讲座地点<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1];
 
-                        var lectureEndTime = new Date(new Date(lectureStartTime).getTime() +7200*1000).Format("yyyyMMddThhmmss");
+                        var lectureEndTime = new Date(new Date(lectureStartTime).getTime() + 7200 * 1000).Format("yyyyMMddThhmmss");
                         var lectureStartTime = new Date(lectureStartTime).Format("yyyyMMddThhmmss");
-                        
-                        lectureData[lectureName] = [lectureSpeaker,lectureStartTime,lectureEndTime,lecturePlace];
+
+                        lectureData[lectureName] = [lectureSpeaker, lectureStartTime, lectureEndTime, lecturePlace];
 
                         var lectureMsg = /<td align="center" colspan="2">([\S]+)<\/td>/.exec(dataRaw[i]);
                         if (lectureMsg != null) {
@@ -239,8 +239,8 @@
                     console.log(lectureData);
                     var tdList = document.getElementsByTagName('td');
                     for (let i = 0; i < tdList.length; i++) {
-                        if(tdList[i].innerText == "讲座名称") {
-                            tdList[i].nextSibling.innerHTML = '<a style="color:blue;" href="https://www.google.com/calendar/render?action=TEMPLATE&text='+ encodeURI(tdList[i].nextSibling.innerHTML) +'&details=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][0]) + '&location=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][3]) + '&dates=' + lectureData[tdList[i].nextSibling.innerHTML][1] + '/' + lectureData[tdList[i].nextSibling.innerHTML][2] + '" target="_blank">' + tdList[i].nextSibling.innerHTML + '</a>';
+                        if (tdList[i].innerText == "讲座名称") {
+                            tdList[i].nextSibling.innerHTML = '<a style="color:blue;" href="https://www.google.com/calendar/render?action=TEMPLATE&text=' + encodeURI(tdList[i].nextSibling.innerHTML) + '&details=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][0]) + '&location=' + encodeURI(lectureData[tdList[i].nextSibling.innerHTML][3]) + '&dates=' + lectureData[tdList[i].nextSibling.innerHTML][1] + '/' + lectureData[tdList[i].nextSibling.innerHTML][2] + '" target="_blank">' + tdList[i].nextSibling.innerHTML + '</a>';
                         }
                     }
                     if (ISFULL) {
@@ -248,13 +248,14 @@
                             COUNTDOWN = COUNTDOWNFORFULL;
                         }
                     }
-                    console.log(new Date(new Date().getTime() +3600*1000).Format("yyyy-MM-dd hh:mm:ss"));
+                    console.log('下次刷新时间：' + new Date(new Date().getTime() + COUNTDOWN * 1000).Format("yyyy-MM-dd hh:mm:ss"));
+                    // console.log(COUNTDOWN);
                     timer = setTimeout(function () {
                         location.reload();
                     }, COUNTDOWN * 1000);
                 } else if (window.location.href.indexOf("admin_chaircheck.aspx") > -1) {
-                    if(document.getElementsByTagName('select')[0].value == "0") {
-                        f('lectimes', document.getElementsByTagName('tr').length-2);
+                    if (document.getElementsByTagName('select')[0].value == "0") {
+                        f('lectimes', document.getElementsByTagName('tr').length - 2);
                     }
                 } else {
                     console.log("relocation");
