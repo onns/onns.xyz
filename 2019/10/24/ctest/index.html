@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>C程序设计测试结果</title>
+  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/bootstrap-table.min.css'>
+
+</head>
+<body>
+<table id="table" 
+	data-toggle="table"
+	data-filter-control="true" 
+	data-click-to-select="true"
+	data-row-style="rowStyle"
+       class="table table-borderless">
+	<thead>
+		<tr>
+			<th data-field="date" data-filter-control="select" data-sortable="true">日期</th>
+			<th data-field="xmuid" data-filter-control="input">学号</th>
+			<th data-field="question" data-filter-control="select">题目</th>
+			<th data-field="status" data-sortable="true" data-visible="false">状态</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<!-- partial -->
+<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/bootstrap-table.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/extensions/editable/bootstrap-table-editable.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/extensions/export/bootstrap-table-export.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+
+	<script type="text/javascript">
+	function rowStyle(row, index) {
+		if (row.status == '1'){
+			return {
+				classes: "table-success"
+			}
+		}
+		if (row.status == '2'){
+			return {
+				classes: "table-danger"
+			}
+		}
+		if (row.status == '3'){
+			return {
+				classes: "table-warning"
+			}
+		}
+		return {
+			classes: "table-danger"
+		}
+	}
+        $.ajax({
+             type: "get",
+             url: "//xm.onns.xyz:10080/ctest/result.json",
+             dataType: "jsonp",
+             jsonp: "callback",
+　　　　　　　　jsonpCallback:"callback",
+　　　　　　　　success: function(data){
+                // console.log('数据：', data);
+				$("#table").bootstrapTable('append', data);
+             },
+             error: function(){
+                alert('fail');
+             }
+         });
+    </script>
+</body>
+</html>
