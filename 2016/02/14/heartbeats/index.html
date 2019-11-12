@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Heartbeats</title>
+<script src="Onns.js"></script>
+
+<style>
+	#body
+	{
+		width:960px;
+		height:720px;
+		margin:0 auto;
+		position:relative;
+	}
+	#btn,#send
+	{
+		width:160px;
+		height:80px;
+		background:#fcfcfc;
+		font-size:20px;
+		line-height:40px;
+		font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+		text-align:center;
+		border:0px solid #111;
+		border-radius:10px;
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-top:-40px;
+		margin-left:-80px;
+		cursor:pointer;
+	}
+	#send
+	{
+		display:none;
+	}
+	#div
+	{
+		width:20px;
+		height:20px;
+		position:absolute;
+		top:0;
+		left:0;
+		background:#ccc;
+	}
+	.heart
+	{
+		width:25px;
+		height:25px;
+		background:#000;
+		position:absolute;
+		top:0;
+		left:0;
+		display:none;
+	}
+	.active
+	{
+		width:25px;
+		height:25px;
+		background:#ef1079;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+</style>
+</head>
+
+<body>
+<audio controls="controls" autoplay="autoplay" style="display:none;">
+    <source src="Just the Way You Are.mp3" type="audio/mpeg">
+</audio>
+<div id="btn">键盘上下左右移动<br/>٩(๑❛ᴗ❛๑)۶ </div>
+<div id="send">点我点我<br/>٩(๑❛ᴗ❛๑)۶ </div>
+<div id="body">
+    <div id="div"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+</div>
+<script>
+var aDiv=$('div');
+var aBtn=$('btn');
+var aSend=$('send');
+var oHeart=document.getElementsByClassName('heart');
+var arrDiv=['left','top','left','top'];
+var arrTar=['0','0','960','800'];
+var posY=0;
+var posX=0;
+var num=0;
+var timer=null;
+var arrY=['193','168','143','118','97','80','67','59','59','59','65','76','94','119','144','169','194','219','244','269','294','319','344','369','394','419','442','461','478','494','510','526','544','564','585','610','635','660','685','700','193','168','143','118','97','80','67','59','59','59','65','76','94','119','144','169','194','219','244','269','294','319','344','369','394','419','442','461','478','494','510','526','544','564','585','610','635','660','685','700'];
+var arrX=['480','489','505','526','551','576','601','626','651','676','701','726','751','776','801','818','831','840','846','850','850','848','842','832','816','796','771','746','721','696','671','646','621','596','571','546','523','502','486','480','455','446','430','409','384','359','334','309','284','259','234','209','184','159','134','117','104','95','89','85','85','87','93','103','119','139','164','189','214','239','264','289','314','339','364','389','412','433','449','455'];
+document.onkeydown=function(event)
+{
+	doMove(aDiv,arrDiv[event.keyCode-37],3,arrTar[event.keyCode-37]);
+}
+function cssHeart()
+{
+	for(var i=0;i<arrY.length;i++)
+	{
+		oHeart[i].style.top=arrY[i]+'px';
+		oHeart[i].style.left=arrX[i]+'px';
+	}
+}
+cssHeart();
+
+function showHeart()
+{
+	timer=setInterval(
+	function()
+	{
+		posY=parseInt(getStyle(aDiv,'top'));
+		posX=parseInt(getStyle(aDiv,'left'));
+		num=0;
+		for(var i=0;i<oHeart.length;i++)
+		{
+			if(posY-25<=arrY[i]&&arrY[i]<=posY+25&&posX-25<=arrX[i]&&arrX[i]<=posX+25)
+			{
+				oHeart[i].style.display='block';
+			}
+			if(oHeart[i].style.display=='block')
+			{
+				num++;
+			}
+		}
+		if(num==80)
+		{
+			aBtn.innerHTML='情人节快乐!'+'<br/>'+'٩(๑❛ᴗ❛๑)۶';
+			opacityChange(aDiv);
+			clearInterval(timer);
+			var m=0;
+			setInterval(
+			function()
+			{
+				oHeart[m].className='active';
+				objectShake(oHeart[m],'left');
+			},100);
+			setTimeout(
+			showFlower,8000);
+		}
+	},100);
+}
+showHeart();
+function showFlower()
+{
+	var str='';
+	var len=24;
+	var aDiv=document.getElementsByClassName('flower');
+	var timer=null;
+	var num=0;
+	for(var i=0;i<len;i++)
+	{
+		str+='<div class="flower" style=" float:left; width:50px; height:50px; background:url(img/flower.png); position:absolute; top:0px; left:'+ i*60 +'px;"></div>';
+	}
+	document.body.innerHTML+=str;
+	clearInterval(timer);
+	timer=setInterval(
+	function()
+	{
+		doMove( aDiv[num], 'top', 23, 720 );
+		num++;
+		if (num===len) 
+		{
+			clearInterval(timer);
+		}
+	}, 300);
+	document.body.innerHTML+=str;
+	setTimeout(
+	function()
+	{
+		aSend.style.display='block';
+	},8000);
+};
+aSend.onclick=function()
+{
+	alert('a');
+	return false;
+}
+</script>
+</body>
+</html>
