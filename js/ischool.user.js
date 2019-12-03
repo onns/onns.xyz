@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lecture Auto Order
 // @namespace    http://tampermonkey.net/
-// @version      0.3.9
+// @version      0.3.10
 // @updateURL    https://onns.xyz/js/ischool.user.js
 // @description  none
 // @author       Onns
@@ -12,18 +12,19 @@
 // ==/UserScript==
 
 /*
-0.3.9 增加日历支持 1h
-0.3.8 增加讲座计数
-0.3.7 增加页面跳转
-0.3.6 增加错误控制
-0.3.5 更新JS源
-0.3.4 优化设置后自动刷新
-0.3.3 优化修改设置时的体验
-0.3.2 针对提前开放讲座问题进行修复
-0.3.1 修复无限刷新bug
-0.3.0 增加GM_config以及通配符"%"
-0.2.3 增加对提前开放讲座的支持
-0.2.2 修复时间单位不统一导致的不刷新的bug
+0.3.10  可以添加不感兴趣讲座
+0.3.9   增加日历支持 1h
+0.3.8   增加讲座计数
+0.3.7   增加页面跳转
+0.3.6   增加错误控制
+0.3.5   更新JS源
+0.3.4   优化设置后自动刷新
+0.3.3   优化修改设置时的体验
+0.3.2   针对提前开放讲座问题进行修复
+0.3.1   修复无限刷新bug
+0.3.0   增加GM_config以及通配符"%"
+0.2.3   增加对提前开放讲座的支持
+0.2.2   修复时间单位不统一导致的不刷新的bug
 */
 (function () {
     'use strict';
@@ -42,37 +43,42 @@
         'id': 'MyConfig',
         'title': '个人信息设置',
         'fields':
-            {
-                'XMUID': {
-                    'label': '学号',
-                    'type': 'text',
-                    'default': ''
-                },
-                'XMUPASSWORD': {
-                    'label': '密码',
-                    'type': 'text',
-                    'default': ''
-                },
-                'COUNTDOWNFORFULL': {
-                    'label': '刷新时间(1-3600s)',
-                    'type': 'int',
-                    'min': 1,
-                    'max': 3600,
-                    'default': 5
-                },
-                'COUNTDOWNFORAHEAD': {
-                    'label': '提前刷新时间(讲座可能会提前开放)',
-                    'type': 'int',
-                    'min': 1,
-                    'max': 600,
-                    'default': 600
-                },
-                'INTERESTED': {
-                    'label': '想抢的讲座(回车分隔，"%"则全抢)',
-                    'type': 'textarea',
-                    'default': '%'
-                }
+        {
+            'XMUID': {
+                'label': '学号',
+                'type': 'text',
+                'default': ''
             },
+            'XMUPASSWORD': {
+                'label': '密码',
+                'type': 'text',
+                'default': ''
+            },
+            'COUNTDOWNFORFULL': {
+                'label': '刷新时间(1-3600s)',
+                'type': 'int',
+                'min': 1,
+                'max': 3600,
+                'default': 5
+            },
+            'COUNTDOWNFORAHEAD': {
+                'label': '提前刷新时间(讲座可能会提前开放)',
+                'type': 'int',
+                'min': 1,
+                'max': 600,
+                'default': 600
+            },
+            'INTERESTED': {
+                'label': '想抢的讲座(回车分隔，"%"则全抢)',
+                'type': 'textarea',
+                'default': '%'
+            },
+            'UNINTERESTED': {
+                'label': '不想抢的讲座(回车分隔)',
+                'type': 'textarea',
+                'default': ''
+            }
+        },
         'events': {
             //         'init': function() { alert('onInit()'); },
             // 'open': function() { alert('onOpen()'); },
@@ -119,6 +125,7 @@
     var COUNTDOWNFORFULL = GM_config.get('COUNTDOWNFORFULL');
     var COUNTDOWNFORAHEAD = GM_config.get('COUNTDOWNFORAHEAD');
     var INTERESTED = GM_config.get('INTERESTED').split('\n');
+    var UNINTERESTED = GM_config.get('UNINTERESTED').split('\n');
     var ERRORTIME = f('errorTime');
     var STOPCTL = f('stopControl');
     var LECTIMES = f('lectimes');
@@ -211,19 +218,29 @@
                             continue;
                         }
 
-                        for (var j = 0; j < INTERESTED.length; j++) {
-                            if (INTERESTED[j].trim() == lectureName.trim() || INTERESTED[j] == '%') {
-                                if (dataRaw[i].match(/input/g).length != 1) {
-                                    document.getElementsByTagName('input')[COUNTINPUT - 1].click();
-                                    continue;
-                                }
+                        let isInterested = true;
+                        for (var j = 0; j < UNINTERESTED.length; j++) {
+                            if (UNINTERESTED[j].trim() == lectureName.trim()) {
+                                isInterested = false;
+                                break;
+                            }
+                        }
+                        if (isInterested) {
+                            for (var j = 0; j < INTERESTED.length; j++) {
+                                if (INTERESTED[j].trim() == lectureName.trim() || INTERESTED[j] == '%') {
+                                    if (dataRaw[i].match(/input/g).length != 1) {
+                                        document.getElementsByTagName('input')[COUNTINPUT - 1].click();
+                                        continue;
+                                    }
 
-                                if (lectureMsg.indexOf('人数已满') > -1) {
-                                    ISFULL = true;
-                                    continue;
+                                    if (lectureMsg.indexOf('人数已满') > -1) {
+                                        ISFULL = true;
+                                        continue;
+                                    }
                                 }
                             }
                         }
+
 
                         var remainTime = ((new Date(/<td align="center">预约起始时间<\/td><td align="center">([ \S]+)<\/td>/.exec(dataRaw[i])[1]).getTime()) - (new Date().getTime())) / 1000;
                         if (remainTime > 0) {
