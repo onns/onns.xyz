@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="C程序设计基础-第二次作业"><meta name="keywords" content="c, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2019/12/05/c-homework2/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":"","toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>C程序设计基础-第二次作业 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">C程序设计基础-第二次作业
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-05
+        </span><span class="post-category">
+            <a href="/blog/categories/xmu/">xmu</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#作业要求"><span class="toc-text">作业要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作业内容"><span class="toc-text">作业内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目7"><span class="toc-text">题目7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目8"><span class="toc-text">题目8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目9"><span class="toc-text">题目9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目10"><span class="toc-text">题目10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目11"><span class="toc-text">题目11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目12"><span class="toc-text">题目12</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="作业要求"><a href="#作业要求" class="headerlink" title="作业要求"></a>作业要求</h2><ul>
+<li>文件命名格式:     <code>学号(题目).cpp</code></li>
+<li>文件命名样例:     <code>23020181154229(7).cpp</code></li>
+<li>文件上传地址:     <a href="http://inbox.weiyun.com/5usbRaL" target="_blank" rel="noopener">http://inbox.weiyun.com/5usbRaL</a></li>
+<li>作业结果查看:     <a href="http://onns.xyz/s/ctest/">http://onns.xyz/s/ctest/</a></li>
+<li>作业截止日期:     <code>2019-11-17 23:59:59</code></li>
+</ul>
+<a id="more"></a>
+<h2 id="作业内容"><a href="#作业内容" class="headerlink" title="作业内容"></a>作业内容</h2><h3 id="题目7"><a href="#题目7" class="headerlink" title="题目7"></a>题目7</h3><p>输入一维整型数组a(长度为10)的各元素值，求数组中最小元素的值及其在数组中的位置。</p>
+<ul>
+<li>每行输入、输出的数字间用空格（“ ”）分隔。</li>
+<li>如果最小的元素有多个，输出第一次出现的位置。</li>
+</ul>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8 9 7 1 6 5 3 4 2 10</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 4</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目8"><a href="#题目8" class="headerlink" title="题目8"></a>题目8</h3><p>输入一维实型数组a(长度为10)的各元素值，求数组中所有元素之和及其平均值（保留两位小数）。</p>
+<ul>
+<li>每行输入、输出的数字间用空格（“ ”）分隔。</li>
+</ul>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5 6 7 8 9 10</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">55 5.50</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目9"><a href="#题目9" class="headerlink" title="题目9"></a>题目9</h3><p>编写程序读取一个5X5的整数数组，然后显示出每行的和与每列的和。进一步地，假设输入每个学生5门测验的成绩，有5个学生。然后计算每个学生的总分和平均分，以及每门测验的平均分、最高分和最低分。</p>
+<ul>
+<li>输入分为五行五列，每行代表一门成绩，每列代表一名学生。</li>
+<li>输出分为五行五列，第一行为每个学生的总分，第二行为每个学生的平均分（保留两位小数），第三行为每门测验的平均分（保留两位小数），第四行为每门测验的最高分，第五行为每门测验的最低分。</li>
+<li>每行输入、输出的数字间用空格（“ ”）分隔。</li>
+</ul>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5</span><br><span class="line">2 3 4 5 1</span><br><span class="line">3 4 5 1 2</span><br><span class="line">4 5 1 2 3</span><br><span class="line">5 1 2 3 4</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">15 15 15 15 15</span><br><span class="line">3.00 3.00 3.00 3.00 3.00</span><br><span class="line">3.00 3.00 3.00 3.00 3.00</span><br><span class="line">5 5 5 5 5</span><br><span class="line">1 1 1 1 1</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目10"><a href="#题目10" class="headerlink" title="题目10"></a>题目10</h3><p>输入一个由大写字母组成的字符串（长度小于100），求字符串中包含了几个不同的字母。</p>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AABBBCD</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目11"><a href="#题目11" class="headerlink" title="题目11"></a>题目11</h3><p>输入一字符串（长度小于100）和一个字符，统计出字符在字符串中出现的次数。</p>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AABBBCD</span><br><span class="line">A</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目12"><a href="#题目12" class="headerlink" title="题目12"></a>题目12</h3><p>不要调用strcpy函数，把字符数组str2中的字符串（长度小于100）复制到字符数组str1中。</p>
+<p>Test case:<br>Input:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ABCDEFG</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ABCDEFG</span><br></pre></td></tr></table></figure></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>可以重复提交。</li>
+<li>注意文件命名里的括号是英文的括号不是中文的。</li>
+<li>题号按照文档中的题号<strong>7-12</strong>。</li>
+<li>文件提交.c或.cpp文件，不要压缩，六道题分别发送。</li>
+<li><strong>测试结果页面</strong>黄色代表未通过所有测试，红色代表编译未通过，绿色代表通过。</li>
+<li>按照文档的要求输入输出，不要自己加提示语句，不然会按照错误算的。</li>
+<li>测试结果已经加了时间，如果发现自己上传了上面还没显示，表面文件命名错误了，仔细核对一下命名格式。</li>
+<li><strong>测试结果页面</strong>学号下的输入框可以输入自己的学号筛选，方便查看所有题目的通过情况。</li>
+<li>判断日期非法不用考虑闰年，只需考虑1月天数不能大于31天，2月不能大于29天…月份不能大于12这种。</li>
+<li>建议大家写完一道题之后就上传，这样就知道如何通过测试系统的测试，因为要按照文档的要求输入输出。</li>
+</ol>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/c/">c</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2019/10/23/aliyun-ddns/">
+        <span class="next-text nav-default">阿里云动态修改域名解析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_page_pv">
+    view <span id="busuanzi_value_page_pv"></span> times
+  </span>
+  <span id="busuanzi_container_site_pv">, <span id="busuanzi_value_site_pv"></span> times in total.</span>
+</div>
+
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
