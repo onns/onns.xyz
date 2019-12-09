@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="2018 Computational Intelligence Homework No.3"><meta name="keywords" content="computational intelligence, TSP, GA, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2018/11/23/2018-computational-intelligence-homework-no.3/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>2018 Computational Intelligence Homework No.3 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">2018 Computational Intelligence Homework No.3
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-23
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2018/11/23/2018-computational-intelligence-homework-no.3/" data-title="2018 Computational Intelligence Homework No.3">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#用-GA-算法求解旅行商问题"><span class="toc-text">用 GA 算法求解旅行商问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#个体适应性"><span class="toc-text">个体适应性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNA-编码"><span class="toc-text">DNA 编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适者生存-selection"><span class="toc-text">适者生存 (selection)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉配对-crossover"><span class="toc-text">交叉配对 (crossover)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变异-mutation"><span class="toc-text">变异 (mutation)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#城市坐标"><span class="toc-text">城市坐标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遗传算法代码"><span class="toc-text">遗传算法代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="用-GA-算法求解旅行商问题"><a href="#用-GA-算法求解旅行商问题" class="headerlink" title="用 GA 算法求解旅行商问题"></a>用 GA 算法求解旅行商问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>旅行商问题(Travelling Salesman Problem, 简记 TSP, 亦称货郎担问题): 设有 34 个城市及其对应的经纬度坐标, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短.</p>
+<a id="more"></a>
+<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><p>遗传算法是模拟达尔文生物进化论的自然选择和遗传学机理的生物进化过程的计算模型，是一种通过模拟自然进化过程搜索最优解的方法。遗传算法是从代表问题可能潜在的解集的一个种群开始的，而一个种群则由经过基因编码的一定数目的个体组成。每个个体实际上是染色体带有特征的实体。染色体作为遗传物质的主要载体，即多个基因的集合，其内部表现(即基因型)是某种基因组合，它决定了个体的形状的外部表现，如黑头发的特征是由染色体中控制这一特征的某种基因组合决定的。因此，在一开始需要实现从表现型到基因型的映射即编码工作。由于仿照基因编码的工作很复杂，我们往往进行简化，如二进制编码，初代种群产生之后，按照适者生存和优胜劣汰的原理，逐代演化产生出越来越好的近似解，在每一代，根据问题域中个体的适应度大小选择个体，并借助于自然遗传学的遗传算子进行组合交叉和变异，产生出代表新的解集的种群。这个过程将导致种群像自然进化一样的后生代种群比前代更加适应于环境，末代种群中的最优个体经过解码，可以作为问题近似最优解。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<h3 id="个体适应性"><a href="#个体适应性" class="headerlink" title="个体适应性"></a>个体适应性</h3><p>遗传算法中的适应性在旅行商问题中对应的是走过所有的点的距离之和，距离越小则所代表的适应性越强。</p>
+<h3 id="DNA-编码"><a href="#DNA-编码" class="headerlink" title="DNA 编码"></a>DNA 编码</h3><p>编码是应用遗传算法时要解决的首要问题，也是设计遗传算法时的一个关键步骤。编码方法影响到交叉算子、变异算子等遗传算子的运算方法，大很大程度上决定了遗传进化的效率。在旅行商问题中的 DNA 编码方式是<code>二进制编码</code>方式，具体是将坐标分别放入两条 DNA 中，形成<code>x</code>和<code>y</code>两条 DNA，如下所示:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x:</span><br><span class="line">[<span class="number">121.47</span> <span class="number">115.85</span> <span class="number">117.25</span> <span class="number">108.93</span> <span class="number">106.55</span> <span class="number">112.55</span> <span class="number">114.52</span> <span class="number">121.52</span> <span class="number">108.37</span>  <span class="number">91.13</span></span><br><span class="line">  <span class="number">87.62</span> <span class="number">106.63</span> <span class="number">111.73</span> <span class="number">101.78</span> <span class="number">119.3</span>  <span class="number">114.3</span>  <span class="number">125.32</span> <span class="number">116.4</span>  <span class="number">117.2</span>  <span class="number">116.98</span></span><br><span class="line"> <span class="number">118.78</span> <span class="number">113.62</span> <span class="number">114.17</span> <span class="number">113.27</span> <span class="number">108.37</span> <span class="number">123.43</span> <span class="number">120.15</span> <span class="number">113.55</span> <span class="number">102.72</span> <span class="number">104.07</span></span><br><span class="line"> <span class="number">112.93</span> <span class="number">103.82</span> <span class="number">106.28</span> <span class="number">126.53</span>]</span><br><span class="line">y:</span><br><span class="line">[<span class="number">31.23</span> <span class="number">28.68</span> <span class="number">31.83</span> <span class="number">34.27</span> <span class="number">29.57</span> <span class="number">37.87</span> <span class="number">38.05</span> <span class="number">25.03</span> <span class="number">22.82</span> <span class="number">29.65</span> <span class="number">43.82</span> <span class="number">26.65</span></span><br><span class="line"> <span class="number">40.83</span> <span class="number">36.62</span> <span class="number">26.08</span> <span class="number">30.6</span>  <span class="number">43.9</span>  <span class="number">39.9</span>  <span class="number">39.12</span> <span class="number">36.67</span> <span class="number">32.07</span> <span class="number">34.75</span> <span class="number">22.28</span> <span class="number">23.13</span></span><br><span class="line"> <span class="number">22.82</span> <span class="number">41.8</span>  <span class="number">30.28</span> <span class="number">22.19</span> <span class="number">25.05</span> <span class="number">30.67</span> <span class="number">28.23</span> <span class="number">36.07</span> <span class="number">38.47</span> <span class="number">45.8</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="适者生存-selection"><a href="#适者生存-selection" class="headerlink" title="适者生存 (selection)"></a>适者生存 (selection)</h3><p>通过个体适应性来挑选，适应性越高(即距离越小)就越可能被选到。</p>
+<h3 id="交叉配对-crossover"><a href="#交叉配对-crossover" class="headerlink" title="交叉配对 (crossover)"></a>交叉配对 (crossover)</h3><p>在旅行商问题中，交叉配对不能通过简单的从父母的 DNA 中取一半来完成，这样会产生重复点。<br>替代办法是将父代的 DNA 中选取的点得到后按顺序放置到新 DNA 的前半部，然后再从母代的 DNA 中选取剩下的点，放到新 DNA 的后半部。</p>
+<h3 id="变异-mutation"><a href="#变异-mutation" class="headerlink" title="变异 (mutation)"></a>变异 (mutation)</h3><p>在旅行商问题中，变异只需要随机交换两个点的位置即可。</p>
+<h2 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h2><p>程序流程如<code>图1</code>所示</p>
+<center><br><br><div id="flowchart-0" class="flow-chart"></div><br><br>图 1 程序流程图<br><br></center>
+
+<h2 id="核心伪代码"><a href="#核心伪代码" class="headerlink" title="核心伪代码"></a>核心伪代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 迭代N_GENERATIONS次</span></span><br><span class="line"><span class="keyword">for</span> generation <span class="keyword">in</span> range(N_GENERATIONS):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将城市坐标转换为DNA</span></span><br><span class="line">    lx, ly = translateDNA(pop, CITIES)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算个体适应性</span></span><br><span class="line">    fitness, total_distance = get_fitness(lx, ly)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 适者生存</span></span><br><span class="line">    pop = select(fitness)</span><br><span class="line">    pop_copy = pop.copy()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对于种群中的每一个父母代</span></span><br><span class="line">    <span class="keyword">for</span> parent <span class="keyword">in</span> pop:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 杂交</span></span><br><span class="line">        child = crossover(parent, pop_copy)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 变异</span></span><br><span class="line">        child = mutate(child)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加入到新种群中</span></span><br><span class="line">        parent[:] = child</span><br></pre></td></tr></table></figure>
+<h2 id="代码运行及测试"><a href="#代码运行及测试" class="headerlink" title="代码运行及测试"></a>代码运行及测试</h2><p>选取的参数如<code>表1</code>所示.</p>
+<center>参数表</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数名称</th>
+<th style="text-align:center">参数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">城市数量</td>
+<td style="text-align:center">34</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">城市坐标</td>
+<td style="text-align:center"><a href="#city_list">附录:城市坐标</a></td>
+</tr>
+<tr>
+<td style="text-align:center">交叉概率</td>
+<td style="text-align:center">0.1</td>
+</tr>
+<tr>
+<td style="text-align:center">变异概率</td>
+<td style="text-align:center">0.02</td>
+</tr>
+<tr>
+<td style="text-align:center">种群规模</td>
+<td style="text-align:center">1000</td>
+</tr>
+<tr>
+<td style="text-align:center">迭代次数</td>
+<td style="text-align:center">500</td>
+</tr>
+</tbody>
+</table>
+<p>代码运行结果如<code>图2</code>所示.</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181124-1.png" alt="运行结果图"><br><br>图 2 运行结果图<br><br></center>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>34 个城市的最终结果为<code>16434.4730</code>公里。<br>总得来说遗传算法解决旅行商问题是由连续问题归纳到组合问题的求解，使得精度受到很大的影响，最终结果有时也容易陷入到局部早熟而导致结果不理想，不过遗传算法还是具有较强的全局搜索能力，在计算精度要求较高时，对计算时间的花费较少。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://morvanzhou.github.io/tutorials/machine-learning/evolutionary-algorithm/2-01-genetic-algorithm/" target="_blank" rel="noopener">遗传算法</a></li>
+</ul>
+<p style="page-break-before: always"></p>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="城市坐标"><a href="#城市坐标" class="headerlink" title="城市坐标"></a>城市坐标</h3><center id="city_list">城市坐标表</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">省份</th>
+<th style="text-align:center">经度</th>
+<th style="text-align:center">纬度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">01</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">116.4</td>
+<td style="text-align:center">39.9</td>
+</tr>
+<tr>
+<td style="text-align:center">02</td>
+<td style="text-align:center">天津</td>
+<td style="text-align:center">117.2</td>
+<td style="text-align:center">39.12</td>
+</tr>
+<tr>
+<td style="text-align:center">03</td>
+<td style="text-align:center">河北</td>
+<td style="text-align:center">114.52</td>
+<td style="text-align:center">38.05</td>
+</tr>
+<tr>
+<td style="text-align:center">04</td>
+<td style="text-align:center">山西</td>
+<td style="text-align:center">112.55</td>
+<td style="text-align:center">37.87</td>
+</tr>
+<tr>
+<td style="text-align:center">05</td>
+<td style="text-align:center">内蒙古</td>
+<td style="text-align:center">111.73</td>
+<td style="text-align:center">40.83</td>
+</tr>
+<tr>
+<td style="text-align:center">06</td>
+<td style="text-align:center">辽宁</td>
+<td style="text-align:center">123.43</td>
+<td style="text-align:center">41.8</td>
+</tr>
+<tr>
+<td style="text-align:center">07</td>
+<td style="text-align:center">吉林</td>
+<td style="text-align:center">125.32</td>
+<td style="text-align:center">43.9</td>
+</tr>
+<tr>
+<td style="text-align:center">08</td>
+<td style="text-align:center">黑龙江</td>
+<td style="text-align:center">126.53</td>
+<td style="text-align:center">45.8</td>
+</tr>
+<tr>
+<td style="text-align:center">09</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">121.47</td>
+<td style="text-align:center">31.23</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">江苏</td>
+<td style="text-align:center">118.78</td>
+<td style="text-align:center">32.07</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">浙江</td>
+<td style="text-align:center">120.15</td>
+<td style="text-align:center">30.28</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">安徽</td>
+<td style="text-align:center">117.25</td>
+<td style="text-align:center">31.83</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">福建</td>
+<td style="text-align:center">119.3</td>
+<td style="text-align:center">26.08</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">江西</td>
+<td style="text-align:center">115.85</td>
+<td style="text-align:center">28.68</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">山东</td>
+<td style="text-align:center">116.98</td>
+<td style="text-align:center">36.67</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">河南</td>
+<td style="text-align:center">113.62</td>
+<td style="text-align:center">34.75</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">湖北</td>
+<td style="text-align:center">114.3</td>
+<td style="text-align:center">30.6</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">湖南</td>
+<td style="text-align:center">112.93</td>
+<td style="text-align:center">28.23</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center">广东</td>
+<td style="text-align:center">113.27</td>
+<td style="text-align:center">23.13</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">广西</td>
+<td style="text-align:center">108.37</td>
+<td style="text-align:center">22.82</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">海南</td>
+<td style="text-align:center">108.37</td>
+<td style="text-align:center">22.82</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">重庆</td>
+<td style="text-align:center">106.55</td>
+<td style="text-align:center">29.57</td>
+</tr>
+<tr>
+<td style="text-align:center">23</td>
+<td style="text-align:center">四川</td>
+<td style="text-align:center">104.07</td>
+<td style="text-align:center">30.67</td>
+</tr>
+<tr>
+<td style="text-align:center">24</td>
+<td style="text-align:center">贵州</td>
+<td style="text-align:center">106.63</td>
+<td style="text-align:center">26.65</td>
+</tr>
+<tr>
+<td style="text-align:center">25</td>
+<td style="text-align:center">云南</td>
+<td style="text-align:center">102.72</td>
+<td style="text-align:center">25.05</td>
+</tr>
+<tr>
+<td style="text-align:center">26</td>
+<td style="text-align:center">西藏</td>
+<td style="text-align:center">91.13</td>
+<td style="text-align:center">29.65</td>
+</tr>
+<tr>
+<td style="text-align:center">27</td>
+<td style="text-align:center">陕西</td>
+<td style="text-align:center">108.93</td>
+<td style="text-align:center">34.27</td>
+</tr>
+<tr>
+<td style="text-align:center">28</td>
+<td style="text-align:center">甘肃</td>
+<td style="text-align:center">103.82</td>
+<td style="text-align:center">36.07</td>
+</tr>
+<tr>
+<td style="text-align:center">29</td>
+<td style="text-align:center">青海</td>
+<td style="text-align:center">101.78</td>
+<td style="text-align:center">36.62</td>
+</tr>
+<tr>
+<td style="text-align:center">30</td>
+<td style="text-align:center">宁夏</td>
+<td style="text-align:center">106.28</td>
+<td style="text-align:center">38.47</td>
+</tr>
+<tr>
+<td style="text-align:center">31</td>
+<td style="text-align:center">新疆</td>
+<td style="text-align:center">87.62</td>
+<td style="text-align:center">43.82</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">台北</td>
+<td style="text-align:center">121.52</td>
+<td style="text-align:center">25.03</td>
+</tr>
+<tr>
+<td style="text-align:center">33</td>
+<td style="text-align:center">香港</td>
+<td style="text-align:center">114.17</td>
+<td style="text-align:center">22.28</td>
+</tr>
+<tr>
+<td style="text-align:center">34</td>
+<td style="text-align:center">澳门</td>
+<td style="text-align:center">113.55</td>
+<td style="text-align:center">22.19</td>
+</tr>
+</tbody>
+</table>
+<h3 id="遗传算法代码"><a href="#遗传算法代码" class="headerlink" title="遗传算法代码"></a>遗传算法代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------model import----------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> radians, cos, sin, asin, sqrt</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end model import----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------global variables----------</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">@param:</span></span><br><span class="line"><span class="string">    CITIES          the longitude and the latitude of cities</span></span><br><span class="line"><span class="string">    N_CITIES        the number of cities</span></span><br><span class="line"><span class="string">    CROSS_RATE      the rate of cross</span></span><br><span class="line"><span class="string">    MUTATE_RATE     the rate of mutate</span></span><br><span class="line"><span class="string">    POP_SIZE        the size of population</span></span><br><span class="line"><span class="string">    N_GENERATIONS   the number of generations</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">CITIES = np.array([[<span class="number">116.4</span>, <span class="number">39.9</span>],</span><br><span class="line">                   [<span class="number">117.2</span>, <span class="number">39.12</span>],</span><br><span class="line">                   [<span class="number">114.52</span>, <span class="number">38.05</span>],</span><br><span class="line">                   [<span class="number">112.55</span>, <span class="number">37.87</span>],</span><br><span class="line">                   [<span class="number">111.73</span>, <span class="number">40.83</span>],</span><br><span class="line">                   [<span class="number">123.43</span>, <span class="number">41.8</span>],</span><br><span class="line">                   [<span class="number">125.32</span>, <span class="number">43.9</span>],</span><br><span class="line">                   [<span class="number">126.53</span>, <span class="number">45.8</span>],</span><br><span class="line">                   [<span class="number">121.47</span>, <span class="number">31.23</span>],</span><br><span class="line">                   [<span class="number">118.78</span>, <span class="number">32.07</span>],</span><br><span class="line">                   [<span class="number">120.15</span>, <span class="number">30.28</span>],</span><br><span class="line">                   [<span class="number">117.25</span>, <span class="number">31.83</span>],</span><br><span class="line">                   [<span class="number">119.3</span>, <span class="number">26.08</span>],</span><br><span class="line">                   [<span class="number">115.85</span>, <span class="number">28.68</span>],</span><br><span class="line">                   [<span class="number">116.98</span>, <span class="number">36.67</span>],</span><br><span class="line">                   [<span class="number">113.62</span>, <span class="number">34.75</span>],</span><br><span class="line">                   [<span class="number">114.3</span>, <span class="number">30.6</span>],</span><br><span class="line">                   [<span class="number">112.93</span>, <span class="number">28.23</span>],</span><br><span class="line">                   [<span class="number">113.27</span>, <span class="number">23.13</span>],</span><br><span class="line">                   [<span class="number">108.37</span>, <span class="number">22.82</span>],</span><br><span class="line">                   [<span class="number">108.37</span>, <span class="number">22.82</span>],</span><br><span class="line">                   [<span class="number">106.55</span>, <span class="number">29.57</span>],</span><br><span class="line">                   [<span class="number">104.07</span>, <span class="number">30.67</span>],</span><br><span class="line">                   [<span class="number">106.63</span>, <span class="number">26.65</span>],</span><br><span class="line">                   [<span class="number">102.72</span>, <span class="number">25.05</span>],</span><br><span class="line">                   [<span class="number">91.13</span>, <span class="number">29.65</span>],</span><br><span class="line">                   [<span class="number">108.93</span>, <span class="number">34.27</span>],</span><br><span class="line">                   [<span class="number">103.82</span>, <span class="number">36.07</span>],</span><br><span class="line">                   [<span class="number">101.78</span>, <span class="number">36.62</span>],</span><br><span class="line">                   [<span class="number">106.28</span>, <span class="number">38.47</span>],</span><br><span class="line">                   [<span class="number">87.62</span>, <span class="number">43.82</span>],</span><br><span class="line">                   [<span class="number">121.52</span>, <span class="number">25.03</span>],</span><br><span class="line">                   [<span class="number">114.17</span>, <span class="number">22.28</span>],</span><br><span class="line">                   [<span class="number">113.55</span>, <span class="number">22.19</span>]])</span><br><span class="line">N_CITIES = CITIES.shape[<span class="number">0</span>]</span><br><span class="line">CROSS_RATE = <span class="number">0.1</span></span><br><span class="line">MUTATE_RATE = <span class="number">0.02</span></span><br><span class="line">POP_SIZE = <span class="number">1000</span></span><br><span class="line">N_GENERATIONS = <span class="number">500</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end global variables----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------function definition----------</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    Calculate the great circle distance between two points</span></span><br><span class="line"><span class="string">    on the earth (specified in decimal degrees)</span></span><br><span class="line"><span class="string">    @param:</span></span><br><span class="line"><span class="string">        lon1    Longitude of the first point</span></span><br><span class="line"><span class="string">        lat1    Latitude of the first point</span></span><br><span class="line"><span class="string">        lon2    Longitude of the second point</span></span><br><span class="line"><span class="string">        lat2    Latitude of the second point</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">haversine</span><span class="params">(lon1, lat1, lon2, lat2)</span>:</span></span><br><span class="line">    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/<span class="number">2</span>)**<span class="number">2</span> + cos(lat1) * cos(lat2) * sin(dlon/<span class="number">2</span>)**<span class="number">2</span></span><br><span class="line">    c = <span class="number">2</span> * asin(sqrt(a))</span><br><span class="line">    r = <span class="number">6378.137</span></span><br><span class="line">    <span class="keyword">return</span> c * r</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end function definition----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------class definition----------</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GA</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, DNA_size, cross_rate, mutation_rate, pop_size, )</span>:</span></span><br><span class="line">        self.DNA_size = DNA_size</span><br><span class="line">        self.cross_rate = cross_rate</span><br><span class="line">        self.mutate_rate = mutation_rate</span><br><span class="line">        self.pop_size = pop_size</span><br><span class="line"></span><br><span class="line">        self.pop = np.vstack([np.random.permutation(DNA_size)</span><br><span class="line">                              <span class="keyword">for</span> _ <span class="keyword">in</span> range(pop_size)])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">translateDNA</span><span class="params">(self, DNA, city_position)</span>:</span>     <span class="comment"># get cities' coord in order</span></span><br><span class="line">        line_x = np.empty_like(DNA, dtype=np.float64)</span><br><span class="line">        line_y = np.empty_like(DNA, dtype=np.float64)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, d <span class="keyword">in</span> enumerate(DNA):</span><br><span class="line"></span><br><span class="line">            city_coord = city_position[d]</span><br><span class="line">            line_x[i, :] = city_coord[:, <span class="number">0</span>]</span><br><span class="line">            line_y[i, :] = city_coord[:, <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">return</span> line_x, line_y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_fitness</span><span class="params">(self, line_x, line_y)</span>:</span></span><br><span class="line">        total_distance = np.zeros((line_x.shape[<span class="number">0</span>],), dtype=np.float64)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(line_x.shape[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(line_x.shape[<span class="number">1</span>]<span class="number">-1</span>):</span><br><span class="line">                total_distance[i] += haversine(line_x[i][j],</span><br><span class="line">                    line_y[i][j], line_x[i][j+<span class="number">1</span>], line_y[i][j+<span class="number">1</span>])</span><br><span class="line">            total_distance[i] += haversine(line_x[i][<span class="number">0</span>], line_y[i][<span class="number">0</span>],</span><br><span class="line">                line_x[i][line_x.shape[<span class="number">1</span>]<span class="number">-1</span>], line_y[i][line_x.shape[<span class="number">1</span>]<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        fitness = np.exp(self.DNA_size * <span class="number">20000</span> / total_distance)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> fitness, total_distance</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">select</span><span class="params">(self, fitness)</span>:</span></span><br><span class="line">        idx = np.random.choice(np.arange(</span><br><span class="line">            self.pop_size), size=self.pop_size, replace=<span class="keyword">True</span>, p=fitness / fitness.sum())</span><br><span class="line">        <span class="keyword">return</span> self.pop[idx]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">crossover</span><span class="params">(self, parent, pop)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> np.random.rand() &lt; self.cross_rate:</span><br><span class="line">            <span class="comment"># select another individual from pop</span></span><br><span class="line">            i_ = np.random.randint(<span class="number">0</span>, self.pop_size, size=<span class="number">1</span>)</span><br><span class="line">            <span class="comment"># choose crossover points</span></span><br><span class="line">            cross_points = np.random.randint(</span><br><span class="line">                <span class="number">0</span>, <span class="number">2</span>, self.DNA_size).astype(np.bool)</span><br><span class="line">            <span class="comment"># find the city number</span></span><br><span class="line">            keep_city = parent[~cross_points]</span><br><span class="line">            swap_city = pop[i_, np.in1d(</span><br><span class="line">                pop[i_].ravel(), keep_city, invert=<span class="keyword">True</span>)]</span><br><span class="line">            parent[:] = np.concatenate((keep_city, swap_city))</span><br><span class="line">        <span class="keyword">return</span> parent</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mutate</span><span class="params">(self, child)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> point <span class="keyword">in</span> range(self.DNA_size):</span><br><span class="line">            <span class="keyword">if</span> np.random.rand() &lt; self.mutate_rate:</span><br><span class="line">                swap_point = np.random.randint(<span class="number">0</span>, self.DNA_size)</span><br><span class="line">                swapA, swapB = child[point], child[swap_point]</span><br><span class="line">                child[point], child[swap_point] = swapB, swapA</span><br><span class="line">        <span class="keyword">return</span> child</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">evolve</span><span class="params">(self, fitness)</span>:</span></span><br><span class="line">        pop = self.select(fitness)</span><br><span class="line">        pop_copy = pop.copy()</span><br><span class="line">        <span class="comment"># for every parent</span></span><br><span class="line">        <span class="keyword">for</span> parent <span class="keyword">in</span> pop:</span><br><span class="line">            child = self.crossover(parent, pop_copy)</span><br><span class="line">            child = self.mutate(child)</span><br><span class="line">            parent[:] = child</span><br><span class="line">        self.pop = pop</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end class definition----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------main function----------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    ga = GA(DNA_size=N_CITIES, cross_rate=CROSS_RATE,</span><br><span class="line">            mutation_rate=MUTATE_RATE, pop_size=POP_SIZE)</span><br><span class="line"></span><br><span class="line">    path_list = []</span><br><span class="line">    <span class="keyword">for</span> generation <span class="keyword">in</span> range(N_GENERATIONS):</span><br><span class="line">        lx, ly = ga.translateDNA(ga.pop, CITIES)</span><br><span class="line">        fitness, total_distance = ga.get_fitness(lx, ly)</span><br><span class="line">        ga.evolve(fitness)</span><br><span class="line">        best_idx = np.argmax(fitness)</span><br><span class="line">        print(<span class="string">'Gen:'</span>, generation, <span class="string">'| total distance: %.4f'</span> %</span><br><span class="line">              total_distance[best_idx],)</span><br><span class="line"></span><br><span class="line">        path_x = np.array(list(lx[best_idx]) + [lx[best_idx][<span class="number">0</span>]])</span><br><span class="line">        path_y = np.array(list(ly[best_idx]) + [ly[best_idx][<span class="number">0</span>]])</span><br><span class="line">        path = np.stack((path_x, path_y))</span><br><span class="line">        path = path.transpose(<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        path_list.append(path.tolist())</span><br><span class="line"></span><br><span class="line">    f = open(<span class="string">'data.json'</span>, <span class="string">'w'</span>)</span><br><span class="line">    f.write(json.dumps(path_list))</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end main function----------</span></span><br></pre></td></tr></table></figure>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><ul>
+<li><a href="https://github.com/onns/GaTSP" target="_blank" rel="noopener">GitHub 代码地址</a></li>
+<li><a href="https://onns.xyz/2018/11/24/gatsp/">可视化演示地址</a><br><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 随机产生初始种群
+op1=>operation: 计算种群中每个个体的适应性
+op2=>operation: 按适应度进行选择个体
+op3=>operation: 繁殖
+op4=>operation: 将新个体复制到新种群
+op5=>operation: 按适应度进行选择两个个体
+op6=>operation: 杂交
+op7=>operation: 将两个新个体加到新种群
+op8=>operation: 按适应度进行选择个体
+op9=>operation: 变异
+op10=>operation: 将变异后的新个体加到新种群
+op11=>operation: 循环次数加一
+cond1=>condition: 终止判据是否满足?
+cond2=>condition: 是否循环指定次数?
+para1=>parallel: 随机选择遗传算子
+io1=>inputoutput: 输出结果
+e1=>end: 算法结束
+
+st->cond1
+cond1(no, bottom)->op1->cond2
+cond1(yes)->io1->e1
+cond2(no, bottom)->para1
+cond2(yes)->cond1
+para1(path1, left)->op2
+para1(path2, bottom)->op5
+para1(path3, right)->op8
+op2->op3->op4->op11
+op5->op6->op7->op11
+op8->op9->op10->op11
+op11->cond2</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://baike.baidu.com/item/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/838140" target="_blank" rel="noopener">遗传算法_百度百科</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/computational-intelligence/">computational intelligence</a>
+            <a href="/blog/tags/TSP/">TSP</a>
+            <a href="/blog/tags/GA/">GA</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2019/01/01/2019-movie-list/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">2019 movie list</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2018/11/11/hybrid-images-lab-report/">
+        <span class="next-text nav-default">hybrid images lab report</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
