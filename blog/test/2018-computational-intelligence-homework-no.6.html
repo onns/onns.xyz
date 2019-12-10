@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="2018 Computational Intelligence Homework No.6"><meta name="keywords" content=", , , Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/test/2018-computational-intelligence-homework-no.6.html">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>2018 Computational Intelligence Homework No.6 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <div class="post-content">
+      <h1 id="用人工神经网络求解旅行商-TSP-问题"><a href="#用人工神经网络求解旅行商-TSP-问题" class="headerlink" title="用人工神经网络求解旅行商(TSP)问题"></a>用人工神经网络求解旅行商(TSP)问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>旅行商问题(Travelling Salesman Problem, 简记TSP, 亦称货郎担问题): 设有34个城市及其对应的经纬度坐标, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短. </p>
+<a id="more"></a>
+<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><p>Hopfield神经网络是一种单层互相全连接的反馈型神经网络。每个神经元既是输入也是输出，网络中的每一个神经元都将自己的输出通过连接权传送给所有其它神经元，同时又都接收所有其它神经元传递过来的信息。即：网络中的神经元在t时刻的输出状态实际上间接地与自己t-1时刻的输出状态有关。神经元之间互连接，所以得到的权重矩阵将是对称矩阵。<br>同时，Hopfield神经网络成功引入能量函数的概念，使网络运行地稳定性判断有了可靠依据。基本的Hopfield神经网络是一个由非线性元件构成的全连接型单层递归系统。其状态变化可以用差分方程来表示。递归型网络的一个重要特点就是它具有稳定状态, 当网络达到稳定状态的时候，也就是它的能量函数达到最小的时候。这里的能量函数不是物理意义上的能量函数，而是在表达形式上与物理意义上的能量概念一致，即它表征网络状态的变化趋势，并可以依据Hopfield网络模型的工作运行规则不断地进行状态变化，最终能够到达具有某个极小值的目标函数。网络收敛就是指能量函数达到极小值。<br>如果把一个最优化在着递归信号，网络的状态是随时间的变化而变化的，其运动轨迹必然存在着稳定性的问题。这就是递归网络与前向网络在网络性能分析上最大的区别之一在使用递归网络时，必须对其稳定性进行专门的分析与讨论，合理选择网络的参数变化范围，才能确保递归网络的正常工作。<br>Hopfield神经网络模型有离散型和连续性两种，离散型适用于联想记忆，连续性适合处理优化问题。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<p>将TSP问题映射为神经网络动力系统可用以下步骤完成：</p>
+<ol>
+<li>将TSP问题的每一条可能路径用一换位矩阵表示，并给出相应的距离表示试；</li>
+<li>将TSP问题的换位阵集合与由N个神经元构成的神经元阵列相对应；每一条路径所对应的换位阵的各元素与相应的神经元稳态输出对应；</li>
+<li>找出一反应TSP约束优化问题的能连函数E；</li>
+<li>求出使E取极小值的神经网络连接权重矩阵和偏置参数。</li>
+</ol>
+<h3 id="TSP的能量函数E"><a href="#TSP的能量函数E" class="headerlink" title="TSP的能量函数E"></a>TSP的能量函数E</h3><p>$$<br>\begin{aligned}<br>E = &amp; \frac{A}{2}\sum<sup>n_{x=1}\sum</sup>n_{i=1}\sum^n_{j \ne 1}v_{xi}v_{xj} +<br>\frac{B}{2}\sum<sup>n_{i=1}\sum</sup>n_{x=1}\sum^n_{y \ne x}v_{xi}v_{yi} \<br>&amp; + \frac{C}{2}(\sum<sup>n_{x=1}\sum</sup>n_{i=1}v_{xi}-n)^2 +<br>\frac{D}{2}\sum<sup>n_{x=1}\sum</sup>n_{y \ne x}\sum^n_{i=1}d_{xy}d_{xi}(v_{y,i+1}+v_{y,i-1})<br>\end{aligned}<br>\tag{1}<br>$$</p>
+<p>其中参数$ABCD$称为权值，前三项是满足TSP置换矩阵的约束条件，最后一项包含优化目标函数项. </p>
+<h2 id="改进的TSP的能量函数E"><a href="#改进的TSP的能量函数E" class="headerlink" title="改进的TSP的能量函数E"></a>改进的TSP的能量函数E</h2><p>$$<br>\begin{aligned}<br>E = &amp; \frac{A}{2}\sum<sup>n_{x=1}(\sum</sup>n_{i=1}v_{xi}-1)^2+<br>\frac{A}{2}\sum<sup>n_{i=1}(\sum</sup>n_{x=1}v_{xi}-1)^2 \<br>&amp; + \frac{D}{2}\sum<sup>n_{x=1}\sum</sup>n_{y=1}\sum^n_{i=1}v_{xi}d_{xy}v_{y,i+1}<br>\end{aligned}<br>\tag{2}<br>$$</p>
+<h3 id="Hopfield神经网络动态方程"><a href="#Hopfield神经网络动态方程" class="headerlink" title="Hopfield神经网络动态方程"></a>Hopfield神经网络动态方程</h3><p>$$<br>\begin{aligned}<br>\frac{du_{xi}}{dt} = - \frac{\partial E}{\partial v_{xi}} =<br>&amp; -A(\sum<sup>n_{i=1}v_{xi}-1)-A(\sum</sup>n_{y=1}v_{yi}-1) \<br>&amp; - D(\sum^n_{y=1}v_{xi}d_{xy}v_{y,i+1}<br>\end{aligned}<br>\tag{3}<br>$$</p>
+<h2 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h2><p>程序流程如<code>图1</code>所示</p>
+<center><br><br><div id="flowchart-0" class="flow-chart"></div><br><br>图1 程序流程图<br></center>
+
+<h2 id="核心伪代码"><a href="#核心伪代码" class="headerlink" title="核心伪代码"></a>核心伪代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> range(num_iter):</span><br><span class="line">    <span class="comment"># 利用动态方程计算du</span></span><br><span class="line">    du = calc_du(V, distance)</span><br><span class="line">    <span class="comment"># 由一阶欧拉法更新下一个时间的输入状态（电路的输入电压U）</span></span><br><span class="line">    U = calc_U(U, du, step)</span><br><span class="line">    <span class="comment"># 由sigmoid函数更新下一个时间的输出状态（电路的输出电压V）</span></span><br><span class="line">    V = calc_V(U, U0)</span><br><span class="line">    <span class="comment"># 计算当前网络的能量E</span></span><br><span class="line">    energys[n] = calc_energy(V, distance)</span><br><span class="line">    <span class="comment"># 检查路径的合法性</span></span><br><span class="line">    route, newV = check_path(V)</span><br><span class="line">    <span class="keyword">if</span> len(np.unique(route)) == N:</span><br><span class="line">        route.append(route[<span class="number">0</span>])</span><br><span class="line">        dis = calc_distance(route)</span><br><span class="line">        <span class="keyword">if</span> dis &lt; best_distance:</span><br><span class="line">            H_path = []</span><br><span class="line">            best_distance = dis</span><br><span class="line">            best_route = route</span><br><span class="line">            [H_path.append((route[i], route[i + <span class="number">1</span>]))</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(len(route) - <span class="number">1</span>)]</span><br><span class="line">            print(<span class="string">'第&#123;&#125;次迭代找到的次优解距离为：&#123;&#125;，能量为：&#123;&#125;，路径为：'</span></span><br><span class="line">            .format(n, best_distance, energys[n]))</span><br><span class="line">            [print(<span class="string">'['</span> + str(citys[v][<span class="number">0</span>]) + <span class="string">','</span> + str(citys[v][<span class="number">1</span>]) </span><br><span class="line">            + <span class="string">']'</span>, end=<span class="string">','</span> <span class="keyword">if</span> i &lt; len(best_route) - <span class="number">1</span> <span class="keyword">else</span> <span class="string">'\n'</span>)</span><br><span class="line">                <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(best_route)]</span><br><span class="line"><span class="keyword">if</span> len(H_path) &gt; <span class="number">0</span>:</span><br><span class="line">    draw_H_and_E(citys, H_path, energys)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'没有找到最优解'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="代码运行及测试"><a href="#代码运行及测试" class="headerlink" title="代码运行及测试"></a>代码运行及测试</h2><p>代码运行结果如<code>图2</code>所示.</p>
+<center><br><br><img src="//onns.xyz/blog/image/20181210-1.png" alt="运行结果图"><br><br>图2 运行结果图<br></center>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>34个城市的最终结果为<code>18513.0361</code>公里。<br>Hopfield神经网络是求解TSP的一种优化网络算法。Hopfield神经网络通过神经动力学来映射生物神经网络，在参数设置合理的情况下，有可能找到真实最优解，比近似算法计算的效果要好。Hopfield神经网络比较依赖初始权值的设置，会受到初始输入状态和输出状态的随机性影响，不一定每一次都可以找到最优解，有可能找到的是不同的次优解。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://www.jianshu.com/p/30fdc835d5b3" target="_blank" rel="noopener">TSP问题—Hopfield神经网络算法</a></li>
+</ul>
+<p style="page-break-before: always"></p>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="城市坐标"><a href="#城市坐标" class="headerlink" title="城市坐标"></a>城市坐标</h3><center id="city_list">城市坐标表</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">省份</th>
+<th style="text-align:center">经度</th>
+<th style="text-align:center">纬度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">01</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">116.4</td>
+<td style="text-align:center">39.9</td>
+</tr>
+<tr>
+<td style="text-align:center">02</td>
+<td style="text-align:center">天津</td>
+<td style="text-align:center">117.2</td>
+<td style="text-align:center">39.12</td>
+</tr>
+<tr>
+<td style="text-align:center">03</td>
+<td style="text-align:center">河北</td>
+<td style="text-align:center">114.52</td>
+<td style="text-align:center">38.05</td>
+</tr>
+<tr>
+<td style="text-align:center">04</td>
+<td style="text-align:center">山西</td>
+<td style="text-align:center">112.55</td>
+<td style="text-align:center">37.87</td>
+</tr>
+<tr>
+<td style="text-align:center">05</td>
+<td style="text-align:center">内蒙古</td>
+<td style="text-align:center">111.73</td>
+<td style="text-align:center">40.83</td>
+</tr>
+<tr>
+<td style="text-align:center">06</td>
+<td style="text-align:center">辽宁</td>
+<td style="text-align:center">123.43</td>
+<td style="text-align:center">41.8</td>
+</tr>
+<tr>
+<td style="text-align:center">07</td>
+<td style="text-align:center">吉林</td>
+<td style="text-align:center">125.32</td>
+<td style="text-align:center">43.9</td>
+</tr>
+<tr>
+<td style="text-align:center">08</td>
+<td style="text-align:center">黑龙江</td>
+<td style="text-align:center">126.53</td>
+<td style="text-align:center">45.8</td>
+</tr>
+<tr>
+<td style="text-align:center">09</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">121.47</td>
+<td style="text-align:center">31.23</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">江苏</td>
+<td style="text-align:center">118.78</td>
+<td style="text-align:center">32.07</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">浙江</td>
+<td style="text-align:center">120.15</td>
+<td style="text-align:center">30.28</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">安徽</td>
+<td style="text-align:center">117.25</td>
+<td style="text-align:center">31.83</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">福建</td>
+<td style="text-align:center">119.3</td>
+<td style="text-align:center">26.08</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">江西</td>
+<td style="text-align:center">115.85</td>
+<td style="text-align:center">28.68</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">山东</td>
+<td style="text-align:center">116.98</td>
+<td style="text-align:center">36.67</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">河南</td>
+<td style="text-align:center">113.62</td>
+<td style="text-align:center">34.75</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">湖北</td>
+<td style="text-align:center">114.3</td>
+<td style="text-align:center">30.6</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">湖南</td>
+<td style="text-align:center">112.93</td>
+<td style="text-align:center">28.23</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center">广东</td>
+<td style="text-align:center">113.27</td>
+<td style="text-align:center">23.13</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">广西</td>
+<td style="text-align:center">108.37</td>
+<td style="text-align:center">22.82</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">海南</td>
+<td style="text-align:center">108.37</td>
+<td style="text-align:center">22.82</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">重庆</td>
+<td style="text-align:center">106.55</td>
+<td style="text-align:center">29.57</td>
+</tr>
+<tr>
+<td style="text-align:center">23</td>
+<td style="text-align:center">四川</td>
+<td style="text-align:center">104.07</td>
+<td style="text-align:center">30.67</td>
+</tr>
+<tr>
+<td style="text-align:center">24</td>
+<td style="text-align:center">贵州</td>
+<td style="text-align:center">106.63</td>
+<td style="text-align:center">26.65</td>
+</tr>
+<tr>
+<td style="text-align:center">25</td>
+<td style="text-align:center">云南</td>
+<td style="text-align:center">102.72</td>
+<td style="text-align:center">25.05</td>
+</tr>
+<tr>
+<td style="text-align:center">26</td>
+<td style="text-align:center">西藏</td>
+<td style="text-align:center">91.13</td>
+<td style="text-align:center">29.65</td>
+</tr>
+<tr>
+<td style="text-align:center">27</td>
+<td style="text-align:center">陕西</td>
+<td style="text-align:center">108.93</td>
+<td style="text-align:center">34.27</td>
+</tr>
+<tr>
+<td style="text-align:center">28</td>
+<td style="text-align:center">甘肃</td>
+<td style="text-align:center">103.82</td>
+<td style="text-align:center">36.07</td>
+</tr>
+<tr>
+<td style="text-align:center">29</td>
+<td style="text-align:center">青海</td>
+<td style="text-align:center">101.78</td>
+<td style="text-align:center">36.62</td>
+</tr>
+<tr>
+<td style="text-align:center">30</td>
+<td style="text-align:center">宁夏</td>
+<td style="text-align:center">106.28</td>
+<td style="text-align:center">38.47</td>
+</tr>
+<tr>
+<td style="text-align:center">31</td>
+<td style="text-align:center">新疆</td>
+<td style="text-align:center">87.62</td>
+<td style="text-align:center">43.82</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">台北</td>
+<td style="text-align:center">121.52</td>
+<td style="text-align:center">25.03</td>
+</tr>
+<tr>
+<td style="text-align:center">33</td>
+<td style="text-align:center">香港</td>
+<td style="text-align:center">114.17</td>
+<td style="text-align:center">22.28</td>
+</tr>
+<tr>
+<td style="text-align:center">34</td>
+<td style="text-align:center">澳门</td>
+<td style="text-align:center">113.55</td>
+<td style="text-align:center">22.19</td>
+</tr>
+</tbody>
+</table>
+<p><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 初始化Hopfield神经网络的初值和权值
+op1=>operation: 计算n个城市之间的距离矩阵Dxy，初始化神经网络的输入状态
+op2=>operation: 利用动态方程计算输入状态的增量
+op3=>operation: 由一阶欧拉方法更新神经网络下一个时刻的输入状态
+op4=>operation: 由sigmoid函数更新神经网络下个时刻的输出状态
+op5=>operation: 计算当前的能量函数E
+cond1=>condition: 是否迭代指定次数?
+e1=>end: 算法结束
+
+st->op1->cond1
+cond1(no, bottom)->op3->op4->op5->cond1
+cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/weixin_39707121/article/details/79041536" target="_blank" rel="noopener">Hopfield神经网络</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div></p>
+
+    </div>
+  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

@@ -817,6 +817,12 @@ h6 {
       content: " · Go"; }
     .post .post-content .highlight.go figcaption + table::after {
       display: none; }
+    .post .post-content .highlight.kotlin > table::after {
+      content: "Kotlin"; }
+    .post .post-content .highlight.kotlin > figcaption > span::after {
+      content: " · Kotlin"; }
+    .post .post-content .highlight.kotlin figcaption + table::after {
+      display: none; }
     .post .post-content .highlight figcaption {
       position: absolute;
       top: 0;

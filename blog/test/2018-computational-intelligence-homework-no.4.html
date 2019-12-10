@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="2018 Computational Intelligence Homework No.4"><meta name="keywords" content=", , , Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/test/2018-computational-intelligence-homework-no.4.html">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>2018 Computational Intelligence Homework No.4 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <div class="post-content">
+      <h1 id="多尺度协同变异的粒子群优化算法"><a href="#多尺度协同变异的粒子群优化算法" class="headerlink" title="多尺度协同变异的粒子群优化算法"></a>多尺度协同变异的粒子群优化算法</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>实现文《一种多尺度协同变异的粒子群优化算法》<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>的测试实验。</p>
+<a id="more"></a>
+<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><p>&emsp;&emsp;粒子群算法(Particle Swarm Optimizer，PSO)是由Kennedy和Eberhart博士提出的一种基于群体智能的优化算法, 其基本思想是受到他们早期对许多鸟类的群体行为进行建模与仿真研究的启发. 粒子群算法的优势在于其简单容易实现,没有很多参数需要调整,是非线性连续优化问题、组合优化问题和混合整数非线性优化问题的有效优化工具. 由于PSO算法概念简单、实现容易，在函数优化和神经网络权值训练等方面都有很好的表现. 由于其又具有深刻的智能背景，既适合科学研究，又特别适于工程应用, 因此在近年来得到了飞速的发展. 其应用涉及系统控制、人工智能、模式识别、计算机、通信工程等各个领域. 粒子群优化算法问世以来受到了广泛的重视, 经过十几年的研究, 其不论在应用方面还是在优化性能方面都得到了很大的发展. 然而, 研究人员仍然无法解决一直困扰该算法的两个难题: 早熟和收敛速度慢.<br>&emsp;&emsp;文中提出一种多尺度协同变异的微粒群算法(MAEPSO). 该算法利用不同大小方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 在算法后期有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀算子维护种群多样性. 利用试验对不同评测函数进行测试均验证新算法优良的优化性能. </p>
+<h3 id="速度更新"><a href="#速度更新" class="headerlink" title="速度更新"></a>速度更新</h3><p>&emsp;&emsp;速度更新的公式为: </p>
+<p>$$<br>v_{id}(t+1)=w×v_{id}(t) + c_1×r_1×(p_{id}(t)−x_{id}(t)) \<br>\ + c_2×r_2×(p_{gd}(t)−x_{id}(t))<br>\tag{1}<br>$$</p>
+<h3 id="位置更新"><a href="#位置更新" class="headerlink" title="位置更新"></a>位置更新</h3><p>&emsp;&emsp;位置更新的公式为: </p>
+<p>$$<br>x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)<br>\tag{2}<br>$$</p>
+<h3 id="多尺度高斯变异算子"><a href="#多尺度高斯变异算子" class="headerlink" title="多尺度高斯变异算子"></a>多尺度高斯变异算子</h3><p>&emsp;&emsp;设尺度个数为$M$, 首先初始化多尺度高斯变异算子的初始方差</p>
+<p>$$<br>\sigma<sup>{(0)} = (\sigma_1</sup>{(0)},\sigma_2<sup>{(0)},\cdots,\sigma_M</sup>{(0)})<br>\tag{3}<br>$$</p>
+<p>&emsp;&emsp;初始时, 方差一般设定为优化变量的取值范围, 随着迭代次数的增加, 多尺度高斯变异算子的方差会随之进行调整, 具体调整方式如下所示, 首先根据适应值的大小对种群中的微粒进行由小到大排序, 然后对其进行组合, 生成$M$个子群, 每一个子群的微粒个数为$P = N / M $, $K$是当前迭代次数, 计算每一个子群的适应度:</p>
+<p>$$<br>FitX_m<sup>{(K)} = \sum_{i=1}</sup>Pf(x_i^m) / P,m = 1,2,\cdots,M<br>\tag{4}<br>$$</p>
+<p>&emsp;&emsp;其中$f$是微粒的适应值计算函数, 不同变异尺度之间相互竞争, 根据适应能力的不同而设置不同的变异能力, 因此第$m$个变异算子的标准差为: </p>
+<p>$$<br>\sigma_m<sup>{(K)} = \sigma_m</sup>{(K-1)} exp(\frac{M\cdot FitX_m<sup>{(K)} - \sum_{m=1}</sup>MFitX_m^{(K)}}{FitX_{max} - FitX_{min}})<br>\tag{5}<br>$$</p>
+<p>$$<br>FitX_{max} = max(FitX_1<sup>{(K)},FitX_2</sup>{(K)},\cdots,FitX_M^{(K)})<br>\tag{6}<br>$$</p>
+<p>$$<br>FitX_{min} = min(FitX_1<sup>{(K)},FitX_2</sup>{(K)},\cdots,FitX_M^{(K)})<br>\tag{7}<br>$$</p>
+<p>由于变异算子的进化是一个递归过程, 排在后面的变异算子可能很大, 因此对变异算子的标准差做如下规范: 如果$\sigma_i^{(k)} &gt;W/4$, 则</p>
+<p>$$<br>\sigma_i<sup>{(k)} = \vert W/4 - \sigma_i</sup>{(k)} \vert<br>\tag{8}<br>$$</p>
+<p>$W$为待优化变量空间的宽度, 重复使用上式, 直到满足$\sigma_i^{(k)} &lt; W/4$. 为了能最大范围的实现空间勘探$i$能力, 在进行完多尺度高斯变异后, 同时进行一次均匀变异操作, 比较后取所有变异后适应值最好的位置作为新的逃逸点, 均匀变异算子实现同<code>式(9)</code>.通过多尺度变异算子能实现整个搜索空间的覆盖, 其中大尺度有利于实现解空间的粗搜索, 可以快速定位到最优解区域, 小尺度能在进化后期实现局部精确解的搜索. </p>
+<p>$$<br>If \quad (v_{id} &lt; T_d ) \quad then \quad v_{id} = rand × V_{max}<br>\tag{9}<br>$$</p>
+<h2 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h2><p>程序流程如<code>图1</code>所示</p>
+<center><br><br><div id="flowchart-0" class="flow-chart"></div><br><br>图1 程序流程图<br></center>
+
+<h2 id="代码运行及测试"><a href="#代码运行及测试" class="headerlink" title="代码运行及测试"></a>代码运行及测试</h2><p>代码运行结果如<code>表1</code>所示.</p>
+<center>表1: 运行结果</center>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">function</th>
+<th style="text-align:center">min</th>
+<th style="text-align:center">max</th>
+<th style="text-align:center">mean</th>
+<th style="text-align:center">derivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Tablet</td>
+<td style="text-align:center">1.7048e<sup>-25</sup></td>
+<td style="text-align:center">1.8725e<sup>-13</sup></td>
+<td style="text-align:center">2.4511e<sup>-14</sup></td>
+<td style="text-align:center">3.3659e<sup>-27</sup></td>
+</tr>
+<tr>
+<td style="text-align:center">Quadric</td>
+<td style="text-align:center">4.6845e<sup>-24</sup></td>
+<td style="text-align:center">2.1658e<sup>-13</sup></td>
+<td style="text-align:center">1.5153e<sup>-14</sup></td>
+<td style="text-align:center">2.4005e<sup>-27</sup></td>
+</tr>
+<tr>
+<td style="text-align:center">Rosenbrock</td>
+<td style="text-align:center">24.6117</td>
+<td style="text-align:center">35.1629</td>
+<td style="text-align:center">27.9979</td>
+<td style="text-align:center">13.0007</td>
+</tr>
+<tr>
+<td style="text-align:center">Griewank</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">9.7511e<sup>-13</sup></td>
+<td style="text-align:center">1.1072e<sup>-13</sup></td>
+<td style="text-align:center">9.2515e<sup>-26</sup></td>
+</tr>
+<tr>
+<td style="text-align:center">Rastrigin</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0.9950</td>
+<td style="text-align:center">0.0995</td>
+<td style="text-align:center">0.0990</td>
+</tr>
+<tr>
+<td style="text-align:center">Schaffer</td>
+<td style="text-align:center">0.0797</td>
+<td style="text-align:center">0.3685</td>
+<td style="text-align:center">0.1838</td>
+<td style="text-align:center">0.0099</td>
+</tr>
+</tbody>
+</table>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>论文提出一种新的多尺度协同变异的微粒群算法, 利用不同大小初始方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀变异算子维护种群多样性. 通过6个benchmark 数据进行测试, 实验结果表明新算法能够在算法初期就能够快速定位到搜索空间的最优解区域, 进而使得微粒通过进化PSO及小尺度变异算子向着最优精确解空间逼近, 使其在进化过程中保持局部最优解空间开采的能力, 加快了算法的收敛速度. </p>
+<p><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 随机初始化每个粒子
+op1=>operation: 评估每个粒子并得到全局最优
+op2=>operation: 更新每个粒子的速度和位置
+op3=>operation: 评估每个粒子的函数适应值
+op4=>operation: 更新每个粒子历史最优位置
+op5=>operation: 更新群体的全局最优位置
+cond1=>condition: 终止判据是否满足?
+e1=>end: 算法结束
+
+st->op1->cond1
+cond1(no, bottom)->op2->op3->op4->op5->cond1
+cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="http://www.cnki.com.cn/Article/CJFDTotal-RJXB201207015.htm" target="_blank" rel="noopener">一种多尺度协同变异的粒子群优化算法</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div></p>
+
+    </div>
+  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

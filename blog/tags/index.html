@@ -134,9 +134,10 @@
       25 Tags In Total
     </div>
     <div class="tag-cloud-tags">
-      <a href="/blog/tags/markdown/" style="font-size: 16px;">markdown</a> <a href="/blog/tags/movie/" style="font-size: 24px;">movie</a> <a href="/blog/tags/ddns/" style="font-size: 16px;">ddns</a> <a href="/blog/tags/aliyun/" style="font-size: 16px;">aliyun</a> <a href="/blog/tags/python/" style="font-size: 16px;">python</a> <a href="/blog/tags/Arduino/" style="font-size: 16px;">Arduino</a> <a href="/blog/tags/bim/" style="font-size: 16px;">bim</a> <a href="/blog/tags/html/" style="font-size: 16px;">html</a> <a href="/blog/tags/c/" style="font-size: 16px;">c</a> <a href="/blog/tags/computer-vision/" style="font-size: 28px;">computer vision</a> <a href="/blog/tags/matlab/" style="font-size: 28px;">matlab</a> <a href="/blog/tags/hexo/" style="font-size: 16px;">hexo</a> <a href="/blog/tags/computational-intelligence/" style="font-size: 24px;">computational intelligence</a> <a href="/blog/tags/photoshop/" style="font-size: 16px;">photoshop</a> <a href="/blog/tags/design/" style="font-size: 16px;">design</a> <a href="/blog/tags/shell/" style="font-size: 16px;">shell</a> <a href="/blog/tags/mysql/" style="font-size: 16px;">mysql</a> <a href="/blog/tags/longking/" style="font-size: 16px;">longking</a> <a href="/blog/tags/life/" style="font-size: 16px;">life</a> <a href="/blog/tags/teamviewer/" style="font-size: 16px;">teamviewer</a> <a href="/blog/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/blog/tags/shadowsocksr/" style="font-size: 16px;">shadowsocksr</a> <a href="/blog/tags/TSP/" style="font-size: 20px;">TSP</a> <a href="/blog/tags/SA/" style="font-size: 16px;">SA</a> <a href="/blog/tags/GA/" style="font-size: 16px;">GA</a>
+      <a href="/blog/tags/markdown/" style="font-size: 16px;">markdown</a> <a href="/blog/tags/movie/" style="font-size: 24px;">movie</a> <a href="/blog/tags/bim/" style="font-size: 16px;">bim</a> <a href="/blog/tags/html/" style="font-size: 16px;">html</a> <a href="/blog/tags/c/" style="font-size: 20px;">c</a> <a href="/blog/tags/ddns/" style="font-size: 16px;">ddns</a> <a href="/blog/tags/aliyun/" style="font-size: 16px;">aliyun</a> <a href="/blog/tags/python/" style="font-size: 16px;">python</a> <a href="/blog/tags/computer-vision/" style="font-size: 28px;">computer vision</a> <a href="/blog/tags/matlab/" style="font-size: 28px;">matlab</a> <a href="/blog/tags/Arduino/" style="font-size: 16px;">Arduino</a> <a href="/blog/tags/hexo/" style="font-size: 16px;">hexo</a> <a href="/blog/tags/computational-intelligence/" style="font-size: 24px;">computational intelligence</a> <a href="/blog/tags/photoshop/" style="font-size: 16px;">photoshop</a> <a href="/blog/tags/design/" style="font-size: 16px;">design</a> <a href="/blog/tags/shell/" style="font-size: 16px;">shell</a> <a href="/blog/tags/mysql/" style="font-size: 16px;">mysql</a> <a href="/blog/tags/life/" style="font-size: 16px;">life</a> <a href="/blog/tags/longking/" style="font-size: 16px;">longking</a> <a href="/blog/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/blog/tags/shadowsocksr/" style="font-size: 16px;">shadowsocksr</a> <a href="/blog/tags/teamviewer/" style="font-size: 16px;">teamviewer</a> <a href="/blog/tags/TSP/" style="font-size: 20px;">TSP</a> <a href="/blog/tags/GA/" style="font-size: 16px;">GA</a> <a href="/blog/tags/SA/" style="font-size: 16px;">SA</a>
     </div>
-  </div></div><div class="comments" id="comments"></div></div>
+  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -166,7 +167,30 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
   <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
   <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
