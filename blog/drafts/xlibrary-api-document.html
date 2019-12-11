@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/categories/">
+<meta name="description" content="Xlibrary接口文档"><meta name="keywords" content=", , Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/drafts/xlibrary-api-document.html">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Categories - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>Xlibrary接口文档 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -129,14 +129,103 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><div class="categories">
-    <div class="categories-title">
-      10 Categories In Total
+          <div id="content" class="content"><article class="post">
+    <div class="post-content">
+      <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#接口文档">接口文档</a><ul>
+<li><a href="#生成转借码">生成转借码</a></li>
+<li><a href="#转借图书">转借图书</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<a id="more"></a>
+<h1 id="接口文档"><a href="#接口文档" class="headerlink" title="接口文档"></a>接口文档</h1><ul>
+<li>段落标题<ul>
+<li>段落标题<ul>
+<li>段落标题<ul>
+<li>段落标题</li>
+</ul>
+</li>
+<li>段落标题</li>
+</ul>
+</li>
+<li>段落标题</li>
+</ul>
+</li>
+<li>段落标题<h2 id="生成转借码"><a href="#生成转借码" class="headerlink" title="生成转借码"></a>生成转借码</h2></li>
+</ul>
+<ul>
+<li>作者：@Onns</li>
+<li>上次修改：2019-08-14</li>
+</ul>
+<p>拥有书的用户可以生成转借码，将书借给他人。</p>
+<ul>
+<li><strong>网址：</strong><br>/api/book/generate-code</li>
+<li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li>
+</ul>
+<ul>
+<li><strong>参数：</strong><ul>
+<li>必需：<br><code>isbn=[isbn]</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>成功：</strong><ul>
+<li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt> <strong>10101</strong> <br><br>返回值：<br><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li>
+</ul>
+</li>
+<li><strong>失败：</strong><ul>
+<li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10000</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li>
+<li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10102</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li>
+<li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10103</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="转借图书"><a href="#转借图书" class="headerlink" title="转借图书"></a>转借图书</h2><ul>
+<li>作者：@Onns</li>
+<li>上次修改：2019-08-14</li>
+</ul>
+<p>通过扫码他人的转借码，获得转借的图书。</p>
+<ul>
+<li><p><strong>网址：</strong></p>
+<p>/api/book/subtenancy</p>
+</li>
+<li><p><strong>方法：</strong></p>
+<p><code>GET</code> | <code>POST</code></p>
+</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><p>必需：</p>
+<p><code>code=[code]</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>成功：</strong></p>
+<ul>
+<li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt> <strong>10201</strong> <br><br>返回值：<br><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li>
+</ul>
+</li>
+<li><p><strong>失败：</strong></p>
+<ul>
+<li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10000</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p>
+</li>
+<li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10202</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p>
+</li>
+<li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10103</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p>
+</li>
+<li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10204</strong> <br><br>返回值：<br><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p>
+</li>
+<li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt> <strong>10205</strong> <br><br>返回值：<br><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">2</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 

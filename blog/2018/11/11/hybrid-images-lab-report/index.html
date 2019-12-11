@@ -162,10 +162,9 @@
 
 <h4 id="理想的低通滤波器"><a href="#理想的低通滤波器" class="headerlink" title="理想的低通滤波器"></a>理想的低通滤波器</h4><p>$$<br>H(u,v)=<br>\begin{cases}<br>1,&amp;{D(u,v) \leq D_0} \<br>0,&amp;{D(u,v) &gt; D_0}<br>\end{cases}<br>\tag{1}<br>$$</p>
 <p>其中，$D_0$表示通带的半径。$D(u,v)$的计算方式也就是两点间的距离，计算公式如<code>公式2.2</code>所示。</p>
-<p>$$<br>D(u,v)=\sqrt{\left( u-\frac{P}{2} \right)^{2} </p>
-<ul>
-<li>\left( v-\frac{Q}{2} \right)^{2}}<br>\tag{2}<br>$$</li>
-</ul>
+<span>$$D(u,v)=\sqrt{\left( u-\frac{P}{2} \right)^{2} 
++ \left( v-\frac{Q}{2} \right)^{2}}
+\tag{2}$$</span><!-- Has MathJax -->
 <p>低通滤波器所得到的结果如下所示。低通滤波器滤除了高频成分，所以使得图像模糊。由于理想低通滤波器的过度特性过于急峻，所以会产生了振铃现象。</p>
 <center><br><br><img src="//onns.xyz/blog/image/20181117-2.jpg" alt="理想的低通滤波器"><br><img src="//onns.xyz/blog/image/20181117-3.jpg" alt="理想的低通滤波器"><br>图3 理想的低通滤波器<br></center>
 
