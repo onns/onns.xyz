@@ -112,6 +112,10 @@
         }
       });
       $("#table").on("click-row.bs.table", function(e, row, $element) {
+        history.pushState({}, "", "");
+        window.onpopstate = function() {
+          location.reload();
+        };
         let totalNum = [
           "1",
           "2",
