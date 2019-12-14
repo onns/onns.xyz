@@ -115,7 +115,8 @@
         history.pushState({}, "", "");
         window.onpopstate = function() {
           location.reload();
-        };
+		};
+		document.title = row.xmuid;
         let totalNum = [
           "1",
           "2",
