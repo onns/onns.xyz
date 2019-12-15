@@ -149,7 +149,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-的基本程序设计结构"><span class="toc-text">Java 的基本程序设计结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与类"><span class="toc-text">对象与类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法传参"><span class="toc-text">方法传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象构造"><span class="toc-text">对象构造</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#强制类型转换"><span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object类"><span class="toc-text">Object类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#equals方法"><span class="toc-text">equals方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#toString方法"><span class="toc-text">toString方法</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-的基本程序设计结构"><span class="toc-text">Java 的基本程序设计结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与类"><span class="toc-text">对象与类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法传参"><span class="toc-text">方法传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象构造"><span class="toc-text">对象构造</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#强制类型转换"><span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象类"><span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object类"><span class="toc-text">Object类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#equals方法"><span class="toc-text">equals方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#toString方法"><span class="toc-text">toString方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#范型数组列表"><span class="toc-text">范型数组列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类"><span class="toc-text">枚举类</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
 <a id="more"></a>
@@ -239,6 +239,15 @@
 </li>
 </ol>
 <h3 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h3><p>只要对象与一个字符串通过操作符 “+” 连接起来，Java 编译就会自动地调用 <code>toString</code> 方法，以便获得这个对象的字符串描述。</p>
+<h3 id="范型数组列表"><a href="#范型数组列表" class="headerlink" title="范型数组列表"></a>范型数组列表</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不必指出数组的大小。</li>
+<li>使用 add 将任意多的元素添加到数组中。</li>
+<li>使用 size() 替代 length 计算元素的数目。</li>
+<li>使用 a.get(i) 替代 a[i] 访问元素。</li>
+</ul>
+<h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
+<p>在比较两个枚举类型的值时，永远不需要调用 equals, 而直接使用 “==” 就可以了。</p>
 
       </div>
       
