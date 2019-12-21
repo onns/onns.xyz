@@ -5,7 +5,7 @@
 // @updateURL    https://onns.xyz/js/xlibrary.user.js
 // @description  none
 // @author       Onns
-// @match        *://210.34.4.13:8080/*
+// @match        *://210.34.4.13:8080/gatemanage/detail_visit.asp*
 // @match        *://192.168.1.154/*
 // @grant        none
 // @run-at       document-end
@@ -16,16 +16,17 @@
 */
 (function() {
   "use strict";
-  var setting = document.createElement("div");
+  var setting = document.createElement("button");
   setting.innerHTML = "下一个";
   setting.className = "button3";
   // setting.innerHTML = '';
-  // setting.style.cssText = 'position: absolute;right: 30px; top: 30px; color:#FF0000;';
+  setting.style.cssText = "margin-left:5px;width:100px;";
+
   setting.onclick = function() {
     getXmuid();
+    return false;
   };
-  // http://ischoolgu.xmu.edu.cn/admin_loginout.aspx
-  // http://ischoolgu.xmu.edu.cn/admin_chaircheck.aspx
+  document.getElementById("stuno").focus();
   document
     .getElementById("stuno")
     .parentElement.insertBefore(
@@ -131,14 +132,17 @@
       success: function(response, xml) {
         let message = JSON.parse(response);
         console.log(message); //   此处执行请求成功后的代码
-        if(message.data == null) {
-            alert('申请列表为空');
+        if (message.data == null) {
+          alert("申请列表为空");
         } else {
-            document.getElementById("stuno").value = message.data.record_value;
-            setting.innerHTML =
-              "(" +
-              (Array(3).join(0) + parseInt(message.data.record_id)).slice(-3) +
-              ")下一个";
+          document.getElementById("stuno").value = message.data.record_value;
+          setting.innerHTML =
+            "(" +
+            (Array(3).join(0) + parseInt(message.data.record_id)).slice(-3) +
+            ")下一个";
+          document
+            .getElementById("stuno")
+            .nextSibling.nextSibling.nextSibling.click();
         }
       },
       fail: function(status) {
