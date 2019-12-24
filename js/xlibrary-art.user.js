@@ -2,7 +2,7 @@
 // @name         Xlibrary
 // @namespace    http://tampermonkey.net/
 // @version      0.0.1
-// @updateURL    https://onns.xyz/js/xlibrary.user.js
+// @updateURL    https://onns.xyz/js/xlibrary-law.user.js
 // @description  none
 // @author       Onns
 // @match        *://210.34.4.13:8080/gatemanage/detail_visit.asp*
@@ -126,7 +126,9 @@
     ajax({
       url: "https://wx.onns.xyz/tp/api/common/get-request-record", //请求地址
       type: "GET", //请求方式
-      data: {}, //请求参数
+      data: {
+        location: "art"
+      }, //请求参数
       dataType: "json", // 返回值类型的设定
       async: false, //是否异步
       success: function(response, xml) {
