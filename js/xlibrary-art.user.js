@@ -2,7 +2,7 @@
 // @name         Xlibrary
 // @namespace    http://tampermonkey.net/
 // @version      0.0.1
-// @updateURL    https://onns.xyz/js/xlibrary-law.user.js
+// @updateURL    https://onns.xyz/js/xlibrary-art.user.js
 // @description  none
 // @author       Onns
 // @match        *://210.34.4.13:8080/gatemanage/detail_visit.asp*
