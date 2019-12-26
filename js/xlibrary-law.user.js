@@ -16,6 +16,8 @@
 */
 (function() {
   "use strict";
+  var timer = null;
+
   var setting = document.createElement("button");
   setting.innerHTML = "下一个";
   setting.className = "button3";
@@ -33,6 +35,14 @@
       setting,
       document.getElementById("stuno").nextSibling
     );
+  var stop = document.createElement("span");
+  stop.innerHTML = "（暂停刷新）";
+  stop.style.cssText = "color:red;";
+  setting.onclick = function() {
+    clearTimeout(timer);
+    return false;
+  };
+  document.getElementsByClassName("p9")[0].appendChild(stop);
   function ajax(options) {
     /**
      * 传入方式默认为对象
@@ -135,7 +145,10 @@
         let message = JSON.parse(response);
         console.log(message); //   此处执行请求成功后的代码
         if (message.data == null) {
-          alert("申请列表为空");
+          setting.innerHTML = "申请列表为空";
+          timer = setTimeout(function() {
+            getXmuid();
+          }, 10 * 1000);
         } else {
           document.getElementById("stuno").value = message.data.record_value;
           setting.innerHTML =
@@ -152,4 +165,8 @@
       }
     });
   }
+
+  timer = setTimeout(function() {
+    getXmuid();
+  }, 10 * 1000);
 })();
