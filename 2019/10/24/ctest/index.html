@@ -21,11 +21,6 @@
         height: 500px;
       }
     </style>
-    <script>
-      if(window.location.protocol == 'https:'){
-        window.location.href='http://onns.xyz/2019/10/24/ctest/';
-      }
-    </script>
   </head>
   <body>
     <!-- HTML -->
@@ -103,7 +98,7 @@
       }
       $.ajax({
         type: "get",
-        url: "http://x.onns.xyz:82/ctest/result.json",
+        url: "result.json",
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback: "callback",
