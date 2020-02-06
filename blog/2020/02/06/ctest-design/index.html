@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="C测试系统设计"><meta name="keywords" content="python, c, oj, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/06/ctest-design/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>C测试系统设计 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">C测试系统设计
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-06
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            <a href="/blog/categories/code/xmu/">xmu</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/06/ctest-design/" data-title="C测试系统设计">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统流程"><span class="toc-text">系统流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#收集代码"><span class="toc-text">收集代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#展示"><span class="toc-text">展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为必须要</p>
+<a id="more"></a>
+<h2 id="系统流程"><a href="#系统流程" class="headerlink" title="系统流程"></a>系统流程</h2><p>大体的系统流程如<code>图1</code>所示，将学生们编写的C程序文件收集到服务器上后，编译并测试程序，将信息记录并最终展示给学生，方便他们反复提交和修改。</p>
+<center><br><br><img src="//onns.xyz/blog/image/20200206-1.jpg" alt="系统流程图"><br><br>图1 系统流程图<br></center>
+
+<h3 id="收集代码"><a href="#收集代码" class="headerlink" title="收集代码"></a>收集代码</h3><p>但凡一种网页语言都有文件上传接口，所以只需要网页表单即可完成代码的收集工作，但我为了偷懒😂，选择了用腾讯微云的文件收集功能，具体可以自行了解。</p>
+<p>在收集代码的时候，规定了文件的命名格式为 <code>学号(题号)</code> 的方式，所以可以得到代码的成员信息和题号信息而不必额外附加说明。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>因为想用命令行的c语言工具，最方便的大概就是 <code>gcc</code> 了。<br>window下gcc安装比较麻烦，相关方法可以参照 <a href="http://www.mingw.org/" target="_blank" rel="noopener">MinGW | Minimalist GNU for Windows</a> 进行安装。<br>MacOS和Linux都直接命令行自带gcc，直接使用即可，但后两者在编译时会默认编译为 <code>.o</code> 结尾的文件，而windows是 <code>.exe</code> 结尾的文件，不过问题不大，指定一下即可。</p>
+<p>不过需要注意的是在windows命令行下运行可执行文件的时候，不需要加 <code>./</code> ，所以在系统上需要加以区分。在命名中的一些诸如 <code>()</code> 之类的符号在MacOS下需要转义加 <code>\</code>，但是如果在windows下进行转义又会出错，也要加以区分。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>测试是测试C语言程序有没有正确的必要步骤，只要和学生们约定好输入输出的格式，到时候只需要将程序执行结果与标准答案进行字符匹配即可。<br>这里需要注意一个问题是，MacOS下的换行一般以 <code>\n</code> 为主，而windows下则以 <code>\r\n</code> 为主，在匹配前需要将 <code>\r</code> 移除。</p>
+<h3 id="展示"><a href="#展示" class="headerlink" title="展示"></a>展示</h3><p>这个展示就因人而异了，我选择的是bootstrap的table样式表进行展示。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>整个流程控制是用python完成的，一个 <code>pipe.py</code> 文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件命名格式：      学号(题目).cpp</span></span><br><span class="line"><span class="comment"># 例子：            23020181154229(1).cpp</span></span><br><span class="line"></span><br><span class="line">dir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line">os_type = <span class="string">'1'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(platform.system() == <span class="string">'Windows'</span>):</span><br><span class="line">    os_type = <span class="string">'2'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(name)</span>:</span></span><br><span class="line">    res = re.search(<span class="string">r'^([0-9]+)\(([0-9]+)\)'</span>, name)</span><br><span class="line">    <span class="keyword">if</span>(res):</span><br><span class="line">        <span class="keyword">if</span>(name.endswith(<span class="string">".c"</span>) <span class="keyword">or</span> name.endswith(<span class="string">".cpp"</span>)):</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">untest</span><span class="params">(name)</span>:</span></span><br><span class="line">    res = re.search(<span class="string">r'^0-([0-9]&#123;14&#125;)-([0-9]+)\(([0-9]+)\)'</span>, name)</span><br><span class="line">    <span class="keyword">if</span>(res):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> home, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> match(filename):</span><br><span class="line"></span><br><span class="line">                os.rename(os.path.join(home, filename), os.path.join(</span><br><span class="line">                    home, time.strftime(<span class="string">"0-%Y%m%d%H%M%S-"</span>, time.localtime()) + filename))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> home, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> untest(filename):</span><br><span class="line">                newname = <span class="string">'1'</span> + filename[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">                os.rename(os.path.join(home, filename),</span><br><span class="line">                          os.path.join(home, newname))</span><br><span class="line">                <span class="keyword">return</span> newname</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(cname, oname)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        res = subprocess.check_output(<span class="string">"gcc \"%s\" -o %s"</span> % (cname, oname),</span><br><span class="line">                                      stderr=subprocess.STDOUT,</span><br><span class="line">                                      shell=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">except</span> subprocess.CalledProcessError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(oname, idata, odata)</span>:</span></span><br><span class="line">    r, w = os.pipe()</span><br><span class="line">    os.write(w, bytes(idata, <span class="string">"utf-8"</span>))</span><br><span class="line">    os.close(w)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(os_type == <span class="string">'1'</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            res = subprocess.check_output(<span class="string">"./%s"</span> % (oname), stdin=r, timeout=<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">except</span> subprocess.TimeoutExpired <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">except</span> subprocess.CalledProcessError <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">if</span>(os_type == <span class="string">'2'</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            res = subprocess.check_output(<span class="string">"%s"</span> % (oname), stdin=r, timeout=<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">except</span> subprocess.TimeoutExpired <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">except</span> subprocess.CalledProcessError <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        result = res.decode(<span class="string">"utf-8"</span>).replace(<span class="string">'\r'</span>, <span class="string">''</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> result.strip().replace(<span class="string">" "</span>,<span class="string">""</span>) == odata.strip().replace(<span class="string">" "</span>,<span class="string">""</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    print(result)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(oname, question)</span>:</span></span><br><span class="line">    question_list = &#123;</span><br><span class="line">        <span class="string">'1'</span>: [[<span class="string">'24'</span>, <span class="string">'0'</span>], [<span class="string">'11'</span>, <span class="string">'1'</span>], [<span class="string">'0'</span>, <span class="string">'0'</span>], [<span class="string">'-2'</span>, <span class="string">'0'</span>], [<span class="string">'-21'</span>, <span class="string">'1'</span>]],</span><br><span class="line">        <span class="string">'2'</span>: [[<span class="string">'a'</span>, <span class="string">'a'</span>], [<span class="string">'A'</span>, <span class="string">'a'</span>], [<span class="string">'Z'</span>, <span class="string">'z'</span>], [<span class="string">'0'</span>, <span class="string">'0'</span>], [<span class="string">'Q'</span>, <span class="string">'q'</span>]],</span><br><span class="line">        <span class="string">'3'</span>: [[<span class="string">'12/14/16\n10/10/15'</span>, <span class="string">'10/10/15'</span>], [<span class="string">'13/12/16\n10/10/15'</span>, <span class="string">'-1'</span>]],</span><br><span class="line">        <span class="string">'4'</span>: [[<span class="string">'1 2 3 4'</span>, <span class="string">'4 1'</span>]],</span><br><span class="line">        <span class="string">'5'</span>: [[<span class="string">'3 4 5'</span>, <span class="string">'1\n1'</span>], [<span class="string">'1.5 1.5 1.5'</span>, <span class="string">'1\n0'</span>], [<span class="string">'0 0 0'</span>, <span class="string">'0\n0'</span>], [<span class="string">'-3 -4 -5'</span>, <span class="string">'0\n0'</span>]],</span><br><span class="line">        <span class="string">'6'</span>: [[<span class="string">'2019 1 1'</span>, <span class="string">'1'</span>], [<span class="string">'1900 3 1'</span>, <span class="string">'60'</span>], [<span class="string">'2000 3 1'</span>, <span class="string">'61'</span>]],</span><br><span class="line">        <span class="string">'7'</span>: [[<span class="string">'1 2 3 4 5 6 7 8 9 10'</span>, <span class="string">'1 1\n'</span>], [<span class="string">'89 56 23 14 789 54 1223 78 12 65'</span>, <span class="string">'12 9\n'</span>], [<span class="string">'3 2 1 1 5 6 7 8 9 10'</span>, <span class="string">'1 3\n'</span>]],</span><br><span class="line">        <span class="string">'8'</span>:[[<span class="string">'1 2 3 4 5 6 7 8 9 10'</span>, <span class="string">'55.00 5.50\n'</span>],[<span class="string">'1 1 1 1 1 1 1 1 1 1'</span>, <span class="string">'10.00 1.00\n'</span>],[<span class="string">'0.6798 0.5958 0.5754 0.4854 0.3895 0.2901 0.1942 0.1053 0.045 0.003'</span>,<span class="string">'3.40 0.34\n'</span>]],</span><br><span class="line">        <span class="string">'9'</span>:[[<span class="string">'1 2 3 4 5\n2 3 4 5 1\n3 4 5 1 2\n4 5 1 2 3\n5 1 2 3 4'</span>,<span class="string">'15 15 15 15 15\n3.00 3.00 3.00 3.00 3.00\n3.00 3.00 3.00 3.00 3.00\n5 5 5 5 5\n1 1 1 1 1'</span>],[<span class="string">'24 14 8 0 46\n36 20 20 20 96\n34 20 20 2 76\n40 20 20 18 98\n36 20 20 20 96'</span>,<span class="string">'92 192 152 196 192\n18.40 38.40 30.40 39.20 38.40\n34.00 18.80 17.60 12.00 82.40\n40 20 20 20 98\n24 14 8 0 46'</span>]],</span><br><span class="line">        <span class="string">'10'</span>:[[<span class="string">'ASJFKLSJFLSJFLSJFIIQJKZVNIRUQ'</span>,<span class="string">'13\n'</span>],[<span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXY'</span>,<span class="string">'25\n'</span>],[<span class="string">'ONNSISSTUPID'</span>,<span class="string">'8\n'</span>]],</span><br><span class="line">        <span class="string">'11'</span>:[[<span class="string">'dzldzldzl\nd'</span>,<span class="string">'3\n'</span>],[<span class="string">'13757769913\n3'</span>,<span class="string">'2\n'</span>],[<span class="string">'2302018dzllp\nl'</span>,<span class="string">'2\n'</span>],[<span class="string">'QCHZK\nq'</span>,<span class="string">'0\n'</span>]],</span><br><span class="line">        <span class="string">'12'</span>:[[<span class="string">'ASJFKLSJFLSJFLSJFIIQJKZVNIRUQ'</span>,<span class="string">'ASJFKLSJFLSJFLSJFIIQJKZVNIRUQ\n'</span>],[<span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXY'</span>,<span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXY\n'</span>]]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">not</span> question <span class="keyword">in</span> question_list):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">for</span> test_data <span class="keyword">in</span> question_list[question]:</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">not</span> run(oname, test_data[<span class="number">0</span>], test_data[<span class="number">1</span>])):</span><br><span class="line">            print(test_data[<span class="number">0</span>])</span><br><span class="line">            print(test_data[<span class="number">1</span>])</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write</span><span class="params">(data)</span>:</span></span><br><span class="line">    f = open(os.path.join(dir, <span class="string">'result.json'</span>), <span class="string">'r'</span>)</span><br><span class="line">    old_data = json.loads(f.read()[<span class="number">9</span>:<span class="number">-1</span>])</span><br><span class="line">    f.close()</span><br><span class="line">    print(data)</span><br><span class="line">    old_data.append(data)</span><br><span class="line">    f = open(os.path.join(dir, <span class="string">'result.json'</span>), <span class="string">'w'</span>)</span><br><span class="line">    f.write(<span class="string">'callback('</span>+json.dumps(old_data) + <span class="string">')'</span>)</span><br><span class="line">    f.close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    os.chdir(dir)</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">True</span>):</span><br><span class="line">        homework_dir = os.path.join(dir, <span class="string">'homework2'</span>)</span><br><span class="line">        edit(homework_dir)</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">True</span>):</span><br><span class="line">            cname = generate(homework_dir)</span><br><span class="line">            <span class="keyword">if</span>(cname == <span class="string">''</span>):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            res = re.search(<span class="string">r'^1-([0-9]&#123;14&#125;)-([0-9]+)\(([0-9]+)\)'</span>, cname)</span><br><span class="line">            <span class="keyword">if</span>(res):</span><br><span class="line">                date = res.group(<span class="number">1</span>)</span><br><span class="line">                xmuid = res.group(<span class="number">2</span>)</span><br><span class="line">                question = res.group(<span class="number">3</span>)</span><br><span class="line">            cname = os.path.join(homework_dir, cname)</span><br><span class="line">            status = <span class="string">'0'</span></span><br><span class="line">            <span class="keyword">if</span> build(cname, <span class="string">'raw.o'</span>):</span><br><span class="line">                <span class="keyword">if</span>(test(<span class="string">'raw.o'</span>, question)):</span><br><span class="line">                    status = <span class="string">'1'</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    status = <span class="string">'3'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                status = <span class="string">'2'</span></span><br><span class="line">            write(&#123;<span class="string">'date'</span>: date[:<span class="number">8</span>], <span class="string">'time'</span>: date[<span class="number">8</span>:<span class="number">10</span>] + <span class="string">':'</span> + date[<span class="number">10</span>:<span class="number">12</span>] + <span class="string">':'</span> + date[<span class="number">12</span>:<span class="number">14</span>],</span><br><span class="line">                   <span class="string">'xmuid'</span>: xmuid, <span class="string">'question'</span>: question, <span class="string">'status'</span>: status&#125;)</span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/python/">python</a>
+            <a href="/blog/tags/c/">c</a>
+            <a href="/blog/tags/oj/">oj</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2019/12/17/java-notes-2/">
+        <span class="next-text nav-default">Java学习笔记（二）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
