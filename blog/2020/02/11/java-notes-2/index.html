@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Java学习笔记（二）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/11/java-notes-2/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Java学习笔记（二） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Java学习笔记（二）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-11
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/11/java-notes-2/" data-title="Java学习笔记（二）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与类"><span class="toc-text">对象与类</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+<h2 id="对象与类"><a href="#对象与类" class="headerlink" title="对象与类"></a>对象与类</h2><a id="more"></a>
+<p>一个对象变量并没有实际包含一个对象，而仅仅引用一个对象。</p>
+<ul>
+<li>更改器方法（mutator method）：改变对象的状态。</li>
+<li>访问器方法（accessor method）：只访问对象而不修改对象的方法。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyCalendar.java</span></span><br><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCalendar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LocalDate nowDate = LocalDate.now();</span><br><span class="line">        <span class="keyword">int</span> day = nowDate.getDayOfMonth();</span><br><span class="line">        System.out.println(<span class="string">"Sun Mon Tue Wed Thu Fri Sat"</span>);</span><br><span class="line">        <span class="keyword">int</span> week = nowDate.getDayOfWeek().getValue();</span><br><span class="line">        <span class="keyword">int</span> n = (<span class="number">7</span> - (day - week) % <span class="number">7</span>) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            System.out.print(<span class="string">"    "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= nowDate.lengthOfMonth(); i++) &#123;</span><br><span class="line">            n++;</span><br><span class="line">            System.out.printf(<span class="string">"%3d"</span>, i);</span><br><span class="line">            <span class="keyword">if</span> (n % <span class="number">7</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                System.out.println();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == day) &#123;</span><br><span class="line">                    System.out.print(<span class="string">"*"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    System.out.print(<span class="string">" "</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This program tests the Employee class.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.12 2015-05-08</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Cay Horstmann</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmployeeTest</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// fill the staff array with three Employee objects</span></span><br><span class="line">      Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">      staff[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">"Carl Cracker"</span>, <span class="number">75000</span>, <span class="number">1987</span>, <span class="number">12</span>, <span class="number">15</span>);</span><br><span class="line">      staff[<span class="number">1</span>] = <span class="keyword">new</span> Employee(<span class="string">"Harry Hacker"</span>, <span class="number">50000</span>, <span class="number">1989</span>, <span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line">      staff[<span class="number">2</span>] = <span class="keyword">new</span> Employee(<span class="string">"Tony Tester"</span>, <span class="number">40000</span>, <span class="number">1990</span>, <span class="number">3</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// raise everyone's salary by 5%</span></span><br><span class="line">      <span class="keyword">for</span> (Employee e : staff)</span><br><span class="line">         e.raiseSalary(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// print out information about all Employee objects</span></span><br><span class="line">      <span class="keyword">for</span> (Employee e : staff)</span><br><span class="line">         System.out.println(<span class="string">"name="</span> + e.getName() + <span class="string">",salary="</span> + e.getSalary() + <span class="string">",hireDay="</span> + e.getHireDay());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">   <span class="keyword">private</span> LocalDate hireDay;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day)</span> </span>&#123;</span><br><span class="line">      name = n;</span><br><span class="line">      salary = s;</span><br><span class="line">      hireDay = LocalDate.of(year, month, day);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> name;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> salary;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> LocalDate <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> hireDay;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">raiseSalary</span><span class="params">(<span class="keyword">double</span> byPercent)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">double</span> raise = salary * byPercent / <span class="number">100</span>;</span><br><span class="line">      salary += raise;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在一个源文件中，只能有一个公有类，但可以有任意数目的非公有类。</li>
+<li>类通常包括类型属于某个类类型的实例域。</li>
+<li>构造器总是伴随着 <code>new</code> 操作符的执行被调用，而不能对一个已经存在的对象调用构造器来达到重新设置实例域的目的。</li>
+<li>构造器<ul>
+<li>构造器与类同名</li>
+<li>每个类可以有一个以上的构造器</li>
+<li>构造器可以有 0 个、1 个或多个参数</li>
+<li>构造器没有返回值</li>
+<li>构造器总是伴随着 new 操作一起调用</li>
+</ul>
+</li>
+<li>不要在构造器中定义与实例域重名的局部变量。</li>
+</ul>
+<hr>
+<ul>
+<li>如果将域定义为 <code>static</code>，每个类中只有一个这样的域。</li>
+<li>静态方法是一种不能向对象实施操作的方法。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></li>
+<li>静态方法可以访问自身类中的静态域。</li>
+<li>使用静态方法的情况：<ol>
+<li>方法不需要访问对象状态，其所需参数都是通过显式参数提供。</li>
+<li>一个方法只需要访问类的静态域。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Java 程序设计语言总是采用 <code>按值调用</code>。也就是说， 方法得到的是所有参数值的一个<code>拷贝</code>，方法不能修改传递给它的任何参数变量的内容。</li>
+<li>Java 的对象引用也是按值传递的。</li>
+</ul>
+<hr>
+<ul>
+<li>如果在编写一个类时没有编写构造器，那么系统就会提供一个无参数构造器。 </li>
+<li>如果类中提供了至少一个构造器，但是没有提供无参数的构造器，则在构造对象时如果没有提供参数就会被视为不合法。</li>
+<li><p>如果构造器的第一个语句形如 this(…)，这个构造器将调用同一个类的另一个构造器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">double</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// calls the Employee(String, double) constructor</span></span><br><span class="line">  <span class="keyword">this</span>(<span class="string">"Employee #"</span> + nextId, s);</span><br><span class="line">  <span class="comment">// 对公共的构造器代码部分只编写一次即可。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化数据域的方法：</p>
+<ol>
+<li>在构造器中设置值</li>
+<li>在声明中赋值</li>
+<li>初始化块(initialization block)</li>
+</ol>
+</li>
+<li>new操作时，首先运行初始化块，然后才运行构造器的主体部分。</li>
+<li>调用构造器的具体处理步骤：<ol>
+<li>所有数据域被初始化为默认值(0、false 或 null)。</li>
+<li>按照在类声明中出现的次序，依次执行所有域初始化语句和初始化块。</li>
+<li>如果构造器第一行调用了第二个构造器，则执行第二个构造器主体。</li>
+<li>执行这个构造器的主体。</li>
+</ol>
+</li>
+<li>如果对类的静态域进行初始化的代码比较复杂，那么可以使用静态的初始化块。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// static initialization block</span></span><br><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">  Random generator = <span class="keyword">new</span> Random();</span><br><span class="line">  <span class="comment">// set nextId to a random number between 0 and 9999</span></span><br><span class="line">  nextId = generator.nextInt(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>import</code> 语句应该位于源文件的顶部，但位于 package 语句的后面。</li>
+<li>import 语句不仅可以导人类，还增加了导人静态方法和静态域的功能。</li>
+<li>要想将一个类放人包中， 就必须将包的名字放在源文件的开头。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li>类设计技巧：<ol>
+<li>一定要保证数据私有</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型</li>
+<li>不是所有的域都需要独立的域访问器和域更改器</li>
+<li>将职责过多的类进行分解</li>
+<li>类名和方法名要能够体现它们的职责</li>
+<li>优先使用不可变的类<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">我自己的理解是，因为静态方法可以在不new的前提下使用，所以不能对需要new之后的对象操作。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div></li>
+</ol>
+</li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/note/">note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/02/10/java-notes-1/">
+        <span class="next-text nav-default">Java学习笔记（一）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

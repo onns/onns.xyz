@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（二）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/07/java-notes-2/">
+<meta name="description" content="Java学习笔记（一）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/10/java-notes-1/">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（二） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>Java学习笔记（一） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -139,16 +139,16 @@
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">Java学习笔记（二）
+      <h1 class="post-title">Java学习笔记（一）
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-02-07
+          2020-02-10
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/07/java-notes-2/" data-title="Java学习笔记（二）">
+        <span class="post-visits" data-url="/blog/2020/02/10/java-notes-1/" data-title="Java学习笔记（一）">
           Visits 0
         </span>
         </div>
@@ -157,36 +157,79 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#接口、lambda-表达式与内部类"><span class="toc-text">接口、lambda 表达式与内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-表达式"><span class="toc-text">lambda 表达式</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-的基本程序设计结构"><span class="toc-text">Java 的基本程序设计结构</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<a id="more"></a>
-<h2 id="接口、lambda-表达式与内部类"><a href="#接口、lambda-表达式与内部类" class="headerlink" title="接口、lambda 表达式与内部类"></a>接口、lambda 表达式与内部类</h2><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口中的所有方法自动地属于 <code>public</code>，在接口中声明方法时不必提供关键字 <code>public</code>。</p>
-<p>接口绝不能含有 <code>实例域</code>。</p>
-<p>为了让类实现一个接口，需要：</p>
-<ol>
-<li><p>将类声明为实现给定的接口。<br>要将类声明为实现某个接口，需要使用关键字 <strong>implements</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="Java-的基本程序设计结构"><a href="#Java-的基本程序设计结构" class="headerlink" title="Java 的基本程序设计结构"></a>Java 的基本程序设计结构</h2><a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstSample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello java"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Java 中定义类名的规则很宽松。名字必须以字母开头，后面可以跟字母和数字的任意组合，长度基本上没有限制，但是不能使用 Java 保留字作为类名。</li>
+<li>标准的命名规范为：类名是以大写字母开头的名词。如果名字由多个单词组成，每个单词的第一个字母都应该大写。</li>
+<li>源代码的文件名必须与公共类的名字相同，并用 <code>.java</code> 作为扩展名。</li>
+</ul>
+<hr>
+<ul>
+<li>长整型数值有一个后缀 <code>L</code> 或 <code>l</code>。<ul>
+<li>4000000000L</li>
+</ul>
 </li>
-<li><p>对接口中的所有方法进行定义。</p>
+<li>十六进制数值有一个前缀 <code>0x</code> 或 <code>0X</code>。<ul>
+<li>0xCAFE</li>
+</ul>
 </li>
-</ol>
-<p>在实现接口时，必须把方法声明为 <code>public</code>，否则，编译器将认为这个方法的访问属性是包可见性，即类的默认访问属性，之后编译器就会给出试图提供更严格的访问权限的警告信息。</p>
-<p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，遵循如下规则：</p>
-<ol>
-<li>超类优先。<br>如果超类提供了一个具体方法，同名而且有相同参数类型的默认方法会被忽略。</li>
-<li>接口冲突。<br>如果一个超接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型(不论是否是默认参数)相同的方法，必须覆盖这个方法来解决冲突。</li>
-</ol>
-<h3 id="lambda-表达式"><a href="#lambda-表达式" class="headerlink" title="lambda 表达式"></a>lambda 表达式</h3><p>lambda表达式就是一个代码块， 以及必须传入代码的变量规范。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">  -&gt; first.length() - second.length()</span><br></pre></td></tr></table></figure>
-<p>如果代码要完成的计算无法放在一个表达式中，就可以像写方法一样，把这些代码放在 <code>{}</code> 中， 并包含显式的 return 语句。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123; </span><br><span class="line">  <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>; </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即使 lambda 表达式没有参数，仍然要提供空括号，就像无参数方法一样。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">100</span>; i &gt;= <span class="number">0</span>; i-- ) System.out.println(i); &#125;</span><br></pre></td></tr></table></figure>
-<p>如果可以推导出一个 lambda 表达式的参数类型，则可以忽略其类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">= (first, second) <span class="comment">// Same as (String first, String second)</span></span><br><span class="line">  -&gt; first.length() - second.length();</span><br></pre></td></tr></table></figure>
-<p>如果方法只有一个参数，而且这个参数的类型可以推导得出，那么甚至还可以省略小括号。</p>
-<p>无需指定 lambda 表达式的返回类型。lambda 表达式的返回类型总是会由上下文推导得出。</p>
+<li>八进制有一个前缀 <code>0</code>。<ul>
+<li>010 是十进制的8</li>
+</ul>
+</li>
+<li>加上前缀 <code>0b</code> 或 <code>0B</code> 就可以写二进制数。<ul>
+<li>0b1001 是十进制的9</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Unicode 转义序列在解析代码之前进行</p>
+<ul>
+<li>注释中的 <code>\u</code> 也会被转义<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String\u005B\u005D args)</span> \\ 合法</span></span><br><span class="line"><span class="function">\\ 等价于</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/onns/insight_python/blob/master/Unicode_and_Character_Sets.md" target="_blank" rel="noopener">码点</a></p>
+</li>
+<li>可以在任意位置声明变量</li>
+<li><code>final</code> 声明常量<ul>
+<li>关键字 <code>final</code> 表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。</li>
+</ul>
+</li>
+<li>如果运算符得到一个值，其类型与左侧操作数的类型不同，就会发生强制类型转换。<ul>
+<li><code>x += 3.5;</code> 等价于 <code>x = (int)(x + 3.5);</code></li>
+</ul>
+</li>
+<li><code>+=</code> 是右结合运算符<ul>
+<li><code>a += b += c</code> 等价于 <code>a += (b += c)</code></li>
+</ul>
+</li>
+<li>位运算符<ul>
+<li><code>&amp;</code> (“and”) </li>
+<li><code>|</code> (“or”) </li>
+<li><code>^</code> (“xor”) </li>
+<li><code>~</code> (“not”) </li>
+<li><code>&gt;&gt;</code> 左移</li>
+<li><code>&lt;&lt;</code> 右移</li>
+<li><code>&gt;&gt;&gt;</code> 运算符会用 0 填充高位</li>
+</ul>
+</li>
+<li>String 类对象为不可变字符串，不能修改。</li>
+</ul>
+<hr>
+<ul>
+<li>Java 提供了一种带标签的 break 语句， 用于跳出多重嵌套的循环语句。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">label:</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">break</span> label;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><code>Arrays.toString(a)</code> 打印数组中的所有值。</li>
+<li><code>Arrays.deepToString(a)</code> 快速地打印一个二维数组的数据元素列表。</li>
+</ul>
 
       </div>
       
@@ -196,7 +239,12 @@
             <a href="/blog/tags/note/">note</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/02/06/ctest-design/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/02/11/java-notes-2/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Java学习笔记（二）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/02/06/ctest-design/">
         <span class="next-text nav-default">C测试系统设计</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
