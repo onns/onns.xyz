@@ -159,14 +159,18 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于开发环境是树莓派连接Arduino的板子然后控制其它元件,而树莓派和Arduino都已经被放置在了密封装置中,只能通过wifi的方式连接,所以通过Google找到了一个教程成功实现远程Arduino编译上传. </p>
+  </div><div class="post-content"><h2 id="前言">前言</h2>
+<p>由于开发环境是树莓派连接Arduino的板子然后控制其它元件,而树莓派和Arduino都已经被放置在了密封装置中,只能通过wifi的方式连接,所以通过Google找到了一个教程成功实现远程Arduino编译上传.</p>
 <a id="more"></a>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Raspberry Pi3,Ubuntu-Mate 16.04 LTS,Arduino Mega 2560.  </p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>找到的工具是 <a href="http://inotool.org/" target="_blank" rel="noopener">Ino</a>. 首先按照文档要求, 安装依赖文件:</p>
+<h2 id="环境">环境</h2>
+<p>Raspberry Pi3,Ubuntu-Mate 16.04 LTS,Arduino Mega 2560.</p>
+<h2 id="配置">配置</h2>
+<p>找到的工具是 <a href="http://inotool.org/" target="_blank" rel="noopener">Ino</a>. 首先按照文档要求, 安装依赖文件:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认Ubuntu下有Python 2.6+故无需重新安装</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install arduino arduino-core <span class="comment"># 大概ino也是一个控制工具,还是要依赖arduino的ide</span></span><br><span class="line">sudo apt-get install picocom <span class="comment"># picocom是一个串口调试工具</span></span><br></pre></td></tr></table></figure>
 <p>安装后即可安装ino,官方推荐了可以用过pip和easy_install安装,不过我都安装失败了,故这里选择下载方式:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在https://pypi.python.org/pypi/ino/#downloads网页中找到最新的压缩包下载即可.</span></span><br><span class="line">tar -xvf ino-0.3.6.tar.gz</span><br><span class="line"><span class="built_in">cd</span> ino-0.3.6/</span><br><span class="line">pip install -r requirements.txt <span class="comment"># 不知道为什么我用python setup.py就是会出错,只能手动安装pip依赖</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">sudo mv ino-0.3.6/ /usr/<span class="built_in">local</span>/ino</span><br><span class="line">sudo ln -s /usr/<span class="built_in">local</span>/ino/bin/ino /usr/bin/ino</span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>因为arduino限制文件必须在工程下才能编译,所以先创建工程(其实就是一个文件夹即可):</p>
+<h2 id="使用">使用</h2>
+<p>因为arduino限制文件必须在工程下才能编译,所以先创建工程(其实就是一个文件夹即可):</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir driver</span><br><span class="line"><span class="built_in">cd</span> driver</span><br></pre></td></tr></table></figure>
 <p>使用init命令可以自动帮你生成一个工程:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ino init</span><br></pre></td></tr></table></figure>
@@ -176,9 +180,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ino upload -m mega2560 -p /dev/ttyACM0 <span class="comment"># -p是串口号</span></span><br></pre></td></tr></table></figure>
 <p>可以添加配置文件就不用每次build和upload的时候都带参数:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi ino.ini</span><br><span class="line">[build]</span><br><span class="line">board-model = mega2560</span><br><span class="line"></span><br><span class="line">[upload]</span><br><span class="line">board-model = mega2560</span><br><span class="line">serial-port = /dev/ttyACM0</span><br><span class="line"></span><br><span class="line">[serial]</span><br><span class="line">serial-port = /dev/ttyACM0</span><br></pre></td></tr></table></figure>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="http://playground.arduino.cc//Linux/Ubuntu" target="_blank" rel="noopener">Install Arduino on Ubuntu Linux</a> </li>
-<li><a href="http://inotool.org/#installation" target="_blank" rel="noopener">Ino</a> </li>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="http://playground.arduino.cc//Linux/Ubuntu" target="_blank" rel="noopener">Install Arduino on Ubuntu Linux</a></li>
+<li><a href="http://inotool.org/#installation" target="_blank" rel="noopener">Ino</a></li>
 <li><a href="http://inotool.org/quickstart" target="_blank" rel="noopener">Ino-Quick start</a></li>
 </ul>
 

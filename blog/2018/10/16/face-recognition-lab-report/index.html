@@ -159,83 +159,104 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集分析"><span class="toc-text">数据集分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现有方法"><span class="toc-text">现有方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统方法"><span class="toc-text">传统方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特征提取"><span class="toc-text">特征提取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类器"><span class="toc-text">分类器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络方法"><span class="toc-text">神经网络方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验过程"><span class="toc-text">实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编程语言介绍"><span class="toc-text">编程语言介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集预处理"><span class="toc-text">数据集预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序编写"><span class="toc-text">程序编写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SVM构造15个二分类器"><span class="toc-text">SVM构造15个二分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HOG-SVM构造15个二分类器"><span class="toc-text">HOG+SVM构造15个二分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HOG-SVM构造多分类器"><span class="toc-text">HOG+SVM构造多分类器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验过程说明"><span class="toc-text">实验过程说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同实验方法结果对比"><span class="toc-text">不同实验方法结果对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM-HOG多分类"><span class="toc-text">SVM+HOG多分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果分析"><span class="toc-text">实验结果分析</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在给定的Yale人脸数据集上进行人脸识别. 输入一张待测试的人脸图片, 判断其属于数据库中哪个人的脸. </p>
-<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><p>Yale人脸数据集中包含有165张<code>bmp</code>格式的黑白人脸图像, 图像大小为<code>100*100</code>像素, 这些图像分别属于15个人, 每人11张图像.</p>
+  </div><div class="post-content"><h2 id="问题分析">问题分析</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>在给定的Yale人脸数据集上进行人脸识别. 输入一张待测试的人脸图片, 判断其属于数据库中哪个人的脸.</p>
+<h3 id="数据集分析">数据集分析</h3>
+<p>Yale人脸数据集中包含有165张<code>bmp</code>格式的黑白人脸图像, 图像大小为<code>100*100</code>像素, 这些图像分别属于15个人, 每人11张图像.</p>
 <a id="more"></a>
-<h2 id="现有方法"><a href="#现有方法" class="headerlink" title="现有方法"></a>现有方法</h2><h3 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h3><p>传统的方法是先对图像进行处理后, 对图像的特征进行提取, 然后用分类器对图像进行分类, 最后识别出图像的方法.</p>
-<h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><ul>
-<li>弹性模版<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup><blockquote>
-<p>为人脸建立属性拓扑图来表示人脸各器官之间的拓扑结构, 实际上是基于几何特征和对灰度分布信息进行小波纹理分析相结合的方法. </p>
-</blockquote>
-</li>
+<h2 id="现有方法">现有方法</h2>
+<h3 id="传统方法">传统方法</h3>
+<p>传统的方法是先对图像进行处理后, 对图像的特征进行提取, 然后用分类器对图像进行分类, 最后识别出图像的方法.</p>
+<h4 id="特征提取">特征提取</h4>
+<ul>
+<li>弹性模版<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></li>
 </ul>
+<blockquote>
+<p>为人脸建立属性拓扑图来表示人脸各器官之间的拓扑结构, 实际上是基于几何特征和对灰度分布信息进行小波纹理分析相结合的方法.</p>
+</blockquote>
 <p>该方法对初始参数要求高, 实现较复杂</p>
 <ul>
-<li>特征脸(PCA)<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup><blockquote>
-<p>将图像由高维投影到低维形成特征矢量, 所有子空间的正交基被称为特征脸. </p>
-</blockquote>
-</li>
+<li>特征脸(PCA)<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></li>
 </ul>
-<p>该方法速度快, 但鲁棒性较差, 受表情、光强和视角的变化影响较大.  </p>
+<blockquote>
+<p>将图像由高维投影到低维形成特征矢量, 所有子空间的正交基被称为特征脸.</p>
+</blockquote>
+<p>该方法速度快, 但鲁棒性较差, 受表情、光强和视角的变化影响较大.</p>
 <ul>
-<li>尺度不变特征变换(SIFT)<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup><blockquote>
-<p>在每个特征点周围的领域内, 在选定的尺度上测量图像的局部梯度, 计算梯度直方图生成具有独特性的向量. </p>
-</blockquote>
-</li>
+<li>尺度不变特征变换(SIFT)<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></li>
 </ul>
-<p>具有尺度不变性的优点, 并且抗遮挡. 缺点是计算量较大, 如果不借助硬件加速或专门的图像处理器很难实现. </p>
+<blockquote>
+<p>在每个特征点周围的领域内, 在选定的尺度上测量图像的局部梯度, 计算梯度直方图生成具有独特性的向量.</p>
+</blockquote>
+<p>具有尺度不变性的优点, 并且抗遮挡. 缺点是计算量较大, 如果不借助硬件加速或专门的图像处理器很难实现.</p>
 <ul>
-<li>方向梯度直方图(HOG)<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup><blockquote>
-<p>将图像分割成cell, 然后采集cell中各像素点梯度方向的直方图, 把直方图组合起来就可以构成图像特征. </p>
-</blockquote>
-</li>
+<li>方向梯度直方图(HOG)<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup></li>
 </ul>
-<p>该方法对图像的颜色信息和光学变化具有不变性, 但对噪声比较敏感. </p>
+<blockquote>
+<p>将图像分割成cell, 然后采集cell中各像素点梯度方向的直方图, 把直方图组合起来就可以构成图像特征.</p>
+</blockquote>
+<p>该方法对图像的颜色信息和光学变化具有不变性, 但对噪声比较敏感.</p>
 <ul>
-<li>局部二值模式(LBP)<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup><blockquote>
-<p>将某中心像素的灰度值和其相邻的8个像素作比较, 生成LBP码用来反映纹理信息. </p>
-</blockquote>
-</li>
+<li>局部二值模式(LBP)<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup></li>
 </ul>
-<p>它具有旋转和灰度不变性的优点, 对方向信息比较敏感, 一般用于处理8位或16位的图片. </p>
-<h4 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h4><ul>
-<li>最邻近分类器<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</a></sup><blockquote>
+<blockquote>
+<p>将某中心像素的灰度值和其相邻的8个像素作比较, 生成LBP码用来反映纹理信息.</p>
+</blockquote>
+<p>它具有旋转和灰度不变性的优点, 对方向信息比较敏感, 一般用于处理8位或16位的图片.</p>
+<h4 id="分类器">分类器</h4>
+<ul>
+<li>最邻近分类器<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</a></sup></li>
+</ul>
+<blockquote>
 <p>定义一个距离度量, 以测试样本最近的k个样本的主要类别作为测试样本的类别.</p>
 </blockquote>
-</li>
-</ul>
 <ul>
-<li>线性判别式分析(LDA)<sup id="fnref:7"><a href="#fn:7" rel="footnote">7</a></sup><blockquote>
+<li>线性判别式分析(LDA)<sup id="fnref:7"><a href="#fn:7" rel="footnote">7</a></sup></li>
+</ul>
+<blockquote>
 <p>假设数据为均值不同、方差相同的高斯分布, 找出最优决策面.</p>
 </blockquote>
-</li>
-</ul>
 <ul>
-<li>逻辑回归(Logistic Regression)<sup id="fnref:8"><a href="#fn:8" rel="footnote">8</a></sup><blockquote>
+<li>逻辑回归(Logistic Regression)<sup id="fnref:8"><a href="#fn:8" rel="footnote">8</a></sup></li>
+</ul>
+<blockquote>
 <p>假设后验概率为Logistics 分布, 根据贝叶斯理论计算某一类的概率.</p>
 </blockquote>
-</li>
-</ul>
 <ul>
-<li>支持向量机(SVM)<sup id="fnref:9"><a href="#fn:9" rel="footnote">9</a></sup><blockquote>
+<li>支持向量机(SVM)<sup id="fnref:9"><a href="#fn:9" rel="footnote">9</a></sup></li>
+</ul>
+<blockquote>
 <p>最小化类间的最大间隔得到最优决策面. 对数据分布的要求低, 适用性更广.</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="神经网络方法"><a href="#神经网络方法" class="headerlink" title="神经网络方法"></a>神经网络方法</h3><p>神经网络方法需要大量的数据, 不符合本实验的条件.</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>综合以上分析, 我们最终选择了<code>HOG+SVM</code>的方法. </p>
-<h2 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h2><h3 id="编程语言介绍"><a href="#编程语言介绍" class="headerlink" title="编程语言介绍"></a>编程语言介绍</h3><p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
-<h3 id="数据集预处理"><a href="#数据集预处理" class="headerlink" title="数据集预处理"></a>数据集预处理</h3><p>对每个人选取1张作为测试样本, 其余10张作为训练样本. 因此最终的训练集包含150张图像, 测试集为15张. </p>
-<h3 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h3><h4 id="SVM构造15个二分类器"><a href="#SVM构造15个二分类器" class="headerlink" title="SVM构造15个二分类器"></a>SVM构造15个二分类器</h4><p>构造15个分类器, 每一个分类器用10张作为正样本, 其余140张作为该分类器的负样本, 然后进行训练. 最终得到15个分类器, 用于分别识别是否为15个人的图像. </p>
-<h4 id="HOG-SVM构造15个二分类器"><a href="#HOG-SVM构造15个二分类器" class="headerlink" title="HOG+SVM构造15个二分类器"></a>HOG+SVM构造15个二分类器</h4><p>和之前的方法相同, 在图像被加入分类器中进行训练之前, 先将图像的大小转换为<code>256*256</code>, 然后提取出HOG特征, 重复上述实验.<br><code>extractHOGFeatures</code><sup id="fnref:10"><a href="#fn:10" rel="footnote">10</a></sup>是Matlab预先实现好的方法, 选取<code>cell</code>为<code>8*8</code>, <code>block</code>为<code>2*2</code>.<br>图一为<code>s1.bmp</code>和它的HOG特征图:</p>
-<center><br><br><img src="https://onns.xyz/blog/image/20181017-1.jpg" alt="原图以及HOG特征图"><br><br>图1 原图以及HOG特征图<br></center>
-
-
-
-<h4 id="HOG-SVM构造多分类器"><a href="#HOG-SVM构造多分类器" class="headerlink" title="HOG+SVM构造多分类器"></a>HOG+SVM构造多分类器</h4><p>在训练图像开始之前, 将HOG特征图和特征图对应的标签(即对应的人脸的标号1-15)传入<code>fitcecoc</code><sup id="fnref:11"><a href="#fn:11" rel="footnote">11</a></sup>函数即可训练得到一个多标签的SVM, 对于给定的测试样例, 可以给出样例所对应的标签. </p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="实验过程说明"><a href="#实验过程说明" class="headerlink" title="实验过程说明"></a>实验过程说明</h3><p>由于前一个实验方法并不能到达理想的100%准确率, 所以改变了不同的方法重新实现, 最终有三种不同的实验方法.<br>下述实验结果如无特殊说明, 都是按照<code>训练集10:测试集1</code>进行的实验, 实验结果为<code>1次</code>实验的结果. </p>
-<h3 id="不同实验方法结果对比"><a href="#不同实验方法结果对比" class="headerlink" title="不同实验方法结果对比"></a>不同实验方法结果对比</h3><center>表1 实验结果</center>
-
+<h3 id="神经网络方法">神经网络方法</h3>
+<p>神经网络方法需要大量的数据, 不符合本实验的条件.</p>
+<h3 id="结论">结论</h3>
+<p>综合以上分析, 我们最终选择了<code>HOG+SVM</code>的方法.</p>
+<h2 id="实验过程">实验过程</h2>
+<h3 id="编程语言介绍">编程语言介绍</h3>
+<p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
+<h3 id="数据集预处理">数据集预处理</h3>
+<p>对每个人选取1张作为测试样本, 其余10张作为训练样本. 因此最终的训练集包含150张图像, 测试集为15张.</p>
+<h3 id="程序编写">程序编写</h3>
+<h4 id="SVM构造15个二分类器">SVM构造15个二分类器</h4>
+<p>构造15个分类器, 每一个分类器用10张作为正样本, 其余140张作为该分类器的负样本, 然后进行训练. 最终得到15个分类器, 用于分别识别是否为15个人的图像.</p>
+<h4 id="HOG-SVM构造15个二分类器">HOG+SVM构造15个二分类器</h4>
+<p>和之前的方法相同, 在图像被加入分类器中进行训练之前, 先将图像的大小转换为<code>256*256</code>, 然后提取出HOG特征, 重复上述实验.<br>
+<code>extractHOGFeatures</code><sup id="fnref:10"><a href="#fn:10" rel="footnote">10</a></sup>是Matlab预先实现好的方法, 选取<code>cell</code>为<code>8*8</code>, <code>block</code>为<code>2*2</code>.<br>
+图一为<code>s1.bmp</code>和它的HOG特征图:</p>
+<center>
+<p><img src="https://onns.xyz/blog/image/20181017-1.jpg" alt="原图以及HOG特征图"></p>
+<p>图1 原图以及HOG特征图</p>
+</center>
+<h4 id="HOG-SVM构造多分类器">HOG+SVM构造多分类器</h4>
+<p>在训练图像开始之前, 将HOG特征图和特征图对应的标签(即对应的人脸的标号1-15)传入<code>fitcecoc</code><sup id="fnref:11"><a href="#fn:11" rel="footnote">11</a></sup>函数即可训练得到一个多标签的SVM, 对于给定的测试样例, 可以给出样例所对应的标签.</p>
+<h2 id="实验结果">实验结果</h2>
+<h3 id="实验过程说明">实验过程说明</h3>
+<p>由于前一个实验方法并不能到达理想的100%准确率, 所以改变了不同的方法重新实现, 最终有三种不同的实验方法.<br>
+下述实验结果如无特殊说明, 都是按照<code>训练集10:测试集1</code>进行的实验, 实验结果为<code>1次</code>实验的结果.</p>
+<h3 id="不同实验方法结果对比">不同实验方法结果对比</h3>
+<center>表1 实验结果</center>
 <table>
 <thead>
 <tr>
@@ -262,10 +283,10 @@
 </tr>
 </tbody>
 </table>
-<p>实验结果如表1所示, 在准确率上, <code>SVM+HOG多分类</code>的方法在准确率上初步达到了<code>100%</code>, 但仍需要后续的多次实验证明; 在程序运行时间上, <code>SVM+HOG二分类</code>的方法耗时最少, 与第一种方法相对比, 提取的特征图较原图像相比, 更容易得到特征, 更容易训练, 与第三种方法相对比, 二分类器只需要判断<code>是或不是</code>的问题, 较<code>是哪个</code>这个问题来说相对简单, 故消耗时间最少. </p>
-<h3 id="SVM-HOG多分类"><a href="#SVM-HOG多分类" class="headerlink" title="SVM+HOG多分类"></a>SVM+HOG多分类</h3><p>一次实验的结果具有随机性, 故取<code>10次</code>实验的<code>平均值</code>并改变训练集与测试集的比例, 得到的结果如表2所示. </p>
+<p>实验结果如表1所示, 在准确率上, <code>SVM+HOG多分类</code>的方法在准确率上初步达到了<code>100%</code>, 但仍需要后续的多次实验证明; 在程序运行时间上, <code>SVM+HOG二分类</code>的方法耗时最少, 与第一种方法相对比, 提取的特征图较原图像相比, 更容易得到特征, 更容易训练, 与第三种方法相对比, 二分类器只需要判断<code>是或不是</code>的问题, 较<code>是哪个</code>这个问题来说相对简单, 故消耗时间最少.</p>
+<h3 id="SVM-HOG多分类">SVM+HOG多分类</h3>
+<p>一次实验的结果具有随机性, 故取<code>10次</code>实验的<code>平均值</code>并改变训练集与测试集的比例, 得到的结果如表2所示.</p>
 <center>表2 10次随机实验结果平均值</center>
-
 <table>
 <thead>
 <tr>
@@ -302,7 +323,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="实验结果分析"><a href="#实验结果分析" class="headerlink" title="实验结果分析"></a>实验结果分析</h3><p><code>SVM分类</code>方法训练的分类器未能识别的图像都是单侧光照下的图像, 故后续改进时增加了对<code>光照不敏感</code>的HOG特性来进行训练; <code>HOG+SVM二分类</code>方法存在着<code>样本不对称</code>的问题, 也未能达到理想的实验效果; <code>SVM+HOG多分类器</code>方法在<code>对光照不敏感</code>的同时, 也不存在<code>样本不对称</code>的问题, 最终达到了预期的实验结果, 即<code>100%</code>的准确率. </p>
+<h3 id="实验结果分析">实验结果分析</h3>
+<p><code>SVM分类</code>方法训练的分类器未能识别的图像都是单侧光照下的图像, 故后续改进时增加了对<code>光照不敏感</code>的HOG特性来进行训练; <code>HOG+SVM二分类</code>方法存在着<code>样本不对称</code>的问题, 也未能达到理想的实验效果; <code>SVM+HOG多分类器</code>方法在<code>对光照不敏感</code>的同时, 也不存在<code>样本不对称</code>的问题, 最终达到了预期的实验结果, 即<code>100%</code>的准确率.</p>
 <div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="http://www.arocmag.com/getarticle/?aid=8d1cc55eca76ad42" target="_blank" rel="noopener">人脸识别研究综述</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/liulina603/article/details/7925170" target="_blank" rel="noopener">人脸识别主要算法原理</a></span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;"><a href="https://www.zhihu.com/question/45833619" target="_blank" rel="noopener">Scale-Invariant Feature Taransform</a></span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;"><a href="https://www.zhihu.com/question/45833619" target="_blank" rel="noopener">Histogram of Oriented Gradient</a></span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;"><a href="https://www.zhihu.com/question/45833619" target="_blank" rel="noopener">Local Binary Pattern</a></span><a href="#fnref:5" rev="footnote"> ↩</a></li><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">6.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/u013146742/article/details/52356560" target="_blank" rel="noopener">最邻近分类器</a></span><a href="#fnref:6" rev="footnote"> ↩</a></li><li id="fn:7"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">7.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/u013146742/article/details/52356560" target="_blank" rel="noopener">Linear Discriminant Analysis</a></span><a href="#fnref:7" rev="footnote"> ↩</a></li><li id="fn:8"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">8.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/liulina603/article/details/78676723" target="_blank" rel="noopener">Logistic Regression</a></span><a href="#fnref:8" rev="footnote"> ↩</a></li><li id="fn:9"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">9.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/liugan528/article/details/79448379" target="_blank" rel="noopener">Support Vector Machine</a></span><a href="#fnref:9" rev="footnote"> ↩</a></li><li id="fn:10"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">10.</span><span style="display: inline-block; vertical-align: top;"><a href="http://ww2.mathworks.cn/help/vision/ref/extracthogfeatures.html" target="_blank" rel="noopener">Extract histogram of oriented gradients (HOG) features</a></span><a href="#fnref:10" rev="footnote"> ↩</a></li><li id="fn:11"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">11.</span><span style="display: inline-block; vertical-align: top;"><a href="https://www.mathworks.com/help/stats/fitcecoc.html" target="_blank" rel="noopener">Fit multiclass models for support vector machines or other classifierscollapse</a></span><a href="#fnref:11" rev="footnote"> ↩</a></li></ol></div></div>
       </div>
       

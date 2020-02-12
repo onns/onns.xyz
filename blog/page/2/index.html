@@ -154,7 +154,7 @@
         </div>
     </header>
 
-    <div class="post-content"><h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3>
+    <div class="post-content"><h3 id="写在前面">写在前面</h3>
           <div class="read-more">
             <a href="/blog/2019/01/01/2019-movie-list/" class="read-more-link">Read more..</a>
           </div>
@@ -176,18 +176,26 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>该项目的目标是完成一个找到在不同的视角下拍摄的同一物体或场景中的相似之处的算法。我们主要实现的是一个简易版的SIFT算法。主要需要完成的是以下三个方面的内容：</p>
+    <div class="post-content"><h2 id="问题分析">问题分析</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>该项目的目标是完成一个找到在不同的视角下拍摄的同一物体或场景中的相似之处的算法。我们主要实现的是一个简易版的SIFT算法。主要需要完成的是以下三个方面的内容：</p>
 <ul>
-<li><p>实现一个Harris角点检测算法</p>
+<li>
+<p>实现一个Harris角点检测算法</p>
 </li>
-<li><p>实现一个类似SIFT算法的局部特征描述算法</p>
+<li>
+<p>实现一个类似SIFT算法的局部特征描述算法</p>
 </li>
-<li><p>实现一个基于<code>比率测试</code>或<code>最近邻距离比测试</code>的局部特征匹配算法</p>
+<li>
+<p>实现一个基于<code>比率测试</code>或<code>最近邻距离比测试</code>的局部特征匹配算法</p>
 </li>
 </ul>
-<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><p>以<code>NotreDame</code>数据为例，包含了两张同一物体的不同角度的图像，如<code>图1</code>所示。</p>
-<center><br><br><img src="//onns.xyz/blog/image/921919841_a30df938f2_o.jpg" alt="数据图像"><br><br>图1 数据图像<br></center>
-
+<h3 id="数据集分析">数据集分析</h3>
+<p>以<code>NotreDame</code>数据为例，包含了两张同一物体的不同角度的图像，如<code>图1</code>所示。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/921919841_a30df938f2_o.jpg" alt="数据图像"></p>
+<p>图1 数据图像</p>
+</center>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── NotreDame</span><br><span class="line">|   ├── 921919841_a30df938f2_o_to_4191453057_c86028ce1f_o.mat</span><br><span class="line">|   ├── 921919841_a30df938f2_o.jpg</span><br><span class="line">|   └── 4191453057_c86028ce1f_o.jpg</span><br><span class="line">├── ...</span><br></pre></td></tr></table></figure>
           <div class="read-more">
             <a href="/blog/2018/12/18/local-feature-lab-report/" class="read-more-link">Read more..</a>
@@ -210,7 +218,9 @@
         </div>
     </header>
 
-    <div class="post-content"><h1 id="用-GA-算法求解旅行商问题"><a href="#用-GA-算法求解旅行商问题" class="headerlink" title="用 GA 算法求解旅行商问题"></a>用 GA 算法求解旅行商问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>旅行商问题(Travelling Salesman Problem, 简记 TSP, 亦称货郎担问题): 设有 34 个城市及其对应的经纬度坐标, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短.</p>
+    <div class="post-content"><h1>用 GA 算法求解旅行商问题</h1>
+<h2 id="问题描述">问题描述</h2>
+<p>旅行商问题(Travelling Salesman Problem, 简记 TSP, 亦称货郎担问题): 设有 34 个城市及其对应的经纬度坐标, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短.</p>
           <div class="read-more">
             <a href="/blog/2018/11/23/2018-computational-intelligence-homework-no.3/" class="read-more-link">Read more..</a>
           </div>
@@ -232,8 +242,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>该实验的目标是编写一个图像过滤功能的代码，并使用它来创建混合图像。混合图像是静态图像，其视觉效果随观察距离的变化而变化。基本思想是人的感知对于<code>高频率</code>更加敏感，但是在远处只能看到信号的<code>低频(平滑)</code>部分。通过将一个图像的高频部分与另一个图像的低频部分混合，可以获得混合图像，从而在不同距离处产生不同的视觉效果。实验数据集在<code>proj1.rar</code>中。</p>
-<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><p>实验数据集如下所示，由十张不同的<code>bmp</code>图像构成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── bicycle.bmp</span><br><span class="line">├── bird.bmp</span><br><span class="line">├── cat.bmp</span><br><span class="line">├── dog.bmp</span><br><span class="line">├── einstein.bmp</span><br><span class="line">├── fish.bmp</span><br><span class="line">├── marilyn.bmp</span><br><span class="line">├── motorcycle.bmp</span><br><span class="line">├── plane.bmp</span><br><span class="line">└── submarine.bmp</span><br></pre></td></tr></table></figure></p>
+    <div class="post-content"><h2 id="问题分析">问题分析</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>该实验的目标是编写一个图像过滤功能的代码，并使用它来创建混合图像。混合图像是静态图像，其视觉效果随观察距离的变化而变化。基本思想是人的感知对于<code>高频率</code>更加敏感，但是在远处只能看到信号的<code>低频(平滑)</code>部分。通过将一个图像的高频部分与另一个图像的低频部分混合，可以获得混合图像，从而在不同距离处产生不同的视觉效果。实验数据集在<code>proj1.rar</code>中。</p>
+<h3 id="数据集分析">数据集分析</h3>
+<p>实验数据集如下所示，由十张不同的<code>bmp</code>图像构成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── bicycle.bmp</span><br><span class="line">├── bird.bmp</span><br><span class="line">├── cat.bmp</span><br><span class="line">├── dog.bmp</span><br><span class="line">├── einstein.bmp</span><br><span class="line">├── fish.bmp</span><br><span class="line">├── marilyn.bmp</span><br><span class="line">├── motorcycle.bmp</span><br><span class="line">├── plane.bmp</span><br><span class="line">└── submarine.bmp</span><br></pre></td></tr></table></figure>
           <div class="read-more">
             <a href="/blog/2018/11/11/hybrid-images-lab-report/" class="read-more-link">Read more..</a>
           </div>
@@ -255,7 +269,9 @@
         </div>
     </header>
 
-    <div class="post-content"><h1 id="用SA算法求解旅行商问题"><a href="#用SA算法求解旅行商问题" class="headerlink" title="用SA算法求解旅行商问题"></a>用SA算法求解旅行商问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>旅行商问题（Travelling Salesman Problem, 简记TSP, 亦称货郎担问题): 设有n个城市和距离矩阵D=[d<sub>ij</sub>], 其中d<sub>ij</sub>表示城市i到城市j的距离, i, j=1, 2 … n, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短. </p>
+    <div class="post-content"><h1>用SA算法求解旅行商问题</h1>
+<h2 id="问题描述">问题描述</h2>
+<p>旅行商问题（Travelling Salesman Problem, 简记TSP, 亦称货郎担问题): 设有n个城市和距离矩阵D=[d<sub>ij</sub>], 其中d<sub>ij</sub>表示城市i到城市j的距离, i, j=1, 2 … n, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短.</p>
           <div class="read-more">
             <a href="/blog/2018/10/31/2018-computational-intelligence-homework-no.2/" class="read-more-link">Read more..</a>
           </div>
@@ -277,8 +293,11 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在给定的Yale人脸数据集上进行人脸识别. 输入一张待测试的人脸图片, 判断其属于数据库中哪个人的脸. </p>
-<h3 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h3><p>Yale人脸数据集中包含有165张<code>bmp</code>格式的黑白人脸图像, 图像大小为<code>100*100</code>像素, 这些图像分别属于15个人, 每人11张图像.</p>
+    <div class="post-content"><h2 id="问题分析">问题分析</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>在给定的Yale人脸数据集上进行人脸识别. 输入一张待测试的人脸图片, 判断其属于数据库中哪个人的脸.</p>
+<h3 id="数据集分析">数据集分析</h3>
+<p>Yale人脸数据集中包含有165张<code>bmp</code>格式的黑白人脸图像, 图像大小为<code>100*100</code>像素, 这些图像分别属于15个人, 每人11张图像.</p>
           <div class="read-more">
             <a href="/blog/2018/10/16/face-recognition-lab-report/" class="read-more-link">Read more..</a>
           </div>
@@ -300,7 +319,7 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>
+    <div class="post-content"><h2 id="前言">前言</h2>
           <div class="read-more">
             <a href="/blog/2018/10/04/bim-preview/" class="read-more-link">Read more..</a>
           </div>
@@ -322,7 +341,8 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>hexo有很多很好用的插件, 可以优化写博客的体验, 尤其是对于一些数学公示或图表的渲染.</p>
+    <div class="post-content"><h2 id="介绍">介绍</h2>
+<p>hexo有很多很好用的插件, 可以优化写博客的体验, 尤其是对于一些数学公示或图表的渲染.</p>
           <div class="read-more">
             <a href="/blog/2018/10/03/hexo-plugin-list/" class="read-more-link">Read more..</a>
           </div>
@@ -344,7 +364,7 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>
+    <div class="post-content"><h2 id="前言">前言</h2>
           <div class="read-more">
             <a href="/blog/2018/10/03/linux-command-list/" class="read-more-link">Read more..</a>
           </div>
@@ -366,7 +386,8 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p>
+    <div class="post-content"><h2 id="问题描述">问题描述</h2>
+<p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p>
           <div class="read-more">
             <a href="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/" class="read-more-link">Read more..</a>
           </div>

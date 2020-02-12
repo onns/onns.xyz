@@ -159,19 +159,37 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装git"><span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取shadowsocksr"><span class="toc-text">获取shadowsocksr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建配置文件"><span class="toc-text">创建配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome插件推荐"><span class="toc-text">Chrome插件推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SwitchyOmega"><span class="toc-text">SwitchyOmega</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Google-Input-Tools"><span class="toc-text">Google Input Tools</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>新配置的电脑需要下载Google的插件和Google的搜索功能, 所以要配置代理. 记录一下.</p>
+  </div><div class="post-content"><h2 id="前言">前言</h2>
+<p>新配置的电脑需要下载Google的插件和Google的搜索功能, 所以要配置代理. 记录一下.</p>
 <a id="more"></a>
-<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git -y</span><br></pre></td></tr></table></figure>
-<h3 id="获取shadowsocksr"><a href="#获取shadowsocksr" class="headerlink" title="获取shadowsocksr"></a>获取shadowsocksr</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr-backup/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr/shadowsocks</span><br></pre></td></tr></table></figure>
-<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+<h3 id="安装git">安装git</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git -y</span><br></pre></td></tr></table></figure>
+<h3 id="获取shadowsocksr">获取shadowsocksr</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr-backup/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr/shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="创建配置文件">创建配置文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="attr">"server_ipv6"</span>: <span class="string">"::"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8000</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"udp_timeout"</span>: <span class="number">60</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="attr">"protocol"</span>: <span class="string">"auth_aes128_md5"</span>,</span><br><span class="line">    <span class="attr">"protocol_param"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"obfs"</span>:<span class="string">"http_simple"</span>,</span><br><span class="line">    <span class="attr">"obfs_param"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python local.py -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>此时代理已经运行在了127.0.0.1:1080, 将需要代理的网址代理到此端口即可.</p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="Chrome插件推荐"><a href="#Chrome插件推荐" class="headerlink" title="Chrome插件推荐"></a>Chrome插件推荐</h3><h4 id="SwitchyOmega"><a href="#SwitchyOmega" class="headerlink" title="SwitchyOmega"></a><a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en" target="_blank" rel="noopener">SwitchyOmega</a></h4><p>chrome中通过SwitchyOmega可以将访问的网址代理到前面的shadowsocksr客户端访问.<br>代理设置:<br>协议 <code>SOCKS5</code><br>服务器 <code>127.0.0.1</code><br>端口 <code>1080</code>  </p>
-<p>也可以根据地址选择自动切换代理.<br>代理设置:<br>路由列表格式 <code>AutoProxy</code><br>路由列表地址 <code>https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</code>  </p>
+<h3 id="运行">运行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python local.py -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<h3 id="说明">说明</h3>
+<p>此时代理已经运行在了127.0.0.1:1080, 将需要代理的网址代理到此端口即可.</p>
+<h2 id="附录">附录</h2>
+<h3 id="Chrome插件推荐">Chrome插件推荐</h3>
+<h4 id="SwitchyOmega"><a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en" target="_blank" rel="noopener">SwitchyOmega</a></h4>
+<p>chrome中通过SwitchyOmega可以将访问的网址代理到前面的shadowsocksr客户端访问.<br>
+代理设置:<br>
+协议 <code>SOCKS5</code><br>
+服务器 <code>127.0.0.1</code><br>
+端口 <code>1080</code></p>
+<p>也可以根据地址选择自动切换代理.<br>
+代理设置:<br>
+路由列表格式 <code>AutoProxy</code><br>
+路由列表地址 <code>https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</code></p>
 <p>应用即可.</p>
-<h4 id="Google-Input-Tools"><a href="#Google-Input-Tools" class="headerlink" title="Google Input Tools"></a><a href="https://chrome.google.com/webstore/detail/google-input-tools/mclkkofklkfljcocdinagocijmpgbhab?hl=en" target="_blank" rel="noopener">Google Input Tools</a></h4><p>chrome中可以使用的输入法, 支持多种语言和个人词库.</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<h4 id="Google-Input-Tools"><a href="https://chrome.google.com/webstore/detail/google-input-tools/mclkkofklkfljcocdinagocijmpgbhab?hl=en" target="_blank" rel="noopener">Google Input Tools</a></h4>
+<p>chrome中可以使用的输入法, 支持多种语言和个人词库.</p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
 <li><a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki" target="_blank" rel="noopener">Python client setup (Mult language)</a></li>
 <li><a href="https://www.switchyomega.com/settings.html" target="_blank" rel="noopener">配置 - SwitchyOmega - 轻松快捷地管理和切换多个代理设置</a></li>
 </ul>

@@ -159,11 +159,21 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-text">方法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法三"><span class="toc-text">方法三</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在mysql的表中某一个键值是由<code>,</code>分隔的多个<code>id</code>组成的字符串, 例如: <code>1,2,3,4,5,6,7,8</code>.<br>现在需要搜索所有拥有<code>id</code>为<code>3</code>的行, 例如: <code>1,2,3,4</code>, <code>1,2,3</code>, <code>3,4,5,6</code>.</p>
+  </div><div class="post-content"><h2 id="问题描述">问题描述</h2>
+<p>在mysql的表中某一个键值是由<code>,</code>分隔的多个<code>id</code>组成的字符串, 例如: <code>1,2,3,4,5,6,7,8</code>.<br>
+现在需要搜索所有拥有<code>id</code>为<code>3</code>的行, 例如: <code>1,2,3,4</code>, <code>1,2,3</code>, <code>3,4,5,6</code>.</p>
 <a id="more"></a>
-<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>这是我自己想到的最笨的方法, 就是将数据都取出之后再查找, 效率肯定很低.<br>不推荐.</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>用模糊搜索, 但是假如匹配<code>id</code>为<code>3</code>的字段, 也同时会匹配<code>id</code>为<code>31</code>或<code>13</code>的字段.<br>解决方案是将字符串头尾添加<code>,</code>, 这样匹配<code>,3,</code>即可.只是不够优雅.<br>不推荐.</p>
-<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>mysql提供了内置的函数<code>FIND_IN_SET(str,strlist)</code>,<br>只需<code>find_in_set(&#39;3&#39;, user_id_list)</code>即可.<br>推荐.</p>
+<h3 id="方法一">方法一</h3>
+<p>这是我自己想到的最笨的方法, 就是将数据都取出之后再查找, 效率肯定很低.<br>
+不推荐.</p>
+<h3 id="方法二">方法二</h3>
+<p>用模糊搜索, 但是假如匹配<code>id</code>为<code>3</code>的字段, 也同时会匹配<code>id</code>为<code>31</code>或<code>13</code>的字段.<br>
+解决方案是将字符串头尾添加<code>,</code>, 这样匹配<code>,3,</code>即可.只是不够优雅.<br>
+不推荐.</p>
+<h3 id="方法三">方法三</h3>
+<p>mysql提供了内置的函数<code>FIND_IN_SET(str,strlist)</code>,<br>
+只需<code>find_in_set('3', user_id_list)</code>即可.<br>
+推荐.</p>
 <p>谢谢群里的大神.</p>
 
       </div>
