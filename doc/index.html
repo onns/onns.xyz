@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doc</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/sheets-of-paper-a4.css">
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"></script>
+</head>
+
+<body class="document">
+	<div class="page" id="content" contenteditable="true">
+	</div>
+	<script>
+		// 获取当前url
+		var url = window.location.href.slice(window.location.href.indexOf('/doc/'));
+		console.log(url);
+		// setInterval(function(){
+		var docEle = document.getElementById('content');
+		var content = '';
+		var objectId = '';
+		// 	console.log(content);
+		// },1000);
+
+		AV.init({
+			appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+			appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+			serverURLs: "https://jire5lrq.lc-cn-n1-shared.com"
+		});
+
+		var query = new AV.Query('DocSync');
+		query.equalTo('url', url);
+		query.find().then(function (docsync) {
+			// 拉取远端结果
+			// console.log(docsync);
+			if (docsync.length == 1) {
+				docEle.innerHTML = docsync[0].attributes.content;
+				content = docsync[0].attributes.content;
+				objectId = docsync[0].id;
+			}
+		});
+
+		function update() {
+			if (objectId == '') {
+				// 声明 class
+				var DocSync = AV.Object.extend('DocSync');
+
+				// 构建对象
+				var docsync = new DocSync();
+
+				// 为属性赋值
+				docsync.set('url', url);
+				docsync.set('content', docEle.innerHTML);
+
+				// 将对象保存到云端
+				docsync.save().then(function (docsync) {
+					// 成功保存之后，执行其他逻辑
+					console.log('保存成功。objectId：' + docsync.id);
+					objectId = docsync.id;
+				}, function (error) {
+					// 异常处理
+					console.log(error);
+				});
+			} else {
+				var docsync = AV.Object.createWithoutData('DocSync', objectId);
+				docsync.set('content', docEle.innerHTML);
+				docsync.save().then(function (docsync) {
+					console.log('更新成功。');
+				}, function (error) {
+					console.log(error);
+				});
+			}
+			content = docEle.innerHTML;
+		}
+
+		setInterval(function () {
+			if (docEle.innerHTML != content && docEle.innerHTML != '') {
+				update();
+			}
+		}, 1000 * 10);
+	</script>
+</body>
+
+</html>
