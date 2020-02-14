@@ -160,6 +160,7 @@
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑器"><span class="toc-text">编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据存储"><span class="toc-text">数据存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取当前url参数"><span class="toc-text">获取当前url参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉取远端数据"><span class="toc-text">拉取远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新远端数据"><span class="toc-text">更新远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新策略"><span class="toc-text">更新策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo"><span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TODO"><span class="toc-text">TODO</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>经常会有这样一种需求：我需要把一段文字从一个设备发送到另一个设备，虽然确实会有很多解决办法，比如登陆QQ、微信，然后传过去，但是这些都<code>需要繁琐的登陆步骤</code>，并且有些时候你需要发送的设备是一台<code>不可信的</code>、<code>你不愿意在上面暴露自己账号密码</code>的设备，所以想弄一个无需登陆的小Demo，花了四个小时，效果还不错。</p>
+<a id="more"></a>
 <h2 id="准备工作">准备工作</h2>
 <h3 id="编辑器">编辑器</h3>
 <p>网页访问应该是最方便快捷的方式了，所以这个小demo就依托 <code>web</code>。解决了框架的问题，下一个需要考虑的问题是选择什么样的前端编辑器。</p>
@@ -197,7 +198,7 @@
 <li>编辑器本身支持很多功能，需要相关组件来丰富。</li>
 <li>由于接口调用限制，数据的远端拉取并未定时执行而只会在网页加载时执行一次，可以有更多合理的策略。</li>
 <li>更新策略也可以更智能，比如如果新增文字数大于<code>阈值</code>则马上更新。</li>
-<li>手机端UI不友好</li>
+<li>手机端UI不友好。</li>
 </ul>
 <p>如果有建议欢迎留言～</p>
 
@@ -209,7 +210,12 @@
             <a href="/blog/tags/serverless/">serverless</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/02/11/java-notes-2/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/02/14/java-notes-3/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Java学习笔记（三）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/02/11/java-notes-2/">
         <span class="next-text nav-default">Java学习笔记（二）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>

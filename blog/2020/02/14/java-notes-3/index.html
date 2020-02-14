@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Java学习笔记（三）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/14/java-notes-3/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Java学习笔记（三） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Java学习笔记（三）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-14
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/14/java-notes-3/" data-title="Java学习笔记（三）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+<h2 id="继承">继承</h2>
+<a id="more"></a>
+<ul>
+<li>
+<p>在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中。</p>
+</li>
+<li>
+<p>子类继承的方法不能直接地访问超类的私有域，可以使用 <code>super</code> 调用超类的方法来重写子类的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 <code>super</code> 调用构造器的语句必须是子类构造器的第一条语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, <span class="keyword">double</span> salary, <span class="keyword">int</span> year, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> month, <span class="keyword">int</span> day)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>(name, salary, year, month, day);</span><br><span class="line">  <span class="comment">// 调用超类 Employee 中含有 n、s、year month </span></span><br><span class="line">  <span class="comment">// 和 day 参数的构造器</span></span><br><span class="line">  bonus = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则 Java 编译器将报告错误。</p>
+</li>
+<li>
+<p><code>super</code> 关键字的两个用途:</p>
+<ol>
+<li>调用超类的方法。</li>
+<li>调用超类的构造器。</li>
+</ol>
+</li>
+<li>
+<p><strong>多态（polymorphism）</strong>：一个对象变量可以指示多种实际类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个例子中，变量 staff[0] 与 boss 引用同一个对象。</span></span><br><span class="line"><span class="comment">// 但编译器将 staff[0] 看成 Employee 对象。 这意味着，</span></span><br><span class="line"><span class="comment">// 可以这样调用</span></span><br><span class="line">boss.setBonus(<span class="number">5000</span>); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不能这样调用</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>); <span class="comment">// Error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是因为 staff[0] 声明的类型是 Employee，</span></span><br><span class="line"><span class="comment">// 而 setBonus 不是 Employee 类的方法。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>动态绑定（dynamic binding）</strong>：在运行时能够自动地选择调用哪个方法。</p>
+</li>
+<li>
+<p>可以将一个子类的对象赋给超类变量，但不能将一个超类的引用赋给子类变量。</p>
+</li>
+<li>
+<p>假设要调用 <code>x.f(args)</code>，隐式参数 <code>x</code> 声明为类 <code>C</code> 的一个对象。</p>
+<ol>
+<li>编译器査看对象的声明类型和方法名。编译器将会一一列举所有 <code>C</code> 类中名为 <code>f</code> 的方法和其超类中访问属性为 <code>public</code> 且名为 <code>f</code> 的方法（超类的私有方法不可访问）。</li>
+<li>编译器将査看调用方法时提供的参数类型。</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器将可以准确地知道应该调用哪个方法，我们将这种调用方式称 <code>为静态绑定(static binding)</code>。</li>
+<li>当程序运行，并且采用动态绑定调用方法时，虚拟机一定调用与 <code>x</code> 所引用对象的实际类型最合适的那个类的方法。</li>
+</ol>
+</li>
+<li>
+<p>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个方法表(method table)，其中列出了所有方法的签名和实际调用的方法。</p>
+</li>
+<li>
+<p>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+</li>
+<li>
+<p>不允许扩展的类被称为 <code>final</code> 类。</p>
+</li>
+<li>
+<p><code>final</code> 类中的所有方法自动地成为 <code>final</code> 方法。</p>
+</li>
+<li>
+<p>如果将一个类声明为 <code>final</code>， 只有其中的方法自动地成为 <code>final</code>， 而不包括域。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>进行类型转换的唯一原因是：在暂时忽视对象的实际类型之后，使用对象的全部功能。</p>
+</li>
+<li>
+<p>在进行类型转换之前，先查看一下是否能够成功地转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>只能在继承层次内进行类型转换。</p>
+</li>
+<li>
+<p>在将超类转换成子类之前，应该使用 <code>instanceof</code> 进行检查。</p>
+</li>
+<li>
+<p>在一般情况下，应该尽量少用类型转换和 <code>instanceof</code> 运算符。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>包含一个或多个抽象方法的类本身必须被声明为抽象的。</p>
+</li>
+<li>
+<p>抽象方法充当着占位的角色，它们的具体实现在子类中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  . . .</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>抽象类可以包含具体数据和具体方法。</p>
+<blockquote>
+<p>许多程序员认为，在抽象类中不能包含具体方法。建议尽量将通用的域和方法（不管是否是抽象的）放在超类（不管是否是抽象类）中。</p>
+</blockquote>
+</li>
+<li>
+<p>类即使不含抽象方法，也可以将类声明为抽象类。</p>
+</li>
+<li>
+<p>抽象类不能被实例化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Person(<span class="string">"Vinee Vu"</span>) <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>可以定义一个抽象类的对象变量，但是它只能引用非抽象子类的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = <span class="keyword">new</span> Student(<span class="string">"Vinee Vu"</span>, <span class="string">"Economics"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Java 用于控制可见性的 4 个访问修饰符：</p>
+<ol>
+<li>仅对本类可见： private。</li>
+<li>对所有类可见： public。</li>
+<li>对本包和所有子类可见： protected。</li>
+<li>对本包可见： 不需要修饰符。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Object 类是 Java 中所有类的始祖，在 Java 中每个类都是由它扩展而来的。</li>
+<li>可以使用 Object 类型的变量引用任何类型的对象。</li>
+</ul>
+<hr>
+<p>编写一个完美的 equals 方法的建议：</p>
+<ol>
+<li>显式参数命名为 otherObject，稍后需要将它转换成另一个叫做 other 的变量。</li>
+<li>检测 this 与 otherObject 是否引用同一个对象：</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span> = otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<p>这条语句只是一个优化。实际上，这是一种经常采用的形式。因为计算这个等式要比一个一个地比较类中的域所付出的代价小得多。<br>
+3. 检测 otherObject 是否为 null ,如果为 null ，返回 false。这项检测是很必要的。</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (otherObject = <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>比较 this 与 otherObject 是否属于同一个类。如果 equals 的语义在每个子类中有所改变，就使用 getClass 检测：</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<p>如果所有的子类都拥有统一的语义，就使用 instanceof 检测:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>将 otherObject 转换为相应的类类型变量：</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName other = (ClassName) otherObject</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>现在开始对所有需要比较的域进行比较了。使用 <code>==</code> 比较基本类型域，使用equals比较对象域。如果所有的域都匹配，就返回true；否则返回false。</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 == other.field1</span><br><span class="line">  &amp;&amp; Objects.equals(field2, other.field2)</span><br><span class="line">  &amp;&amp; . . . ;</span><br></pre></td></tr></table></figure>
+<p>如果在子类中重新定义equals, 就要在其中包含调用 super.equals(other)。</p>
+<hr>
+<ul>
+<li>只要对象与一个字符串通过操作符 “+” 连接起来，Java 编译就会自动地调用 <code>toString</code> 方法，以便获得这个对象的字符串描述。</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>范型数组列表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>不必指出数组的大小。</p>
+</li>
+<li>
+<p>使用 add 将任意多的元素添加到数组中。</p>
+</li>
+<li>
+<p>使用 size() 替代 length 计算元素的数目。</p>
+</li>
+<li>
+<p>使用 a.get(i) 替代 a[i] 访问元素。</p>
+</li>
+<li>
+<p>一旦能够确认数组列表的大小不再发生变化，就可以调用 <code>trimToSize</code> 方法。这个方法将存储区域的大小调整为当前元素数量所需要的存储空间数目。垃圾回收器将回收多余的存储空间。</p>
+</li>
+<li>
+<p>一旦整理了数组列表的大小，添加新元素就需要花时间再次移动存储块， 所以应该在确认不会添加任何元素时，再调用 <code>trimToSize</code>。</p>
+</li>
+</ul>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在比较两个枚举类型的值时，永远不需要调用 <code>equals</code>, 而直接使用 <code>==</code> 就可以了。</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p>Object 类中的 <code>getClass()</code> 方法将会返回一个 <code>Class</code> 类型的实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">...</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>可以调用静态方法 <code>forName</code> 获得类名对应的 <code>Class</code> 对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">Class cl = Class.forName(className);</span><br><span class="line"><span class="comment">// 如果类名保存在字符串中，并可在运行中改变，</span></span><br><span class="line"><span class="comment">// 就可以使用这个方法。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果 <code>T</code> 是任意的 Java 类型（或 void 关键字），<code>T.class</code> 将代表匹配的类对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = Random.class; <span class="comment">// if you import java.util.*;</span></span><br><span class="line">Class cl2 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl3 = Double[].class;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li>继承的设计技巧
+<ol>
+<li>将公共操作和域放在超类</li>
+<li>不要使用受保护的域</li>
+<li>使用继承实现 <code>is-a</code> 关系</li>
+<li>除非所有继承的方法都有意义，否则不要使用继承</li>
+<li>在覆盖方法时，不要改变预期的行为</li>
+<li>使用多态，而非类型信息</li>
+<li>不要过多地使用反射</li>
+</ol>
+</li>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">其实没太懂。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/note/">note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/02/13/online-doc/">
+        <span class="next-text nav-default">文档同步</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

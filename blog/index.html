@@ -139,6 +139,29 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/14/java-notes-3/">Java学习笔记（三）</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-14
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/14/java-notes-3/" data-title="Java学习笔记（三）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+<h2 id="继承">继承</h2>
+          <div class="read-more">
+            <a href="/blog/2020/02/14/java-notes-3/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/02/13/online-doc/">文档同步</a>
         </h1>
 
@@ -155,47 +178,9 @@
     </header>
 
     <div class="post-content"><p>经常会有这样一种需求：我需要把一段文字从一个设备发送到另一个设备，虽然确实会有很多解决办法，比如登陆QQ、微信，然后传过去，但是这些都<code>需要繁琐的登陆步骤</code>，并且有些时候你需要发送的设备是一台<code>不可信的</code>、<code>你不愿意在上面暴露自己账号密码</code>的设备，所以想弄一个无需登陆的小Demo，花了四个小时，效果还不错。</p>
-<h2 id="准备工作">准备工作</h2>
-<h3 id="编辑器">编辑器</h3>
-<p>网页访问应该是最方便快捷的方式了，所以这个小demo就依托 <code>web</code>。解决了框架的问题，下一个需要考虑的问题是选择什么样的前端编辑器。</p>
-<p>最初的设想是采用一些开源的 <code>markdown</code> 编辑器，毕竟 <code>markdown</code> 是我最经常编写的文本样式了，也确实有一些很好看的编辑器：</p>
-<ul>
-<li><a href="https://github.com/lepture/editor" target="_blank" rel="noopener">https://github.com/lepture/editor</a></li>
-<li><a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank" rel="noopener">https://github.com/sparksuite/simplemde-markdown-editor</a></li>
-</ul>
-<p>但这背离了我的初衷，我要做的不是一个在线的编辑器，而仅仅是一个可以存放文本的编辑器，markdown的解析和预览需要很大的工作量，且样式不一定是我喜欢的。</p>
-<p>最终我选择一款<a href="http://www.htmleaf.com/css3/ui-design/201609023948.html" target="_blank" rel="noopener">纯CSS3制作可编辑的微软Word样式文档</a>，他的<a href="https://github.com/delight-im/HTML-Sheets-of-Paper" target="_blank" rel="noopener">github地址</a>。</p>
-<h3 id="数据存储">数据存储</h3>
-<p>我的网站挂在GitHub上，只有前端没有服务器，如果仅仅只是为了一个小demo就迁移到服务器上，未免有些小题大做。<br>
-我的博客上其实就有基于后端的内容，用的是<a href="https://leancloud.cn/" target="_blank" rel="noopener">leancloud</a>的服务，免费版的api限制是 <code>3万次/天</code>，对于个人日常使用完全足够。故本demo的数据存储与同步也同样使用 <code>leancloud</code>，相关的文档见<a href="https://leancloud.cn/docs/leanstorage_guide-js.html" target="_blank" rel="noopener">数据存储开发指南 · JavaScript</a>。</p>
-<h2 id="具体实现">具体实现</h2>
-<p>这里只考虑js逻辑，其它详见代码。</p>
-<h3 id="获取当前url参数">获取当前url参数</h3>
-<p>在线文档当然不能只有一个可编辑的页面，所以我的设想是获取 <code>url</code> 上的额外参数，以此作为文档的<strong>唯一ID</strong>，这样就可以有无数个文档可以存放内容，比如 <code>/doc/?1</code> 和 <code>/doc/?12</code> 就是两个不同的文档。<br>
-而本身的域名可能发生改变，为了方便拓展， <code>url</code> 参数应该是去掉<code>协议（https://）</code>、<code>域名（xxxxx.com）</code>和<code>端口号（80）</code>后的结果。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前url</span></span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">window</span>.location.href.slice(<span class="built_in">window</span>.location.href.indexOf(<span class="string">'/doc/'</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="拉取远端数据">拉取远端数据</h3>
-<p>页面第一次加载时应该拉取远端的数据，来恢复文档内容（如果远端存在备份内容）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">AV.init(&#123;</span><br><span class="line">  appId: <span class="string">"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz"</span>,</span><br><span class="line">  appKey: <span class="string">"xxxxxxxxxxxxxxxxx"</span>,</span><br><span class="line">  serverURLs: <span class="string">"https://jire5lrq.lc-cn-n1-shared.com"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> query = <span class="keyword">new</span> AV.Query(<span class="string">'DocSync'</span>);</span><br><span class="line">query.equalTo(<span class="string">'url'</span>, url);</span><br><span class="line">query.find().then(<span class="function"><span class="keyword">function</span> (<span class="params">docsync</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 拉取远端结果</span></span><br><span class="line">  <span class="keyword">if</span> (docsync.length == <span class="number">1</span>) &#123;</span><br><span class="line">    docEle.innerHTML = docsync[<span class="number">0</span>].attributes.content;</span><br><span class="line">    content = docsync[<span class="number">0</span>].attributes.content;</span><br><span class="line">    objectId = docsync[<span class="number">0</span>].id;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="更新远端数据">更新远端数据</h3>
-<p>数据更新的策略是，判断当前页面在远端是否有字段保留，如果有就更新字段即可，否则需要新增一条记录保存当前 <code>url</code> 的内容。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (objectId == <span class="string">''</span>) &#123;</span><br><span class="line">    <span class="comment">// 声明 class</span></span><br><span class="line">    <span class="keyword">var</span> DocSync = AV.Object.extend(<span class="string">'DocSync'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建对象</span></span><br><span class="line">    <span class="keyword">var</span> docsync = <span class="keyword">new</span> DocSync();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为属性赋值</span></span><br><span class="line">    docsync.set(<span class="string">'url'</span>, url);</span><br><span class="line">    docsync.set(<span class="string">'content'</span>, docEle.innerHTML);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将对象保存到云端</span></span><br><span class="line">    docsync.save().then(<span class="function"><span class="keyword">function</span> (<span class="params">docsync</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 成功保存之后，执行其他逻辑</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'保存成功。objectId：'</span> + docsync.id);</span><br><span class="line">      objectId = docsync.id;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 异常处理</span></span><br><span class="line">      <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> docsync = AV.Object.createWithoutData(<span class="string">'DocSync'</span>, objectId);</span><br><span class="line">    docsync.set(<span class="string">'content'</span>, docEle.innerHTML);</span><br><span class="line">    docsync.save().then(<span class="function"><span class="keyword">function</span> (<span class="params">docsync</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'更新成功。'</span>);</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  content = docEle.innerHTML;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="更新策略">更新策略</h3>
-<p>我设置的更新的策略是 <code>10s</code> 自动保存一次。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (docEle.innerHTML != content &amp;&amp; docEle.innerHTML != <span class="string">''</span>) &#123;</span><br><span class="line">    update();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="number">1000</span> * <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="Demo">Demo</h2>
-<p>详见<a href="https://onns.xyz/doc/">https://onns.xyz/doc/</a>。</p>
-<h2 id="TODO">TODO</h2>
-<ul>
-<li>因为是用 <code>leancloud</code> 服务，不清楚单个字段的大小限制，可能出现无法保存或无法完整保存的情况，需要编辑器加以限制。</li>
-<li>一些诸如保存时间、字数大小等控制信息的显示。</li>
-<li>编辑器本身支持很多功能，需要相关组件来丰富。</li>
-<li>由于接口调用限制，数据的远端拉取并未定时执行而只会在网页加载时执行一次，可以有更多合理的策略。</li>
-<li>更新策略也可以更智能，比如如果新增文字数大于<code>阈值</code>则马上更新。</li>
-<li>手机端UI不友好</li>
-</ul>
-<p>如果有建议欢迎留言～</p>
-
+          <div class="read-more">
+            <a href="/blog/2020/02/13/online-doc/" class="read-more-link">Read more..</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
@@ -414,29 +399,6 @@
 <li>VLC</li>
 </ul>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2019/08/07/solution-for-teamviewer-commercial-use/">Teamviewer商用解决方案</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-08-07
-        </span><span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits" data-url="/blog/2019/08/07/solution-for-teamviewer-commercial-use/" data-title="Teamviewer商用解决方案">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言">前言</h2>
-<p>测试了很多远程连接软件，发现还是teamviewer好用，但是莫名其妙被检测成商业用户，不能使用，记录解决方案。</p>
-          <div class="read-more">
-            <a href="/blog/2019/08/07/solution-for-teamviewer-commercial-use/" class="read-more-link">Read more..</a>
-          </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>
