@@ -22,6 +22,7 @@
 		var docEle = document.getElementById('content');
 		var content = '';
 		var objectId = '';
+		var canEdit = true;
 		// 	console.log(content);
 		// },1000);
 
@@ -40,6 +41,7 @@
 				docEle.innerHTML = docsync[0].attributes.content;
 				content = docsync[0].attributes.content;
 				objectId = docsync[0].id;
+				canEdit = docsync[0].attributes.canEdit;
 			}
 		});
 
@@ -77,7 +79,7 @@
 		}
 
 		setInterval(function () {
-			if (docEle.innerHTML != content && docEle.innerHTML != '') {
+			if (docEle.innerHTML != content && docEle.innerHTML != '' && canEdit) {
 				update();
 			}
 		}, 1000 * 10);
