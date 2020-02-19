@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="excel字符串查找"><meta name="keywords" content="visual basic for applications, macro, LCS, excel, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/19/find-string-in-excel/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>excel字符串查找 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">excel字符串查找
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-19
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/19/find-string-in-excel/" data-title="excel字符串查找">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最长公共子序列"><span class="toc-text">最长公共子序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建查询字符串"><span class="toc-text">构建查询字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历并标记"><span class="toc-text">遍历并标记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整代码"><span class="toc-text">完整代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>经常会有在excel查找多个字符串的需求，比如在一个大excel表里找几门课，之前一直是导出成 <code>csv</code> 然后对文本文档进行操作，这样最终还要导回 <code>excel</code>，今天花费3、4个小时学了下vb，做了一个宏，直接在excel上操作。</p>
+<a id="more"></a>
+<h2 id="最长公共子序列">最长公共子序列</h2>
+<p>逻辑是将课程名与要查找的课程名进行<code>最长公共子序列</code>匹配，达到阈值则算找到相应的课程。</p>
+<p>所用到的算法可以参考：<br>
+<a href="https://blog.csdn.net/zjxxyz123/article/details/80277721" target="_blank" rel="noopener">最长公共子序列（Longest Common Subsequence）问题</a></p>
+<p>代码copy自 <a href="https://thydzik.com/longest-common-subsequence-implemented-in-vba-visual-basic-for-applications/" target="_blank" rel="noopener">Longest Common Subsequence implemented in VBA (Visual Basic for Applications)</a>，做了简单的修改。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Public</span> <span class="keyword">Function</span> max(<span class="keyword">ByRef</span> a <span class="keyword">As</span> <span class="built_in">Long</span>, <span class="keyword">ByRef</span> b <span class="keyword">As</span> <span class="built_in">Long</span>) <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    <span class="keyword">If</span> a &gt;= b <span class="keyword">Then</span></span><br><span class="line">        max = a</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        max = b</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Function</span> longestCommonSubsequence(<span class="keyword">ByRef</span> string1 <span class="keyword">As</span> <span class="built_in">String</span>, <span class="keyword">ByRef</span> string2 <span class="keyword">As</span> <span class="built_in">String</span>) <span class="keyword">As</span> <span class="built_in">Double</span></span><br><span class="line">    <span class="keyword">If</span> string1 = vbNullString <span class="keyword">Or</span> string2 = vbNullString <span class="keyword">Then</span></span><br><span class="line">        MsgBox <span class="string">"出错"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Function</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">Dim</span> num() <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">'define the array, note rows of zeros get added to front automatically</span></span><br><span class="line">    <span class="keyword">ReDim</span> num(Len(string1), Len(string2))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">Dim</span> i <span class="keyword">As</span> <span class="built_in">Long</span>, j <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> Len(string1)</span><br><span class="line">        <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> Len(string2)</span><br><span class="line">            <span class="keyword">If</span> <span class="keyword">Mid</span>$(string1, i, <span class="number">1</span>) = <span class="keyword">Mid</span>$(string2, j, <span class="number">1</span>) <span class="keyword">Then</span></span><br><span class="line">                num(i, j) = num(i - <span class="number">1</span>, j - <span class="number">1</span>) + <span class="number">1</span></span><br><span class="line">            <span class="keyword">Else</span></span><br><span class="line">                num(i, j) = max(num(i - <span class="number">1</span>, j), num(i, j - <span class="number">1</span>))</span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">        <span class="keyword">Next</span> j</span><br><span class="line">    <span class="keyword">Next</span> i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> Len(string1) &gt; Len(string2) <span class="keyword">Then</span></span><br><span class="line">        longestCommonSubsequence = num(Len(string1), Len(string2)) * <span class="number">100.0</span> / Len(string2)</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        longestCommonSubsequence = num(Len(string1), Len(string2)) * <span class="number">100.0</span> / Len(string1)</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+<h2 id="构建查询字符串">构建查询字符串</h2>
+<p>没有想到在vb里创建一个字符串数组变量这么麻烦，最终还是选择了<a href="https://stackoverflow.com/questions/19369132/declare-and-initialize-string-array-in-vba" target="_blank" rel="noopener">Declare and Initialize String Array in VBA</a>里的方法。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> classList() <span class="keyword">As</span> <span class="built_in">String</span></span><br><span class="line">classList = Split(<span class="string">"符号学,大学语文,统计"</span>, <span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<p>有点担心需要查询的课程名中有 <code>,</code>，到时候可能要找些别的符号作为分隔符。</p>
+<h2 id="遍历并标记">遍历并标记</h2>
+<p>参考<a href="https://stackoverflow.com/questions/10923053/using-vba-to-select-and-highlight-excel-rows" target="_blank" rel="noopener">Using VBA to Select and Highlight Excel Rows</a>，使用 <code>.EntireRow.Interior.ColorIndex</code> 方法来将整行标记，在excel里，白色的数值是<strong>2</strong>，黄色是<strong>6</strong>。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">If</span> longestCommonSubsequence(Cells(pos, nameRow).<span class="keyword">text</span>, classList(classNum)) &gt; <span class="number">40</span> <span class="keyword">Then</span></span><br><span class="line">	Cells(pos, nameRow).EntireRow.Interior.ColorIndex = <span class="number">6</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br></pre></td></tr></table></figure>
+<h2 id="完整代码">完整代码</h2>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Function</span> max(<span class="keyword">ByRef</span> a <span class="keyword">As</span> <span class="built_in">Long</span>, <span class="keyword">ByRef</span> b <span class="keyword">As</span> <span class="built_in">Long</span>) <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    <span class="keyword">If</span> a &gt;= b <span class="keyword">Then</span></span><br><span class="line">        max = a</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        max = b</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Function</span> longestCommonSubsequence(<span class="keyword">ByRef</span> string1 <span class="keyword">As</span> <span class="built_in">String</span>, <span class="keyword">ByRef</span> string2 <span class="keyword">As</span> <span class="built_in">String</span>) <span class="keyword">As</span> <span class="built_in">Double</span></span><br><span class="line">    <span class="keyword">If</span> string1 = vbNullString <span class="keyword">Or</span> string2 = vbNullString <span class="keyword">Then</span></span><br><span class="line">        MsgBox <span class="string">"出错"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Function</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">Dim</span> num() <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">'define the array, note rows of zeros get added to front automatically</span></span><br><span class="line">    <span class="keyword">ReDim</span> num(Len(string1), Len(string2))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">Dim</span> i <span class="keyword">As</span> <span class="built_in">Long</span>, j <span class="keyword">As</span> <span class="built_in">Long</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> Len(string1)</span><br><span class="line">        <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> Len(string2)</span><br><span class="line">            <span class="keyword">If</span> <span class="keyword">Mid</span>$(string1, i, <span class="number">1</span>) = <span class="keyword">Mid</span>$(string2, j, <span class="number">1</span>) <span class="keyword">Then</span></span><br><span class="line">                num(i, j) = num(i - <span class="number">1</span>, j - <span class="number">1</span>) + <span class="number">1</span></span><br><span class="line">            <span class="keyword">Else</span></span><br><span class="line">                num(i, j) = max(num(i - <span class="number">1</span>, j), num(i, j - <span class="number">1</span>))</span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">        <span class="keyword">Next</span> j</span><br><span class="line">    <span class="keyword">Next</span> i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> Len(string1) &gt; Len(string2) <span class="keyword">Then</span></span><br><span class="line">        longestCommonSubsequence = num(Len(string1), Len(string2)) * <span class="number">100.0</span> / Len(string2)</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        longestCommonSubsequence = num(Len(string1), Len(string2)) * <span class="number">100.0</span> / Len(string1)</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> FindAndMark()</span><br><span class="line">    <span class="keyword">Dim</span> pos <span class="keyword">As</span> <span class="built_in">Integer</span></span><br><span class="line">    <span class="keyword">Dim</span> nameRow <span class="keyword">As</span> <span class="built_in">Integer</span></span><br><span class="line">    <span class="keyword">Dim</span> classNum <span class="keyword">As</span> <span class="built_in">Integer</span></span><br><span class="line">	<span class="keyword">Dim</span> rate <span class="keyword">As</span> <span class="built_in">Integer</span></span><br><span class="line">    nameRow = <span class="number">1</span></span><br><span class="line">    rate = <span class="number">40</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> classList() <span class="keyword">As</span> <span class="built_in">String</span></span><br><span class="line">    classList = Split(<span class="string">"符号学,大学语文,统计"</span>, <span class="string">","</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">For</span> pos = <span class="number">1</span> <span class="keyword">To</span> Sheet1.UsedRange.Rows.Count    </span><br><span class="line">        Cells(pos, nameRow).EntireRow.Interior.ColorIndex = <span class="number">2</span></span><br><span class="line">    <span class="keyword">Next</span> pos</span><br><span class="line"></span><br><span class="line">    <span class="keyword">For</span> pos = <span class="number">1</span> <span class="keyword">To</span> Sheet1.UsedRange.Rows.Count</span><br><span class="line">        <span class="keyword">For</span> classNum = <span class="number">0</span> <span class="keyword">To</span> UBound(classList)</span><br><span class="line">            <span class="keyword">If</span> longestCommonSubsequence(Cells(pos, nameRow).<span class="keyword">text</span>, classList(classNum)) &gt; rate <span class="keyword">Then</span></span><br><span class="line">                Cells(pos, nameRow).EntireRow.Interior.ColorIndex = <span class="number">6</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">Next</span> pos</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<p>完整的代码如上，需要自己拿去修改的地方有：</p>
+<ol>
+<li><code>nameRow</code> 是需要查找的名字所在的列号</li>
+<li><code>classList</code> 是需要查找的名字的集合</li>
+<li><code>rate</code> 是重复率，即阈值</li>
+</ol>
+<h2 id="测试">测试</h2>
+<p>测试结果如图所示：</p>
+<center>
+<p><img src="https://onns.xyz/blog/image/20200219-1.png" alt="测试结果图"></p>
+</center>
+<h2 id="其它">其它</h2>
+<p>如果只显示标黄的相关问题可以百度。</p>
+<ul>
+<li><a href="https://zhidao.baidu.com/question/555387177.html" target="_blank" rel="noopener">在EXCEL表格中，如何把标注黄色的数据单元格筛选出来</a></li>
+</ul>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://www.vitoshacademy.com/excel-search-and-highlight-text/" target="_blank" rel="noopener">Excel VBA – Search and highlight text</a></li>
+</ul>
+<p>如果有任何问题可以留言问我～～</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/visual-basic-for-applications/">visual basic for applications</a>
+            <a href="/blog/tags/macro/">macro</a>
+            <a href="/blog/tags/LCS/">LCS</a>
+            <a href="/blog/tags/excel/">excel</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/02/14/java-notes-3/">
+        <span class="next-text nav-default">Java学习笔记（三）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
