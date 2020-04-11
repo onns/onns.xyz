@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Windows10下安装PCL1.9.1"><meta name="keywords" content="windows10, PCL, point cloud, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/04/11/pcl-vs2017-in-windows10/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Windows10下安装PCL1.9.1 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Windows10下安装PCL1.9.1
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-04-11
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/04/11/pcl-vs2017-in-windows10/" data-title="Windows10下安装PCL1.9.1">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCL"><span class="toc-text">PCL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加环境变量"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VS2017配置"><span class="toc-text">VS2017配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>PCL的库配置是真的繁琐，配置了好多次才成功。<br>
+Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
+<a id="more"></a>
+<h2 id="PCL">PCL</h2>
+<p><code>PCL</code> 从 <code>1.8.0</code> 版本开始代码都托管在了<a href="https://github.com/PointCloudLibrary/pcl/releases/" target="_blank" rel="noopener">GitHub</a>之上，点击这里直接下载即可：<a href="https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.1/PCL-1.9.1-AllInOne-msvc2017-win64.exe" target="_blank" rel="noopener">PCL-1.9.1-AllInOne-msvc2017-win64.exe</a>。</p>
+<p>因为 <code>PCL</code> 会依赖很多插件库，所以下 <code>AllInOne</code> 版本就可以都装上了。</p>
+<p>安装的时候一路下一步即可，不过需要注意安装的最后会弹出一个单独的安装程序来安装 <code>OpenNI2</code>。假如我 <code>PCL的安装目录（PCL_ROOT）</code> 为 <strong>D:\Program Files\PCL1.9.1</strong><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>，那么建议 <code>OpenNI2</code> 的安装目录设置为 <strong>%PCL_ROOT%\3rdParty\OpenNI2</strong>，即：<strong>D:\Program Files\PCL1.9.1\3rdParty\OpenNI2</strong>。这样做的目的是为了方便管理第三方库。</p>
+<p>至此，<code>PCL</code> 及其相关第三方库安装完成。</p>
+<h2 id="添加环境变量">添加环境变量</h2>
+<p>在 <code>计算机—&gt;属性—&gt;高级系统属性—&gt;高级—&gt;环境变量</code> 中，添加如下<code>环境变量</code>：</p>
+<center>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">PCL_ROOT</td>
+<td style="text-align:left">D:\Program Files\PCL1.9.1</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\bin</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\Boost\lib</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\FLANN\bin</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\OpenNI2\Lib</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\OpenNI2\Redist</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\OpenNI2\Tools</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\Qhull\bin</td>
+</tr>
+<tr>
+<td style="text-align:left">PATH</td>
+<td style="text-align:left">%PCL_ROOT%\3rdParty\VTK\bin</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>由于PATH要添加的变量很多，有 <code>8</code> 个，鉴于有人懒得打八次，直接点击<code>编辑文本</code>，将下述内容粘贴到行尾即可，注意<strong>分号</strong>。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200411-1.png" alt="编辑文本示意图"></p>
+</center>
+<blockquote>
+<p>%PCL_ROOT%\bin;%PCL_ROOT%\3rdParty\Boost\lib;%PCL_ROOT%\3rdParty\FLANN\bin;%PCL_ROOT%\3rdParty\OpenNI2\Lib;%PCL_ROOT%\3rdParty\OpenNI2\Redist;%PCL_ROOT%\3rdParty\OpenNI2\Tools;%PCL_ROOT%\3rdParty\Qhull\bin;%PCL_ROOT%\3rdParty\VTK\bin;</p>
+</blockquote>
+<h2 id="VS2017配置">VS2017配置</h2>
+<p>打开VS2017，新建一个 <code>C++</code>的<code>空项目</code>即可。</p>
+<p>首先打开<code>属性管理器</code>，如果找不到可以在<code>视图-&gt;其他窗口-&gt;属性管理器</code>中打开，或者直接搜索也可以。</p>
+<p>然后在<code>属性管理器-&gt; Release | x64</code>文件夹右键，<code>添加新项目属性表</code>，名字自己起即可。</p>
+<p>接着右键<code>刚刚创建的属性表</code>，点击<code>属性</code>，弹出如图所示界面。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200411-2.png" alt="属性页"></p>
+</center>
+<p>在 <code>通用属性—&gt;VC++目录—&gt;包含目录</code> 中添加 <code>7</code> 项，这个只能一个一个加，就没法偷懒了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\PCL1.9.1\include\pcl-1.9</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\Boost\include\boost-1_68</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\Eigen\eigen3</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\FLANN\include</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\OpenNI2\Include</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\Qhull\include</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\VTK\include\vtk-8.1</span><br></pre></td></tr></table></figure>
+<p>在 <code>通用属性—&gt;VC++目录—&gt;库目录</code> 中添加 <code>6</code> 项，同上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\PCL1.9.1\lib</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\Boost\lib</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\FLANN\lib</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\OpenNI2\Lib</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\Qhull\lib</span><br><span class="line">D:\Program Files\PCL1.9.1\3rdParty\VTK\lib</span><br></pre></td></tr></table></figure>
+<p>在 <code>C/C++—&gt;预处理器—&gt;预处理器定义</code> 中添加 <code>3</code> 行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_CRT_SECURE_NO_WARNINGS</span><br><span class="line">_SCL_SECURE_NO_WARNINGS</span><br><span class="line">_SILENCE_FPOS_SEEKPOS_DEPRECATION_WARNING</span><br></pre></td></tr></table></figure>
+<p>将 <code>C/C++—&gt;所有选项—&gt;SDL检查</code> 改为<code>否 (/sdl-)</code>。</p>
+<p>在 <code>通用属性—&gt;链接器—&gt;输入—&gt;附加的依赖项</code> 中添加 <code>lib</code> 文件，<code>Release</code> 和 <code>Debug</code> 所需要的库文件不同，写了一个python脚本文件，保存运行就可以了。然后把输出的结果复制添加即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置PCL的lib目录</span></span><br><span class="line">PCL_LIB_DIR = <span class="string">'D:/Program Files/PCL1.9.1/lib'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置VTK的lib目录</span></span><br><span class="line">VTK_LIB_DIR = <span class="string">'D:/Program Files/PCL1.9.1/3rdParty/VTK/lib'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下列两行二选其一</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># VERSION = 'DEBUG'</span></span><br><span class="line">VERSION = <span class="string">'RELEASE'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> home, dirs, files <span class="keyword">in</span> os.walk(PCL_LIB_DIR):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">        ext = <span class="string">'_release.lib'</span></span><br><span class="line">        num = <span class="number">-12</span></span><br><span class="line">        <span class="keyword">if</span> VERSION == <span class="string">'DEBUG'</span>:</span><br><span class="line">            ext = <span class="string">'_debug.lib'</span></span><br><span class="line">            num = <span class="number">-10</span></span><br><span class="line">        <span class="keyword">if</span> filename[num:] == ext:</span><br><span class="line">            print(filename)</span><br><span class="line">            <span class="comment"># fullname = os.path.join(home, filename)</span></span><br><span class="line">            <span class="comment"># print(fullname)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> home, dirs, files <span class="keyword">in</span> os.walk(VTK_LIB_DIR):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">        <span class="keyword">if</span> os.path.splitext(filename)[<span class="number">1</span>] == <span class="string">'.lib'</span>:</span><br><span class="line">            <span class="keyword">if</span> VERSION == <span class="string">'RELEASE'</span> <span class="keyword">and</span> filename[<span class="number">-6</span>:<span class="number">-4</span>] != <span class="string">'gd'</span>:</span><br><span class="line">                print(filename)</span><br><span class="line">            <span class="keyword">if</span> VERSION == <span class="string">'DEBUG'</span> <span class="keyword">and</span> filename[<span class="number">-6</span>:<span class="number">-4</span>] == <span class="string">'gd'</span>:</span><br><span class="line">                print(filename)</span><br></pre></td></tr></table></figure>
+<center>
+<p><img src="//onns.xyz/blog/image/20200411-3.png" alt="运行结果图"></p>
+</center>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/WcNKk07GEAbhUTS1aPRufw" target="_blank" rel="noopener">PCL1.8.1+vs2015配置教程</a></li>
+<li><a href="https://blog.csdn.net/weixin_41991128/article/details/83864713" target="_blank" rel="noopener">VS2017配置PCL1.9（win10环境）</a></li>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">安装的时候有人建议把目录 <code>PCL 1.9.1</code> 中间的<code>空格</code>删掉，我就照做了。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/windows10/">windows10</a>
+            <a href="/blog/tags/PCL/">PCL</a>
+            <a href="/blog/tags/point-cloud/">point cloud</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/04/01/stop-gif-for-screenshot/">
+        <span class="next-text nav-default">网页截图之停止GIF</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
