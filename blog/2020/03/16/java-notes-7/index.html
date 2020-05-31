@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/categories/code/page/2/">
+<meta name="description" content="Java学习笔记（七）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/03/16/java-notes-7/">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,8 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>code · Onns Blog
-  </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>Java学习笔记（七） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -138,111 +137,153 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><section id="archive" class="archive"><div class="archive-post">
-        <span class="archive-post-time">
-          2020-02-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/02/10/java-notes-1/" class="archive-post-link">
-            Java学习笔记（一）
-          </a>
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Java学习笔记（七）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-03-16
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/03/16/java-notes-7/" data-title="Java学习笔记（七）">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+<h2 id="集合">集合</h2>
+<a id="more"></a>
+<ul>
+<li>
+<p><code>for each</code> 循环可以与任何实现了 <code>Iterable</code> 接口的对象一起工作。</p>
+</li>
+<li>
+<p>迭代器访问 <code>HashSet</code> 虽然可以确定在迭代过程中能够遍历到集合中的所有元素，但却无法预知元素被访问的次序。</p>
+</li>
+<li>
+<p>将 Java 迭代器认为是<code>位于两个元素之间</code>的。当调用 <code>next</code> 时，迭代器就越过下一个元素，并返回刚刚越过的那个元素的引用。</p>
+</li>
+<li>
+<p>如果想删除两个相邻的元素，需要先 <code>next</code> 再 <code>remove</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; it = c.Iterator();</span><br><span class="line">it.next();</span><br><span class="line">it.remove();</span><br><span class="line">it.next();</span><br><span class="line">it.remove();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在 Java 程序设计语言中，所有链表实际上都是<code>双向链接的</code>。</p>
+</li>
+</ul>
+<center>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">集合类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ArrayList</td>
+<td style="text-align:left">一种可以动态增长和缩减的索引序列</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedList</td>
+<td style="text-align:left">一种可以在任何位置进行高效地插人和删除操作的有序序列</td>
+</tr>
+<tr>
+<td style="text-align:left">ArrayDeque</td>
+<td style="text-align:left">一种用循环数组实现的双端队列</td>
+</tr>
+<tr>
+<td style="text-align:left">HashSet</td>
+<td style="text-align:left">一种没有重复元素的无序集合</td>
+</tr>
+<tr>
+<td style="text-align:left">TreeSet</td>
+<td style="text-align:left">—种有序集</td>
+</tr>
+<tr>
+<td style="text-align:left">EnumSet</td>
+<td style="text-align:left">一种包含枚举类型值的集</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedHashSet</td>
+<td style="text-align:left">一种可以记住元素插人次序的集</td>
+</tr>
+<tr>
+<td style="text-align:left">PriorityQueue</td>
+<td style="text-align:left">一种允许高效删除最小元素的集合</td>
+</tr>
+<tr>
+<td style="text-align:left">HashMap</td>
+<td style="text-align:left">一种存储键/值关联的数据结构</td>
+</tr>
+<tr>
+<td style="text-align:left">TreeMap</td>
+<td style="text-align:left">一种键值有序排列的映射表</td>
+</tr>
+<tr>
+<td style="text-align:left">EnumMap</td>
+<td style="text-align:left">一种键值属于枚举类型的映射表</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedHashMap</td>
+<td style="text-align:left">一种可以记住键/值项添加次序的映射表</td>
+</tr>
+<tr>
+<td style="text-align:left">WeakHashMap</td>
+<td style="text-align:left">一种其值无用武之地后可以被垃圾回收器回收的映射表</td>
+</tr>
+<tr>
+<td style="text-align:left">IdentityHashMap</td>
+<td style="text-align:left">一种用 == 而不是用 equals 比较键值的映射表</td>
+</tr>
+</tbody>
+</table>
+<p><img src="//onns.xyz/blog/image/20200316-1.png" alt="集合框架中的类"></p>
+</center>
+<ul>
+<li>数组和数组列表都有一个重大的缺陷。这就是从数组的<code>中间位置插入/删除</code>一个元素要付出很大的代价，其原因是数组中处于被删除元素之后的所有元素都要向数组的前端移动。</li>
+<li>链表是一个有序集合。</li>
+<li>可以根据需要给容器附加许多的迭代器，但是这些迭代器只能<code>读取列表</code>。另外，再单独附加一个<code>既能读又能写</code>的迭代器。</li>
+<li>迭代器检测到并发修改：在每个迭代器方法的开始处检查自己改写操作的计数值是否与集合的改写操作计数值一致。</li>
+<li>散列表（hash table）：要想査找表中对象的位置，就要先计算它的散列码，然后与桶的总数取余，所得到的结果就是保存这个元素的桶的索引。</li>
+<li>装填因子（load factor）决定何时对散列表进行再散列。</li>
+<li>树集是一个有序集合。</li>
+<li>链接散列映射将用<code>访问顺序</code>，而不是<code>插入顺序</code>，对映射条目进行迭代。</li>
+<li>每次调用 get 或 put，受到影响的条目将从当前的位置删除，并放到条目链表的尾部（只有条目在链表中的位置会受影响，而散列表中的桶不会受影响。一个条目总位于与键散列码对应的桶中）。</li>
+<li>EmimSet 是一个枚举类型元素集的高效实现。EnumSet 类没有公共的构造器。</li>
+<li><code>IdentityHashMap</code> 类的键的散列值不是用 <code>hashCode</code> 函数计算 的，而是用 <code>System.identityHashCode</code> 方法计算的。它根据对象的内存地址来计算散列码。两个对象在比较时使用 <code>==</code>。</li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-02-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/02/06/ctest-design/" class="archive-post-link">
-            C测试系统设计
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2019-01-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2019/01/11/sign-recognition-lab-report/" class="archive-post-link">
-            sign recognition lab report
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-12-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/12/18/local-feature-lab-report/" class="archive-post-link">
-            local feature lab report
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-11-23
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/11/23/2018-computational-intelligence-homework-no.3/" class="archive-post-link">
-            2018 Computational Intelligence Homework No.3
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-11-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/11/11/hybrid-images-lab-report/" class="archive-post-link">
-            hybrid images lab report
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-10-31
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/10/31/2018-computational-intelligence-homework-no.2/" class="archive-post-link">
-            2018 Computational Intelligence Homework No.2
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-10-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/10/16/face-recognition-lab-report/" class="archive-post-link">
-            face recognition lab report
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-09-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/" class="archive-post-link">
-            2018 Computational Intelligence Homework No.1
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2017-05-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2017/05/01/arduino-in-command-line/" class="archive-post-link">
-            Arduino in command line
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"><a class="prev" href="/blog/categories/code/">
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/note/">note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/04/01/stop-gif-for-screenshot/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
+        <span class="prev-text nav-default">网页截图之停止GIF</span>
+        <span class="prev-text nav-mobile">Prev</span>
       </a>
-    </nav></div></div>
+    <a class="next" href="/blog/2020/03/14/java-notes-6/">
+        <span class="next-text nav-default">Java学习笔记（六）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

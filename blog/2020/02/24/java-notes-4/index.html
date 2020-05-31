@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Java学习笔记（四）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/02/24/java-notes-4/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Java学习笔记（四） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Java学习笔记（四）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-24
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/02/24/java-notes-4/" data-title="Java学习笔记（四）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#接口、lambda-表达式与内部类"><span class="toc-text">接口、lambda 表达式与内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-表达式"><span class="toc-text">lambda 表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部类"><span class="toc-text">内部类</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+<h2 id="接口、lambda-表达式与内部类">接口、lambda 表达式与内部类</h2>
+<a id="more"></a>
+<h3 id="接口">接口</h3>
+<ul>
+<li>
+<p>接口中的所有方法自动地属于 <code>public</code>，在接口中声明方法时不必提供关键字 <code>public</code>。</p>
+</li>
+<li>
+<p>接口绝不能含有 <code>实例域</code>。提供实例域和方法实现的任务应该由实现接口的那个类来完成。</p>
+</li>
+<li>
+<p>为了让类实现一个接口，需要：</p>
+<ol>
+<li>将类声明为实现给定的接口。<br>
+要将类声明为实现某个接口，需要使用关键字 <strong>implements</strong>。</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>对接口中的所有方法进行定义。</li>
+</ol>
+</li>
+<li>
+<p>如果存在这样一种通用算法，它能够对两个不同的子类对象进行比较，则应该在<code>超类</code>中提供一个 <code>compareTo</code> 方法，并将这个方法声明为 <code>final</code>。</p>
+</li>
+<li>
+<p>接口不是类，不能使用 <code>new</code> 运算符实例化一个接口，但是可以声明接口的变量，接口变量必须引用实现了接口的类对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> Comparable(...); <span class="comment">// ERROR</span></span><br><span class="line">Comparable x; <span class="comment">// OK</span></span><br><span class="line">x = <span class="keyword">new</span> Employee(...); <span class="comment">// OK provided Employee implements Comparable</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>可以使用 <code>instance</code> 检查一个对象是否实现了某个特定的接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> Comparable) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>接口中的域将被自动设为 <code>public static final</code>。</p>
+</li>
+<li>
+<p>在实现接口时，必须把方法声明为 <code>public</code>，否则，编译器将认为这个方法的访问属性是包可见性，即类的默认访问属性，之后编译器就会给出试图提供更严格的访问权限的警告信息。</p>
+</li>
+<li>
+<p>每个类可以实现多个接口。</p>
+</li>
+<li>
+<p>可以为接口方法提供一个默认实现，必须用 <code>default</code> 修饰符标记这样一个方法。</p>
+</li>
+<li>
+<p>默认方法的一个重要用法是 <code>接口演化（interface evolution）</code>，保证不会对旧代码产生影响。</p>
+</li>
+<li>
+<p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，遵循如下规则：</p>
+<ol>
+<li>超类优先。<br>
+如果超类提供了一个具体方法，同名而且有相同参数类型的默认方法会被忽略。</li>
+<li>接口冲突。<br>
+如果一个超接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型(不论是否是默认参数)相同的方法，必须覆盖这个方法来解决冲突。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>接口与回调可能在这里不太看得懂，暂时跳过。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<hr>
+<h3 id="lambda-表达式">lambda 表达式</h3>
+<ul>
+<li>
+<p>lambda表达式就是一个代码块， 以及必须传入代码的变量规范。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">  -&gt; first.length() - second.length()</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果代码要完成的计算无法放在一个表达式中，就可以像写方法一样，把这些代码放在 <code>{}</code> 中， 并包含显式的 return 语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123; </span><br><span class="line">  <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>; </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>即使 lambda 表达式没有参数，仍然要提供空括号，就像无参数方法一样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">100</span>; i &gt;= <span class="number">0</span>; i-- ) System.out.println(i); &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果可以推导出一个 lambda 表达式的参数类型，则可以忽略其类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">= (first, second) <span class="comment">// Same as (String first, String second)</span></span><br><span class="line">  -&gt; first.length() - second.length();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果方法只有一个参数，而且这个参数的类型可以推导得出，那么甚至还可以省略小括号。</p>
+</li>
+<li>
+<p>无需指定 lambda 表达式的返回类型。lambda 表达式的返回类型总是会由上下文推导得出。</p>
+</li>
+<li>
+<p>要用 <code>::</code> 操作符分隔方法名与对象或类名主要有3种情况：</p>
+<ul>
+<li>object::instanceMethod</li>
+<li>Class::staticMethod</li>
+<li>Class::instanceMethod</li>
+</ul>
+</li>
+<li>
+<p>无法构造泛型类型 <code>T</code> 的数组。（数组构造器引用对于克服这个限制很有用。）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] people = stream.toArray(); <span class="comment">// Object数组引用</span></span><br><span class="line">Person[] people = stream.toArray(Person[]::<span class="keyword">new</span>); <span class="comment">// Person数组引用</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>lambda 表达式中捕获的变量必须实际上是<code>最终变量（effectively final）</code>。</p>
+</li>
+<li>
+<p>lambda 表达式的体与嵌套块有相同的作用域。</p>
+</li>
+<li>
+<p>在 lambda 表达式中声明与一个局部变量同名的参数或局部变量是不合法的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Path first = Paths.get(<span class="string">"/usr/bin"</span>); </span><br><span class="line">Comparator&lt;String&gt; comp =</span><br><span class="line">(first, second) -&gt; first.length() - second.length();</span><br><span class="line"><span class="comment">// Error: Variable first already defined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在一个 lambda 表达式中使用 <code>this</code> 关键字时，是指创建这个 lambda 表达式的方法的 <code>this</code> 参数。</p>
+</li>
+<li>
+<p>使用 lambda 表达式的重点是<code>延迟执行（deferred execution）</code>。</p>
+</li>
+</ul>
+<hr>
+<h3 id="内部类">内部类</h3>
+<ul>
+<li>使用内部类的原因：
+<ul>
+<li>内部类方法可以访问该类定义所在的作用域中的数据，包括私有的数据。</li>
+<li>内部类可以对同一个包中的其他类隐藏起来。</li>
+<li>当想要定义一个回调函数且不想编写大量代码时，使用匿名（anonymous）内部类比较便捷。</li>
+</ul>
+</li>
+<li>使用外围类引用的正规语法为 <code>OuterClass.this</code>。</li>
+</ul>
+<p>好晕啊😭，看不懂。<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+<p>代理也待看<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">待看</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">待看</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">待看</span><a href="#fnref:3" rev="footnote"> ↩</a></li></ol></div></div>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/note/">note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/02/25/java-notes-5/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Java学习笔记（五）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/02/20/wechat-svg/">
+        <span class="next-text nav-default">微信文章svg交互</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
