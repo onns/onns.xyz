@@ -154,7 +154,12 @@
         </div>
     </header>
 
-    <div class="post-content"><p>因为想在Mac上安装<code>python3</code>，一个最友好的方式是安装<code>pyenv</code>，所以顺便把包管理工具<code>homebrew</code>一起安装了叭。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>因为想在Mac上安装<code>python3</code>，一个最友好的方式是安装<code>pyenv</code>，所以顺便把包管理工具<code>homebrew</code>一起安装了叭。</p>
 <a id="more"></a>
 <p>安装方法参照<a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">官方安装文档</a>，不过这个配置好像有点麻烦，如果想要一键可以试试<a href="https://treehouse.github.io/installation-guides/mac/homebrew" target="_blank" rel="noopener">这个</a>。</p>
 <p>我本来是想顺着官方文档来的，但是还要配置环境变量的样子，算了，用一键脚本。</p>
@@ -170,7 +175,20 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install pyenv</span><br></pre></td></tr></table></figure>
 <p>然后安装<code>python3</code>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.8.0</span><br></pre></td></tr></table></figure>
+<p>虽然<code>pyenv</code>和<code>python3</code>都装好了，但是还是要设置一下环境变量，参照官方的<a href="https://github.com/pyenv/pyenv#installation" target="_blank" rel="noopener">文档</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export PYENV_ROOT="$HOME/.pyenv"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH="$PYENV_ROOT/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n  eval "$(pyenv init -)"\nfi'</span> &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>然后重启一下命令行即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ pyenv global 3.8.0</span><br><span class="line">$ python</span><br><span class="line">Python 3.8.0 (default, Jun  1 2020, 11:01:42) </span><br><span class="line">[Clang 10.0.1 (clang-1001.0.46.4)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">exit</span>()</span><br></pre></td></tr></table></figure>
 <p>完。</p>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://opensource.com/article/19/5/python-3-default-mac" target="_blank" rel="noopener">The right and wrong way to set Python 3 as default on a Mac</a></li>
+<li><a href="https://treehouse.github.io/installation-guides/mac/homebrew" target="_blank" rel="noopener">Installing Homebrew on a Mac</a></li>
+<li><a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">Homebrew Documentation</a></li>
+<li><a href="https://www.zhihu.com/question/276143842" target="_blank" rel="noopener">怎么解决从github下载资源慢？</a></li>
+<li><a href="https://github.com/pyenv/pyenv#installation" target="_blank" rel="noopener">Simple Python Version Management: pyenv</a></li>
+<li><a href="https://stackoverflow.com/questions/33321312/cannot-switch-python-with-pyenv" target="_blank" rel="noopener">Cannot switch Python with pyenv</a></li>
+</ul>
 
       </div>
       
