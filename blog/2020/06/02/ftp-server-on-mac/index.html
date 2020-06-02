@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="在MacOS上安装Homebrew"><meta name="keywords" content="python, macos, homebrew, pyenv, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/06/01/install-homebrew-on-mac/">
+<meta name="description" content="在MacOS上部署ftp服务器"><meta name="keywords" content="macos, homebrew, ftpd, pure-ftpd, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/06/02/ftp-server-on-mac/">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>在MacOS上安装Homebrew - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>在MacOS上部署ftp服务器 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -139,16 +139,16 @@
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">在MacOS上安装Homebrew
+      <h1 class="post-title">在MacOS上部署ftp服务器
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-06-01
+          2020-06-02
         </span><span class="post-category">
             <a href="/blog/categories/software/">software</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/06/01/install-homebrew-on-mac/" data-title="在MacOS上安装Homebrew">
+        <span class="post-visits" data-url="/blog/2020/06/02/ftp-server-on-mac/" data-title="在MacOS上部署ftp服务器">
           Visits 0
         </span>
         </div>
@@ -157,56 +157,67 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#汇总"><span class="toc-text">汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>因为想在Mac上安装<code>python3</code>，一个最友好的方式是安装<code>pyenv</code>，所以顺便把包管理工具<code>homebrew</code>一起安装了叭。</p>
+  </div><div class="post-content"><p>因为小米手机的文件管理支持远程存储服务，早就想在自己的Mac上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
 <a id="more"></a>
-<p>安装方法参照<a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">官方安装文档</a>，不过这个配置好像有点麻烦，如果想要一键可以试试<a href="https://treehouse.github.io/installation-guides/mac/homebrew" target="_blank" rel="noopener">这个</a>。</p>
-<p>我本来是想顺着官方文档来的，但是还要配置环境变量的样子，算了，用一键脚本。</p>
-<p>在用之前需要解决一个问题，<code>GitHub</code> 的源在国内访问太慢了。。。之前尝试过用 <code>HTTP_PROXY</code>，发现没什么用，今天又去查了一下，这下就可以了。随意感受下速度的变化，从<code>41.00 KiB/s</code>到<code>9.04 MiB/s</code>，完全不是一个数量级好吧。</p>
 <center>
-<p><img src="//onns.xyz/blog/image/20200601-1.png" alt="未开启代理之前"></p>
-<p><img src="//onns.xyz/blog/image/20200601-2.png" alt="开启代理之后"></p>
+<p><img src="//onns.xyz/blog/image/20200602-1.jpg" alt="手机文件管理支持远程存储列表"></p>
 </center>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启代理命令，这个需要你本地有代理程序哦</span></span><br><span class="line"><span class="built_in">export</span> ALL_PROXY=socks5://127.0.0.1:1081</span><br></pre></td></tr></table></figure>
-<p>然后就可以一键安装<code>homebrew</code>了，中间输入一次密码即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>然后安装<code>pyenv</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install pyenv</span><br></pre></td></tr></table></figure>
-<p>然后安装<code>python3</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.8.0</span><br></pre></td></tr></table></figure>
-<p>虽然<code>pyenv</code>和<code>python3</code>都装好了，但是还是要设置一下环境变量，参照官方的<a href="https://github.com/pyenv/pyenv#installation" target="_blank" rel="noopener">文档</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export PYENV_ROOT="$HOME/.pyenv"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH="$PYENV_ROOT/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n  eval "$(pyenv init -)"\nfi'</span> &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p>然后重启一下命令行即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ pyenv global 3.8.0</span><br><span class="line">$ python</span><br><span class="line">Python 3.8.0 (default, Jun  1 2020, 11:01:42) </span><br><span class="line">[Clang 10.0.1 (clang-1001.0.46.4)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">exit</span>()</span><br></pre></td></tr></table></figure>
+<p>之前搜索的，无一例外，全是叫我输入如下所示的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist</span><br></pre></td></tr></table></figure>
+<p>但是看下面的消息，原文链接点<a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">这里</a>：</p>
+<blockquote>
+<p>Apple removed the included File Transfer Protocol (FTP) server from recent versions of macOS. FTP is not secure by default and better avoided.<br>
+FTP is not secure because the connection is not encrypted. Modern network protocols are encrypted by default – even on local networks.</p>
+</blockquote>
+<p>出于安全考虑，苹果官方已经把ftp.plist<code>移除</code>了，解决办法是需要自己安装一个<code>ftpd服务</code>。</p>
+<p>用<code>homebrew</code>就可以安装了，如果没有安装可以参考<a href="https://onns.xyz/blog/2020/06/01/install-homebrew-on-mac/">这里</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install pure-ftpd</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>然后需要配置<code>ftpd</code>的验证，使之可以通过系统用户进行验证登录。<br>
+新建一个<code>/etc/pam.d/pure-ftpd</code>文件，记得用root权限编辑。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure>
+<p>然后让配置文件生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br></pre></td></tr></table></figure>
+<p>最后重启一下<code>pure-ftpd</code>服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>停止的命令是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>这里是<code>pure-ftpd</code>的<a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">官方文档</a>，虽然很简单但。。。聊胜于无吧。</p>
+<h2 id="汇总">汇总</h2>
+<p>如果出现任何问题，可以参考 <a href="https://superuser.com/questions/1398800/pure-ftpd-connection-refused-localhost-on-high-sierra" target="_blank" rel="noopener">pure-ftpd Connection refused localhost on high sierra</a>，这个软件的相关文档真的很不完善，重复完成下述步骤应该就可以解决了，我也不知道为什么我出问题了，但是重装就解决了，这大概就是重启/重装解决99%的问题的人生四大哲理吧。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">brew remove pure-ftpd</span><br><span class="line">brew upgrade</span><br><span class="line">brew cleanup</span><br><span class="line">brew install pure-ftpd</span><br><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure>
 <p>完。</p>
-<h2 id="参考文档">参考文档</h2>
+<p>真的很方便，直接在手机上存取了就。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200602-2.jpg" alt="手机连接ftp示意图"></p>
+</center>
+<h2 id="参考链接">参考链接</h2>
 <ul>
-<li><a href="https://opensource.com/article/19/5/python-3-default-mac" target="_blank" rel="noopener">The right and wrong way to set Python 3 as default on a Mac</a></li>
-<li><a href="https://treehouse.github.io/installation-guides/mac/homebrew" target="_blank" rel="noopener">Installing Homebrew on a Mac</a></li>
-<li><a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">Homebrew Documentation</a></li>
-<li><a href="https://www.zhihu.com/question/276143842" target="_blank" rel="noopener">怎么解决从github下载资源慢？</a></li>
-<li><a href="https://github.com/pyenv/pyenv#installation" target="_blank" rel="noopener">Simple Python Version Management: pyenv</a></li>
-<li><a href="https://stackoverflow.com/questions/33321312/cannot-switch-python-with-pyenv" target="_blank" rel="noopener">Cannot switch Python with pyenv</a></li>
+<li><a href="https://www.jianshu.com/p/f4994754b74a" target="_blank" rel="noopener">MAC搭建FTP服务器</a>（不靠谱，错误答案）</li>
+<li><a href="https://zhidao.baidu.com/question/653759039211321605.html" target="_blank" rel="noopener">mac os 10.13.6 如何启动FTP服务器？急！ </a>（不靠谱，错误答案）</li>
+<li><a href="https://blog.csdn.net/weixin_33733810/article/details/92498798" target="_blank" rel="noopener">Mac实践–MAC搭建FTP服务器</a>（SFTP可以参照这个，FTP依然是错误的）</li>
+<li><a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">host ftp server on Mojave</a></li>
+<li><a href="https://apple.stackexchange.com/questions/141633/quick-to-install-and-set-up-ftp-server-on-homebrew-for-osx" target="_blank" rel="noopener">quick to install and set up FTP server on homebrew for OSX</a></li>
+<li><a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">PURE-FTPD DOCUMENTATION-Notes for MacOS users</a></li>
 </ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/python/">python</a>
             <a href="/blog/tags/macos/">macos</a>
             <a href="/blog/tags/homebrew/">homebrew</a>
-            <a href="/blog/tags/pyenv/">pyenv</a>
+            <a href="/blog/tags/ftpd/">ftpd</a>
+            <a href="/blog/tags/pure-ftpd/">pure-ftpd</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2020/06/02/ftp-server-on-mac/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">在MacOS上部署ftp服务器</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2020/05/12/chrome-extension-sync-sofa/">
-        <span class="next-text nav-default">Chrome插件-同步播放电影</span>
+        <nav class="post-nav"><a class="next" href="/blog/2020/06/01/install-homebrew-on-mac/">
+        <span class="next-text nav-default">在MacOS上安装Homebrew</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
