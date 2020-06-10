@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="一些处理字符的工具"><meta name="keywords" content="tools, hyphens, camel case, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/06/02/some-tools/">
+<meta name="description" content="O ever youthful, O ever weeping."><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/tags/crontab/">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>一些处理字符的工具 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>crontab · Onns Blog
+  </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -137,64 +138,20 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">一些处理字符的工具
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-02
-        </span><span class="post-category">
-            <a href="/blog/categories/html/">html</a>
-            </span>
-        <span class="post-visits" data-url="/blog/2020/06/02/some-tools/" data-title="一些处理字符的工具">
-          Visits 0
-        </span>
+          <div id="content" class="content"><section id="archive" class="archive"><div class="archive-title tag">
+          <h2 class="archive-name">crontab</h2>
         </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连字符转驼峰式"><span class="toc-text">连字符转驼峰式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
-    </div>
-  </div><div class="post-content"><ul>
-<li><a href="https://onns.xyz/tools/hyphens-to-camel-case/">连字符转驼峰式</a></li>
-</ul>
-<a id="more"></a>
-<h2 id="连字符转驼峰式"><a href="https://onns.xyz/tools/hyphens-to-camel-case/">连字符转驼峰式</a></h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCamel</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> temp = str.replace(<span class="regexp">/(?:-+([^-]))/g</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$<span class="number">1</span>, $<span class="number">2</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $<span class="number">2.</span>toUpperCase();</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> temp.slice(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + temp.slice(<span class="number">1</span>);;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考链接">参考链接</h2>
-<ul>
-<li><a href="https://colorlib.com/wp/template/contact-form-v9/" target="_blank" rel="noopener">Contact Form v9</a></li>
-<li><a href="https://regexper.com/#%2F%28%5B%5E-%5D%29%28%3F%3A-%2B%28%5B%5E-%5D%29%29%2Fg" target="_blank" rel="noopener">Regexper</a></li>
-<li><a href="https://blog.csdn.net/qq_42392522/article/details/83376466" target="_blank" rel="noopener">JS 实现：驼峰式转下横线，下横线转驼峰式</a></li>
-<li><a href="https://blog.csdn.net/qq_26212731/article/details/78523624" target="_blank" rel="noopener">js监听textarea 内容的变化，并计算内容的长度</a></li>
-</ul>
-
+      <div class="archive-post">
+        <span class="archive-post-time">
+          2020-06-10
+          </span>
+        <span class="archive-post-title">
+          <a href="/blog/2020/06/10/fix-crontab-operation-not-permitted-on-mac/" class="archive-post-link">
+            修复MacOS上crontab的Operation not permitted问题
+          </a>
+        </span>
       </div>
-      
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/blog/tags/tools/">tools</a>
-            <a href="/blog/tags/hyphens/">hyphens</a>
-            <a href="/blog/tags/camel-case/">camel case</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/blog/2020/06/10/fix-crontab-operation-not-permitted-on-mac/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">修复MacOS上crontab的Operation not permitted问题</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2020/06/02/ftp-server-on-mac/">
-        <span class="next-text nav-default">在MacOS上部署ftp服务器</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
-    </div></div>
+    </section><nav class="pagination"></nav></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

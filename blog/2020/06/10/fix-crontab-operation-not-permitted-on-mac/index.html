@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="修复MacOS上crontab的Operation not permitted问题"><meta name="keywords" content="macos, cron, crontab, Catalina, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2020/06/10/fix-crontab-operation-not-permitted-on-mac/">
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>修复MacOS上crontab的Operation not permitted问题 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/draw">
+        <li class="mobile-menu-item">Draw
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/links">
+        <li class="mobile-menu-item">Links
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/draw">
+            Draw
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/links">
+            Links
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">修复MacOS上crontab的Operation not permitted问题
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-06-10
+        </span><span class="post-category">
+            <a href="/blog/categories/software/">software</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2020/06/10/fix-crontab-operation-not-permitted-on-mac/" data-title="修复MacOS上crontab的Operation not permitted问题">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更改shell"><span class="toc-text">更改shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋予Full-Disk-Access权限"><span class="toc-text">赋予Full Disk Access权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>因为项目需要Xcode，但是Xcode又必须要在<code>10.15</code>以上的系统下运行，不得已更新了系统，然而更新一时爽，bug修复***。真的是出现了各种问题，没办法，挨个解决叭…</p>
+<a id="more"></a>
+<h2 id="起因">起因</h2>
+<p>为了方便电脑自动化整理文档，我的电脑上一直运行着一堆定时的脚本，用来隔一段时间将截图整理到<code>图片</code>文件夹。有人这里可能会问，为什么不直接把截图目录设置成<code>Pictures</code>目录，因为截图在桌面用起来更方便诶，毕竟截图就是为了发出去或者做什么的不是。</p>
+<p>但用完所有截图都在桌面真的好乱。</p>
+<p>所以我之前版本的定时脚本都是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br><span class="line">30 */1 * * * bash /Users/onns/Documents/code/bash/clear </span><br><span class="line">0 22 * * * bash /Users/onns/Documents/code/bash/backup</span><br></pre></td></tr></table></figure>
+<p>在更新系统之前一直都可以正常运行，但更新了之后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">You have new mail.</span><br><span class="line">$ cat /var/mail/onns</span><br><span class="line">...</span><br><span class="line">bash: /Users/onns/Documents/code/bash/clear: Operation not permitted</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这个的原因就是苹果更新了<code>System Integrity Protection</code>功能，具体的可以去看官方的公告：<a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="noopener">About System Integrity Protection on your Mac</a>，所以最简单粗暴的解决方案就是关闭<code>SIP</code>。</p>
+<p>但我觉得，苹果既然出于安全考虑推出了这样一个功能，那就尽量遵从苹果的思路来，毕竟你后面还要更新系统，难道每次都关一次？何况关起来还挺麻烦的。。。也不安全。</p>
+<p>同时你会留意到，<code>系统安全隐私</code>里增加了一项权限划分<code>Full Disk Access</code>，大概也是出于安全考虑吧。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200610-1.png" alt="Full Disk Access页面"></p>
+</center>
+<p>这是我修复bug之后的截图了，最开始的时候这里面什么都没有。</p>
+<p>还有就是，打开<code>Terminal</code>的时候，会弹出下列信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The default interactive shell is now zsh.</span><br><span class="line">To update your account to use zsh, please run `chsh -s /bin/zsh`.</span><br><span class="line">For more details, please visit https://support.apple.com/kb/HT208050.</span><br></pre></td></tr></table></figure>
+<p>详细可以去官网看：<a href="https://support.apple.com/en-us/HT208050" target="_blank" rel="noopener">Use zsh as the default shell on your Mac</a></p>
+<p>所以总结来说，定时脚本出错的原因有两点：</p>
+<ol>
+<li>苹果更改了默认的shell工具</li>
+<li>shell工具的权限不够</li>
+<li>crontab的权限不够（自我猜测，不知道这点是不是影响因素）</li>
+</ol>
+<h2 id="解决">解决</h2>
+<h3 id="更改shell">更改shell</h3>
+<p>这一点很好操作，首先先将<code>zsh</code>作为默认的shell工具。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<p>然后只需要重启一下<code>Terminal</code>就可以了。</p>
+<p>然后修改一下定时任务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% crontab -e</span><br><span class="line">30 */1 * * * zsh /Users/onns/Documents/code/bash/clear </span><br><span class="line">0 22 * * * zsh /Users/onns/Documents/code/bash/backup</span><br></pre></td></tr></table></figure>
+<p>然后我这样又试了一下，还是报错了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh: can<span class="string">'t open input file: /Users/onns/Documents/code/bash/clear</span></span><br></pre></td></tr></table></figure>
+<p>所以还是需要给<code>zsh</code>权限</p>
+<h3 id="赋予Full-Disk-Access权限">赋予Full Disk Access权限</h3>
+<ol>
+<li>打开<code>System Preference -&gt; Security &amp; Privacy -&gt; Privacy</code>。</li>
+<li>找到<code>Full Disk Access</code>。</li>
+<li>点击左下角的<code>锁头🔒</code>解锁更改权限，输入密码。</li>
+<li>点击添加按钮，在弹出的文件浏览页面按住<code>cmd+shift+G</code>，输入<code>/bin</code>，点击<code>go</code>来到<code>/bin</code>目录并选择<code>zsh</code>，添加。</li>
+<li>同理在<code>/usr/sbin/</code>目录下找到<code>cron</code>，添加。</li>
+</ol>
+<p>成功，完。</p>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="noopener">About System Integrity Protection on your Mac</a></li>
+<li><a href="https://support.apple.com/en-us/HT208050" target="_blank" rel="noopener">Use zsh as the default shell on your Mac</a></li>
+<li><a href="https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/" target="_blank" rel="noopener">How to Fix Cron Permission Issues in MacOS Catalina &amp; Mojave</a></li>
+<li><a href="https://blog.bejarano.io/fixing-cron-jobs-in-mojave/" target="_blank" rel="noopener">Fixing cron jobs in Mojave</a></li>
+<li><a href="https://stackoverflow.com/questions/58593877/crontab-cant-execute-python-script-with-error-errno-1-operation-not-permitt" target="_blank" rel="noopener">Crontab can’t execute python script with error: “[Errno 1] Operation not permitted”</a></li>
+<li><a href="https://www.howtogeek.com/444596/how-to-change-the-default-shell-to-bash-in-macos-catalina/" target="_blank" rel="noopener">How to Change the Default Shell to Bash on macOS Catalina</a></li>
+<li><a href="https://blog.csdn.net/qq_38287952/article/details/86755672" target="_blank" rel="noopener">Mac权限问题，operation not permitted</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/cron/">cron</a>
+            <a href="/blog/tags/crontab/">crontab</a>
+            <a href="/blog/tags/Catalina/">Catalina</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/06/02/some-tools/">
+        <span class="next-text nav-default">一些处理字符的工具</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
