@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/categories/">
+<meta name="description" content="Nginx多域名跨域"><meta name="keywords" content="nginx, multiple domains, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
+<link rel="canonical" href="https://onns.xyz/2019/12/21/nginx-multiple-domains/">
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Categories - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <title>Nginx多域名跨域 - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -137,14 +137,65 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><div class="categories">
-    <div class="categories-title">
-      14 Categories In Total
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Nginx多域名跨域
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-21
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits" data-url="/blog/2019/12/21/nginx-multiple-domains/" data-title="Nginx多域名跨域">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通用方法"><span class="toc-text">通用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">21</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">2</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><p>因为需要可能会允许服务器跨域交互数据，所以要设置允许多域名跨域。</p>
+<a id="more"></a>
+<h2 id="通用方法">通用方法</h2>
+<p>打开 nginx.conf，在 http 里加入如下语句：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Origin *;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即可。只是这样的方式安全性很差，但像下面的设置方式不被浏览器允许：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Origin domain1;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Origin domain2;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>浏览器只允许一个 <code>Access-Control-Allow-Origin</code> 字段。</p>
+<h2 id="解决方法">解决方法</h2>
+<p>将 <code>add_header Access-Control-Allow-Origin</code> 语句放置在如下位置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line">    <span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br><span class="line">    ...</span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="attribute">location</span> <span class="regexp">~ \.php($|/)</span> &#123;</span><br><span class="line">            ...</span><br><span class="line">            <span class="attribute">if</span> (<span class="variable">$http_origin</span> <span class="regexp">~* "^domain1$"</span> ) &#123;</span><br><span class="line">                <span class="attribute">add_header</span> Access-Control-Allow-Origin <span class="variable">$http_origin</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="attribute">if</span> (<span class="variable">$http_origin</span> <span class="regexp">~* "^domain2$"</span> ) &#123;</span><br><span class="line">                <span class="attribute">add_header</span> Access-Control-Allow-Origin <span class="variable">$http_origin</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完。</p>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://serverfault.com/questions/350330/nginx-add-header-adding-multiple-headers" target="_blank" rel="noopener">NGINX add_header, adding multiple headers</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/nginx/">nginx</a>
+            <a href="/blog/tags/multiple-domains/">multiple domains</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/01/01/2020-book-list/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">2020 book list</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2019/12/11/c-tips/">
+        <span class="next-text nav-default">C语言编程注意事项</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
