@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <head><meta charset="UTF-8"/>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（二）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/11/java-notes-2/">
+<meta name="description" content="Java学习笔记（二）"/><meta name="keywords" content="java, note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/02/11/java-notes-2/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
@@ -54,8 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（二） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  </head>
+    <title>Java学习笔记（二） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
@@ -148,7 +148,9 @@
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/11/java-notes-2/" data-title="Java学习笔记（二）">
+        <span class="post-visits"
+             data-url="/blog/2020/02/11/java-notes-2/"
+             data-title="Java学习笔记（二）">
           Visits 0
         </span>
         </div>
@@ -204,29 +206,19 @@
 </ul>
 <hr>
 <ul>
-<li>
-<p>如果在编写一个类时没有编写构造器，那么系统就会提供一个无参数构造器。</p>
+<li>如果在编写一个类时没有编写构造器，那么系统就会提供一个无参数构造器。</li>
+<li>如果类中提供了至少一个构造器，但是没有提供无参数的构造器，则在构造对象时如果没有提供参数就会被视为不合法。</li>
+<li>如果构造器的第一个语句形如 this(…)，这个构造器将调用同一个类的另一个构造器。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">double</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// calls the Employee(String, double) constructor</span></span><br><span class="line">  <span class="keyword">this</span>(<span class="string">"Employee #"</span> + nextId, s);</span><br><span class="line">  <span class="comment">// 对公共的构造器代码部分只编写一次即可。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果类中提供了至少一个构造器，但是没有提供无参数的构造器，则在构造对象时如果没有提供参数就会被视为不合法。</p>
-</li>
-<li>
-<p>如果构造器的第一个语句形如 this(…)，这个构造器将调用同一个类的另一个构造器。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">double</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// calls the Employee(String, double) constructor</span></span><br><span class="line">  <span class="keyword">this</span>(<span class="string">"Employee #"</span> + nextId, s);</span><br><span class="line">  <span class="comment">// 对公共的构造器代码部分只编写一次即可。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>初始化数据域的方法：</p>
+<li>初始化数据域的方法：
 <ol>
 <li>在构造器中设置值</li>
 <li>在声明中赋值</li>
 <li>初始化块(initialization block)</li>
 </ol>
 </li>
-<li>
-<p>new操作时，首先运行初始化块，然后才运行构造器的主体部分。</p>
-</li>
-<li>
-<p>调用构造器的具体处理步骤：</p>
+<li>new操作时，首先运行初始化块，然后才运行构造器的主体部分。</li>
+<li>调用构造器的具体处理步骤：
 <ol>
 <li>所有数据域被初始化为默认值(0、false 或 null)。</li>
 <li>按照在类声明中出现的次序，依次执行所有域初始化语句和初始化块。</li>
@@ -234,9 +226,7 @@
 <li>执行这个构造器的主体。</li>
 </ol>
 </li>
-<li>
-<p>如果对类的静态域进行初始化的代码比较复杂，那么可以使用静态的初始化块。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// static initialization block</span></span><br><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">  Random generator = <span class="keyword">new</span> Random();</span><br><span class="line">  <span class="comment">// set nextId to a random number between 0 and 9999</span></span><br><span class="line">  nextId = generator.nextInt(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>如果对类的静态域进行初始化的代码比较复杂，那么可以使用静态的初始化块。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// static initialization block</span></span><br><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">  Random generator = <span class="keyword">new</span> Random();</span><br><span class="line">  <span class="comment">// set nextId to a random number between 0 and 9999</span></span><br><span class="line">  nextId = generator.nextInt(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
@@ -285,26 +275,26 @@
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
-        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
-        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
-        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
-        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
         <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
-    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
   </span>
 </div>
 </footer>
@@ -316,7 +306,7 @@
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
 
 
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>

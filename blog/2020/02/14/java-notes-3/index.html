@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <head><meta charset="UTF-8"/>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（三）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/14/java-notes-3/">
+<meta name="description" content="Java学习笔记（三）"/><meta name="keywords" content="java, note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/02/14/java-notes-3/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
@@ -54,8 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（三） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  </head>
+    <title>Java学习笔记（三） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
@@ -148,7 +148,9 @@
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/14/java-notes-3/" data-title="Java学习笔记（三）">
+        <span class="post-visits"
+             data-url="/blog/2020/02/14/java-notes-3/"
+             data-title="Java学习笔记（三）">
           Visits 0
         </span>
         </div>
@@ -163,39 +165,23 @@
 <h2 id="继承">继承</h2>
 <a id="more"></a>
 <ul>
-<li>
-<p>在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中。</p>
+<li>在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中。</li>
+<li>子类继承的方法不能直接地访问超类的私有域，可以使用 <code>super</code> 调用超类的方法来重写子类的方法。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>子类继承的方法不能直接地访问超类的私有域，可以使用 <code>super</code> 调用超类的方法来重写子类的方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>使用 <code>super</code> 调用构造器的语句必须是子类构造器的第一条语句。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, <span class="keyword">double</span> salary, <span class="keyword">int</span> year, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> month, <span class="keyword">int</span> day)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>(name, salary, year, month, day);</span><br><span class="line">  <span class="comment">// 调用超类 Employee 中含有 n、s、year month </span></span><br><span class="line">  <span class="comment">// 和 day 参数的构造器</span></span><br><span class="line">  bonus = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>使用 <code>super</code> 调用构造器的语句必须是子类构造器的第一条语句。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, <span class="keyword">double</span> salary, <span class="keyword">int</span> year, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> month, <span class="keyword">int</span> day)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>(name, salary, year, month, day);</span><br><span class="line">  <span class="comment">// 调用超类 Employee 中含有 n、s、year month </span></span><br><span class="line">  <span class="comment">// 和 day 参数的构造器</span></span><br><span class="line">  bonus = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则 Java 编译器将报告错误。</p>
-</li>
-<li>
-<p><code>super</code> 关键字的两个用途:</p>
+<li>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则 Java 编译器将报告错误。</li>
+<li><code>super</code> 关键字的两个用途:
 <ol>
 <li>调用超类的方法。</li>
 <li>调用超类的构造器。</li>
 </ol>
 </li>
-<li>
-<p><strong>多态（polymorphism）</strong>：一个对象变量可以指示多种实际类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个例子中，变量 staff[0] 与 boss 引用同一个对象。</span></span><br><span class="line"><span class="comment">// 但编译器将 staff[0] 看成 Employee 对象。 这意味着，</span></span><br><span class="line"><span class="comment">// 可以这样调用</span></span><br><span class="line">boss.setBonus(<span class="number">5000</span>); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不能这样调用</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>); <span class="comment">// Error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是因为 staff[0] 声明的类型是 Employee，</span></span><br><span class="line"><span class="comment">// 而 setBonus 不是 Employee 类的方法。</span></span><br></pre></td></tr></table></figure>
+<li><strong>多态（polymorphism）</strong>：一个对象变量可以指示多种实际类型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个例子中，变量 staff[0] 与 boss 引用同一个对象。</span></span><br><span class="line"><span class="comment">// 但编译器将 staff[0] 看成 Employee 对象。 这意味着，</span></span><br><span class="line"><span class="comment">// 可以这样调用</span></span><br><span class="line">boss.setBonus(<span class="number">5000</span>); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不能这样调用</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>); <span class="comment">// Error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是因为 staff[0] 声明的类型是 Employee，</span></span><br><span class="line"><span class="comment">// 而 setBonus 不是 Employee 类的方法。</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p><strong>动态绑定（dynamic binding）</strong>：在运行时能够自动地选择调用哪个方法。</p>
-</li>
-<li>
-<p>可以将一个子类的对象赋给超类变量，但不能将一个超类的引用赋给子类变量。</p>
-</li>
-<li>
-<p>假设要调用 <code>x.f(args)</code>，隐式参数 <code>x</code> 声明为类 <code>C</code> 的一个对象。</p>
+<li><strong>动态绑定（dynamic binding）</strong>：在运行时能够自动地选择调用哪个方法。</li>
+<li>可以将一个子类的对象赋给超类变量，但不能将一个超类的引用赋给子类变量。</li>
+<li>假设要调用 <code>x.f(args)</code>，隐式参数 <code>x</code> 声明为类 <code>C</code> 的一个对象。
 <ol>
 <li>编译器査看对象的声明类型和方法名。编译器将会一一列举所有 <code>C</code> 类中名为 <code>f</code> 的方法和其超类中访问属性为 <code>public</code> 且名为 <code>f</code> 的方法（超类的私有方法不可访问）。</li>
 <li>编译器将査看调用方法时提供的参数类型。</li>
@@ -203,69 +189,37 @@
 <li>当程序运行，并且采用动态绑定调用方法时，虚拟机一定调用与 <code>x</code> 所引用对象的实际类型最合适的那个类的方法。</li>
 </ol>
 </li>
-<li>
-<p>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个方法表(method table)，其中列出了所有方法的签名和实际调用的方法。</p>
-</li>
-<li>
-<p>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-</li>
-<li>
-<p>不允许扩展的类被称为 <code>final</code> 类。</p>
-</li>
-<li>
-<p><code>final</code> 类中的所有方法自动地成为 <code>final</code> 方法。</p>
-</li>
-<li>
-<p>如果将一个类声明为 <code>final</code>， 只有其中的方法自动地成为 <code>final</code>， 而不包括域。</p>
-</li>
+<li>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个方法表(method table)，其中列出了所有方法的签名和实际调用的方法。</li>
+<li>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></li>
+<li>不允许扩展的类被称为 <code>final</code> 类。</li>
+<li><code>final</code> 类中的所有方法自动地成为 <code>final</code> 方法。</li>
+<li>如果将一个类声明为 <code>final</code>， 只有其中的方法自动地成为 <code>final</code>， 而不包括域。</li>
 </ul>
 <hr>
 <ul>
-<li>
-<p>进行类型转换的唯一原因是：在暂时忽视对象的实际类型之后，使用对象的全部功能。</p>
+<li>进行类型转换的唯一原因是：在暂时忽视对象的实际类型之后，使用对象的全部功能。</li>
+<li>在进行类型转换之前，先查看一下是否能够成功地转换。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>在进行类型转换之前，先查看一下是否能够成功地转换。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>只能在继承层次内进行类型转换。</p>
-</li>
-<li>
-<p>在将超类转换成子类之前，应该使用 <code>instanceof</code> 进行检查。</p>
-</li>
-<li>
-<p>在一般情况下，应该尽量少用类型转换和 <code>instanceof</code> 运算符。</p>
-</li>
+<li>只能在继承层次内进行类型转换。</li>
+<li>在将超类转换成子类之前，应该使用 <code>instanceof</code> 进行检查。</li>
+<li>在一般情况下，应该尽量少用类型转换和 <code>instanceof</code> 运算符。</li>
 </ul>
 <hr>
 <ul>
-<li>
-<p>包含一个或多个抽象方法的类本身必须被声明为抽象的。</p>
+<li>包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
+<li>抽象方法充当着占位的角色，它们的具体实现在子类中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  . . .</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>抽象方法充当着占位的角色，它们的具体实现在子类中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  . . .</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>抽象类可以包含具体数据和具体方法。</p>
+<li>抽象类可以包含具体数据和具体方法。
 <blockquote>
 <p>许多程序员认为，在抽象类中不能包含具体方法。建议尽量将通用的域和方法（不管是否是抽象的）放在超类（不管是否是抽象类）中。</p>
 </blockquote>
 </li>
-<li>
-<p>类即使不含抽象方法，也可以将类声明为抽象类。</p>
+<li>类即使不含抽象方法，也可以将类声明为抽象类。</li>
+<li>抽象类不能被实例化。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Person(<span class="string">"Vinee Vu"</span>) <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>抽象类不能被实例化。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Person(<span class="string">"Vinee Vu"</span>) <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+<li>可以定义一个抽象类的对象变量，但是它只能引用非抽象子类的对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = <span class="keyword">new</span> Student(<span class="string">"Vinee Vu"</span>, <span class="string">"Economics"</span>);</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>可以定义一个抽象类的对象变量，但是它只能引用非抽象子类的对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = <span class="keyword">new</span> Student(<span class="string">"Vinee Vu"</span>, <span class="string">"Economics"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Java 用于控制可见性的 4 个访问修饰符：</p>
+<li>Java 用于控制可见性的 4 个访问修饰符：
 <ol>
 <li>仅对本类可见： private。</li>
 <li>对所有类可见： public。</li>
@@ -310,28 +264,14 @@
 </ul>
 <hr>
 <ul>
-<li>
-<p>范型数组列表</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<li>范型数组列表<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>不必指出数组的大小。</p>
-</li>
-<li>
-<p>使用 add 将任意多的元素添加到数组中。</p>
-</li>
-<li>
-<p>使用 size() 替代 length 计算元素的数目。</p>
-</li>
-<li>
-<p>使用 a.get(i) 替代 a[i] 访问元素。</p>
-</li>
-<li>
-<p>一旦能够确认数组列表的大小不再发生变化，就可以调用 <code>trimToSize</code> 方法。这个方法将存储区域的大小调整为当前元素数量所需要的存储空间数目。垃圾回收器将回收多余的存储空间。</p>
-</li>
-<li>
-<p>一旦整理了数组列表的大小，添加新元素就需要花时间再次移动存储块， 所以应该在确认不会添加任何元素时，再调用 <code>trimToSize</code>。</p>
-</li>
+<li>不必指出数组的大小。</li>
+<li>使用 add 将任意多的元素添加到数组中。</li>
+<li>使用 size() 替代 length 计算元素的数目。</li>
+<li>使用 a.get(i) 替代 a[i] 访问元素。</li>
+<li>一旦能够确认数组列表的大小不再发生变化，就可以调用 <code>trimToSize</code> 方法。这个方法将存储区域的大小调整为当前元素数量所需要的存储空间数目。垃圾回收器将回收多余的存储空间。</li>
+<li>一旦整理了数组列表的大小，添加新元素就需要花时间再次移动存储块， 所以应该在确认不会添加任何元素时，再调用 <code>trimToSize</code>。</li>
 </ul>
 <hr>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
@@ -340,17 +280,11 @@
 </ul>
 <hr>
 <ul>
-<li>
-<p>Object 类中的 <code>getClass()</code> 方法将会返回一个 <code>Class</code> 类型的实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">...</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure>
+<li>Object 类中的 <code>getClass()</code> 方法将会返回一个 <code>Class</code> 类型的实例。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">...</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>可以调用静态方法 <code>forName</code> 获得类名对应的 <code>Class</code> 对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">Class cl = Class.forName(className);</span><br><span class="line"><span class="comment">// 如果类名保存在字符串中，并可在运行中改变，</span></span><br><span class="line"><span class="comment">// 就可以使用这个方法。</span></span><br></pre></td></tr></table></figure>
+<li>可以调用静态方法 <code>forName</code> 获得类名对应的 <code>Class</code> 对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">Class cl = Class.forName(className);</span><br><span class="line"><span class="comment">// 如果类名保存在字符串中，并可在运行中改变，</span></span><br><span class="line"><span class="comment">// 就可以使用这个方法。</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果 <code>T</code> 是任意的 Java 类型（或 void 关键字），<code>T.class</code> 将代表匹配的类对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = Random.class; <span class="comment">// if you import java.util.*;</span></span><br><span class="line">Class cl2 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl3 = Double[].class;</span><br></pre></td></tr></table></figure>
+<li>如果 <code>T</code> 是任意的 Java 类型（或 void 关键字），<code>T.class</code> 将代表匹配的类对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = Random<span class="class">.<span class="keyword">class</span></span>; <span class="comment">// if you import java.util.*;</span></span><br><span class="line">Class cl2 = <span class="keyword">int</span><span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">Class cl3 = Double[]<span class="class">.<span class="keyword">class</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
@@ -392,26 +326,26 @@
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
-        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
-        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
-        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
-        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
         <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
-    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
   </span>
 </div>
 </footer>
@@ -423,7 +357,7 @@
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
 
 
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>

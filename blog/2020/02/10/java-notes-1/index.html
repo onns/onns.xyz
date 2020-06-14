@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <head><meta charset="UTF-8"/>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（一）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/10/java-notes-1/">
+<meta name="description" content="Java学习笔记（一）"/><meta name="keywords" content="java, note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/02/10/java-notes-1/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
@@ -54,8 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（一） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  </head>
+    <title>Java学习笔记（一） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
@@ -148,7 +148,9 @@
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/10/java-notes-1/" data-title="Java学习笔记（一）">
+        <span class="post-visits"
+             data-url="/blog/2020/02/10/java-notes-1/"
+             data-title="Java学习笔记（一）">
           Visits 0
         </span>
         </div>
@@ -193,39 +195,30 @@
 </ul>
 <hr>
 <ul>
-<li>
-<p>Unicode 转义序列在解析代码之前进行</p>
+<li>Unicode 转义序列在解析代码之前进行
 <ul>
 <li>注释中的 <code>\u</code> 也会被转义</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String\u005B\u005D args)</span> \\ 合法</span></span><br><span class="line"><span class="function">\\ 等价于</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p><a href="https://github.com/onns/insight_python/blob/master/Unicode_and_Character_Sets.md" target="_blank" rel="noopener">码点</a></p>
-</li>
-<li>
-<p>可以在任意位置声明变量</p>
-</li>
-<li>
-<p><code>final</code> 声明常量</p>
+<li><a href="https://github.com/onns/insight_python/blob/master/Unicode_and_Character_Sets.md" target="_blank" rel="noopener">码点</a></li>
+<li>可以在任意位置声明变量</li>
+<li><code>final</code> 声明常量
 <ul>
 <li>关键字 <code>final</code> 表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。</li>
 </ul>
 </li>
-<li>
-<p>如果运算符得到一个值，其类型与左侧操作数的类型不同，就会发生强制类型转换。</p>
+<li>如果运算符得到一个值，其类型与左侧操作数的类型不同，就会发生强制类型转换。
 <ul>
 <li><code>x += 3.5;</code> 等价于 <code>x = (int)(x + 3.5);</code></li>
 </ul>
 </li>
-<li>
-<p><code>+=</code> 是右结合运算符</p>
+<li><code>+=</code> 是右结合运算符
 <ul>
 <li><code>a += b += c</code> 等价于 <code>a += (b += c)</code></li>
 </ul>
 </li>
-<li>
-<p>位运算符</p>
+<li>位运算符
 <ul>
 <li><code>&amp;</code> (“and”)</li>
 <li><code>|</code> (“or”)</li>
@@ -236,9 +229,7 @@
 <li><code>&gt;&gt;&gt;</code> 运算符会用 0 填充高位</li>
 </ul>
 </li>
-<li>
-<p>String 类对象为不可变字符串，不能修改。</p>
-</li>
+<li>String 类对象为不可变字符串，不能修改。</li>
 </ul>
 <hr>
 <ul>
@@ -274,26 +265,26 @@
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
-        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
-        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
-        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
-        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
         <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
-    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
   </span>
 </div>
 </footer>
@@ -305,7 +296,7 @@
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
 
 
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>

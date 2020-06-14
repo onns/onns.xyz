@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <head><meta charset="UTF-8"/>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（五）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/25/java-notes-5/">
+<meta name="description" content="Java学习笔记（五）"/><meta name="keywords" content="java, note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/02/25/java-notes-5/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
@@ -54,8 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（五） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  </head>
+    <title>Java学习笔记（五） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
@@ -148,7 +148,9 @@
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/25/java-notes-5/" data-title="Java学习笔记（五）">
+        <span class="post-visits"
+             data-url="/blog/2020/02/25/java-notes-5/"
+             data-title="Java学习笔记（五）">
           Visits 0
         </span>
         </div>
@@ -164,74 +166,38 @@
 <a id="more"></a>
 <h3 id="异常">异常</h3>
 <ul>
-<li>
-<p>在 Java 程序设计语言中，异常对象都是派生于 <code>Throwable</code> 类的一个实例。</p>
-</li>
-<li>
-<p><code>Error</code> 类层次结构描述了 Java 运行时系统的内部错误和资源耗尽错误。除了通告给用户，并尽力使程序安全地终止之外，再无能为力。</p>
-</li>
-<li>
-<p>在设计 Java 程序时， 需要关注 <code>Exception</code> 层次结构：</p>
+<li>在 Java 程序设计语言中，异常对象都是派生于 <code>Throwable</code> 类的一个实例。</li>
+<li><code>Error</code> 类层次结构描述了 Java 运行时系统的内部错误和资源耗尽错误。除了通告给用户，并尽力使程序安全地终止之外，再无能为力。</li>
+<li>在设计 Java 程序时， 需要关注 <code>Exception</code> 层次结构：
 <ol>
 <li><strong>RuntimeException</strong>：由程序错误导致的异常。</li>
 <li><strong>其它异常</strong>：程序本身没有问题，但由于像<code>I/O错误</code>这类问题导致的异常。</li>
 </ol>
 </li>
-<li>
-<p>如果出现 <code>RuntimeException</code> 异常，那么就一定是你的问题。</p>
-</li>
-<li>
-<p>派生于 Error 类或 RuntimeException 类的所有异常称为<code>非受查（unchecked）异常</code>，所有其他的异常称为<code>受查（checked）异常</code>。</p>
-</li>
-<li>
-<p>一个方法必须声明所有可能抛出的受查异常，而非受查异常要么不可控制（Error），要么就应该避免发生（RuntimeException）。</p>
-</li>
-<li>
-<p>抛出异常：</p>
+<li>如果出现 <code>RuntimeException</code> 异常，那么就一定是你的问题。</li>
+<li>派生于 Error 类或 RuntimeException 类的所有异常称为<code>非受查（unchecked）异常</code>，所有其他的异常称为<code>受查（checked）异常</code>。</li>
+<li>一个方法必须声明所有可能抛出的受查异常，而非受查异常要么不可控制（Error），要么就应该避免发生（RuntimeException）。</li>
+<li>抛出异常：
 <ol>
 <li>找到一个合适的异常类。</li>
 <li>创建这个类的一个对象。</li>
 <li>将对象抛出。</li>
 </ol>
 </li>
-<li>
-<p>如果调用了一个抛出受查异常的方法，就必须对它进行处理，或者继续传递。</p>
+<li>如果调用了一个抛出受查异常的方法，就必须对它进行处理，或者继续传递。</li>
+<li>应该捕获那些<code>知道如何处理的异常</code>，而将那些<code>不知道怎样处理的异常</code>继续进行传递。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(String filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">try</span></span><br><span class="line">  &#123;</span><br><span class="line">    InputStream in = <span class="keyword">new</span> FileInputStream(filename);</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">while</span> ((b = in.read()) != -<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// process input</span></span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span> (IOException exception)</span><br><span class="line">  &#123;</span><br><span class="line">    exception.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更好的选择👇</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  InputStream in = <span class="keyword">new</span> FileInputStream(filename);</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">while</span> ((b = in.read()) != -<span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// process input</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>应该捕获那些<code>知道如何处理的异常</code>，而将那些<code>不知道怎样处理的异常</code>继续进行传递。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(String filename)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">try</span></span><br><span class="line">  &#123;</span><br><span class="line">    InputStream in = <span class="keyword">new</span> FileInputStream(filename);</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">while</span> ((b = in.read()) != -<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// process input</span></span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span> (IOException exception)</span><br><span class="line">  &#123;</span><br><span class="line">    exception.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更好的选择👇</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  InputStream in = <span class="keyword">new</span> FileInputStream(filename);</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">while</span> ((b = in.read()) != -<span class="number">1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// process input</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>如果编写一个覆盖超类的方法，而这个方法又没有抛出异常，那么这个方法就必须捕获方法代码中出现的每一个受查异常。</li>
+<li>不允许在子类的 throws 说明符中出现超过超类方法所列出的异常类范围。</li>
+<li>强烈建议使用这种包装技术，这样可以让用户抛出子系统中的高级异常，而不会丢失原始异常的细节。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> </span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// access the database</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (SQLException e)</span><br><span class="line">&#123;</span><br><span class="line">  Throwable se = <span class="keyword">new</span> ServletException(<span class="string">"database error"</span>);</span><br><span class="line">  se.initCause(e);</span><br><span class="line">  <span class="keyword">throw</span> se;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得原始异常</span></span><br><span class="line">Throwable e = se.getCause();</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果编写一个覆盖超类的方法，而这个方法又没有抛出异常，那么这个方法就必须捕获方法代码中出现的每一个受查异常。</p>
-</li>
-<li>
-<p>不允许在子类的 throws 说明符中出现超过超类方法所列出的异常类范围。</p>
-</li>
-<li>
-<p>强烈建议使用这种包装技术，这样可以让用户抛出子系统中的高级异常，而不会丢失原始异常的细节。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> </span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// access the database</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (SQLException e)</span><br><span class="line">&#123;</span><br><span class="line">  Throwable se = <span class="keyword">new</span> ServletException(<span class="string">"database error"</span>);</span><br><span class="line">  se.initCause(e);</span><br><span class="line">  <span class="keyword">throw</span> se;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得原始异常</span></span><br><span class="line">Throwable e = se.getCause();</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>不管是否有异常被捕获，<code>finally</code> 子句中的代码都被执行。</p>
-</li>
-<li>
-<p><code>带资源的 try 语句</code>可以很好地处理“如果 try 块抛出一个异常，而且 close 方法也抛出一个异常”的问题。</p>
-</li>
-<li>
-<p>异常处理不能代替简单的测试。因为异常捕获的耗时较长。</p>
-</li>
-<li>
-<p>不要过分地细化异常。</p>
-</li>
-<li>
-<p>不要压制异常。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-</li>
-<li>
-<p>在检测错误时，“苛刻”要比“放任”更好。尽早抛出异常可以让使用者更方便的处理，而未知的异常才是最难检查的。</p>
-</li>
-<li>
-<p>不要羞于传递异常。</p>
-</li>
+<li>不管是否有异常被捕获，<code>finally</code> 子句中的代码都被执行。</li>
+<li><code>带资源的 try 语句</code>可以很好地处理“如果 try 块抛出一个异常，而且 close 方法也抛出一个异常”的问题。</li>
+<li>异常处理不能代替简单的测试。因为异常捕获的耗时较长。</li>
+<li>不要过分地细化异常。</li>
+<li>不要压制异常。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></li>
+<li>在检测错误时，“苛刻”要比“放任”更好。尽早抛出异常可以让使用者更方便的处理，而未知的异常才是最难检查的。</li>
+<li>不要羞于传递异常。</li>
 </ul>
 <hr>
 <h3 id="断言">断言</h3>
@@ -279,26 +245,26 @@
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
-        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
-        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
-        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
-        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
         <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
-    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
   </span>
 </div>
 </footer>
@@ -310,7 +276,7 @@
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
 
 
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>

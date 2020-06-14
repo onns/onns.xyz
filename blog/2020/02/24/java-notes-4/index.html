@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <head><meta charset="UTF-8"/>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Java学习笔记（四）"><meta name="keywords" content="java, note, Onns Blog"><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0">
-<link rel="canonical" href="https://onns.xyz/2020/02/24/java-notes-4/">
+<meta name="description" content="Java学习笔记（四）"/><meta name="keywords" content="java, note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/02/24/java-notes-4/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css"><script type="text/x-mathjax-config">
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
@@ -54,8 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Java学习笔记（四） - Onns Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  </head>
+    <title>Java学习笔记（四） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
@@ -148,7 +148,9 @@
         </span><span class="post-category">
             <a href="/blog/categories/code/">code</a>
             </span>
-        <span class="post-visits" data-url="/blog/2020/02/24/java-notes-4/" data-title="Java学习笔记（四）">
+        <span class="post-visits"
+             data-url="/blog/2020/02/24/java-notes-4/"
+             data-title="Java学习笔记（四）">
           Visits 0
         </span>
         </div>
@@ -164,14 +166,9 @@
 <a id="more"></a>
 <h3 id="接口">接口</h3>
 <ul>
-<li>
-<p>接口中的所有方法自动地属于 <code>public</code>，在接口中声明方法时不必提供关键字 <code>public</code>。</p>
-</li>
-<li>
-<p>接口绝不能含有 <code>实例域</code>。提供实例域和方法实现的任务应该由实现接口的那个类来完成。</p>
-</li>
-<li>
-<p>为了让类实现一个接口，需要：</p>
+<li>接口中的所有方法自动地属于 <code>public</code>，在接口中声明方法时不必提供关键字 <code>public</code>。</li>
+<li>接口绝不能含有 <code>实例域</code>。提供实例域和方法实现的任务应该由实现接口的那个类来完成。</li>
+<li>为了让类实现一个接口，需要：
 <ol>
 <li>将类声明为实现给定的接口。<br>
 要将类声明为实现某个接口，需要使用关键字 <strong>implements</strong>。</li>
@@ -181,34 +178,17 @@
 <li>对接口中的所有方法进行定义。</li>
 </ol>
 </li>
-<li>
-<p>如果存在这样一种通用算法，它能够对两个不同的子类对象进行比较，则应该在<code>超类</code>中提供一个 <code>compareTo</code> 方法，并将这个方法声明为 <code>final</code>。</p>
+<li>如果存在这样一种通用算法，它能够对两个不同的子类对象进行比较，则应该在<code>超类</code>中提供一个 <code>compareTo</code> 方法，并将这个方法声明为 <code>final</code>。</li>
+<li>接口不是类，不能使用 <code>new</code> 运算符实例化一个接口，但是可以声明接口的变量，接口变量必须引用实现了接口的类对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> Comparable(...); <span class="comment">// ERROR</span></span><br><span class="line">Comparable x; <span class="comment">// OK</span></span><br><span class="line">x = <span class="keyword">new</span> Employee(...); <span class="comment">// OK provided Employee implements Comparable</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>接口不是类，不能使用 <code>new</code> 运算符实例化一个接口，但是可以声明接口的变量，接口变量必须引用实现了接口的类对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> Comparable(...); <span class="comment">// ERROR</span></span><br><span class="line">Comparable x; <span class="comment">// OK</span></span><br><span class="line">x = <span class="keyword">new</span> Employee(...); <span class="comment">// OK provided Employee implements Comparable</span></span><br></pre></td></tr></table></figure>
+<li>可以使用 <code>instance</code> 检查一个对象是否实现了某个特定的接口。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> Comparable) &#123;...&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>可以使用 <code>instance</code> 检查一个对象是否实现了某个特定的接口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> Comparable) &#123;...&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>接口中的域将被自动设为 <code>public static final</code>。</p>
-</li>
-<li>
-<p>在实现接口时，必须把方法声明为 <code>public</code>，否则，编译器将认为这个方法的访问属性是包可见性，即类的默认访问属性，之后编译器就会给出试图提供更严格的访问权限的警告信息。</p>
-</li>
-<li>
-<p>每个类可以实现多个接口。</p>
-</li>
-<li>
-<p>可以为接口方法提供一个默认实现，必须用 <code>default</code> 修饰符标记这样一个方法。</p>
-</li>
-<li>
-<p>默认方法的一个重要用法是 <code>接口演化（interface evolution）</code>，保证不会对旧代码产生影响。</p>
-</li>
-<li>
-<p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，遵循如下规则：</p>
+<li>接口中的域将被自动设为 <code>public static final</code>。</li>
+<li>在实现接口时，必须把方法声明为 <code>public</code>，否则，编译器将认为这个方法的访问属性是包可见性，即类的默认访问属性，之后编译器就会给出试图提供更严格的访问权限的警告信息。</li>
+<li>每个类可以实现多个接口。</li>
+<li>可以为接口方法提供一个默认实现，必须用 <code>default</code> 修饰符标记这样一个方法。</li>
+<li>默认方法的一个重要用法是 <code>接口演化（interface evolution）</code>，保证不会对旧代码产生影响。</li>
+<li>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，遵循如下规则：
 <ol>
 <li>超类优先。<br>
 如果超类提供了一个具体方法，同名而且有相同参数类型的默认方法会被忽略。</li>
@@ -222,56 +202,31 @@
 <hr>
 <h3 id="lambda-表达式">lambda 表达式</h3>
 <ul>
-<li>
-<p>lambda表达式就是一个代码块， 以及必须传入代码的变量规范。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">  -&gt; first.length() - second.length()</span><br></pre></td></tr></table></figure>
+<li>lambda表达式就是一个代码块， 以及必须传入代码的变量规范。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">  -&gt; first.length() - second.length()</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果代码要完成的计算无法放在一个表达式中，就可以像写方法一样，把这些代码放在 <code>{}</code> 中， 并包含显式的 return 语句。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123; </span><br><span class="line">  <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>; </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>如果代码要完成的计算无法放在一个表达式中，就可以像写方法一样，把这些代码放在 <code>{}</code> 中， 并包含显式的 return 语句。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123; </span><br><span class="line">  <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>; </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>即使 lambda 表达式没有参数，仍然要提供空括号，就像无参数方法一样。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">100</span>; i &gt;= <span class="number">0</span>; i-- ) System.out.println(i); &#125;</span><br></pre></td></tr></table></figure>
+<li>即使 lambda 表达式没有参数，仍然要提供空括号，就像无参数方法一样。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">100</span>; i &gt;= <span class="number">0</span>; i-- ) System.out.println(i); &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果可以推导出一个 lambda 表达式的参数类型，则可以忽略其类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">= (first, second) <span class="comment">// Same as (String first, String second)</span></span><br><span class="line">  -&gt; first.length() - second.length();</span><br></pre></td></tr></table></figure>
+<li>如果可以推导出一个 lambda 表达式的参数类型，则可以忽略其类型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">= (first, second) <span class="comment">// Same as (String first, String second)</span></span><br><span class="line">  -&gt; first.length() - second.length();</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>如果方法只有一个参数，而且这个参数的类型可以推导得出，那么甚至还可以省略小括号。</p>
-</li>
-<li>
-<p>无需指定 lambda 表达式的返回类型。lambda 表达式的返回类型总是会由上下文推导得出。</p>
-</li>
-<li>
-<p>要用 <code>::</code> 操作符分隔方法名与对象或类名主要有3种情况：</p>
+<li>如果方法只有一个参数，而且这个参数的类型可以推导得出，那么甚至还可以省略小括号。</li>
+<li>无需指定 lambda 表达式的返回类型。lambda 表达式的返回类型总是会由上下文推导得出。</li>
+<li>要用 <code>::</code> 操作符分隔方法名与对象或类名主要有3种情况：
 <ul>
 <li>object::instanceMethod</li>
 <li>Class::staticMethod</li>
 <li>Class::instanceMethod</li>
 </ul>
 </li>
-<li>
-<p>无法构造泛型类型 <code>T</code> 的数组。（数组构造器引用对于克服这个限制很有用。）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] people = stream.toArray(); <span class="comment">// Object数组引用</span></span><br><span class="line">Person[] people = stream.toArray(Person[]::<span class="keyword">new</span>); <span class="comment">// Person数组引用</span></span><br></pre></td></tr></table></figure>
+<li>无法构造泛型类型 <code>T</code> 的数组。（数组构造器引用对于克服这个限制很有用。）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] people = stream.toArray(); <span class="comment">// Object数组引用</span></span><br><span class="line">Person[] people = stream.toArray(Person[]::<span class="keyword">new</span>); <span class="comment">// Person数组引用</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>lambda 表达式中捕获的变量必须实际上是<code>最终变量（effectively final）</code>。</p>
+<li>lambda 表达式中捕获的变量必须实际上是<code>最终变量（effectively final）</code>。</li>
+<li>lambda 表达式的体与嵌套块有相同的作用域。</li>
+<li>在 lambda 表达式中声明与一个局部变量同名的参数或局部变量是不合法的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Path first = Paths.get(<span class="string">"/usr/bin"</span>); </span><br><span class="line">Comparator&lt;String&gt; comp =</span><br><span class="line">(first, second) -&gt; first.length() - second.length();</span><br><span class="line"><span class="comment">// Error: Variable first already defined</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>lambda 表达式的体与嵌套块有相同的作用域。</p>
-</li>
-<li>
-<p>在 lambda 表达式中声明与一个局部变量同名的参数或局部变量是不合法的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Path first = Paths.get(<span class="string">"/usr/bin"</span>); </span><br><span class="line">Comparator&lt;String&gt; comp =</span><br><span class="line">(first, second) -&gt; first.length() - second.length();</span><br><span class="line"><span class="comment">// Error: Variable first already defined</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在一个 lambda 表达式中使用 <code>this</code> 关键字时，是指创建这个 lambda 表达式的方法的 <code>this</code> 参数。</p>
-</li>
-<li>
-<p>使用 lambda 表达式的重点是<code>延迟执行（deferred execution）</code>。</p>
-</li>
+<li>在一个 lambda 表达式中使用 <code>this</code> 关键字时，是指创建这个 lambda 表达式的方法的 <code>this</code> 参数。</li>
+<li>使用 lambda 表达式的重点是<code>延迟执行（deferred execution）</code>。</li>
 </ul>
 <hr>
 <h3 id="内部类">内部类</h3>
@@ -312,26 +267,26 @@
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
-        <a href="https://facebook.com/onnsxyz" class="iconfont icon-facebook" title="facebook"></a>
-        <a href="https://github.com/onns" class="iconfont icon-github" title="github"></a>
-        <a href="https://www.douban.com/people/onnsxyz/" class="iconfont icon-douban" title="douban"></a>
-        <a href="https://instagram.com/onnsxyz" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
         <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
     </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
-    <span class="licence"> <a href="http://www.beian.miit.gov.cn">闽ICP备15022938号-2</a> </span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
   </span>
 </div>
 </footer>
@@ -343,7 +298,7 @@
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
 
 
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
