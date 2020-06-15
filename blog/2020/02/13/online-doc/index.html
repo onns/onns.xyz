@@ -159,7 +159,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑器"><span class="toc-text">编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据存储"><span class="toc-text">数据存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取当前url参数"><span class="toc-text">获取当前url参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉取远端数据"><span class="toc-text">拉取远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新远端数据"><span class="toc-text">更新远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新策略"><span class="toc-text">更新策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo"><span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TODO"><span class="toc-text">TODO</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑器"><span class="toc-text">编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据存储"><span class="toc-text">数据存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取当前url参数"><span class="toc-text">获取当前url参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉取远端数据"><span class="toc-text">拉取远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新远端数据"><span class="toc-text">更新远端数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新策略"><span class="toc-text">更新策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>经常会有这样一种需求：我需要把一段文字从一个设备发送到另一个设备，虽然确实会有很多解决办法，比如登陆QQ、微信，然后传过去，但是这些都<code>需要繁琐的登陆步骤</code>，并且有些时候你需要发送的设备是一台<code>不可信的</code>、<code>你不愿意在上面暴露自己账号密码</code>的设备，所以想弄一个无需登陆的小Demo，花了四个小时，效果还不错。</p>
 <a id="more"></a>
@@ -191,9 +191,9 @@
 <h3 id="更新策略">更新策略</h3>
 <p>我设置的更新的策略是 <code>10s</code> 自动保存一次。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (docEle.innerHTML != content &amp;&amp; docEle.innerHTML != <span class="string">''</span>) &#123;</span><br><span class="line">    update();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="number">1000</span> * <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="Demo">Demo</h2>
+<h2 id="demo">Demo</h2>
 <p>详见<a href="https://onns.xyz/doc/">https://onns.xyz/doc/</a>。</p>
-<h2 id="TODO">TODO</h2>
+<h2 id="todo">TODO</h2>
 <ul>
 <li>因为是用 <code>leancloud</code> 服务，不清楚单个字段的大小限制，可能出现无法保存或无法完整保存的情况，需要编辑器加以限制。</li>
 <li>一些诸如保存时间、字数大小等控制信息的显示。</li>

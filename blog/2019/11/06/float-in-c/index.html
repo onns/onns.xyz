@@ -182,7 +182,7 @@
 <h2 id="数字分析">数字分析</h2>
 <p>使用<a href="https://tool.lu/hexconvert/" target="_blank" rel="noopener">进制转换工具</a>得到 <code>123456789</code> 的二进制为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">111010110111100110100010101</span><br></pre></td></tr></table></figure>
-<p>一共 <code>27</code> 位，前面说过float的有效位数为 <code>23+1</code> 位，第 <code>24</code> 位要根据 <code>就近原则</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> 确定是 <code>0</code> 还是 <code>1</code>，其余部位补 <code>0</code>，即：</p>
+<p>一共 <code>27</code> 位，前面说过float的有效位数为 <code>23+1</code> 位，第 <code>24</code> 位要根据 <code>就近原则</code><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 确定是 <code>0</code> 还是 <code>1</code>，其余部位补 <code>0</code>，即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">111010110111100110100011000</span><br></pre></td></tr></table></figure>
 <p>得到结果为 <code>123456792</code>。</p>
 <h2 id="程序验证">程序验证</h2>
@@ -196,8 +196,15 @@
 <ul>
 <li><a href="https://blog.csdn.net/leho666/article/details/89204964" target="_blank" rel="noopener">C语言中，float在内存中的储存方式</a></li>
 <li><a href="https://blog.csdn.net/qq_35057840/article/details/52430651" target="_blank" rel="noopener">C语言浮点数存储方式</a></li>
-<li><a href="https://blog.csdn.net/wayway0554/article/details/84111889" target="_blank" rel="noopener">在C语言中将float(浮点数)的二进制表示打印出来</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">”就近原则“无法找到相关文档说明，只能根据测试数据进行推测，准确性有待考究。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div></li>
+<li><a href="https://blog.csdn.net/wayway0554/article/details/84111889" target="_blank" rel="noopener">在C语言中将float(浮点数)的二进制表示打印出来</a></li>
 </ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>”就近原则“无法找到相关文档说明，只能根据测试数据进行推测，准确性有待考究。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       

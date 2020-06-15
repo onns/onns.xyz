@@ -159,15 +159,15 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCL"><span class="toc-text">PCL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加环境变量"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VS2017配置"><span class="toc-text">VS2017配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pcl"><span class="toc-text">PCL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加环境变量"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vs2017配置"><span class="toc-text">VS2017配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>PCL的库配置是真的繁琐，配置了好多次才成功。<br>
 Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
 <a id="more"></a>
-<h2 id="PCL">PCL</h2>
+<h2 id="pcl">PCL</h2>
 <p><code>PCL</code> 从 <code>1.8.0</code> 版本开始代码都托管在了<a href="https://github.com/PointCloudLibrary/pcl/releases/" target="_blank" rel="noopener">GitHub</a>之上，点击这里直接下载即可：<a href="https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.9.1/PCL-1.9.1-AllInOne-msvc2017-win64.exe" target="_blank" rel="noopener">PCL-1.9.1-AllInOne-msvc2017-win64.exe</a>。</p>
 <p>因为 <code>PCL</code> 会依赖很多插件库，所以下 <code>AllInOne</code> 版本就可以都装上了。</p>
-<p>安装的时候一路下一步即可，不过需要注意安装的最后会弹出一个单独的安装程序来安装 <code>OpenNI2</code>。假如我 <code>PCL的安装目录（PCL_ROOT）</code> 为 <strong>D:\Program Files\PCL1.9.1</strong><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>，那么建议 <code>OpenNI2</code> 的安装目录设置为 <strong>%PCL_ROOT%\3rdParty\OpenNI2</strong>，即：<strong>D:\Program Files\PCL1.9.1\3rdParty\OpenNI2</strong>。这样做的目的是为了方便管理第三方库。</p>
+<p>安装的时候一路下一步即可，不过需要注意安装的最后会弹出一个单独的安装程序来安装 <code>OpenNI2</code>。假如我 <code>PCL的安装目录（PCL_ROOT）</code> 为 <strong>D:\Program Files\PCL1.9.1</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，那么建议 <code>OpenNI2</code> 的安装目录设置为 <strong>%PCL_ROOT%\3rdParty\OpenNI2</strong>，即：<strong>D:\Program Files\PCL1.9.1\3rdParty\OpenNI2</strong>。这样做的目的是为了方便管理第三方库。</p>
 <p>至此，<code>PCL</code> 及其相关第三方库安装完成。</p>
 <h2 id="添加环境变量">添加环境变量</h2>
 <p>在 <code>计算机—&gt;属性—&gt;高级系统属性—&gt;高级—&gt;环境变量</code> 中，添加如下<code>环境变量</code>：</p>
@@ -226,7 +226,7 @@ Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
 <blockquote>
 <p>%PCL_ROOT%\bin;%PCL_ROOT%\3rdParty\Boost\lib;%PCL_ROOT%\3rdParty\FLANN\bin;%PCL_ROOT%\3rdParty\OpenNI2\Lib;%PCL_ROOT%\3rdParty\OpenNI2\Redist;%PCL_ROOT%\3rdParty\OpenNI2\Tools;%PCL_ROOT%\3rdParty\Qhull\bin;%PCL_ROOT%\3rdParty\VTK\bin;</p>
 </blockquote>
-<h2 id="VS2017配置">VS2017配置</h2>
+<h2 id="vs2017配置">VS2017配置</h2>
 <p>打开VS2017，新建一个 <code>C++</code>的<code>空项目</code>即可。</p>
 <p>首先打开<code>属性管理器</code>，如果找不到可以在<code>视图-&gt;其他窗口-&gt;属性管理器</code>中打开，或者直接搜索也可以。</p>
 <p>然后在<code>属性管理器-&gt; Release | x64</code>文件夹右键，<code>添加新项目属性表</code>，名字自己起即可。</p>
@@ -251,7 +251,14 @@ Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
 <li><a href="https://mp.weixin.qq.com/s/WcNKk07GEAbhUTS1aPRufw" target="_blank" rel="noopener">PCL1.8.1+vs2015配置教程</a></li>
 <li><a href="https://blog.csdn.net/weixin_41991128/article/details/83864713" target="_blank" rel="noopener">VS2017配置PCL1.9（win10环境）</a></li>
 </ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">安装的时候有人建议把目录 <code>PCL 1.9.1</code> 中间的<code>空格</code>删掉，我就照做了。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>安装的时候有人建议把目录 <code>PCL 1.9.1</code> 中间的<code>空格</code>删掉，我就照做了。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
       </div>
       
       <footer class="post-footer">

@@ -159,7 +159,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">用SA算法求解旅行商问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Metropolis算法"><span class="toc-text">Metropolis算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷却进度表"><span class="toc-text">冷却进度表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初值t-sub-0-sub"><span class="toc-text">初值t0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#衰减函数"><span class="toc-text">衰减函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t的终值t-sub-f-sub-停止准则"><span class="toc-text">t的终值tf(停止准则)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mapkob链长L-sub-k-sub"><span class="toc-text">Mapkob链长Lk</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新解的产生"><span class="toc-text">新解的产生</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#城市矩阵生成代码"><span class="toc-text">城市矩阵生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟退火算法代码"><span class="toc-text">模拟退火算法代码</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">用SA算法求解旅行商问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#metropolis算法"><span class="toc-text">Metropolis算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冷却进度表"><span class="toc-text">冷却进度表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初值t0"><span class="toc-text">初值t0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#衰减函数"><span class="toc-text">衰减函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t的终值tf-停止准则"><span class="toc-text">t的终值tf(停止准则)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mapkob链长lk"><span class="toc-text">Mapkob链长Lk</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新解的产生"><span class="toc-text">新解的产生</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#城市矩阵生成代码"><span class="toc-text">城市矩阵生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟退火算法代码"><span class="toc-text">模拟退火算法代码</span></a></li></ol></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h1>用SA算法求解旅行商问题</h1>
 <h2 id="问题描述">问题描述</h2>
@@ -167,7 +167,7 @@
 <a id="more"></a>
 <h2 id="算法设计">算法设计</h2>
 <p>采用模拟退火算法计算旅行商问题, 模拟退火算法(Simulated Annealing Algorithm, 简称SA算法), 源于对固体退火过程的模拟, 采用Metropolis接受准则, 并用一组称为冷却表的参数控制算法进程, 使算法在多项式时间里给出一个近似最优解.</p>
-<h3 id="Metropolis算法">Metropolis算法</h3>
+<h3 id="metropolis算法">Metropolis算法</h3>
 <p>模拟退火算法用Metropolis算法产生组合优化问题解的序列. 并由Metropolis准则对应的转移概率<code>P</code>.</p>
 <span>$$P(i=&gt;j)=
 \begin{cases}
@@ -185,7 +185,7 @@ e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
 <li>控制参数t的终值t<sub>f</sub>(停止准则)</li>
 <li>Mapkob链长L<sub>k</sub></li>
 </ul>
-<h4 id="初值t-sub-0-sub">初值t<sub>0</sub></h4>
+<h4 id="初值t0">初值t<sub>0</sub></h4>
 <p>控制参数初值t<sub>0</sub>要足够大, 才能使算法进程在合理时间里搜索尽可能大的解空间范围.<br>
 本实验选取t<sub>0</sub>为<code>100</code>.</p>
 <h4 id="衰减函数">衰减函数</h4>
@@ -193,10 +193,10 @@ e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
 <span>$$\alpha(t)=0.9*t
 \tag{2}$$</span><!-- Has MathJax -->
 <p>本实验选取的衰减函数如<code>公式2</code>所示.</p>
-<h4 id="t的终值t-sub-f-sub-停止准则">t的终值t<sub>f</sub>(停止准则)</h4>
+<h4 id="t的终值tf-停止准则">t的终值t<sub>f</sub>(停止准则)</h4>
 <p>控制参数终值t<sub>f</sub>通常由停止准则决定. 合理的停止准则既要确保算法收敛于某一近似解, 又要使最终解具有一定的质量.<br>
 本实验选取的停止准则为<code>连续两个Mapkob链路径无变化</code>则程序终止.</p>
-<h4 id="Mapkob链长L-sub-k-sub">Mapkob链长L<sub>k</sub></h4>
+<h4 id="mapkob链长lk">Mapkob链长L<sub>k</sub></h4>
 <p>Mapkob链长L<sub>k</sub>在控制参数t的衰减函数已选定的前提下, L<sub>k</sub>应选得在控制参数的每一取值上都能恢复准平衡.<br>
 本实验选取的Mapkob链长为<code>定长20000</code>.</p>
 <h3 id="新解的产生">新解的产生</h3>

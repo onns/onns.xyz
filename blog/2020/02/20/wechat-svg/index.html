@@ -167,7 +167,7 @@
 <h2 id="壹">壹</h2>
 <p>最初的时候是一篇名叫<a href="https://mp.weixin.qq.com/s/-gugc0Gn0XZXSOONw-NKHg" target="_blank" rel="noopener">《2020，我的新年签居然是…》</a>的推送吸引了大家的注意力，站在他们的肩（chuang）膀（yi）上，我们做了进一步的升华。</p>
 <p>首先需要了解一下微信文章推送的定位，它是一个<code>阉割</code>了的网页，只保留了<code>文本</code>、<code>媒体</code>和<code>样式</code>这三种内容，而我们正常网页交互所使用的 <code>js</code> 则完全不能使用，甚至连 <code>&lt;style&gt;&lt;/style&gt;</code> 这样的样式标签也会被移除。一句话概括，你只能展示内容，而无法与读者互动，无法交互。</p>
-<p>而 <code>svg</code> 是为数不多的可以用到的可定制式的交互样式，它的出身可以百度如果你感兴趣。<code>svg</code> 能够做到的交互我目前知道两个<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>，简要概括就是：<code>透明度/角度变化</code>和<code>（按照固定轨迹）移动</code>，基本上所有的交互都是这两个交互的<code>延伸</code>和<code>组合</code>。</p>
+<p>而 <code>svg</code> 是为数不多的可以用到的可定制式的交互样式，它的出身可以百度如果你感兴趣。<code>svg</code> 能够做到的交互我目前知道两个<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，简要概括就是：<code>透明度/角度变化</code>和<code>（按照固定轨迹）移动</code>，基本上所有的交互都是这两个交互的<code>延伸</code>和<code>组合</code>。</p>
 <p><strong>透明度/角度变化</strong>：实际中用到的就是<code>点击空白处显示文字</code>。<br>
 <strong>（按照固定轨迹）移动</strong>：<code>点击移动</code>、<code>抽奖</code>等。</p>
 <h2 id="贰">贰</h2>
@@ -175,7 +175,7 @@
 <p>我们偶尔看公路上的车轮会保持静止，因为车轮速度过快，每次看到的时候车轮都保持同一个位置，这就是高速带来的<code>静止</code>效果。<code>svg</code> 有一个参数就是可以让某一秒的画面代替动画中间的间隙效果，后面会详细介绍。</p>
 <h2 id="叁">叁</h2>
 <p>签的所有设计工作在 <code>Adobe illustrator</code> 中进行，后续的修补和动画通过<code>修改代码</code>完成。</p>
-<p>在所有工作开始前一定要确定的事情是你整个画布的大小，后续所有的调整和动画都是基于<code>数值计算</code>的，如果最后才发现开始设计得不统一，再回来修改的话，等于之前所有的工作都要重做一遍。<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+<p>在所有工作开始前一定要确定的事情是你整个画布的大小，后续所有的调整和动画都是基于<code>数值计算</code>的，如果最后才发现开始设计得不统一，再回来修改的话，等于之前所有的工作都要重做一遍。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
 <p>我选取的画布大小是 <code>640*960</code>，后续所有的参数都是基于这个。</p>
 <p>新建画布的时候，一定要去画布预设里把文档的出血设置成 <code>0</code>，出血是为了打印时四周预留足够的空间，但我们要精确计算到像素，所以必须要刨除这些不确定因素。</p>
 <p>接下来就是画面能动起来的重中之重：<code>图层结构</code>。</p>
@@ -191,7 +191,7 @@
 <p>首先要把签上<code>动的部分</code>和<code>不动的部分</code>分开，<code>不动的部分</code>放在<strong>背景层</strong>，只要放在背景层里，细致的结构无须考虑；<code>动的部分</code>放在<strong>前景层</strong>，每个签面内容都编组为一个整体，16个整体在<strong>前景层</strong>里是平行关系，处于同一层次。</p>
 <p>每个签内容保证在编组里即可，内部的细节层次结构也都不影响。</p>
 <p>接下来的重点是，每个签的位置摆放。16个签<strong>依次水平等间距摆放</strong>即可。</p>
-<p>需要注意 <code>png</code> 格式的图片大小不能超过 <strong>100kb</strong>。<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></p>
+<p>需要注意 <code>png</code> 格式的图片大小不能超过 <strong>100kb</strong>。<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p>
 <center>
 <p><img src="//onns.xyz/blog/image/20200220-1.jpg" alt="设计图"></p>
 <p>图2 设计图</p>
@@ -205,8 +205,8 @@
 </center>
 <p>选择导出为 <code>svg</code>，然后需要注意两个参数：</p>
 <ol>
-<li>样式选择为 <code>演示文稿属性</code><sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup></li>
-<li>图像选择为 <code>链接</code><sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup></li>
+<li>样式选择为 <code>演示文稿属性</code><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></li>
+<li>图像选择为 <code>链接</code><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup></li>
 </ol>
 <p>然后你就拥有了以 <code>&lt;svg&gt;&lt;/svg&gt;</code> 包裹的签代码，就可以添加动画了。</p>
 <hr>
@@ -258,7 +258,22 @@
 <li><a href="https://zhuanlan.zhihu.com/p/75023148" target="_blank" rel="noopener">详细教你微信公众号正文页SVG交互开发</a></li>
 <li><a href="https://www.zhangxinxu.com/wordpress/2014/08/so-powerful-svg-smil-animation/" target="_blank" rel="noopener">超级强大的SVG SMIL animation动画详解</a></li>
 </ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">可能有很多，但我只了解到两个。</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">坑1，一定要注意顺序。</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">坑2，微信后台只允许上传小于100kb的透明图片，超过的会强制转换为jpg，本来设计的效果全没了，真是个大坑。</span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;"><a href="https://zhuanlan.zhihu.com/p/75023148" target="_blank" rel="noopener">把Styling选择为Presentation Attributes，这样导出的SVG就不含有style，而且元素的样式也会通过标签属性进行设置，而不使用style内联css。</a></span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;">坑2，选别的会把图片变成base64编码后直接保存到文档里，很大的文档导致层次混乱。</span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>可能有很多，但我只了解到两个。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>坑1，一定要注意顺序。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>坑2，微信后台只允许上传小于100kb的透明图片，超过的会强制转换为jpg，本来设计的效果全没了，真是个大坑。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/75023148" target="_blank" rel="noopener">把Styling选择为Presentation Attributes，这样导出的SVG就不含有style，而且元素的样式也会通过标签属性进行设置，而不使用style内联css。</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>坑2，选别的会把图片变成base64编码后直接保存到文档里，很大的文档导致层次混乱。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
       </div>
       
       <footer class="post-footer">

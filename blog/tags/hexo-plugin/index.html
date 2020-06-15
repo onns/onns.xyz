@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="local feature lab report"/><meta name="keywords" content="computer vision, matlab, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2018/12/18/local-feature-lab-report/"/>
+<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/tags/hexo-plugin/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,8 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>local feature lab report - Onns Blog</title>
+    <title>hexo plugin · Onns Blog
+  </title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -137,113 +138,20 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">local feature lab report
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-18
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/12/18/local-feature-lab-report/"
-             data-title="local feature lab report">
-          Visits 0
-        </span>
+          <div id="content" class="content"><section id="archive" class="archive"><div class="archive-title tag">
+          <h2 class="archive-name">hexo plugin</h2>
         </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集分析"><span class="toc-text">数据集分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验过程"><span class="toc-text">实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编程语言介绍"><span class="toc-text">编程语言介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#harris角点检测"><span class="toc-text">Harris角点检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部特征描述"><span class="toc-text">局部特征描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部特征匹配"><span class="toc-text">局部特征匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a></li></ol>
-    </div>
-  </div><div class="post-content"><h2 id="问题分析">问题分析</h2>
-<h3 id="问题描述">问题描述</h3>
-<p>该项目的目标是完成一个找到在不同的视角下拍摄的同一物体或场景中的相似之处的算法。我们主要实现的是一个简易版的SIFT算法。主要需要完成的是以下三个方面的内容：</p>
-<ul>
-<li>
-<p>实现一个Harris角点检测算法</p>
-</li>
-<li>
-<p>实现一个类似SIFT算法的局部特征描述算法</p>
-</li>
-<li>
-<p>实现一个基于<code>比率测试</code>或<code>最近邻距离比测试</code>的局部特征匹配算法</p>
-</li>
-</ul>
-<h3 id="数据集分析">数据集分析</h3>
-<p>以<code>NotreDame</code>数据为例，包含了两张同一物体的不同角度的图像，如<code>图1</code>所示。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/921919841_a30df938f2_o.jpg" alt="数据图像"></p>
-<p>图1 数据图像</p>
-</center>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── NotreDame</span><br><span class="line">|   ├── 921919841_a30df938f2_o_to_4191453057_c86028ce1f_o.mat</span><br><span class="line">|   ├── 921919841_a30df938f2_o.jpg</span><br><span class="line">|   └── 4191453057_c86028ce1f_o.jpg</span><br><span class="line">├── ...</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="实验过程">实验过程</h2>
-<h3 id="编程语言介绍">编程语言介绍</h3>
-<p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
-<h3 id="harris角点检测">Harris角点检测</h3>
-<p>角点是一幅图像上最明显与重要的特征，角点检测的原理是利用角点在各个方向上的梯度值变化明显这一特性。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
-<p>选取的描述窗宽度为<code>16像素</code>，首先对图像进行高斯滤波，这一步是为了消除某些噪点对于接下来进行的检测的影响。<br>
-接着求在xx、yy和xy方向的梯度并进行高斯滤波。<br>
-最后得到Harris角点的响应值R。计算公式如<code>公示1</code>所示:</p>
-<p>$$<br>
-R = det(M) - \alpha*trace(M)<br>
-\tag{1}<br>
-$$</p>
-<p>其中$\alpha$为系数值，通常取值范围为0.04 ~ 0.06之间.<br>
-最后将得到的再进行过滤，保留那些重要的兴趣点。</p>
-<p>运行结果如<code>图2</code>所示。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20181218-1.jpg" alt="Harris角点检测结果"></p>
-<p>图2 Harris角点检测结果</p>
-</center>
-<h3 id="局部特征描述">局部特征描述</h3>
-<p>局部特征描述我们运用一种类似SIFT算法的描述方法，我们设置的描述窗口的大小为<code>16*16</code>，接着将窗口划分成16个<code>4*4</code>的小窗口，在这些小窗口中找寻每个像素的主要梯度，然后将其归到0-360度按每45度一划分的8个方向之中。<br>
-然后对这些特征向量进行归一化处理，以消除光照等变化的影响。</p>
-<h3 id="局部特征匹配">局部特征匹配</h3>
-<p>在得到特征向量之后，只需要通过计算向量的距离，就能够对特征点进行匹配。<br>
-具体的方法是算一个向量和来自另一个图的所有特征点的特征向量的欧式距离，然后取最近的一个特征向量进行匹配。<br>
-匹配结果如<code>图3</code>所示。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20181218-2.jpg" alt="局部特征匹配结果"></p>
-<p>图3 局部特征匹配结果</p>
-</center>
-<h2 id="实验结果">实验结果</h2>
-<p>成功实现了简单的图片相似点的寻找与匹配。在<code>Notre Dam</code>图像上获得了87%的准确率。</p>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/jia20003/article/details/16908661" target="_blank" rel="noopener">图像处理之角点检测算法</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
-
+      <div class="archive-post">
+        <span class="archive-post-time">
+          2020-06-15
+          </span>
+        <span class="archive-post-title">
+          <a href="/blog/2020/06/15/hexo-plugin-test/" class="archive-post-link">
+            hexo插件测试页面
+          </a>
+        </span>
       </div>
-      
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/blog/tags/computer-vision/">computer vision</a>
-            <a href="/blog/tags/matlab/">matlab</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/blog/2019/01/01/2019-movie-list/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">2019 movie list</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2018/12/10/2018-computational-intelligence-homework-no.6/">
-        <span class="next-text nav-default">2018 Computational Intelligence Homework No.6</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
-    </div></div>
+    </section><nav class="pagination"></nav></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

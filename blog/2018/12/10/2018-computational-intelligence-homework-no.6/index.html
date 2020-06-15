@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="2018 Computational Intelligence Homework No.6"/><meta name="keywords" content=", , , Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/drafts/2018-computational-intelligence-homework-no.6.html"/>
+<meta name="description" content="2018 Computational Intelligence Homework No.6"/><meta name="keywords" content="computational intelligence, artificial neural network, perceptron, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2018/12/10/2018-computational-intelligence-homework-no.6/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -138,8 +138,30 @@
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
-    <div class="post-content">
-      <h1>用人工神经网络求解旅行商(TSP)问题</h1>
+    <header class="post-header">
+      <h1 class="post-title">2018 Computational Intelligence Homework No.6
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-10
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2018/12/10/2018-computational-intelligence-homework-no.6/"
+             data-title="2018 Computational Intelligence Homework No.6">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">用人工神经网络求解旅行商(TSP)问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tsp的能量函数e"><span class="toc-text">TSP的能量函数E</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改进的tsp的能量函数e"><span class="toc-text">改进的TSP的能量函数E</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hopfield神经网络动态方程"><span class="toc-text">Hopfield神经网络动态方程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#城市坐标"><span class="toc-text">城市坐标</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1>用人工神经网络求解旅行商(TSP)问题</h1>
 <h2 id="问题描述">问题描述</h2>
 <p>旅行商问题(Travelling Salesman Problem, 简记TSP, 亦称货郎担问题): 设有34个城市及其对应的经纬度坐标, 则问题是要找出遍访每个城市恰好一次的一条回路并使其路径长度为最短.</p>
 <a id="more"></a>
@@ -147,7 +169,7 @@
 <p>Hopfield神经网络是一种单层互相全连接的反馈型神经网络。每个神经元既是输入也是输出，网络中的每一个神经元都将自己的输出通过连接权传送给所有其它神经元，同时又都接收所有其它神经元传递过来的信息。即：网络中的神经元在t时刻的输出状态实际上间接地与自己t-1时刻的输出状态有关。神经元之间互连接，所以得到的权重矩阵将是对称矩阵。<br>
 同时，Hopfield神经网络成功引入能量函数的概念，使网络运行地稳定性判断有了可靠依据。基本的Hopfield神经网络是一个由非线性元件构成的全连接型单层递归系统。其状态变化可以用差分方程来表示。递归型网络的一个重要特点就是它具有稳定状态, 当网络达到稳定状态的时候，也就是它的能量函数达到最小的时候。这里的能量函数不是物理意义上的能量函数，而是在表达形式上与物理意义上的能量概念一致，即它表征网络状态的变化趋势，并可以依据Hopfield网络模型的工作运行规则不断地进行状态变化，最终能够到达具有某个极小值的目标函数。网络收敛就是指能量函数达到极小值。<br>
 如果把一个最优化在着递归信号，网络的状态是随时间的变化而变化的，其运动轨迹必然存在着稳定性的问题。这就是递归网络与前向网络在网络性能分析上最大的区别之一在使用递归网络时，必须对其稳定性进行专门的分析与讨论，合理选择网络的参数变化范围，才能确保递归网络的正常工作。<br>
-Hopfield神经网络模型有离散型和连续性两种，离散型适用于联想记忆，连续性适合处理优化问题。<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+Hopfield神经网络模型有离散型和连续性两种，离散型适用于联想记忆，连续性适合处理优化问题。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <p>将TSP问题映射为神经网络动力系统可用以下步骤完成：</p>
 <ol>
 <li>将TSP问题的每一条可能路径用一换位矩阵表示，并给出相应的距离表示试；</li>
@@ -155,35 +177,29 @@ Hopfield神经网络模型有离散型和连续性两种，离散型适用于联
 <li>找出一反应TSP约束优化问题的能连函数E；</li>
 <li>求出使E取极小值的神经网络连接权重矩阵和偏置参数。</li>
 </ol>
-<h3 id="TSP的能量函数E">TSP的能量函数E</h3>
-<p>$$<br>
-\begin{aligned}	<br>
-E = &amp; \frac{A}{2}\sum<sup>n_{x=1}\sum</sup>n_{i=1}\sum^n_{j \ne 1}v_{xi}v_{xj} +<br>
-\frac{B}{2}\sum<sup>n_{i=1}\sum</sup>n_{x=1}\sum^n_{y \ne x}v_{xi}v_{yi} \<br>
-&amp; + \frac{C}{2}(\sum<sup>n_{x=1}\sum</sup>n_{i=1}v_{xi}-n)^2 +<br>
-\frac{D}{2}\sum<sup>n_{x=1}\sum</sup>n_{y \ne x}\sum^n_{i=1}d_{xy}d_{xi}(v_{y,i+1}+v_{y,i-1})<br>
-\end{aligned}<br>
-\tag{1}<br>
-$$</p>
+<h3 id="tsp的能量函数e">TSP的能量函数E</h3>
+<span>$$\begin{aligned}&Tab;
+E = &amp; \frac{A}{2}\sum^n_{x=1}\sum^n_{i=1}\sum^n_{j \ne 1}v_{xi}v_{xj} + 
+\frac{B}{2}\sum^n_{i=1}\sum^n_{x=1}\sum^n_{y \ne x}v_{xi}v_{yi} \\
+&amp; + \frac{C}{2}(\sum^n_{x=1}\sum^n_{i=1}v_{xi}-n)^2 +
+\frac{D}{2}\sum^n_{x=1}\sum^n_{y \ne x}\sum^n_{i=1}d_{xy}d_{xi}(v_{y,i+1}+v_{y,i-1})
+\end{aligned}
+\tag{1}$$</span><!-- Has MathJax -->
 <p>其中参数$ABCD$称为权值，前三项是满足TSP置换矩阵的约束条件，最后一项包含优化目标函数项.</p>
-<h2 id="改进的TSP的能量函数E">改进的TSP的能量函数E</h2>
-<p>$$<br>
-\begin{aligned}	<br>
-E = &amp; \frac{A}{2}\sum<sup>n_{x=1}(\sum</sup>n_{i=1}v_{xi}-1)^2+<br>
-\frac{A}{2}\sum<sup>n_{i=1}(\sum</sup>n_{x=1}v_{xi}-1)^2 \<br>
-&amp; + \frac{D}{2}\sum<sup>n_{x=1}\sum</sup>n_{y=1}\sum^n_{i=1}v_{xi}d_{xy}v_{y,i+1}<br>
-\end{aligned}<br>
-\tag{2}<br>
-$$</p>
-<h3 id="Hopfield神经网络动态方程">Hopfield神经网络动态方程</h3>
-<p>$$<br>
-\begin{aligned}	<br>
-\frac{du_{xi}}{dt} = - \frac{\partial E}{\partial v_{xi}} =<br>
-&amp; -A(\sum<sup>n_{i=1}v_{xi}-1)-A(\sum</sup>n_{y=1}v_{yi}-1) \<br>
-&amp; - D(\sum^n_{y=1}v_{xi}d_{xy}v_{y,i+1}<br>
-\end{aligned}<br>
-\tag{3}<br>
-$$</p>
+<h2 id="改进的tsp的能量函数e">改进的TSP的能量函数E</h2>
+<span>$$\begin{aligned}&Tab;
+E = &amp; \frac{A}{2}\sum^n_{x=1}(\sum^n_{i=1}v_{xi}-1)^2+
+\frac{A}{2}\sum^n_{i=1}(\sum^n_{x=1}v_{xi}-1)^2 \\
+&amp; + \frac{D}{2}\sum^n_{x=1}\sum^n_{y=1}\sum^n_{i=1}v_{xi}d_{xy}v_{y,i+1}
+\end{aligned}
+\tag{2}$$</span><!-- Has MathJax -->
+<h3 id="hopfield神经网络动态方程">Hopfield神经网络动态方程</h3>
+<span>$$\begin{aligned}&Tab;
+\frac{du_{xi}}{dt} = - \frac{\partial E}{\partial v_{xi}} =
+&amp; -A(\sum^n_{i=1}v_{xi}-1)-A(\sum^n_{y=1}v_{yi}-1) \\
+&amp; - D(\sum^n_{y=1}v_{xi}d_{xy}v_{y,i+1}
+\end{aligned}
+\tag{3}$$</span><!-- Has MathJax -->
 <h2 id="程序流程">程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>
@@ -436,9 +452,35 @@ e1=>end: 算法结束
 
 st->op1->cond1
 cond1(no, bottom)->op3->op4->op5->cond1
-cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://blog.csdn.net/weixin_39707121/article/details/79041536" target="_blank" rel="noopener">Hopfield神经网络</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
-    </div>
-  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/weixin_39707121/article/details/79041536" target="_blank" rel="noopener">Hopfield神经网络</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/computational-intelligence/">computational intelligence</a>
+            <a href="/blog/tags/artificial-neural-network/">artificial neural network</a>
+            <a href="/blog/tags/perceptron/">perceptron</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2018/12/18/local-feature-lab-report/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">local feature lab report</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2018/11/26/2018-computational-intelligence-homework-no.5/">
+        <span class="next-text nav-default">2018 Computational Intelligence Homework No.5</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 

@@ -159,7 +159,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更改shell"><span class="toc-text">更改shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋予Full-Disk-Access权限"><span class="toc-text">赋予Full Disk Access权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更改shell"><span class="toc-text">更改shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋予full-disk-access权限"><span class="toc-text">赋予Full Disk Access权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>因为项目需要Xcode，但是Xcode又必须要在<code>10.15</code>以上的系统下运行，不得已更新了系统，然而更新一时爽，bug修复***。真的是出现了各种问题，没办法，挨个解决叭…</p>
 <a id="more"></a>
@@ -196,7 +196,7 @@
 <p>然后我这样又试了一下，还是报错了：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh: can<span class="string">'t open input file: /Users/onns/Documents/code/bash/clear</span></span><br></pre></td></tr></table></figure>
 <p>所以还是需要给<code>zsh</code>权限</p>
-<h3 id="赋予Full-Disk-Access权限">赋予Full Disk Access权限</h3>
+<h3 id="赋予full-disk-access权限">赋予Full Disk Access权限</h3>
 <ol>
 <li>打开<code>System Preference -&gt; Security &amp; Privacy -&gt; Privacy</code>。</li>
 <li>找到<code>Full Disk Access</code>。</li>
@@ -226,7 +226,12 @@
             <a href="/blog/tags/macos/">macos</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/06/05/some-tools/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/06/15/hexo-plugin-test/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">hexo插件测试页面</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/06/05/some-tools/">
         <span class="next-text nav-default">一些处理字符的工具</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>

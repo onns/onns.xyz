@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="2018 Computational Intelligence Homework No.4"/><meta name="keywords" content=", , , Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/drafts/2018-computational-intelligence-homework-no.4.html"/>
+<meta name="description" content="2018 Computational Intelligence Homework No.4"/><meta name="keywords" content="computational intelligence, TSP, GA, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2018/11/25/2018-computational-intelligence-homework-no.4/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -138,61 +138,65 @@
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
-    <div class="post-content">
-      <h1>多尺度协同变异的粒子群优化算法</h1>
+    <header class="post-header">
+      <h1 class="post-title">2018 Computational Intelligence Homework No.4
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-25
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2018/11/25/2018-computational-intelligence-homework-no.4/"
+             data-title="2018 Computational Intelligence Homework No.4">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">多尺度协同变异的粒子群优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#速度更新"><span class="toc-text">速度更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位置更新"><span class="toc-text">位置更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多尺度高斯变异算子"><span class="toc-text">多尺度高斯变异算子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1>多尺度协同变异的粒子群优化算法</h1>
 <h2 id="问题描述">问题描述</h2>
-<p>实现文《一种多尺度协同变异的粒子群优化算法》<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>的测试实验。</p>
+<p>实现文《一种多尺度协同变异的粒子群优化算法》<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>的测试实验。</p>
 <a id="more"></a>
 <h2 id="算法设计">算法设计</h2>
 <p>  粒子群算法(Particle Swarm Optimizer，PSO)是由Kennedy和Eberhart博士提出的一种基于群体智能的优化算法, 其基本思想是受到他们早期对许多鸟类的群体行为进行建模与仿真研究的启发. 粒子群算法的优势在于其简单容易实现,没有很多参数需要调整,是非线性连续优化问题、组合优化问题和混合整数非线性优化问题的有效优化工具. 由于PSO算法概念简单、实现容易，在函数优化和神经网络权值训练等方面都有很好的表现. 由于其又具有深刻的智能背景，既适合科学研究，又特别适于工程应用, 因此在近年来得到了飞速的发展. 其应用涉及系统控制、人工智能、模式识别、计算机、通信工程等各个领域. 粒子群优化算法问世以来受到了广泛的重视, 经过十几年的研究, 其不论在应用方面还是在优化性能方面都得到了很大的发展. 然而, 研究人员仍然无法解决一直困扰该算法的两个难题: 早熟和收敛速度慢.<br>
   文中提出一种多尺度协同变异的微粒群算法(MAEPSO). 该算法利用不同大小方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 在算法后期有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀算子维护种群多样性. 利用试验对不同评测函数进行测试均验证新算法优良的优化性能.</p>
 <h3 id="速度更新">速度更新</h3>
 <p>  速度更新的公式为:</p>
-<p>$$<br>
-v_{id}(t+1)=w×v_{id}(t) + c_1×r_1×(p_{id}(t)−x_{id}(t)) \<br>
-\ + c_2×r_2×(p_{gd}(t)−x_{id}(t))<br>
-\tag{1}<br>
-$$</p>
+<span>$$v_{id}(t+1)=w&times;v_{id}(t) + c_1&times;r_1&times;(p_{id}(t)&minus;x_{id}(t)) \\
+\ + c_2&times;r_2&times;(p_{gd}(t)&minus;x_{id}(t))
+\tag{1}$$</span><!-- Has MathJax -->
 <h3 id="位置更新">位置更新</h3>
 <p>  位置更新的公式为:</p>
-<p>$$<br>
-x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)<br>
-\tag{2}<br>
-$$</p>
+<span>$$x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)
+\tag{2}$$</span><!-- Has MathJax -->
 <h3 id="多尺度高斯变异算子">多尺度高斯变异算子</h3>
 <p>  设尺度个数为$M$, 首先初始化多尺度高斯变异算子的初始方差</p>
-<p>$$<br>
-\sigma<sup>{(0)} = (\sigma_1</sup>{(0)},\sigma_2<sup>{(0)},\cdots,\sigma_M</sup>{(0)})<br>
-\tag{3}<br>
-$$</p>
+<span>$$\sigma^{(0)} = (\sigma_1^{(0)},\sigma_2^{(0)},\cdots,\sigma_M^{(0)})
+\tag{3}$$</span><!-- Has MathJax -->
 <p>  初始时, 方差一般设定为优化变量的取值范围, 随着迭代次数的增加, 多尺度高斯变异算子的方差会随之进行调整, 具体调整方式如下所示, 首先根据适应值的大小对种群中的微粒进行由小到大排序, 然后对其进行组合, 生成$M$个子群, 每一个子群的微粒个数为$P = N / M $, $K$是当前迭代次数, 计算每一个子群的适应度:</p>
-<p>$$<br>
-FitX_m<sup>{(K)} = \sum_{i=1}</sup>Pf(x_i^m) / P,m = 1,2,\cdots,M<br>
-\tag{4}<br>
-$$</p>
+<span>$$FitX_m^{(K)} = \sum_{i=1}^Pf(x_i^m) / P,m = 1,2,\cdots,M
+\tag{4}$$</span><!-- Has MathJax -->
 <p>  其中$f$是微粒的适应值计算函数, 不同变异尺度之间相互竞争, 根据适应能力的不同而设置不同的变异能力, 因此第$m$个变异算子的标准差为:</p>
-<p>$$<br>
-\sigma_m<sup>{(K)} = \sigma_m</sup>{(K-1)} exp(\frac{M\cdot FitX_m<sup>{(K)} - \sum_{m=1}</sup>MFitX_m^{(K)}}{FitX_{max} - FitX_{min}})<br>
-\tag{5}<br>
-$$</p>
-<p>$$<br>
-FitX_{max} = max(FitX_1<sup>{(K)},FitX_2</sup>{(K)},\cdots,FitX_M^{(K)})<br>
-\tag{6}<br>
-$$</p>
-<p>$$<br>
-FitX_{min} = min(FitX_1<sup>{(K)},FitX_2</sup>{(K)},\cdots,FitX_M^{(K)})<br>
-\tag{7}<br>
-$$</p>
+<span>$$\sigma_m^{(K)} = \sigma_m^{(K-1)} exp(\frac{M\cdot FitX_m^{(K)} - \sum_{m=1}^MFitX_m^{(K)}}{FitX_{max} - FitX_{min}})
+\tag{5}$$</span><!-- Has MathJax -->
+<span>$$FitX_{max} = max(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
+\tag{6}$$</span><!-- Has MathJax -->
+<span>$$FitX_{min} = min(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
+\tag{7}$$</span><!-- Has MathJax -->
 <p>由于变异算子的进化是一个递归过程, 排在后面的变异算子可能很大, 因此对变异算子的标准差做如下规范: 如果$\sigma_i^{(k)} &gt;W/4$, 则</p>
-<p>$$<br>
-\sigma_i<sup>{(k)} = \vert W/4 - \sigma_i</sup>{(k)} \vert<br>
-\tag{8}<br>
-$$</p>
+<span>$$\sigma_i^{(k)} = \vert W/4 - \sigma_i^{(k)} \vert
+\tag{8}$$</span><!-- Has MathJax -->
 <p>$W$为待优化变量空间的宽度, 重复使用上式, 直到满足$\sigma_i^{(k)} &lt; W/4$. 为了能最大范围的实现空间勘探$i$能力, 在进行完多尺度高斯变异后, 同时进行一次均匀变异操作, 比较后取所有变异后适应值最好的位置作为新的逃逸点, 均匀变异算子实现同<code>式(9)</code>.通过多尺度变异算子能实现整个搜索空间的覆盖, 其中大尺度有利于实现解空间的粗搜索, 可以快速定位到最优解区域, 小尺度能在进化后期实现局部精确解的搜索.</p>
-<p>$$<br>
-If \quad (v_{id} &lt; T_d ) \quad then \quad v_{id} = rand × V_{max}<br>
-\tag{9}<br>
-$$</p>
+<span>$$If \quad (v_{id} &lt; T_d ) \quad then \quad v_{id} = rand &times; V_{max}
+\tag{9}$$</span><!-- Has MathJax -->
 <h2 id="程序流程">程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>
@@ -270,9 +274,35 @@ e1=>end: 算法结束
 
 st->op1->cond1
 cond1(no, bottom)->op2->op3->op4->op5->cond1
-cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="http://www.cnki.com.cn/Article/CJFDTotal-RJXB201207015.htm" target="_blank" rel="noopener">一种多尺度协同变异的粒子群优化算法</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
-    </div>
-  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+cond1(yes)->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="http://www.cnki.com.cn/Article/CJFDTotal-RJXB201207015.htm" target="_blank" rel="noopener">一种多尺度协同变异的粒子群优化算法</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/computational-intelligence/">computational intelligence</a>
+            <a href="/blog/tags/TSP/">TSP</a>
+            <a href="/blog/tags/GA/">GA</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2018/11/26/2018-computational-intelligence-homework-no.5/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">2018 Computational Intelligence Homework No.5</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2018/11/23/2018-computational-intelligence-homework-no.3/">
+        <span class="next-text nav-default">2018 Computational Intelligence Homework No.3</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 

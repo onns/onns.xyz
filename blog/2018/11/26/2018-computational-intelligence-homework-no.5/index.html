@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="2018 Computational Intelligence Homework No.5"/><meta name="keywords" content=", , , Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/drafts/2018-computational-intelligence-homework-no.5.html"/>
+<meta name="description" content="2018 Computational Intelligence Homework No.5"/><meta name="keywords" content="computational intelligence, artificial neural network, perceptron, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2018/11/26/2018-computational-intelligence-homework-no.5/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -138,8 +138,30 @@
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
-    <div class="post-content">
-      <h1>人工神经网络-感知器训练</h1>
+    <header class="post-header">
+      <h1 class="post-title">2018 Computational Intelligence Homework No.5
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-26
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2018/11/26/2018-computational-intelligence-homework-no.5/"
+             data-title="2018 Computational Intelligence Homework No.5">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">人工神经网络-感知器训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练过程"><span class="toc-text">训练过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一轮循环"><span class="toc-text">第一轮循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二轮循环"><span class="toc-text">第二轮循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#感知器训练代码"><span class="toc-text">感知器训练代码</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1>人工神经网络-感知器训练</h1>
 <h2 id="问题描述">问题描述</h2>
 <p>下面这个训练集合是线性可分的:</p>
 <table>
@@ -183,90 +205,112 @@
 <h3 id="初始化">初始化</h3>
 <p>取μ=0.1, θ=0.0，初始状态w<sub>1</sub>=w<sub>2</sub>=w<sub>3</sub>=0<br>
 激活函数如<code>公式1</code>所示.</p>
-<p>$$<br>
-f_h(x)=<br>
-\begin{cases}<br>
-1,&amp;{x \geq 0} \<br>
-0,&amp;{x &lt; 0}<br>
-\end{cases}<br>
-\tag{1}<br>
-$$</p>
+<span>$$f_h(x)=
+\begin{cases}
+1,&amp;{x \geq 0} \\
+0,&amp;{x &lt; 0}
+\end{cases}
+\tag{1}$$</span><!-- Has MathJax -->
 <p>输出结果如<code>公式2</code>所示。</p>
-<p>$$<br>
-o = f_h(\omega_1x+\omega_2y+\omega_3z+\theta)<br>
-\tag{2}<br>
-$$</p>
+<span>$$o = f_h(\omega_1x+\omega_2y+\omega_3z+\theta)
+\tag{2}$$</span><!-- Has MathJax -->
 <p>权重更新规则如<code>公示3</code>所示, 其中 $input$ 为输入。</p>
-<p>$$<br>
-\omega’ = \omega + \Delta\omega * input \<br>
-\theta’ = \theta + \Delta\omega<br>
-\tag{3}<br>
-$$</p>
+<span>$$\omega&apos; = \omega + \Delta\omega * input \\
+\theta&apos; = \theta + \Delta\omega
+\tag{3}$$</span><!-- Has MathJax -->
 <p>感知器如<code>图1</code>所示。</p>
 <center>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">digraph G &#123;</span><br><span class="line">    node[shape&#x3D;circle,style&#x3D;filled,color&#x3D;green];</span><br><span class="line">    &quot;x&quot; -&gt; &quot;∑&quot;[label&#x3D;&quot;0&quot;]</span><br><span class="line">    &quot;y&quot; -&gt; &quot;∑&quot;[label&#x3D;&quot;0&quot;]</span><br><span class="line">    &quot;z&quot; -&gt; &quot;∑&quot;[label&#x3D;&quot;0&quot;]</span><br><span class="line">    &quot;∑&quot; -&gt; &quot;o&quot;[label&#x3D;&quot;θ &#x3D; 0.0&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div id="graphviz-0"></div>
 <p>图1 感知器图</p>
 </center>
 <h3 id="第一轮循环">第一轮循环</h3>
 <p>将所有输入输入到感知器中进行计算。</p>
-<p>$$<br>
-\begin{aligned}	<br>
-&amp;o|<em>{(1, 0, 0)}=f_h(0+0+0+0.0)=1, &amp;正确 \<br>
-&amp;o|</em>{(0, 1, 1)}=f_h(0+0+0+0.0)=1, &amp;应该是0 \<br>
-\end{aligned}<br>
-$$</p>
+<span>$$\begin{aligned}&Tab;
+&amp;o|_{(1, 0, 0)}=f_h(0+0+0+0.0)=1, &amp;正确 \\
+&amp;o|_{(0, 1, 1)}=f_h(0+0+0+0.0)=1, &amp;应该是0 \\
+\end{aligned}$$</span><!-- Has MathJax -->
 <p>更新权重$\Delta\omega=-0.1, \omega_1 = 0 +  -0.1 * 0 = 0.0, 同样地得到\omega_2 = -0.1, \omega_3 = -0.1, \theta = -0.1$</p>
-<p>$$<br>
-\begin{aligned}	<br>
-&amp;o|_{(1, 1, 0)}=f_h(0-0.1+0-0.1)=0, &amp;应该是1<br>
-\end{aligned}<br>
-$$</p>
+<span>$$\begin{aligned}&Tab;
+&amp;o|_{(1, 1, 0)}=f_h(0-0.1+0-0.1)=0, &amp;应该是1
+\end{aligned}$$</span><!-- Has MathJax -->
 <p>更新权重$\Delta\omega=0.1, \omega_1 = 0.1, \omega_2 = 0.0, \omega_3 = -0.1, \theta = -0.0$</p>
-<p>$$<br>
-\begin{aligned}	<br>
-&amp;o|_{(1, 1, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;应该是0<br>
-\end{aligned}<br>
-$$</p>
+<span>$$\begin{aligned}&Tab;
+&amp;o|_{(1, 1, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;应该是0
+\end{aligned}$$</span><!-- Has MathJax -->
 <p>更新权重$\Delta\omega=-0.1, \omega_1 = 0.1, \omega_2 = -0.1, \omega_3 = -0.2, \theta = -0.1$</p>
-<p>$$<br>
-\begin{aligned}	<br>
-&amp;o|<em>{(0, 0, 1)}=f_h(0+0-0.2-0.1)=0, &amp;正确 \<br>
-&amp;o|</em>{(1, 0, 1)}=f_h(-0.1+0-0.2-0.1)=0, &amp;应该是1 \<br>
-\end{aligned}<br>
-$$</p>
+<span>$$\begin{aligned}&Tab;
+&amp;o|_{(0, 0, 1)}=f_h(0+0-0.2-0.1)=0, &amp;正确 \\
+&amp;o|_{(1, 0, 1)}=f_h(-0.1+0-0.2-0.1)=0, &amp;应该是1 \\
+\end{aligned}$$</span><!-- Has MathJax -->
 <p>更新权重$\Delta\omega=0.1, \omega_1 = 0.1, \omega_2 = -0.1, \omega_3 = -0.1, \theta = -0.0$</p>
 <center>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">digraph G &#123;</span><br><span class="line">    node[shape&#x3D;circle,style&#x3D;filled,color&#x3D;green];</span><br><span class="line">    &quot;x&quot; -&gt; &quot;&quot;[label&#x3D;&quot;0.1&quot;]</span><br><span class="line">    &quot;y&quot; -&gt; &quot;&quot;[label&#x3D;&quot;-0.1&quot;]</span><br><span class="line">    &quot;z&quot; -&gt; &quot;&quot;[label&#x3D;&quot;-0.1&quot;]</span><br><span class="line">    &quot;&quot; -&gt; &quot;o&quot;[label&#x3D;&quot;θ &#x3D; 0.0&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div id="graphviz-1"></div>
 <p>图2 一轮循环后的感知器图</p>
 </center>
 <h3 id="第二轮循环">第二轮循环</h3>
-<p>$$<br>
-\begin{aligned}	<br>
-&amp;o|<em>{(1, 0, 0)}=f_h(0.1+0+0+0.0)=1, &amp;正确 \<br>
-&amp;o|</em>{(0, 1, 1)}=f_h(0-0.1-0.1+0.0)=0, &amp;正确 \<br>
-&amp;o|<em>{(1, 1, 0)}=f_h(0.1-0.1+0+0.0)=1, &amp;正确 \<br>
-&amp;o|</em>{(1, 1, 1)}=f_h(0.1-0.1-0.1+0.0)=0, &amp;正确 \<br>
-&amp;o|<em>{(0, 0, 1)}=f_h(0+0-0.1+0.0)=0, &amp;正确 \<br>
-&amp;o|</em>{(1, 0, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;正确 \<br>
-\end{aligned}<br>
-$$</p>
+<span>$$\begin{aligned}&Tab;
+&amp;o|_{(1, 0, 0)}=f_h(0.1+0+0+0.0)=1, &amp;正确 \\
+&amp;o|_{(0, 1, 1)}=f_h(0-0.1-0.1+0.0)=0, &amp;正确 \\
+&amp;o|_{(1, 1, 0)}=f_h(0.1-0.1+0+0.0)=1, &amp;正确 \\
+&amp;o|_{(1, 1, 1)}=f_h(0.1-0.1-0.1+0.0)=0, &amp;正确 \\
+&amp;o|_{(0, 0, 1)}=f_h(0+0-0.1+0.0)=0, &amp;正确 \\
+&amp;o|_{(1, 0, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;正确 \\
+\end{aligned}$$</span><!-- Has MathJax -->
 <p>至此感知器收敛，循环结束。</p>
 <center>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">digraph G &#123;</span><br><span class="line">    node[shape&#x3D;circle,style&#x3D;filled,color&#x3D;green];</span><br><span class="line">    &quot;x&quot; -&gt; &quot;&quot;[label&#x3D;&quot;0.1&quot;]</span><br><span class="line">    &quot;y&quot; -&gt; &quot;&quot;[label&#x3D;&quot;-0.1&quot;]</span><br><span class="line">    &quot;z&quot; -&gt; &quot;&quot;[label&#x3D;&quot;-0.1&quot;]</span><br><span class="line">    &quot;&quot; -&gt; &quot;o&quot;[label&#x3D;&quot;θ &#x3D; 0.0&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div id="graphviz-2"></div>
 <p>图3 最终的的感知器图</p>
 </center>
 <h2 id="结论">结论</h2>
 <p>最终权集画出的分割平面的草图如<code>图4</code>所示。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">x = <span class="number">-2</span>:<span class="number">0.1</span>:<span class="number">2</span></span><br><span class="line">y = <span class="number">-2</span>:<span class="number">0.1</span>:<span class="number">2</span></span><br><span class="line">[X,Y]= <span class="built_in">meshgrid</span>(x,y)</span><br><span class="line">Z = X - Y</span><br><span class="line"><span class="built_in">scatter3</span>([<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],<span class="string">'rp'</span>)</span><br><span class="line"><span class="built_in">scatter3</span>([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],<span class="string">'k'</span>)</span><br></pre></td></tr></table></figure>
 <center>
-<p><img src="http://127.0.0.1/20181204-1.png" alt="分割平面图"></p>
+<p><img src="//onns.xyz/blog/image/20181204-1.png" alt="分割平面图"></p>
 <p>图4 分割平面图</p>
 </center>
 <h2 id="附录">附录</h2>
 <h3 id="感知器训练代码">感知器训练代码</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------model import----------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end model import----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------global variables----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end global variables----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------function definition----------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    activation function</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> x &gt;= <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end function definition----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------class definition----------</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perceptron</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_num, activator)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        initiate</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        self.activator = activator</span><br><span class="line">        self.weights = [<span class="number">0.0</span>] * input_num</span><br><span class="line">        self.bias = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        print weights and nbias</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'weights: %s\nbias: %f\n'</span> % (list(self.weights), self.bias)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, input_vec)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        predict function</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        <span class="keyword">return</span> self.activator(</span><br><span class="line">            reduce(<span class="keyword">lambda</span> a, b: a + b,</span><br><span class="line">                   map(<span class="keyword">lambda</span> x_w: x_w[<span class="number">0</span>]*x_w[<span class="number">1</span>],</span><br><span class="line">                       zip(input_vec, self.weights)), <span class="number">0.0</span>) + self.bias)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, input_vecs, labels, iteration, rate)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        train the perceptron also print weights and nbias for each iteration</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(iteration):</span><br><span class="line">            print(<span class="string">'iterations: %d'</span> % (i+<span class="number">1</span>))</span><br><span class="line">            self._one_iteration(input_vecs, labels, rate)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_one_iteration</span><span class="params">(self, input_vecs, labels, rate)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        iteration</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        samples = zip(input_vecs, labels)</span><br><span class="line">        <span class="keyword">for</span> (input_vec, label) <span class="keyword">in</span> samples:</span><br><span class="line">            output = self.predict(input_vec)</span><br><span class="line">            self._update_weights(input_vec, output, label, rate)</span><br><span class="line">            print(input_vec, output, label)</span><br><span class="line">            print(self)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_update_weights</span><span class="params">(self, input_vec, output, label, rate)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        update weights</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        delta = label - output</span><br><span class="line">        self.weights = list(map(</span><br><span class="line">            <span class="keyword">lambda</span> x_w: x_w[<span class="number">1</span>] + rate * delta * x_w[<span class="number">0</span>],</span><br><span class="line">            zip(input_vec, self.weights)))</span><br><span class="line">        self.bias += rate * delta</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end class definition----------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------main function----------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    p = Perceptron(<span class="number">3</span>, f)</span><br><span class="line">    input_vecs = [[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>], [</span><br><span class="line">        <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]]</span><br><span class="line">    labels = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    p.train(input_vecs, labels, <span class="number">10</span>, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> x, y, z <span class="keyword">in</span> input_vecs:</span><br><span class="line">        print(<span class="string">'input: %d %d %d predict: %d'</span> % (x, y, z, p.predict([x, y, z])))</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------end main function----------</span></span><br></pre></td></tr></table></figure>
-    </div>
-  </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+<script src="https://unpkg.com/viz.js@2.1.2/viz.js"></script><script src="https://unpkg.com/viz.js@2.1.2/full.render.js"></script><textarea id="graphviz-0-code" style="display: none">digraph G {
+    node[shape=circle,style=filled,color=green];
+    "x" -> "∑"[label="0"]
+    "y" -> "∑"[label="0"]
+    "z" -> "∑"[label="0"]
+    "∑" -> "o"[label="θ = 0.0"]
+}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-0-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-0").append(element)  });</script><textarea id="graphviz-1-code" style="display: none">digraph G {
+    node[shape=circle,style=filled,color=green];
+    "x" -> ""[label="0.1"]
+    "y" -> ""[label="-0.1"]
+    "z" -> ""[label="-0.1"]
+    "" -> "o"[label="θ = 0.0"]
+}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-1-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-1").append(element)  });</script><textarea id="graphviz-2-code" style="display: none">digraph G {
+    node[shape=circle,style=filled,color=green];
+    "x" -> ""[label="0.1"]
+    "y" -> ""[label="-0.1"]
+    "z" -> ""[label="-0.1"]
+    "" -> "o"[label="θ = 0.0"]
+}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-2-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-2").append(element)  });</script>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/computational-intelligence/">computational intelligence</a>
+            <a href="/blog/tags/artificial-neural-network/">artificial neural network</a>
+            <a href="/blog/tags/perceptron/">perceptron</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2018/12/10/2018-computational-intelligence-homework-no.6/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">2018 Computational Intelligence Homework No.6</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2018/11/25/2018-computational-intelligence-homework-no.4/">
+        <span class="next-text nav-default">2018 Computational Intelligence Homework No.4</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
