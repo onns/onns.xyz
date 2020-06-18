@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Dplayer</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" href="DPlayer.min.css" />
+
+</head>
+
+<body>
+	<div id="dplayer"></div>
+	<script src="DPlayer.min.js"></script>
+	<script>
+
+		const dp = new DPlayer({
+			container: document.getElementById('dplayer'),
+			video: {
+				url: 'file:///Users/onns/Downloads/%E6%99%AE%E9%80%9A%E4%BA%BA.Normal.People.S01E11.%E4%B8%AD%E8%8B%B1%E5%AD%97%E5%B9%95.WEBrip.720P-%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86.mp4',
+			},
+		});
+	</script>
+</body>
+
+</html>
