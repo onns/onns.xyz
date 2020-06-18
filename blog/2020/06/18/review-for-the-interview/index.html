@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="tags"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/"/>
+<meta name="description" content="面试复习提纲"/><meta name="keywords" content="review, interview, tcp, udp, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/06/18/review-for-the-interview/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -54,7 +54,7 @@
   window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Tags - Onns Blog</title>
+    <title>面试复习提纲 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -137,14 +137,106 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><div class="tag-cloud">
-    <div class="tag-cloud-title">
-      71 Tags In Total
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">面试复习提纲
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-06-18
+        </span><span class="post-category">
+            <a href="/blog/categories/life/">life</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/06/18/review-for-the-interview/"
+             data-title="面试复习提纲">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-udp"><span class="toc-text">TCP UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp与udp基本区别"><span class="toc-text">TCP与UDP基本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#udp应用场景"><span class="toc-text">UDP应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp三次握手"><span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp四次握手"><span class="toc-text">TCP四次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要设置一个-time-wait-的时间"><span class="toc-text">为什么需要设置一个 TIME-WAIT 的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp如何保证可靠的传输"><span class="toc-text">TCP如何保证可靠的传输?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关名词"><span class="toc-text">相关名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-    <div class="tag-cloud-tags">
-      <a href="/blog/tags/movie/" style="font-size: 20.8px;">movie</a> <a href="/blog/tags/computational-intelligence/" style="font-size: 25.6px;">computational intelligence</a> <a href="/blog/tags/TSP/" style="font-size: 20.8px;">TSP</a> <a href="/blog/tags/SA/" style="font-size: 16px;">SA</a> <a href="/blog/tags/GA/" style="font-size: 18.4px;">GA</a> <a href="/blog/tags/artificial-neural-network/" style="font-size: 18.4px;">artificial neural network</a> <a href="/blog/tags/perceptron/" style="font-size: 18.4px;">perceptron</a> <a href="/blog/tags/book/" style="font-size: 16px;">book</a> <a href="/blog/tags/indesign/" style="font-size: 16px;">indesign</a> <a href="/blog/tags/adobe/" style="font-size: 18.4px;">adobe</a> <a href="/blog/tags/ddns/" style="font-size: 16px;">ddns</a> <a href="/blog/tags/aliyun/" style="font-size: 16px;">aliyun</a> <a href="/blog/tags/python/" style="font-size: 20.8px;">python</a> <a href="/blog/tags/Arduino/" style="font-size: 16px;">Arduino</a> <a href="/blog/tags/bim/" style="font-size: 16px;">bim</a> <a href="/blog/tags/html/" style="font-size: 16px;">html</a> <a href="/blog/tags/c/" style="font-size: 23.2px;">c</a> <a href="/blog/tags/computer-vision/" style="font-size: 23.2px;">computer vision</a> <a href="/blog/tags/matlab/" style="font-size: 23.2px;">matlab</a> <a href="/blog/tags/oj/" style="font-size: 16px;">oj</a> <a href="/blog/tags/chrome/" style="font-size: 16px;">chrome</a> <a href="/blog/tags/extension/" style="font-size: 16px;">extension</a> <a href="/blog/tags/sync-sofa/" style="font-size: 16px;">sync-sofa</a> <a href="/blog/tags/visual-basic-for-applications/" style="font-size: 16px;">visual basic for applications</a> <a href="/blog/tags/macro/" style="font-size: 16px;">macro</a> <a href="/blog/tags/LCS/" style="font-size: 16px;">LCS</a> <a href="/blog/tags/excel/" style="font-size: 16px;">excel</a> <a href="/blog/tags/cron/" style="font-size: 16px;">cron</a> <a href="/blog/tags/crontab/" style="font-size: 16px;">crontab</a> <a href="/blog/tags/Catalina/" style="font-size: 16px;">Catalina</a> <a href="/blog/tags/macos/" style="font-size: 23.2px;">macos</a> <a href="/blog/tags/hexo/" style="font-size: 18.4px;">hexo</a> <a href="/blog/tags/markdown/" style="font-size: 16px;">markdown</a> <a href="/blog/tags/hexo-plugin/" style="font-size: 16px;">hexo plugin</a> <a href="/blog/tags/photoshop/" style="font-size: 16px;">photoshop</a> <a href="/blog/tags/design/" style="font-size: 16px;">design</a> <a href="/blog/tags/java/" style="font-size: 28px;">java</a> <a href="/blog/tags/note/" style="font-size: 28px;">note</a> <a href="/blog/tags/homebrew/" style="font-size: 18.4px;">homebrew</a> <a href="/blog/tags/ftpd/" style="font-size: 16px;">ftpd</a> <a href="/blog/tags/pure-ftpd/" style="font-size: 16px;">pure-ftpd</a> <a href="/blog/tags/shell/" style="font-size: 16px;">shell</a> <a href="/blog/tags/mysql/" style="font-size: 16px;">mysql</a> <a href="/blog/tags/life/" style="font-size: 16px;">life</a> <a href="/blog/tags/sync/" style="font-size: 16px;">sync</a> <a href="/blog/tags/serverless/" style="font-size: 16px;">serverless</a> <a href="/blog/tags/longking/" style="font-size: 16px;">longking</a> <a href="/blog/tags/nginx/" style="font-size: 16px;">nginx</a> <a href="/blog/tags/multiple-domains/" style="font-size: 16px;">multiple domains</a> <a href="/blog/tags/teamviewer/" style="font-size: 16px;">teamviewer</a> <a href="/blog/tags/windows10/" style="font-size: 16px;">windows10</a> <a href="/blog/tags/PCL/" style="font-size: 16px;">PCL</a> <a href="/blog/tags/point-cloud/" style="font-size: 16px;">point cloud</a> <a href="/blog/tags/tools/" style="font-size: 16px;">tools</a> <a href="/blog/tags/hyphens/" style="font-size: 16px;">hyphens</a> <a href="/blog/tags/camel-case/" style="font-size: 16px;">camel case</a> <a href="/blog/tags/javascript/" style="font-size: 16px;">javascript</a> <a href="/blog/tags/code/" style="font-size: 16px;">code</a> <a href="/blog/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/blog/tags/shadowsocksr/" style="font-size: 16px;">shadowsocksr</a> <a href="/blog/tags/software/" style="font-size: 16px;">software</a> <a href="/blog/tags/windows/" style="font-size: 16px;">windows</a> <a href="/blog/tags/teleport-ultra/" style="font-size: 16px;">teleport ultra</a> <a href="/blog/tags/svg/" style="font-size: 16px;">svg</a> <a href="/blog/tags/wechat/" style="font-size: 16px;">wechat</a> <a href="/blog/tags/illustrator/" style="font-size: 16px;">illustrator</a> <a href="/blog/tags/pyenv/" style="font-size: 16px;">pyenv</a> <a href="/blog/tags/review/" style="font-size: 16px;">review</a> <a href="/blog/tags/interview/" style="font-size: 16px;">interview</a> <a href="/blog/tags/tcp/" style="font-size: 16px;">tcp</a> <a href="/blog/tags/udp/" style="font-size: 16px;">udp</a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><p>复习</p>
+<a id="more"></a>
+<h2 id="tcp-udp"><a href="https://blog.csdn.net/greentealc/article/details/79880220" target="_blank" rel="noopener">TCP UDP</a></h2>
+<p>TCP: 传输控制协议（英语：Transmission Control Protocol，缩写为TCP）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。</p>
+<p>UDP:用户数据报协议（英语：User Datagram Protocol，缩写为UDP），又称使用者资料包协定，是一个简单的面向数据报的传输层协议，正式规范为RFC 768。</p>
+<h3 id="tcp与udp基本区别">TCP与UDP基本区别</h3>
+<ol>
+<li>基于连接与无连接</li>
+<li>TCP要求系统资源较多，UDP较少；</li>
+<li>UDP程序结构较简单</li>
+<li>流模式（TCP）与数据报模式(UDP);</li>
+<li>TCP保证数据正确性，UDP可能丢包</li>
+<li>TCP保证数据顺序，UDP不保证</li>
+<li>UDP 是不处理堵塞，应用需要发，就会发送。TCP 还拥有堵塞控制，TCP 会根据网络环境调整发包的频率。</li>
+<li>UDP 支持多播和广播</li>
+<li>TCP有流量控制（滑动窗口）和拥塞控制（慢开始、拥塞避免、快重传、快恢复）</li>
+</ol>
+<h3 id="udp应用场景">UDP应用场景</h3>
+<ol>
+<li>面向数据报方式</li>
+<li>网络数据大多为短消息</li>
+<li>拥有大量Client</li>
+<li>对数据安全性无特殊要求</li>
+<li>网络负担非常重，但对响应速度要求高</li>
+<li>QQ的文件传输</li>
+<li>DNS、TFTP、RIP（路由选择协议）、SNMP、NFS</li>
+</ol>
+<h3 id="tcp三次握手">TCP三次握手</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20200618-1.png" alt="TCP三次握手"></p>
+</center>
+<h3 id="tcp四次握手">TCP四次握手</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20200618-2.png" alt="TCP四次握手"></p>
+</center>
+<h4 id="为什么需要设置一个-time-wait-的时间">为什么需要设置一个 TIME-WAIT 的时间</h4>
+<ol>
+<li>保证TCP协议的全双工连接能够可靠关闭。先说第一点，如果Client直接CLOSED了，那么由于IP协议的不可靠性或者是其它网络原因，导致Server没有收到Client最后回复的ACK。那么Server就会在超时之后继续发送FIN，此时由于Client已经CLOSED了，就找不到与重发的FIN对应的连接，最后Server就会收到RST而不是ACK，Server就会以为是连接错误把问题报告给高层。这样的情况虽然不会造成数据丢失，但是却导致TCP协议不符合可靠连接的要求。所以，Client不是直接进入CLOSED，而是要保持TIME_WAIT，当再次收到FIN的时候，能够保证对方收到ACK，最后正确的关闭连接。</li>
+<li>保证这次连接的重复数据段从网络中消失。再说第二点，如果Client直接CLOSED，然后又再向Server发起一个新连接，我们不能保证这个新连接与刚关闭的连接的端口号是不同的。也就是说有可能新连接和老连接的端口号是相同的。一般来说不会发生什么问题，但是还是有特殊情况出现：假设新连接和已经关闭的老连接端口号是一样的，如果前一次连接的某些数据仍然滞留在网络中，这些延迟数据在建立新连接之后才到达Server，由于新连接和老连接的端口号是一样的，又因为TCP协议判断不同连接的依据是socket pair，于是，TCP协议就认为那个延迟的数据是属于新连接的，这样就和真正的新连接的数据包发生混淆了。所以TCP连接还要在TIME_WAIT状态等待2倍MSL，这样可以保证本次连接的所有数据都从网络中消失。</li>
+</ol>
+<h3 id="tcp如何保证可靠的传输">TCP如何保证可靠的传输?</h3>
+<ol>
+<li>确认和重传</li>
+<li>数据校验</li>
+<li>数据合理分片和排序</li>
+<li>流量控制：当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。</li>
+<li>拥塞控制：当网络拥塞时，减少数据的发送。</li>
+</ol>
+<h3 id="相关名词">相关名词</h3>
+<ul>
+<li>MSL（Maximum Segment Lifetime）：报文最大生存时间</li>
+<li>MTU（Maximum Transmission Unit）：用来通知对方所能接受数据服务单元的最大尺寸，说明发送方能够接受的有效载荷大小。</li>
+</ul>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/greentealc/article/details/79880220" target="_blank" rel="noopener">关于TCP，UDP，针对面试。超详细</a></li>
+<li><a href="https://www.jianshu.com/p/deee6abf0b72" target="_blank" rel="noopener">面试常问之TCP与UDP</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/review/">review</a>
+            <a href="/blog/tags/interview/">interview</a>
+            <a href="/blog/tags/tcp/">tcp</a>
+            <a href="/blog/tags/udp/">udp</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/06/15/hexo-plugin-test/">
+        <span class="next-text nav-default">hexo插件测试页面</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
