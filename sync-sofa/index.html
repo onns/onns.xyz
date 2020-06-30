@@ -827,9 +827,9 @@
 	</script>
 	<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
 	<div class="mume markdown-preview  ">
-		<a href="https://github.com/LouisYLWang/Sync-Sofa" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80"
-				viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
-				aria-hidden="true">
+		<a href="https://github.com/LouisYLWang/Sync-Sofa" class="github-corner" aria-label="View source on GitHub"><svg
+				width="80" height="80" viewBox="0 0 250 250"
+				style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
 				<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
 				<path
 					d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -1004,8 +1004,13 @@
 
 		<p>&#x26A0;&#xFE0F; Before use, please make sure the version number of two clients are consistent.</p>
 		<p>&#x26A0;&#xFE0F; If you want to play local <code>.mp4</code> file, please enable
-			<code>Allow access to file URLs</code> in extension details page, for example,
-			<code>chrome://extensions/?id=djhbgkadejdmihbngglpnogjookpadjl</code> in Chrome.</p>
+			<code>Allow access to file URLs</code> in extension details page.</p>
+		<ol>
+			<li>Open <code>chrome://extensions/</code>, find <code>Sync Sofa</code>, click <code>Detaild</code> button,
+				enable <code>Allow access to file URLs</code>.</li>
+			<li>Right click <code>Sync Sofa</code> extension, choose <code>Manage Extensions</code>, enable
+				<code>Allow access to file URLs</code>.</li>
+		</ol>
 		<p>&#x26A0;&#xFE0F; If there are multiple versions of extensions in your browser, please enable one and disable
 			others.</p>
 		<h3 class="mume-header" id="open-a-video-page">Open a video page</h3>
@@ -1159,10 +1164,10 @@
 				<p>If you want to alter the source code and build yourself, make sure you have golang environment in
 					your server, then run script below to get and build binary file:</p>
 				<pre data-role="codeBlock" data-info="shell=" class="language-shell="><code>go get github.com/LouisYLWang/Sync-Sofa/server
-  cd $GOPATH/src/github.com/LouisYLWang/Sync-Sofa/server
-  go install
-  cd $GOPATH/bin
-  </code></pre>
+	cd $GOPATH/src/github.com/LouisYLWang/Sync-Sofa/server
+	go install
+	cd $GOPATH/bin
+	</code></pre>
 			</li>
 			<li>
 				<p>If you want to only deploy the binary file:</p>
@@ -1229,31 +1234,31 @@
 		  ]
 	  }
 	}
-  </code></pre>
+	</code></pre>
 		<p><strong>3. Run <code>./server</code> to delopy the server, deployment is successful if you see:</strong></p>
 		<pre data-role="codeBlock" data-info class="language-"><code>found config file, read parameters from config file...
-  server is listening at {your_port_number}...
-  </code></pre>
+	server is listening at {your_port_number}...
+	</code></pre>
 		<h3 class="mume-header" id="with-docker">With Docker</h3>
 
 		<p>Make sure docker service is runing on your server, make change to the script blow and run:</p>
 		<pre data-role="codeBlock" data-info="sh" class="language-bash">docker pull louisylwang/watchtogether
-  
-  docker run -d \
-  -p <span class="token punctuation">{</span>your docker internal port<span class="token punctuation">}</span>:<span class="token punctuation">{</span>your external port<span class="token punctuation">}</span> \
-  -v /etc/letsencrypt:/etc/letsencrypt:ro \ <span class="token comment">#if you use letsencrypt</span>
-  -e ADDR<span class="token operator">=</span>:<span class="token punctuation">{</span>your port<span class="token punctuation">}</span> \
-  -e TLSKEY<span class="token operator">=</span><span class="token punctuation">{</span>your tlskey name<span class="token punctuation">}</span> \
-  -e TLSCERT<span class="token operator">=</span><span class="token punctuation">{</span>your tlscert name<span class="token punctuation">}</span> \
-  -e SMTPSERVERHOST<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server host<span class="token punctuation">}</span> \
-  -e SMTPSERVERPORT<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server port<span class="token punctuation">}</span> \
-  -e FEEDBACKEMAILADDR<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender address<span class="token punctuation">}</span> \
-  -e FEEDBACKEMAILPSWD<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender password<span class="token punctuation">}</span> \
-  -e RUNMODE<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&quot;prod&quot;</span>/<span class="token string">&quot;dev&quot;</span><span class="token punctuation">}</span> \
-  -e RECIPIENTS<span class="token operator">=</span> <span class="token punctuation">{</span>a string with all targeted email address, separate by <span class="token string">&quot;,&quot;</span><span class="token keyword">.</span> exp: <span class="token string">&quot;rec1@mail.addr, rec2@mail.addr&quot;</span><span class="token punctuation">}</span>
-  --name <span class="token punctuation">{</span>your docker image name<span class="token punctuation">}</span> louisylwang/watchtogether
-  --restart<span class="token operator">=</span>always
-  </pre>
+	
+	docker run -d \
+	-p <span class="token punctuation">{</span>your docker internal port<span class="token punctuation">}</span>:<span class="token punctuation">{</span>your external port<span class="token punctuation">}</span> \
+	-v /etc/letsencrypt:/etc/letsencrypt:ro \ <span class="token comment">#if you use letsencrypt</span>
+	-e ADDR<span class="token operator">=</span>:<span class="token punctuation">{</span>your port<span class="token punctuation">}</span> \
+	-e TLSKEY<span class="token operator">=</span><span class="token punctuation">{</span>your tlskey name<span class="token punctuation">}</span> \
+	-e TLSCERT<span class="token operator">=</span><span class="token punctuation">{</span>your tlscert name<span class="token punctuation">}</span> \
+	-e SMTPSERVERHOST<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server host<span class="token punctuation">}</span> \
+	-e SMTPSERVERPORT<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server port<span class="token punctuation">}</span> \
+	-e FEEDBACKEMAILADDR<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender address<span class="token punctuation">}</span> \
+	-e FEEDBACKEMAILPSWD<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender password<span class="token punctuation">}</span> \
+	-e RUNMODE<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&quot;prod&quot;</span>/<span class="token string">&quot;dev&quot;</span><span class="token punctuation">}</span> \
+	-e RECIPIENTS<span class="token operator">=</span> <span class="token punctuation">{</span>a string with all targeted email address, separate by <span class="token string">&quot;,&quot;</span><span class="token keyword">.</span> exp: <span class="token string">&quot;rec1@mail.addr, rec2@mail.addr&quot;</span><span class="token punctuation">}</span>
+	--name <span class="token punctuation">{</span>your docker image name<span class="token punctuation">}</span> louisylwang/watchtogether
+	--restart<span class="token operator">=</span>always
+	</pre>
 		<h2 class="mume-header" id="release-history">Release History</h2>
 
 		<h3 class="mume-header" id="v105">v1.0.5</h3>
