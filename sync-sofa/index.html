@@ -1,1336 +1,746 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Sync Sofa - Online Video Synchronizer</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-
-
-
-
-
-
-
-
-
-	<style>
-		/**
-   * prism.js Github theme based on GitHub's theme.
-   * @author Sam Clarke
-   */
-		code[class*="language-"],
-		pre[class*="language-"] {
-			color: #333;
-			background: none;
-			font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-			text-align: left;
-			white-space: pre;
-			word-spacing: normal;
-			word-break: normal;
-			word-wrap: normal;
-			line-height: 1.4;
-
-			-moz-tab-size: 8;
-			-o-tab-size: 8;
-			tab-size: 8;
-
-			-webkit-hyphens: none;
-			-moz-hyphens: none;
-			-ms-hyphens: none;
-			hyphens: none;
-		}
-
-		/* Code blocks */
-		pre[class*="language-"] {
-			padding: .8em;
-			overflow: auto;
-			/* border: 1px solid #ddd; */
-			border-radius: 3px;
-			/* background: #fff; */
-			background: #f5f5f5;
-		}
-
-		/* Inline code */
-		:not(pre)>code[class*="language-"] {
-			padding: .1em;
-			border-radius: .3em;
-			white-space: normal;
-			background: #f5f5f5;
-		}
-
-		.token.comment,
-		.token.blockquote {
-			color: #969896;
-		}
-
-		.token.cdata {
-			color: #183691;
-		}
-
-		.token.doctype,
-		.token.punctuation,
-		.token.variable,
-		.token.macro.property {
-			color: #333;
-		}
-
-		.token.operator,
-		.token.important,
-		.token.keyword,
-		.token.rule,
-		.token.builtin {
-			color: #a71d5d;
-		}
-
-		.token.string,
-		.token.url,
-		.token.regex,
-		.token.attr-value {
-			color: #183691;
-		}
-
-		.token.property,
-		.token.number,
-		.token.boolean,
-		.token.entity,
-		.token.atrule,
-		.token.constant,
-		.token.symbol,
-		.token.command,
-		.token.code {
-			color: #0086b3;
-		}
-
-		.token.tag,
-		.token.selector,
-		.token.prolog {
-			color: #63a35c;
-		}
-
-		.token.function,
-		.token.namespace,
-		.token.pseudo-element,
-		.token.class,
-		.token.class-name,
-		.token.pseudo-class,
-		.token.id,
-		.token.url-reference .token.variable,
-		.token.attr-name {
-			color: #795da3;
-		}
-
-		.token.entity {
-			cursor: help;
-		}
-
-		.token.title,
-		.token.title .token.punctuation {
-			font-weight: bold;
-			color: #1d3e81;
-		}
-
-		.token.list {
-			color: #ed6a43;
-		}
-
-		.token.inserted {
-			background-color: #eaffea;
-			color: #55a532;
-		}
-
-		.token.deleted {
-			background-color: #ffecec;
-			color: #bd2c00;
-		}
-
-		.token.bold {
-			font-weight: bold;
-		}
-
-		.token.italic {
-			font-style: italic;
-		}
-
-
-		/* JSON */
-		.language-json .token.property {
-			color: #183691;
-		}
-
-		.language-markup .token.tag .token.punctuation {
-			color: #333;
-		}
-
-		/* CSS */
-		code.language-css,
-		.language-css .token.function {
-			color: #0086b3;
-		}
-
-		/* YAML */
-		.language-yaml .token.atrule {
-			color: #63a35c;
-		}
-
-		code.language-yaml {
-			color: #183691;
-		}
-
-		/* Ruby */
-		.language-ruby .token.function {
-			color: #333;
-		}
-
-		/* Markdown */
-		.language-markdown .token.url {
-			color: #795da3;
-		}
-
-		/* Makefile */
-		.language-makefile .token.symbol {
-			color: #795da3;
-		}
-
-		.language-makefile .token.variable {
-			color: #183691;
-		}
-
-		.language-makefile .token.builtin {
-			color: #0086b3;
-		}
-
-		/* Bash */
-		.language-bash .token.keyword {
-			color: #0086b3;
-		}
-
-		/* highlight */
-		pre[data-line] {
-			position: relative;
-			padding: 1em 0 1em 3em;
-		}
-
-		pre[data-line] .line-highlight-wrapper {
-			position: absolute;
-			top: 0;
-			left: 0;
-			background-color: transparent;
-			display: block;
-			width: 100%;
-		}
-
-		pre[data-line] .line-highlight {
-			position: absolute;
-			left: 0;
-			right: 0;
-			padding: inherit 0;
-			margin-top: 1em;
-			background: hsla(24, 20%, 50%, .08);
-			background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
-			pointer-events: none;
-			line-height: inherit;
-			white-space: pre;
-		}
-
-		pre[data-line] .line-highlight:before,
-		pre[data-line] .line-highlight[data-end]:after {
-			content: attr(data-start);
-			position: absolute;
-			top: .4em;
-			left: .6em;
-			min-width: 1em;
-			padding: 0 .5em;
-			background-color: hsla(24, 20%, 50%, .4);
-			color: hsl(24, 20%, 95%);
-			font: bold 65%/1.5 sans-serif;
-			text-align: center;
-			vertical-align: .3em;
-			border-radius: 999px;
-			text-shadow: none;
-			box-shadow: 0 1px white;
-		}
-
-		pre[data-line] .line-highlight[data-end]:after {
-			content: attr(data-end);
-			top: auto;
-			bottom: .4em;
-		}
-
-		html body {
-			font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
-			font-size: 16px;
-			line-height: 1.6;
-			color: #333;
-			background-color: #fff;
-			overflow: initial;
-			box-sizing: border-box;
-			word-wrap: break-word
-		}
-
-		html body>:first-child {
-			margin-top: 0
-		}
-
-		html body h1,
-		html body h2,
-		html body h3,
-		html body h4,
-		html body h5,
-		html body h6 {
-			line-height: 1.2;
-			margin-top: 1em;
-			margin-bottom: 16px;
-			color: #000
-		}
-
-		html body h1 {
-			font-size: 2.25em;
-			font-weight: 300;
-			padding-bottom: .3em
-		}
-
-		html body h2 {
-			font-size: 1.75em;
-			font-weight: 400;
-			padding-bottom: .3em
-		}
-
-		html body h3 {
-			font-size: 1.5em;
-			font-weight: 500
-		}
-
-		html body h4 {
-			font-size: 1.25em;
-			font-weight: 600
-		}
-
-		html body h5 {
-			font-size: 1.1em;
-			font-weight: 600
-		}
-
-		html body h6 {
-			font-size: 1em;
-			font-weight: 600
-		}
-
-		html body h1,
-		html body h2,
-		html body h3,
-		html body h4,
-		html body h5 {
-			font-weight: 600
-		}
-
-		html body h5 {
-			font-size: 1em
-		}
-
-		html body h6 {
-			color: #5c5c5c
-		}
-
-		html body strong {
-			color: #000
-		}
-
-		html body del {
-			color: #5c5c5c
-		}
-
-		html body a:not([href]) {
-			color: inherit;
-			text-decoration: none
-		}
-
-		html body a {
-			color: #08c;
-			text-decoration: none
-		}
-
-		html body a:hover {
-			color: #00a3f5;
-			text-decoration: none
-		}
-
-		html body img {
-			max-width: 100%
-		}
-
-		html body>p {
-			margin-top: 0;
-			margin-bottom: 16px;
-			word-wrap: break-word
-		}
-
-		html body>ul,
-		html body>ol {
-			margin-bottom: 16px
-		}
-
-		html body ul,
-		html body ol {
-			padding-left: 2em
-		}
-
-		html body ul.no-list,
-		html body ol.no-list {
-			padding: 0;
-			list-style-type: none
-		}
-
-		html body ul ul,
-		html body ul ol,
-		html body ol ol,
-		html body ol ul {
-			margin-top: 0;
-			margin-bottom: 0
-		}
-
-		html body li {
-			margin-bottom: 0
-		}
-
-		html body li.task-list-item {
-			list-style: none
-		}
-
-		html body li>p {
-			margin-top: 0;
-			margin-bottom: 0
-		}
-
-		html body .task-list-item-checkbox {
-			margin: 0 .2em .25em -1.8em;
-			vertical-align: middle
-		}
-
-		html body .task-list-item-checkbox:hover {
-			cursor: pointer
-		}
-
-		html body blockquote {
-			margin: 16px 0;
-			font-size: inherit;
-			padding: 0 15px;
-			color: #5c5c5c;
-			background-color: #f0f0f0;
-			border-left: 4px solid #d6d6d6
-		}
-
-		html body blockquote>:first-child {
-			margin-top: 0
-		}
-
-		html body blockquote>:last-child {
-			margin-bottom: 0
-		}
-
-		html body hr {
-			height: 4px;
-			margin: 32px 0;
-			background-color: #d6d6d6;
-			border: 0 none
-		}
-
-		html body table {
-			margin: 10px 0 15px 0;
-			border-collapse: collapse;
-			border-spacing: 0;
-			display: block;
-			width: 100%;
-			overflow: auto;
-			word-break: normal;
-			word-break: keep-all
-		}
-
-		html body table th {
-			font-weight: bold;
-			color: #000
-		}
-
-		html body table td,
-		html body table th {
-			border: 1px solid #d6d6d6;
-			padding: 6px 13px
-		}
-
-		html body dl {
-			padding: 0
-		}
-
-		html body dl dt {
-			padding: 0;
-			margin-top: 16px;
-			font-size: 1em;
-			font-style: italic;
-			font-weight: bold
-		}
-
-		html body dl dd {
-			padding: 0 16px;
-			margin-bottom: 16px
-		}
-
-		html body code {
-			font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
-			font-size: .85em !important;
-			color: #000;
-			background-color: #f0f0f0;
-			border-radius: 3px;
-			padding: .2em 0
-		}
-
-		html body code::before,
-		html body code::after {
-			letter-spacing: -0.2em;
-			content: "\00a0"
-		}
-
-		html body pre>code {
-			padding: 0;
-			margin: 0;
-			font-size: .85em !important;
-			word-break: normal;
-			white-space: pre;
-			background: transparent;
-			border: 0
-		}
-
-		html body .highlight {
-			margin-bottom: 16px
-		}
-
-		html body .highlight pre,
-		html body pre {
-			padding: 1em;
-			overflow: auto;
-			font-size: .85em !important;
-			line-height: 1.45;
-			border: #d6d6d6;
-			border-radius: 3px
-		}
-
-		html body .highlight pre {
-			margin-bottom: 0;
-			word-break: normal
-		}
-
-		html body pre code,
-		html body pre tt {
-			display: inline;
-			max-width: initial;
-			padding: 0;
-			margin: 0;
-			overflow: initial;
-			line-height: inherit;
-			word-wrap: normal;
-			background-color: transparent;
-			border: 0
-		}
-
-		html body pre code:before,
-		html body pre tt:before,
-		html body pre code:after,
-		html body pre tt:after {
-			content: normal
-		}
-
-		html body p,
-		html body blockquote,
-		html body ul,
-		html body ol,
-		html body dl,
-		html body pre {
-			margin-top: 0;
-			margin-bottom: 16px
-		}
-
-		html body kbd {
-			color: #000;
-			border: 1px solid #d6d6d6;
-			border-bottom: 2px solid #c7c7c7;
-			padding: 2px 4px;
-			background-color: #f0f0f0;
-			border-radius: 3px
-		}
-
-		@media print {
-			html body {
-				background-color: #fff
-			}
-
-			html body h1,
-			html body h2,
-			html body h3,
-			html body h4,
-			html body h5,
-			html body h6 {
-				color: #000;
-				page-break-after: avoid
-			}
-
-			html body blockquote {
-				color: #5c5c5c
-			}
-
-			html body pre {
-				page-break-inside: avoid
-			}
-
-			html body table {
-				display: table
-			}
-
-			html body img {
-				display: block;
-				max-width: 100%;
-				max-height: 100%
-			}
-
-			html body pre,
-			html body code {
-				word-wrap: break-word;
-				white-space: pre
-			}
-		}
-
-		.markdown-preview {
-			width: 100%;
-			height: 100%;
-			box-sizing: border-box
-		}
-
-		.markdown-preview .pagebreak,
-		.markdown-preview .newpage {
-			page-break-before: always
-		}
-
-		.markdown-preview pre.line-numbers {
-			position: relative;
-			padding-left: 3.8em;
-			counter-reset: linenumber
-		}
-
-		.markdown-preview pre.line-numbers>code {
-			position: relative
-		}
-
-		.markdown-preview pre.line-numbers .line-numbers-rows {
-			position: absolute;
-			pointer-events: none;
-			top: 1em;
-			font-size: 100%;
-			left: 0;
-			width: 3em;
-			letter-spacing: -1px;
-			border-right: 1px solid #999;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none
-		}
-
-		.markdown-preview pre.line-numbers .line-numbers-rows>span {
-			pointer-events: none;
-			display: block;
-			counter-increment: linenumber
-		}
-
-		.markdown-preview pre.line-numbers .line-numbers-rows>span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: .8em;
-			text-align: right
-		}
-
-		.markdown-preview .mathjax-exps .MathJax_Display {
-			text-align: center !important
-		}
-
-		.markdown-preview:not([for="preview"]) .code-chunk .btn-group {
-			display: none
-		}
-
-		.markdown-preview:not([for="preview"]) .code-chunk .status {
-			display: none
-		}
-
-		.markdown-preview:not([for="preview"]) .code-chunk .output-div {
-			margin-bottom: 16px
-		}
-
-		.scrollbar-style::-webkit-scrollbar {
-			width: 8px
-		}
-
-		.scrollbar-style::-webkit-scrollbar-track {
-			border-radius: 10px;
-			background-color: transparent
-		}
-
-		.scrollbar-style::-webkit-scrollbar-thumb {
-			border-radius: 5px;
-			background-color: rgba(150, 150, 150, 0.66);
-			border: 4px solid rgba(150, 150, 150, 0.66);
-			background-clip: content-box
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode]) {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			margin: 0;
-			padding: 0;
-			overflow: auto
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
-			position: relative;
-			top: 0
-		}
-
-		@media screen and (min-width:914px) {
-			html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
-				padding: 2em calc(50% - 457px + 2em)
-			}
-		}
-
-		@media screen and (max-width:914px) {
-			html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
-				padding: 2em
-			}
-		}
-
-		@media screen and (max-width:450px) {
-			html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview {
-				font-size: 14px !important;
-				padding: 1em
-			}
-		}
-
-		@media print {
-			html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
-				display: none
-			}
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn {
-			position: fixed;
-			bottom: 8px;
-			left: 8px;
-			font-size: 28px;
-			cursor: pointer;
-			color: inherit;
-			z-index: 99;
-			width: 32px;
-			text-align: center;
-			opacity: .4
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
-			opacity: 1
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 300px;
-			height: 100%;
-			padding: 32px 0 48px 0;
-			font-size: 14px;
-			box-shadow: 0 0 4px rgba(150, 150, 150, 0.33);
-			box-sizing: border-box;
-			overflow: auto;
-			background-color: inherit
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
-			width: 8px
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
-			border-radius: 10px;
-			background-color: transparent
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
-			border-radius: 5px;
-			background-color: rgba(150, 150, 150, 0.66);
-			border: 4px solid rgba(150, 150, 150, 0.66);
-			background-clip: content-box
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
-			text-decoration: none
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
-			padding: 0 1.6em;
-			margin-top: .8em
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li {
-			margin-bottom: .8em
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul {
-			list-style-type: none
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
-			left: 300px;
-			width: calc(100% - 300px);
-			padding: 2em calc(50% - 457px - 150px);
-			margin: 0;
-			box-sizing: border-box
-		}
-
-		@media screen and (max-width:1274px) {
-			html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
-				padding: 2em
-			}
-		}
-
-		@media screen and (max-width:450px) {
-			html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
-				width: 100%
-			}
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
-			left: 50%;
-			transform: translateX(-50%)
-		}
-
-		html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
-			display: none
-		}
-
-		/* Please visit the URL below for more information: */
-		/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-	</style>
-</head>
-
-<body for="html-export">
-	<script>
-		var xlm_wid = '16248';
-		var xlm_url = 'https://www.xianliao.me/';
-	</script>
-	<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
-	<div class="mume markdown-preview  ">
-		<a href="https://github.com/LouisYLWang/Sync-Sofa" class="github-corner" aria-label="View source on GitHub"><svg
-				width="80" height="80" viewBox="0 0 250 250"
-				style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-				<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-				<path
-					d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-					fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-				<path
-					d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-					fill="currentColor" class="octo-body"></path>
-			</svg></a>
-		<style>
-			.github-corner:hover .octo-arm {
-				animation: octocat-wave 560ms ease-in-out
-			}
-
-			@keyframes octocat-wave {
-
-				0%,
-				100% {
-					transform: rotate(0)
-				}
-
-				20%,
-				60% {
-					transform: rotate(-25deg)
-				}
-
-				40%,
-				80% {
-					transform: rotate(10deg)
-				}
-			}
-
-			@media (max-width:500px) {
-				.github-corner:hover .octo-arm {
-					animation: none
-				}
-
-				.github-corner .octo-arm {
-					animation: octocat-wave 560ms ease-in-out
-				}
-			}
-		</style>
-		<h1 class="mume-header" id="sync-sofa-streaming-video-playback-synchronizer-extension">Sync Sofa - streaming
-			video playback synchronizer extension</h1>
-
-		<blockquote>
-			<p>This chrome extension allows multi-user sync streaming video in a fast, simple and stable way.</p>
-		</blockquote>
-		<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square"
-				alt="GitHub go.mod Go version (subfolder of monorepo)"> <a
-				href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg"><img
-					src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square"
-					alt="Chrome web store users"></a></p>
-		<p>Sync Sofa is a full stack web extension support a easy-to-use and stable way to synchronize streaming
-			playback for multiple users. It can improve the experience when users from different locations want to share
-			a video/movie remotely. Currently, the feartures include:</p>
-		<ul>
-			<li>2 party connection: either party can be the host of a sync room and the other can join with connection
-				code.</li>
-			<li>sync pause/play: each user pause/play the video, the other side will do the same</li>
-			<li>sync play process bar control: the playing time change will also affect other side user</li>
-			<li>out-of-sync notification: if any party disconnected/left the room, the other user will be notified.</li>
-		</ul>
-		<hr>
-		<div class="code-chunk" data-id="code-chunk-id-0" data-cmd="toc">
-			<div class="input-div">
-				<div class="btn-group">
-					<div class="run-btn btn"><span>&#x25B6;&#xFE0E;</span></div>
-					<div class="run-all-btn btn">all</div>
-				</div>
-				<div class="status">running...</div>
-			</div>
-			<div class="output-div"></div>
-		</div>
-		<ul>
-			<li><a href="#sync-sofa-streaming-video-playback-synchronizer-extension">Sync Sofa - streaming video
-					playback synchronizer extension</a>
-				<ul>
-					<li><a href="#supported-list">Supported list</a></li>
-					<li><a href="#setting">Setting</a>
-						<ul>
-							<li><a href="#options-page">Options page</a></li>
-						</ul>
-					</li>
-					<li><a href="#usage">Usage</a>
-						<ul>
-							<li><a href="#notices">Notices</a></li>
-							<li><a href="#open-a-video-page">Open a video page</a></li>
-							<li><a href="#request-new-code">Request new code</a></li>
-							<li><a href="#start-connection">Start connection</a></li>
-							<li><a href="#enjoy-yourselves">Enjoy yourselves</a></li>
-						</ul>
-					</li>
-					<li><a href="#vlc-support">VLC support</a>
-						<ul>
-							<li><a href="#start-vlc-on-the-server-with-the-web-interface">Start VLC on the server with
-									the Web Interface</a></li>
-							<li><a href="#request-new-code-1">Request new code</a></li>
-							<li><a href="#start-connection-1">Start connection</a></li>
-							<li><a href="#enjoy-yourselves-1">Enjoy yourselves</a></li>
-							<li><a href="#close-controller-webpage">Close Controller webpage</a></li>
-						</ul>
-					</li>
-					<li><a href="#installation">Installation</a>
-						<ul>
-							<li><a href="#google-chrome">Google Chrome</a>
-								<ul>
-									<li><a href="#install-from-chrome-web-store">Install from Chrome Web Store</a></li>
-									<li><a href="#install-from-local-crx-file">Install from local .crx file</a></li>
-									<li><a href="#install-from-unpackaged-folder">Install from unpackaged folder</a>
-									</li>
-								</ul>
-							</li>
-							<li><a href="#microsoft-edge">Microsoft Edge:</a>
-								<ul>
-									<li><a href="#install-from-microsoft-edge-addons">Install from Microsoft Edge
-											Addons</a></li>
-								</ul>
-							</li>
-							<li><a href="#firefox-will-be-supported-in-later-version">Firefox (will be supported in
-									later version)</a></li>
-						</ul>
-					</li>
-					<li><a href="#self-hosting-guide">Self-hosting Guide</a>
-						<ul>
-							<li><a href="#without-docker">Without Docker</a></li>
-							<li><a href="#with-docker">With Docker</a></li>
-						</ul>
-					</li>
-					<li><a href="#release-history">Release History</a>
-						<ul>
-							<li><a href="#v105">v1.0.5</a></li>
-							<li><a href="#v104">v1.0.4</a></li>
-							<li><a href="#v103">v1.0.3</a></li>
-							<li><a href="#v102">v1.0.2</a></li>
-							<li><a href="#v001">v0.0.1</a></li>
-						</ul>
-					</li>
-					<li><a href="#meta">Meta</a></li>
-					<li><a href="#contributing">Contributing</a></li>
-				</ul>
-			</li>
-		</ul>
-		<h2 class="mume-header" id="supported-list">Supported list</h2>
-
-		<ul>
-			<li><a href="https://www.iqiyi.com/">Iqiyi</a></li>
-			<li><a href="https://www.youku.com/">Youku</a></li>
-			<li><a href="https://www.weiyun.com/">Tencent Cloud</a></li>
-			<li><a href="https://v.qq.com/">Tencent Video</a></li>
-			<li><a href="https://www.youtube.com/">YouTube</a></li>
-			<li><a href="https://www.mgtv.com/">Mango TV</a></li>
-			<li>Local mp4 file via Browser</li>
-			<li><a href="https://www.videolan.org/vlc/index.html">Local video file via VLC media player</a></li>
-		</ul>
-		<p><a href="https://github.com/LouisYLWang/Sync-Sofa/issues/22">Click here to tell us more</a></p>
-		<h2 class="mume-header" id="setting">Setting</h2>
-
-		<p>&#x1F60A; This part is optional, we have already set default options for you, if you are not interested,
-			please skip to <a href="#usage">next part</a>.</p>
-		<h3 class="mume-header" id="options-page">Options page</h3>
-
-		<p>There are two ways to visit options page.</p>
-		<ol>
-			<li>Right click <code>Sync Sofa</code> extension, choose <code>Options</code>.</li>
-			<li>Left click <code>Sync Sofa</code> extension, choose <code>Setting</code> icon in popup page.</li>
-		</ol>
-		<p>Your webpage should be like this:</p>
-		<p><img src="https://onns.xyz/blog/image/20200629-3.png" alt="Sync Sofa - Options"></p>
-		<h2 class="mume-header" id="usage">Usage</h2>
-
-		<h3 class="mume-header" id="notices">Notices</h3>
-
-		<p>&#x26A0;&#xFE0F; Before use, please make sure the version number of two clients are consistent.</p>
-		<p>&#x26A0;&#xFE0F; If you want to play local <code>.mp4</code> file, please enable
-			<code>Allow access to file URLs</code> in extension details page.</p>
-		<ol>
-			<li>Open <code>chrome://extensions/</code>, find <code>Sync Sofa</code>, click <code>Detaild</code> button,
-				enable <code>Allow access to file URLs</code>.</li>
-			<li>Right click <code>Sync Sofa</code> extension, choose <code>Manage Extensions</code>, enable
-				<code>Allow access to file URLs</code>.</li>
-		</ol>
-		<p>&#x26A0;&#xFE0F; If there are multiple versions of extensions in your browser, please enable one and disable
-			others.</p>
-		<h3 class="mume-header" id="open-a-video-page">Open a video page</h3>
-
-		<p>You two don&apos;t have to open the same webpage, you play the video via local <code>.mp4</code> file and
-			your partner watch it one some video websites, is ok as long as you both watch the same video actually
-			(source providers are different).</p>
-		<p>In this doc, for example, <code>User A</code> will watch the video on Bilibili and <code>User B</code> will
-			do it on Youtube. Here is the webpage:</p>
-		<ul>
-			<li><a href="https://www.bilibili.com/video/BV1k5411Y7Rc">https://www.bilibili.com/video/BV1k5411Y7Rc</a>
-			</li>
-			<li><a href="https://www.youtube.com/watch?v=QAelMP1PoNA">https://www.youtube.com/watch?v=QAelMP1PoNA</a>
-			</li>
-		</ul>
-		<p><img src="https://onns.xyz/blog/image/20200627-1.png" alt="User A"><br>
-			<img src="https://onns.xyz/blog/image/20200627-2.png" alt="User B"></p>
-		<p>If there are any ads before the video, watch them before the next step.</p>
-		<h3 class="mume-header" id="request-new-code">Request new code</h3>
-
-		<p>Click the <code>Sync Sofa</code> extension and then click <code>REQUEST NEW CODE</code> button.</p>
-		<p><img src="https://onns.xyz/blog/image/20200627-3.png" alt="User A"></p>
-		<p>If nothing goes wrong you will receive a message like
-			<code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied
-			to your clipboard, send it to your partner.</p>
-		<h3 class="mume-header" id="start-connection">Start connection</h3>
-
-		<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the
-			input area and click <code>START</code> button.</p>
-		<p><img src="https://onns.xyz/blog/image/20200627-4.png" alt="User B"></p>
-		<h3 class="mume-header" id="enjoy-yourselves">Enjoy yourselves</h3>
-
-		<p><img src="https://onns.xyz/blog/image/20200627-5.png" alt="User A"><br>
-			<img src="https://onns.xyz/blog/image/20200627-6.png" alt="User B"></p>
-		<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
-		<h2 class="mume-header" id="vlc-support">VLC support</h2>
-
-		<p>If you and your partner play video via <code>VLC media player</code>, <code>Sync Sofa</code> can also
-			synchronize your operations.</p>
-		<h3 class="mume-header" id="start-vlc-on-the-server-with-the-web-interface">Start VLC on the server with the Web
-			Interface</h3>
-
-		<p>First we need to enable controlling VLC via our browser, here is the official documentation:</p>
-		<ul>
-			<li><a href="https://wiki.videolan.org/Control_VLC_via_a_browser/">Control VLC via a browser</a></li>
-			<li><a href="https://wiki.videolan.org/Documentation:Modules/http_intf/#VLC_2.0.0_and_later">Start VLC on
-					the server with the Web Interface</a></li>
-		</ul>
-		<ol>
-			<li>Open VLC media player</li>
-			<li>Go
-				<code>Tools &#x2192; Preferences (select &quot;All&quot; radio-button) &#x2192; Interface &#x2192; Main interfaces</code>,
-				check &quot;Web&quot;<br>
-				<img src="https://onns.xyz/blog/image/20200628-1.png" alt="Step 2"></li>
-			<li>Go
-				<code>Tools &#x2192; Preferences (select &quot;All&quot; radio-button) &#x2192; Interface &#x2192; Main interfaces &#x2192; Lua</code>,
-				set <code>Lua HTTP - Password</code><br>
-				<img src="https://onns.xyz/blog/image/20200628-2.png" alt="Step 3"></li>
-			<li><code>Save</code> and <code>reopen</code> VLC media player</li>
-			<li>Open <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> in your browser</li>
-		</ol>
-		<p>Your webpage should be like this:</p>
-		<p><img src="https://onns.xyz/blog/image/20200628-3.png" alt="VLC media player - Web Interface"></p>
-		<h3 class="mume-header" id="request-new-code-1">Request new code</h3>
-
-		<p>Open <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>, click the <code>Sync Sofa</code> extension
-			and then click <code>REQUEST NEW CODE</code> button.</p>
-		<p>If nothing goes wrong you will receive a message like
-			<code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied
-			to your clipboard, send it to your partner.</p>
-		<h3 class="mume-header" id="start-connection-1">Start connection</h3>
-
-		<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the
-			input area and click <code>START</code> button.</p>
-		<h3 class="mume-header" id="enjoy-yourselves-1">Enjoy yourselves</h3>
-
-		<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
-		<p><strong>Notice</strong>:</p>
-		<p>&#x26A0;&#xFE0F; Keep your browser open and <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
-			itself.</p>
-		<h3 class="mume-header" id="close-controller-webpage">Close Controller webpage</h3>
-
-		<p>After your video is finished, please click <code>STOP</code> button on <code>Sync Sofa</code> extension
-			manually or just close <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>.</p>
-		<h2 class="mume-header" id="installation">Installation</h2>
-
-		<h3 class="mume-header" id="google-chrome">Google Chrome</h3>
-
-		<h4 class="mume-header" id="install-from-chrome-web-store">Install from Chrome Web Store</h4>
-
-		<ol>
-			<li>Open <a
-					href="https://chrome.google.com/webstore/detail/sync-sofa-online-video-sy/kgpnhgmpijhpkefpddoehhminpfiddmg">Sync
-					Sofa - Online Video Synchronizer - Chrome Web Store</a> in your Chrome</li>
-			<li>Click <code>Add to Chrome</code> button</li>
-			<li>Choose <code>Add extension</code></li>
-		</ol>
-		<h4 class="mume-header" id="install-from-local-crx-file">Install from local .crx file</h4>
-
-		<ol>
-			<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest">Github release page</a></li>
-			<li>Download <code>sync_sofa.[version].crx</code>, <em>[version]</em> is the number of the latest version
-			</li>
-			<li>Open <code>chrome://extensions/</code> in your Chrome</li>
-			<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
-			<li>Drag <code>sync_sofa.[version].crx</code> into the <code>chrome://extensions/</code> page</li>
-			<li>Choose <code>Add extension</code></li>
-		</ol>
-		<p><strong>Notices</strong>:<br>
-			If the extension is disabled by Chrome, try <a href="#install-from-chrome-web-store">Install from chrome web
-				store</a> or <a href="#install-from-unpackaged-folder">Install from unpackaged folder</a>.</p>
-		<blockquote>
-			<p>This extension is not listed in the Chrome Web Store and may have been added without your knowledge.</p>
-		</blockquote>
-		<h4 class="mume-header" id="install-from-unpackaged-folder">Install from unpackaged folder</h4>
-
-		<ol>
-			<li>Download <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/master.zip">stable version</a> or <a
-					href="https://github.com/LouisYLWang/Sync-Sofa/archive/dev.zip">development version</a> (with new
-				features and some bugs maybe)</li>
-			<li>Unzip the <code>.zip</code> file you downloaded</li>
-			<li>Open <code>chrome://extensions/</code> in your Chrome</li>
-			<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
-			<li>Click <code>Load unpacked</code> (in the top left corner)</li>
-			<li>Choose <code>[download_path]/[unzip folder]/client/chrome_extension</code></li>
-			<li>Click <code>select</code></li>
-		</ol>
-		<h3 class="mume-header" id="microsoft-edge">Microsoft Edge:</h3>
-
-		<h4 class="mume-header" id="install-from-microsoft-edge-addons">Install from Microsoft Edge Addons</h4>
-
-		<ol>
-			<li>Open <a href="https://microsoftedge.microsoft.com/addons/detail/kpfbclpafmmjalikjjlcoddffpfgghgp">Sync
-					Sofa - Online Video Synchronizer - Microsoft Edge Addons</a> in your Microsoft Edge</li>
-			<li>Click <code>Get</code> button</li>
-		</ol>
-		<h3 class="mume-header" id="firefox-will-be-supported-in-later-version">Firefox (will be supported in later
-			version)</h3>
-
-		<h2 class="mume-header" id="self-hosting-guide">Self-hosting Guide</h2>
-
-		<p><strong>Notices</strong>:</p>
-		<p>&#x26A0;&#xFE0F; Before hosting, make sure your server can communicate securely with HTTPS and link to an
-			domain name. All deploy script are based on Let&apos;s Encrypt certificates, you can customize with your own
-			SSL certificate providers.</p>
-		<h3 class="mume-header" id="without-docker">Without Docker</h3>
-
-		<p><strong>1. Get binary executable file</strong></p>
-		<ul>
-			<li>
-				<p>If you want to alter the source code and build yourself, make sure you have golang environment in
-					your server, then run script below to get and build binary file:</p>
-				<pre data-role="codeBlock" data-info="shell=" class="language-shell="><code>go get github.com/LouisYLWang/Sync-Sofa/server
-	cd $GOPATH/src/github.com/LouisYLWang/Sync-Sofa/server
-	go install
-	cd $GOPATH/bin
-	</code></pre>
-			</li>
-			<li>
-				<p>If you want to only deploy the binary file:</p>
-				<ol>
-					<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest">Github release page</a>
-					</li>
-					<li>Download <code>server</code> binary file for linux server</li>
-					<li>Download <code>config.json</code> file to the same directory of binary file</li>
-				</ol>
-			</li>
-		</ul>
-		<p><strong>2. In the directory of binary file, adjust config file base on your need:</strong></p>
-		<ul>
-			<li>
-				<p>Config file variables:</p>
-				<ul>
-					<li><code>addr</code>: port of server</li>
-					<li><code>runmode</code>:
-						<ul>
-							<li>dev: developing mode</li>
-							<li>prod: producting mode</li>
-						</ul>
-					</li>
-					<li><code>tlsdir</code>: TLS certificate paths
-						<ul>
-							<li><code>tlskey</code>: TLS certificate privatekey path</li>
-							<li><code>tlscert</code>: TLS certification path</li>
-						</ul>
-					</li>
-					<li><code>feedbackservice</code>: an add-on for feedback notification
-						<ul>
-							<li><code>smtpserverhost</code>: feedback mail server host</li>
-							<li><code>smtpserverport</code>: feedback mail server port</li>
-							<li><code>feedbackemailaddr</code>: feedback mail sender address (without @your-mail.host)
-							</li>
-							<li><code>feedbackemailpswd</code>: feedback mail sender password</li>
-							<li><code>recipients</code>: a list of feedback receivers mail address (with
-								@your-mail.host)</li>
-						</ul>
-					</li>
-				</ul>
-				<p><strong>Notices</strong>: <code>addr</code>, <code>runmode</code> are mandatory, <code>tlskey</code>,
-					<code>tlscert</code> are required for TLS connection</p>
-			</li>
-			<li>
-				<p>example config file:</p>
-			</li>
-		</ul>
-		<pre data-role="codeBlock" data-info="json=" class="language-json="><code>{
-	  &quot;addr&quot;: &quot;:443&quot;,
-	  &quot;runmode&quot;: &quot;prod&quot;,
-	  &quot;tlsdir&quot;: {
-		  &quot;tlskey&quot;: &quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;,
-		  &quot;tlscert&quot;: &quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;
-	  },
-	  &quot;feedbackservice&quot;:{
-		  &quot;smtpserverhost&quot;: &quot;smtp.gmail.com&quot;,
-		  &quot;smtpserverport&quot;: &quot;578&quot;,
-		  &quot;feedbackemailaddr&quot;: &quot;sender_mail_name&quot;,
-		  &quot;feedbackemailpswd&quot;: &quot;password&quot;,     
-		  &quot;recipients&quot;:[
-			  &quot;receiver1_mail_name@mail.host&quot;,
-			  &quot;receiver2_mail_name@mail.host&quot;
-		  ]
-	  }
-	}
-	</code></pre>
-		<p><strong>3. Run <code>./server</code> to delopy the server, deployment is successful if you see:</strong></p>
-		<pre data-role="codeBlock" data-info class="language-"><code>found config file, read parameters from config file...
-	server is listening at {your_port_number}...
-	</code></pre>
-		<h3 class="mume-header" id="with-docker">With Docker</h3>
-
-		<p>Make sure docker service is runing on your server, make change to the script blow and run:</p>
-		<pre data-role="codeBlock" data-info="sh" class="language-bash">docker pull louisylwang/watchtogether
-	
-	docker run -d \
-	-p <span class="token punctuation">{</span>your docker internal port<span class="token punctuation">}</span>:<span class="token punctuation">{</span>your external port<span class="token punctuation">}</span> \
-	-v /etc/letsencrypt:/etc/letsencrypt:ro \ <span class="token comment">#if you use letsencrypt</span>
-	-e ADDR<span class="token operator">=</span>:<span class="token punctuation">{</span>your port<span class="token punctuation">}</span> \
-	-e TLSKEY<span class="token operator">=</span><span class="token punctuation">{</span>your tlskey name<span class="token punctuation">}</span> \
-	-e TLSCERT<span class="token operator">=</span><span class="token punctuation">{</span>your tlscert name<span class="token punctuation">}</span> \
-	-e SMTPSERVERHOST<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server host<span class="token punctuation">}</span> \
-	-e SMTPSERVERPORT<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server port<span class="token punctuation">}</span> \
-	-e FEEDBACKEMAILADDR<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender address<span class="token punctuation">}</span> \
-	-e FEEDBACKEMAILPSWD<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender password<span class="token punctuation">}</span> \
-	-e RUNMODE<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&quot;prod&quot;</span>/<span class="token string">&quot;dev&quot;</span><span class="token punctuation">}</span> \
-	-e RECIPIENTS<span class="token operator">=</span> <span class="token punctuation">{</span>a string with all targeted email address, separate by <span class="token string">&quot;,&quot;</span><span class="token keyword">.</span> exp: <span class="token string">&quot;rec1@mail.addr, rec2@mail.addr&quot;</span><span class="token punctuation">}</span>
-	--name <span class="token punctuation">{</span>your docker image name<span class="token punctuation">}</span> louisylwang/watchtogether
-	--restart<span class="token operator">=</span>always
-	</pre>
-		<h2 class="mume-header" id="release-history">Release History</h2>
-
-		<h3 class="mume-header" id="v105">v1.0.5</h3>
-
-		<h2>&#x1F6E0; update on 12 May 2020</h2>
-		<p>Improve stability</p>
-		<blockquote>
-			<p>Test for a new logic to avoid infinite echo back (each party repeat the last operation of other party) :
-				introduce a queue as a buffer of operation and if the operations is beyond frequency threshold, the
-				client will automatically to halt and cool down for sometime.</p>
-		</blockquote>
-		<p>Add support for edge browser (beta)</p>
-		<h3 class="mume-header" id="v104">v1.0.4</h3>
-
-		<h2>&#x1F6E0; update on 10 May 2020</h2>
-		<p>Now user will get notification when they successfully connected to each other<br>
-			Improve stability, better sync performance<br>
-			Change the notification UI using sweetalert</p>
-		<h3 class="mume-header" id="v103">v1.0.3</h3>
-
-		<h2>&#x1F6E0; update on 8 May 2020</h2>
-		<p>improve stability &amp; UX logic<br>
-			Added support of following websites:</p>
-		<ul>
-			<li><a href="https://www.iqiyi.com/">iqiyi</a></li>
-			<li><a href="https://www.youku.com/">youku</a></li>
-			<li><a href="https://www.weiyun.com/">weiyun</a></li>
-			<li><a href="https://v.qq.com/">tencent video</a></li>
-		</ul>
-		<p>Fixed the support of duonao live;<br>
-			Removed the support of 91mjw (temporarily);<br>
-			Refined documentation, will add more detail in next verison;</p>
-		<h3 class="mume-header" id="v102">v1.0.2</h3>
-
-		<h2>&#x1F6E0; update on 31 Mar 2020</h2>
-		<p>Add support of play process bar control sync<br>
-			Fixed the issue that when syncing playing time, there is the possibility to crash the extension</p>
-		<h3 class="mume-header" id="v001">v0.0.1</h3>
-
-		<h2>&#x1F6E0; update on 26 Mar 2020 (beta version)</h2>
-		<p>Add support of 2 parties connection<br>
-			Add support of sync pause and play action<br>
-			Add support of out-of-sync notification</p>
-		<h2 class="mume-header" id="meta">Meta</h2>
-
-		<p>Yiliang &quot;Louis&quot; Wang &#x2013; <a href="https://ylwang.codes/">@blog</a> &#x2013; <a
-				href="mailto://louis.yl.wang@outlook.com">@mail</a></p>
-		<p>Onns &#x2013; <a href="https://onns.xyz/">@blog</a> &#x2013; <a href="mailto://onns@onns.xyz">@mail</a></p>
-		<h2 class="mume-header" id="contributing">Contributing</h2>
-
-		<ol>
-			<li>Fork it (<a
-					href="https://github.com/LouisYLWang/Sync-Sofa/fork">https://github.com/LouisYLWang/Sync-Sofa/fork</a>)
-			</li>
-			<li>Create your feature branch (<code>git checkout -b feature/fooBar</code>)</li>
-			<li>Commit your changes (<code>git commit -am &apos;Add some fooBar&apos;</code>)</li>
-			<li>Push to the branch (<code>git push origin feature/fooBar</code>)</li>
-			<li>Create a new Pull Request</li>
-		</ol>
-
-	</div>
-
-
-
-
-
-
-
-
-
-
-
-</body>
-
-</html>
+<!DOCTYPE html><html><head>
+  <title>Sync Sofa - Online Video Synchronizer</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <script>
+        var xlm_wid = '16248';
+        var xlm_url = 'https://www.xianliao.me/';
+      </script>
+      <script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
+      <div class="mume markdown-preview  ">
+        <a href="https://github.com/LouisYLWang/Sync-Sofa" class="github-corner" aria-label="View source on GitHub"><svg
+            width="80" height="80" viewBox="0 0 250 250"
+            style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path
+              d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path
+              d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+          </svg></a>
+        <style>
+          .github-corner:hover .octo-arm {
+            animation: octocat-wave 560ms ease-in-out
+          }
+    
+          @keyframes octocat-wave {
+    
+            0%,
+            100% {
+              transform: rotate(0)
+            }
+    
+            20%,
+            60% {
+              transform: rotate(-25deg)
+            }
+    
+            40%,
+            80% {
+              transform: rotate(10deg)
+            }
+          }
+    
+          @media (max-width:500px) {
+            .github-corner:hover .octo-arm {
+              animation: none
+            }
+    
+            .github-corner .octo-arm {
+              animation: octocat-wave 560ms ease-in-out
+            }
+          }
+        </style>
+      <h1 class="mume-header" id="sync-sofa-streaming-video-playback-synchronizer-extension">Sync Sofa - streaming video playback synchronizer extension</h1>
+
+<blockquote>
+<p>This chrome extension allows multi-user sync streaming video in a fast, simple and stable way.</p>
+</blockquote>
+<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square" alt="GitHub go.mod Go version (subfolder of monorepo)"> <a href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg"><img src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square" alt="Chrome web store users"></a></p>
+<p>Sync Sofa is a full stack web extension support a easy-to-use and stable way to synchronize streaming playback for multiple users. It can improve the experience when users from different locations want to share a video/movie remotely. Currently, the feartures include:</p>
+<ul>
+<li>2 party connection: either party can be the host of a sync room and the other can join with connection code.</li>
+<li>sync pause/play: each user pause/play the video, the other side will do the same</li>
+<li>sync play process bar control: the playing time change will also affect other side user</li>
+<li>out-of-sync notification: if any party disconnected/left the room, the other user will be notified.</li>
+</ul>
+<hr>
+<div class="code-chunk" data-id="code-chunk-id-0" data-cmd="toc"><div class="input-div"><div class="btn-group"><div class="run-btn btn"><span>&#x25B6;&#xFE0E;</span></div><div class="run-all-btn btn">all</div></div><div class="status">running...</div></div><div class="output-div"></div></div><ul>
+<li><a href="#sync-sofa-streaming-video-playback-synchronizer-extension">Sync Sofa - streaming video playback synchronizer extension</a>
+<ul>
+<li><a href="#supported-list">Supported list</a></li>
+<li><a href="#setting">Setting</a>
+<ul>
+<li><a href="#options-page">Options page</a></li>
+<li><a href="#refresh-video-page">Refresh video page</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#notices">Notices</a></li>
+<li><a href="#open-a-video-page">Open a video page</a></li>
+<li><a href="#request-new-code">Request new code</a></li>
+<li><a href="#start-connection">Start connection</a></li>
+<li><a href="#enjoy-yourselves">Enjoy yourselves</a></li>
+</ul>
+</li>
+<li><a href="#vlc-support">VLC support</a>
+<ul>
+<li><a href="#start-vlc-on-the-server-with-the-web-interface">Start VLC on the server with the Web Interface</a></li>
+<li><a href="#request-new-code-1">Request new code</a></li>
+<li><a href="#start-connection-1">Start connection</a></li>
+<li><a href="#enjoy-yourselves-1">Enjoy yourselves</a></li>
+<li><a href="#close-controller-webpage">Close Controller webpage</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a>
+<ul>
+<li><a href="#google-chrome">Google Chrome</a>
+<ul>
+<li><a href="#install-from-chrome-web-store">Install from Chrome Web Store</a></li>
+<li><a href="#install-from-local-crx-file">Install from local .crx file</a></li>
+<li><a href="#install-from-unpackaged-folder">Install from unpackaged folder</a></li>
+</ul>
+</li>
+<li><a href="#microsoft-edge">Microsoft Edge:</a>
+<ul>
+<li><a href="#install-from-microsoft-edge-addons">Install from Microsoft Edge Addons</a></li>
+</ul>
+</li>
+<li><a href="#firefox-will-be-supported-in-later-version">Firefox (will be supported in later version)</a></li>
+</ul>
+</li>
+<li><a href="#self-hosting-guide">Self-hosting Guide</a>
+<ul>
+<li><a href="#without-docker">Without Docker</a></li>
+<li><a href="#with-docker">With Docker</a></li>
+</ul>
+</li>
+<li><a href="#release-history">Release History</a>
+<ul>
+<li><a href="#v106">v1.0.6</a></li>
+<li><a href="#v105">v1.0.5</a></li>
+<li><a href="#v104">v1.0.4</a></li>
+<li><a href="#v103">v1.0.3</a></li>
+<li><a href="#v102">v1.0.2</a></li>
+<li><a href="#v001">v0.0.1</a></li>
+</ul>
+</li>
+<li><a href="#meta">Meta</a></li>
+<li><a href="#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="supported-list">Supported list</h2>
+
+<ul>
+<li><a href="https://www.iqiyi.com/">Iqiyi</a></li>
+<li><a href="https://www.youku.com/">Youku</a></li>
+<li><a href="https://www.weiyun.com/">Tencent Cloud</a></li>
+<li><a href="https://v.qq.com/">Tencent Video</a></li>
+<li><a href="https://www.youtube.com/">YouTube</a></li>
+<li><a href="https://www.mgtv.com/">Mango TV</a></li>
+<li>Local mp4 file via Browser</li>
+<li><a href="https://www.videolan.org/vlc/index.html">Local video file via VLC media player</a></li>
+</ul>
+<p><a href="https://github.com/LouisYLWang/Sync-Sofa/issues/22">Click here to tell us more</a></p>
+<h2 class="mume-header" id="setting">Setting</h2>
+
+<p>&#x1F60A; This part is optional, we have already set default options for you, if you are not interested, please skip to <a href="#usage">next part</a>.</p>
+<h3 class="mume-header" id="options-page">Options page</h3>
+
+<p>There are two ways to visit options page.</p>
+<ol>
+<li>Right click <code>Sync Sofa</code> extension, choose <code>Options</code>.</li>
+<li>Left click <code>Sync Sofa</code> extension, choose <code>Setting</code> icon in popup page.</li>
+</ol>
+<p>Your webpage should be like this:</p>
+<p><img src="https://onns.xyz/blog/image/20200629-3.png" alt="Sync Sofa - Options"></p>
+<h3 class="mume-header" id="refresh-video-page">Refresh video page</h3>
+
+<p>After saving options, please also refresh the video page or local mp4 page or <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> to make changes work.</p>
+<h2 class="mume-header" id="usage">Usage</h2>
+
+<h3 class="mume-header" id="notices">Notices</h3>
+
+<p>&#x26A0;&#xFE0F; Before use, please make sure the version number of two clients are consistent.</p>
+<p>&#x26A0;&#xFE0F; If you want to play local <code>.mp4</code> file, please enable <code>Allow access to file URLs</code> in extension details page.</p>
+<ol>
+<li>Open <code>chrome://extensions/</code>, find <code>Sync Sofa</code>, click <code>Detaild</code> button, enable <code>Allow access to file URLs</code>.</li>
+<li>Right click <code>Sync Sofa</code> extension, choose <code>Manage Extensions</code>, enable <code>Allow access to file URLs</code>.</li>
+</ol>
+<p>&#x26A0;&#xFE0F; If there are multiple versions of extensions in your browser, please enable one and disable others.</p>
+<h3 class="mume-header" id="open-a-video-page">Open a video page</h3>
+
+<p>You two don&apos;t have to open the same webpage, you play the video via local <code>.mp4</code> file and your partner watch it one some video websites, is ok as long as you both watch the same video actually (source providers are different).</p>
+<p>In this doc, for example, <code>User A</code> will watch the video on Bilibili and <code>User B</code> will do it on Youtube. Here is the webpage:</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1k5411Y7Rc">https://www.bilibili.com/video/BV1k5411Y7Rc</a></li>
+<li><a href="https://www.youtube.com/watch?v=QAelMP1PoNA">https://www.youtube.com/watch?v=QAelMP1PoNA</a></li>
+</ul>
+<p><img src="https://onns.xyz/blog/image/20200627-1.png" alt="User A"><br>
+<img src="https://onns.xyz/blog/image/20200627-2.png" alt="User B"></p>
+<p>If there are any ads before the video, watch them before the next step.</p>
+<h3 class="mume-header" id="request-new-code">Request new code</h3>
+
+<p>Click the <code>Sync Sofa</code> extension and then click <code>REQUEST NEW CODE</code> button.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-3.png" alt="User A"></p>
+<p>If nothing goes wrong you will receive a message like <code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied to your clipboard, send it to your partner.</p>
+<h3 class="mume-header" id="start-connection">Start connection</h3>
+
+<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the input area and click <code>START</code> button.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-4.png" alt="User B"></p>
+<h3 class="mume-header" id="enjoy-yourselves">Enjoy yourselves</h3>
+
+<p><img src="https://onns.xyz/blog/image/20200627-5.png" alt="User A"><br>
+<img src="https://onns.xyz/blog/image/20200627-6.png" alt="User B"></p>
+<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
+<h2 class="mume-header" id="vlc-support">VLC support</h2>
+
+<p>If you and your partner play video via <code>VLC media player</code>, <code>Sync Sofa</code> can also synchronize your operations.</p>
+<h3 class="mume-header" id="start-vlc-on-the-server-with-the-web-interface">Start VLC on the server with the Web Interface</h3>
+
+<p>First we need to enable controlling VLC via our browser, here is the official documentation:</p>
+<ul>
+<li><a href="https://wiki.videolan.org/Control_VLC_via_a_browser/">Control VLC via a browser</a></li>
+<li><a href="https://wiki.videolan.org/Documentation:Modules/http_intf/#VLC_2.0.0_and_later">Start VLC on the server with the Web Interface</a></li>
+</ul>
+<ol>
+<li>Open VLC media player</li>
+<li>Go <code>Tools &#x2192; Preferences (select &quot;All&quot; radio-button) &#x2192; Interface &#x2192; Main interfaces</code>, check &quot;Web&quot;<br>
+<img src="https://onns.xyz/blog/image/20200628-1.png" alt="Step 2"></li>
+<li>Go <code>Tools &#x2192; Preferences (select &quot;All&quot; radio-button) &#x2192; Interface &#x2192; Main interfaces &#x2192; Lua</code>, set <code>Lua HTTP - Password</code><br>
+<img src="https://onns.xyz/blog/image/20200628-2.png" alt="Step 3"></li>
+<li><code>Save</code> and <code>reopen</code> VLC media player</li>
+<li>Open <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> in your browser</li>
+</ol>
+<p>Your webpage should be like this:</p>
+<p><img src="https://onns.xyz/blog/image/20200628-3.png" alt="VLC media player - Web Interface"></p>
+<h3 class="mume-header" id="request-new-code-1">Request new code</h3>
+
+<p>Open <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>, click the <code>Sync Sofa</code> extension and then click <code>REQUEST NEW CODE</code> button.</p>
+<p>If nothing goes wrong you will receive a message like <code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied to your clipboard, send it to your partner.</p>
+<h3 class="mume-header" id="start-connection-1">Start connection</h3>
+
+<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the input area and click <code>START</code> button.</p>
+<h3 class="mume-header" id="enjoy-yourselves-1">Enjoy yourselves</h3>
+
+<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
+<p><strong>Notice</strong>:</p>
+<p>&#x26A0;&#xFE0F; Keep your browser open and <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> itself.</p>
+<h3 class="mume-header" id="close-controller-webpage">Close Controller webpage</h3>
+
+<p>After your video is finished, please click <code>STOP</code> button on <code>Sync Sofa</code> extension manually or just close <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>.</p>
+<h2 class="mume-header" id="installation">Installation</h2>
+
+<h3 class="mume-header" id="google-chrome">Google Chrome</h3>
+
+<h4 class="mume-header" id="install-from-chrome-web-store">Install from Chrome Web Store</h4>
+
+<ol>
+<li>Open <a href="https://chrome.google.com/webstore/detail/sync-sofa-online-video-sy/kgpnhgmpijhpkefpddoehhminpfiddmg">Sync Sofa - Online Video Synchronizer - Chrome Web Store</a> in your Chrome</li>
+<li>Click <code>Add to Chrome</code> button</li>
+<li>Choose <code>Add extension</code></li>
+</ol>
+<h4 class="mume-header" id="install-from-local-crx-file">Install from local .crx file</h4>
+
+<ol>
+<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest">Github release page</a></li>
+<li>Download <code>sync_sofa.[version].crx</code>, <em>[version]</em> is the number of the latest version</li>
+<li>Open <code>chrome://extensions/</code> in your Chrome</li>
+<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
+<li>Drag <code>sync_sofa.[version].crx</code> into the <code>chrome://extensions/</code> page</li>
+<li>Choose <code>Add extension</code></li>
+</ol>
+<p><strong>Notices</strong>:<br>
+If the extension is disabled by Chrome, try <a href="#install-from-chrome-web-store">Install from chrome web store</a> or <a href="#install-from-unpackaged-folder">Install from unpackaged folder</a>.</p>
+<blockquote>
+<p>This extension is not listed in the Chrome Web Store and may have been added without your knowledge.</p>
+</blockquote>
+<h4 class="mume-header" id="install-from-unpackaged-folder">Install from unpackaged folder</h4>
+
+<ol>
+<li>Download <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/master.zip">stable version</a> or <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/dev.zip">development version</a> (with new features and some bugs maybe)</li>
+<li>Unzip the <code>.zip</code> file you downloaded</li>
+<li>Open <code>chrome://extensions/</code> in your Chrome</li>
+<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
+<li>Click <code>Load unpacked</code> (in the top left corner)</li>
+<li>Choose <code>[download_path]/[unzip folder]/client/chrome_extension</code></li>
+<li>Click <code>select</code></li>
+</ol>
+<h3 class="mume-header" id="microsoft-edge">Microsoft Edge:</h3>
+
+<h4 class="mume-header" id="install-from-microsoft-edge-addons">Install from Microsoft Edge Addons</h4>
+
+<ol>
+<li>Open <a href="https://microsoftedge.microsoft.com/addons/detail/kpfbclpafmmjalikjjlcoddffpfgghgp">Sync Sofa - Online Video Synchronizer - Microsoft Edge Addons</a> in your Microsoft Edge</li>
+<li>Click <code>Get</code> button</li>
+</ol>
+<h3 class="mume-header" id="firefox-will-be-supported-in-later-version">Firefox (will be supported in later version)</h3>
+
+<h2 class="mume-header" id="self-hosting-guide">Self-hosting Guide</h2>
+
+<p><strong>Notices</strong>:</p>
+<p>&#x26A0;&#xFE0F; Before hosting, make sure your server can communicate securely with HTTPS and link to an domain name. All deploy script are based on Let&apos;s Encrypt certificates, you can customize with your own SSL certificate providers.</p>
+<h3 class="mume-header" id="without-docker">Without Docker</h3>
+
+<p><strong>1. Get binary executable file</strong></p>
+<ul>
+<li>
+<p>If you want to alter the source code and build yourself, make sure you have <code>golang environment</code> in your server, then run script below to get and build binary file:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">go get github.com/LouisYLWang/Sync-Sofa/server
+<span class="token comment"># If you don&apos;t know $GOPATH</span>
+<span class="token comment"># try &quot;go env GOPATH&quot;</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server
+
+<span class="token comment"># Next step is optional</span>
+<span class="token comment"># If you have any error message like:</span>
+<span class="token comment"># &quot;dial tcp 216.58.200.49:443: i/o timeout&quot;</span>
+<span class="token comment"># then try</span>
+<span class="token function">export</span> GOPROXY<span class="token operator">=</span>https://goproxy.io
+
+go <span class="token function">install</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/bin
+</pre></li>
+<li>
+<p>If you want to only deploy the binary file:</p>
+<ol>
+<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest">Github release page</a></li>
+<li>Download <code>server</code> binary file for linux server</li>
+<li>Download <code>config.json</code> file to the same directory of binary file</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. In the directory of binary file, adjust config file base on your need:</strong></p>
+<ul>
+<li>
+<p>Config file variables:</p>
+<ul>
+<li><code>addr</code>: port of server</li>
+<li><code>runmode</code>:
+<ul>
+<li>dev: developing mode</li>
+<li>prod: producting mode</li>
+</ul>
+</li>
+<li><code>tlsdir</code>: TLS certificate paths
+<ul>
+<li><code>tlskey</code>: TLS certificate privatekey path</li>
+<li><code>tlscert</code>: TLS certification path</li>
+</ul>
+</li>
+<li><code>feedbackservice</code>: an add-on for feedback notification
+<ul>
+<li><code>smtpserverhost</code>: feedback mail server host</li>
+<li><code>smtpserverport</code>: feedback mail server port</li>
+<li><code>feedbackemailaddr</code>: feedback mail sender address (without @your-mail.host)</li>
+<li><code>feedbackemailpswd</code>: feedback mail sender password</li>
+<li><code>recipients</code>: a list of feedback receivers mail address (with @your-mail.host)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Notices</strong>: <code>addr</code>, <code>runmode</code> are mandatory, <code>tlskey</code>, <code>tlscert</code> are required for TLS connection</p>
+</li>
+<li>
+<p>minimal config file:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:80&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dev&quot;</span>
+<span class="token punctuation">}</span>
+</pre></li>
+<li>
+<p>example config file:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:443&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prod&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;tlsdir&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;tlskey&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;tlscert&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;feedbackservice&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token property">&quot;smtpserverhost&quot;</span><span class="token operator">:</span> <span class="token string">&quot;smtp.gmail.com&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;smtpserverport&quot;</span><span class="token operator">:</span> <span class="token string">&quot;578&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;feedbackemailaddr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;sender_mail_name&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;feedbackemailpswd&quot;</span><span class="token operator">:</span> <span class="token string">&quot;password&quot;</span><span class="token punctuation">,</span>     
+      <span class="token property">&quot;recipients&quot;</span><span class="token operator">:</span><span class="token punctuation">[</span>
+          <span class="token string">&quot;receiver1_mail_name@mail.host&quot;</span><span class="token punctuation">,</span>
+          <span class="token string">&quot;receiver2_mail_name@mail.host&quot;</span>
+      <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre></li>
+</ul>
+<p><strong>3. Run <code>./server</code> to delopy the server, deployment is successful if you see:</strong></p>
+<pre data-role="codeBlock" data-info class="language-"><code>found config file, read parameters from config file...
+server is listening at {your_port_number}...
+</code></pre><h3 class="mume-header" id="with-docker">With Docker</h3>
+
+<p>Make sure docker service is runing on your server, make change to the script blow and run:</p>
+<pre data-role="codeBlock" data-info="sh" class="language-bash">docker pull louisylwang/watchtogether
+
+docker run -d \
+-p <span class="token punctuation">{</span>your docker internal port<span class="token punctuation">}</span>:<span class="token punctuation">{</span>your external port<span class="token punctuation">}</span> \
+-v /etc/letsencrypt:/etc/letsencrypt:ro \ <span class="token comment">#if you use letsencrypt</span>
+-e ADDR<span class="token operator">=</span>:<span class="token punctuation">{</span>your port<span class="token punctuation">}</span> \
+-e TLSKEY<span class="token operator">=</span><span class="token punctuation">{</span>your tlskey name<span class="token punctuation">}</span> \
+-e TLSCERT<span class="token operator">=</span><span class="token punctuation">{</span>your tlscert name<span class="token punctuation">}</span> \
+-e SMTPSERVERHOST<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server host<span class="token punctuation">}</span> \
+-e SMTPSERVERPORT<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail server port<span class="token punctuation">}</span> \
+-e FEEDBACKEMAILADDR<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender address<span class="token punctuation">}</span> \
+-e FEEDBACKEMAILPSWD<span class="token operator">=</span> <span class="token punctuation">{</span>feedback mail sender password<span class="token punctuation">}</span> \
+-e RUNMODE<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&quot;prod&quot;</span>/<span class="token string">&quot;dev&quot;</span><span class="token punctuation">}</span> \
+-e RECIPIENTS<span class="token operator">=</span> <span class="token punctuation">{</span>a string with all targeted email address, separate by <span class="token string">&quot;,&quot;</span><span class="token keyword">.</span> exp: <span class="token string">&quot;rec1@mail.addr, rec2@mail.addr&quot;</span><span class="token punctuation">}</span>
+--name <span class="token punctuation">{</span>your docker image name<span class="token punctuation">}</span> louisylwang/watchtogether
+--restart<span class="token operator">=</span>always
+</pre><h2 class="mume-header" id="release-history">Release History</h2>
+
+<h3 class="mume-header" id="v106">v1.0.6</h3>
+
+<h2>&#x1F6E0; update on 28 June 2020</h2>
+<p>&#x26A0;&#x26A0;&#x26A0; Notice, this version is not compatible with any version before, please please please make sure your version is the same as your peer&apos;s version</p>
+<ul>
+<li>Add:
+<ul>
+<li>add support for Mango TV (happy Sistering &#x1F923;)</li>
+<li>add support for local video file syncing with VLC player #20</li>
+<li>add options page - debugging mode &amp; self-hosting option #21</li>
+<li>add donating page</li>
+<li>add new wiki page #11</li>
+</ul>
+</li>
+<li>Fix:
+<ul>
+<li>improve sync performance &amp; stability:
+<ul>
+<li>new sync logic, not compatible with any version before</li>
+<li>improve buffer detection</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="v105">v1.0.5</h3>
+
+<h2>&#x1F6E0; update on 12 May 2020</h2>
+<p>Improve stability</p>
+<blockquote>
+<p>Test for a new logic to avoid infinite echo back (each party repeat the last operation of other party) : introduce a queue as a buffer of operation and if the operations is beyond frequency threshold, the client will automatically to halt and cool down for sometime.</p>
+</blockquote>
+<p>Add support for edge browser (beta)</p>
+<h3 class="mume-header" id="v104">v1.0.4</h3>
+
+<h2>&#x1F6E0; update on 10 May 2020</h2>
+<p>Now user will get notification when they successfully connected to each other<br>
+Improve stability, better sync performance<br>
+Change the notification UI using sweetalert</p>
+<h3 class="mume-header" id="v103">v1.0.3</h3>
+
+<h2>&#x1F6E0; update on 8 May 2020</h2>
+<p>improve stability &amp; UX logic<br>
+Added support of following websites:</p>
+<ul>
+<li><a href="https://www.iqiyi.com/">iqiyi</a></li>
+<li><a href="https://www.youku.com/">youku</a></li>
+<li><a href="https://www.weiyun.com/">weiyun</a></li>
+<li><a href="https://v.qq.com/">tencent video</a></li>
+</ul>
+<p>Fixed the support of duonao live;<br>
+Removed the support of 91mjw (temporarily);<br>
+Refined documentation, will add more detail in next verison;</p>
+<h3 class="mume-header" id="v102">v1.0.2</h3>
+
+<h2>&#x1F6E0; update on 31 Mar 2020</h2>
+<p>Add support of play process bar control sync<br>
+Fixed the issue that when syncing playing time, there is the possibility to crash the extension</p>
+<h3 class="mume-header" id="v001">v0.0.1</h3>
+
+<h2>&#x1F6E0; update on 26 Mar 2020 (beta version)</h2>
+<p>Add support of 2 parties connection<br>
+Add support of sync pause and play action<br>
+Add support of out-of-sync notification</p>
+<h2 class="mume-header" id="meta">Meta</h2>
+
+<p>Yiliang &quot;Louis&quot; Wang &#x2013; <a href="https://ylwang.codes/">@blog</a> &#x2013; <a href="mailto:louis.yl.wang@outlook.com">@mail</a></p>
+<p>Onns &#x2013; <a href="https://onns.xyz/">@blog</a> &#x2013; <a href="mailto:onns@onns.xyz">@mail</a></p>
+<h2 class="mume-header" id="contributing">Contributing</h2>
+
+<ol>
+<li>Fork it (<a href="https://github.com/LouisYLWang/Sync-Sofa/fork">https://github.com/LouisYLWang/Sync-Sofa/fork</a>)</li>
+<li>Create your feature branch (<code>git checkout -b feature/fooBar</code>)</li>
+<li>Commit your changes (<code>git commit -am &apos;Add some fooBar&apos;</code>)</li>
+<li>Push to the branch (<code>git push origin feature/fooBar</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
