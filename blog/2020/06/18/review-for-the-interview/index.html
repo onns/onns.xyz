@@ -159,7 +159,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-udp"><span class="toc-text">TCP UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp与udp基本区别"><span class="toc-text">TCP与UDP基本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#udp应用场景"><span class="toc-text">UDP应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp三次握手"><span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp四次握手"><span class="toc-text">TCP四次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要设置一个-time-wait-的时间"><span class="toc-text">为什么需要设置一个 TIME-WAIT 的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp如何保证可靠的传输"><span class="toc-text">TCP如何保证可靠的传输?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关名词"><span class="toc-text">相关名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-udp"><span class="toc-text">TCP UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp与udp基本区别"><span class="toc-text">TCP与UDP基本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#udp应用场景"><span class="toc-text">UDP应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp三次握手"><span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp四次握手"><span class="toc-text">TCP四次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要设置一个-time-wait-的时间"><span class="toc-text">为什么需要设置一个 TIME-WAIT 的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp如何保证可靠的传输"><span class="toc-text">TCP如何保证可靠的传输?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关名词"><span class="toc-text">相关名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程和线程"><span class="toc-text">进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系"><span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-text">区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>复习</p>
 <a id="more"></a>
@@ -214,10 +214,49 @@
 <li>MSL（Maximum Segment Lifetime）：报文最大生存时间</li>
 <li>MTU（Maximum Transmission Unit）：用来通知对方所能接受数据服务单元的最大尺寸，说明发送方能够接受的有效载荷大小。</li>
 </ul>
+<h2 id="进程和线程">进程和线程</h2>
+<h3 id="定义">定义</h3>
+<p>进程:具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</p>
+<p>线程:进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
+<h3 id="关系">关系</h3>
+<p>一个线程可以创建和撤销另一个线程;同一个进程中的多个线程之间可以并发执行.</p>
+<p>相对进程而言，线程是一个更加接近于执行体的概念，它可以与同进程中的其他线程共享数据，但拥有自己的栈空间，拥有独立的执行序列。</p>
+<h3 id="区别">区别</h3>
+<p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
+<ol>
+<li>
+<p>简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
+</li>
+<li>
+<p>线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
+</li>
+<li>
+<p>另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
+</li>
+<li>
+<p>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+</li>
+<li>
+<p>从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+</li>
+</ol>
+<hr>
+<p>根本区别：进程是操作系统资源分配的基本单位，而线程是任务调度和执行的基本单位</p>
+<p>在开销方面：每个进程都有独立的代码和数据空间（程序上下文），程序之间的切换会有较大的开销；线程可以看做轻量级的进程，同一类线程共享代码和数据空间，每个线程都有自己独立的运行栈和程序计数器（PC），线程之间切换的开销小。</p>
+<p>所处环境：在操作系统中能同时运行多个进程（程序）；而在同一个进程（程序）中有多个线程同时执行（通过CPU调度，在每个时间片中只有一个线程执行）</p>
+<p>内存分配方面：系统在运行的时候会为每个进程分配不同的内存空间；而对线程而言，除了CPU外，系统不会为线程分配内存（线程所使用的资源来自其所属进程的资源），线程组之间只能共享资源。</p>
+<p>包含关系：没有线程的进程可以看做是单线程的，如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程。</p>
+<h3 id="协程">协程</h3>
+<p>协程，是一种比线程更加轻量级的存在，协程不是被操作系统内核所管理，而完全是由程序所控制（也就是在用户态执行）。这样带来的好处就是性能得到了很大的提升，不会像线程切换那样消耗资源。</p>
+<p>极高的执行效率：因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显；<br>
+不需要多线程的锁机制：因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
 <h2 id="参考链接">参考链接</h2>
 <ul>
 <li><a href="https://blog.csdn.net/greentealc/article/details/79880220" target="_blank" rel="noopener">关于TCP，UDP，针对面试。超详细</a></li>
 <li><a href="https://www.jianshu.com/p/deee6abf0b72" target="_blank" rel="noopener">面试常问之TCP与UDP</a></li>
+<li><a href="https://www.cnblogs.com/lgk8023/p/6430592.html" target="_blank" rel="noopener">Java基础面试题（进程和线程的区别）</a></li>
+<li><a href="https://blog.csdn.net/daaikuaichuan/article/details/82951084" target="_blank" rel="noopener">进程、线程和协程之间的区别和联系</a></li>
+<li><a href="https://www.cnblogs.com/jobbible/p/9766649.html" target="_blank" rel="noopener">每个程序员都会遇到的面试问题：谈谈进程和线程的区别</a></li>
 </ul>
 
       </div>
@@ -230,7 +269,12 @@
             <a href="/blog/tags/udp/">udp</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/06/15/hexo-plugin-test/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Leetcode题解：有序矩阵中第K小的元素</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/06/15/hexo-plugin-test/">
         <span class="next-text nav-default">hexo插件测试页面</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
