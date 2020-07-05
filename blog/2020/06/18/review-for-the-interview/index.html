@@ -159,49 +159,51 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-udp"><span class="toc-text">TCP UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp与udp基本区别"><span class="toc-text">TCP与UDP基本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#udp应用场景"><span class="toc-text">UDP应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp三次握手"><span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp四次握手"><span class="toc-text">TCP四次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要设置一个-time-wait-的时间"><span class="toc-text">为什么需要设置一个 TIME-WAIT 的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp如何保证可靠的传输"><span class="toc-text">TCP如何保证可靠的传输?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关名词"><span class="toc-text">相关名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程和线程"><span class="toc-text">进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系"><span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-text">区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-udp"><span class="toc-text">TCP UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp-与-udp-基本区别"><span class="toc-text">TCP 与 UDP 基本区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#udp-应用场景"><span class="toc-text">UDP 应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp-三次握手"><span class="toc-text">TCP 三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp-四次握手"><span class="toc-text">TCP 四次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么两次握手不行"><span class="toc-text">为什么两次握手不行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要设置一个-time-wait-的时间"><span class="toc-text">为什么需要设置一个 TIME-WAIT 的时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp-如何保证可靠的传输"><span class="toc-text">TCP 如何保证可靠的传输?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关名词"><span class="toc-text">相关名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程和线程"><span class="toc-text">进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系"><span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-text">区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红黑树"><span class="toc-text">红黑树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#性质"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入"><span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间复杂度"><span class="toc-text">时间复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-avl-区别"><span class="toc-text">与 AVL 区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#死锁"><span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见死锁"><span class="toc-text">常见死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#产生原因"><span class="toc-text">产生原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#必要条件"><span class="toc-text">必要条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打破"><span class="toc-text">打破</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理方法"><span class="toc-text">处理方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http"><span class="toc-text">HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#http-2-0"><span class="toc-text">HTTP 2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二进制传输"><span class="toc-text">二进制传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多路复用"><span class="toc-text">多路复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#header-压缩"><span class="toc-text">Header 压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务器-push"><span class="toc-text">服务器 Push</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更安全"><span class="toc-text">更安全</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三个问题"><span class="toc-text">三个问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#脏读（读取未提交数据）"><span class="toc-text">脏读（读取未提交数据）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不可重复读（前后多次读取，数据内容不一致）"><span class="toc-text">不可重复读（前后多次读取，数据内容不一致）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#幻读（前后多次读取，数据总量不一致）"><span class="toc-text">幻读（前后多次读取，数据总量不一致）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-text">隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读未提交（read-uncommitted）"><span class="toc-text">读未提交（Read uncommitted）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读已提交（read-committed）"><span class="toc-text">读已提交（Read committed）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可重复读（repeatable-read）"><span class="toc-text">可重复读（Repeatable read）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可串行化（serializable）"><span class="toc-text">可串行化（Serializable）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务"><span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特性（acid）"><span class="toc-text">特性（ACID）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>复习</p>
 <a id="more"></a>
 <h2 id="tcp-udp">TCP UDP</h2>
-<p>TCP: 传输控制协议（英语：Transmission Control Protocol，缩写为TCP）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。</p>
-<p>UDP:用户数据报协议（英语：User Datagram Protocol，缩写为UDP），又称使用者资料包协定，是一个简单的面向数据报的传输层协议，正式规范为RFC 768。</p>
-<h3 id="tcp与udp基本区别">TCP与UDP基本区别</h3>
+<p>TCP: 传输控制协议（英语：Transmission Control Protocol，缩写为 TCP）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由 IETF 的 RFC 793 定义。</p>
+<p>UDP:用户数据报协议（英语：User Datagram Protocol，缩写为 UDP），又称使用者资料包协定，是一个简单的面向数据报的传输层协议，正式规范为 RFC 768。</p>
+<h3 id="tcp-与-udp-基本区别">TCP 与 UDP 基本区别</h3>
 <ol>
 <li>基于连接与无连接</li>
-<li>TCP要求系统资源较多，UDP较少；</li>
-<li>UDP程序结构较简单</li>
+<li>TCP 要求系统资源较多，UDP 较少；</li>
+<li>UDP 程序结构较简单</li>
 <li>流模式（TCP）与数据报模式(UDP);</li>
-<li>TCP保证数据正确性，UDP可能丢包</li>
-<li>TCP保证数据顺序，UDP不保证</li>
+<li>TCP 保证数据正确性，UDP 可能丢包</li>
+<li>TCP 保证数据顺序，UDP 不保证</li>
 <li>UDP 是不处理堵塞，应用需要发，就会发送。TCP 还拥有堵塞控制，TCP 会根据网络环境调整发包的频率。</li>
 <li>UDP 支持多播和广播</li>
-<li>TCP有流量控制（滑动窗口）和拥塞控制（慢开始、拥塞避免、快重传、快恢复）</li>
+<li>TCP 有流量控制（滑动窗口）和拥塞控制（慢开始、拥塞避免、快重传、快恢复）</li>
 </ol>
-<h3 id="udp应用场景">UDP应用场景</h3>
+<h3 id="udp-应用场景">UDP 应用场景</h3>
 <ol>
 <li>面向数据报方式</li>
 <li>网络数据大多为短消息</li>
-<li>拥有大量Client</li>
+<li>拥有大量 Client</li>
 <li>对数据安全性无特殊要求</li>
 <li>网络负担非常重，但对响应速度要求高</li>
-<li>QQ的文件传输</li>
+<li>QQ 的文件传输</li>
 <li>DNS、TFTP、RIP（路由选择协议）、SNMP、NFS</li>
 </ol>
-<h3 id="tcp三次握手">TCP三次握手</h3>
+<h3 id="tcp-三次握手">TCP 三次握手</h3>
 <center>
 <p><img src="//onns.xyz/blog/image/20200618-1.png" alt="TCP三次握手"></p>
 </center>
-<h3 id="tcp四次握手">TCP四次握手</h3>
+<h3 id="tcp-四次握手">TCP 四次握手</h3>
 <center>
 <p><img src="//onns.xyz/blog/image/20200618-2.png" alt="TCP四次握手"></p>
 </center>
+<h4 id="为什么两次握手不行">为什么两次握手不行</h4>
+<p>为了防止已失效的连接请求报文段突然又传送到了 B，因而产生错误。A 发送的包丢了，又发送一个包建立连接，结果这个丢的包又被找回来了，B 又建立了一个 A 不认可的连接。</p>
 <h4 id="为什么需要设置一个-time-wait-的时间">为什么需要设置一个 TIME-WAIT 的时间</h4>
 <ol>
-<li>保证TCP协议的全双工连接能够可靠关闭。先说第一点，如果Client直接CLOSED了，那么由于IP协议的不可靠性或者是其它网络原因，导致Server没有收到Client最后回复的ACK。那么Server就会在超时之后继续发送FIN，此时由于Client已经CLOSED了，就找不到与重发的FIN对应的连接，最后Server就会收到RST而不是ACK，Server就会以为是连接错误把问题报告给高层。这样的情况虽然不会造成数据丢失，但是却导致TCP协议不符合可靠连接的要求。所以，Client不是直接进入CLOSED，而是要保持TIME_WAIT，当再次收到FIN的时候，能够保证对方收到ACK，最后正确的关闭连接。</li>
-<li>保证这次连接的重复数据段从网络中消失。再说第二点，如果Client直接CLOSED，然后又再向Server发起一个新连接，我们不能保证这个新连接与刚关闭的连接的端口号是不同的。也就是说有可能新连接和老连接的端口号是相同的。一般来说不会发生什么问题，但是还是有特殊情况出现：假设新连接和已经关闭的老连接端口号是一样的，如果前一次连接的某些数据仍然滞留在网络中，这些延迟数据在建立新连接之后才到达Server，由于新连接和老连接的端口号是一样的，又因为TCP协议判断不同连接的依据是socket pair，于是，TCP协议就认为那个延迟的数据是属于新连接的，这样就和真正的新连接的数据包发生混淆了。所以TCP连接还要在TIME_WAIT状态等待2倍MSL，这样可以保证本次连接的所有数据都从网络中消失。</li>
+<li>保证 TCP 协议的全双工连接能够可靠关闭。先说第一点，如果 Client 直接 CLOSED 了，那么由于 IP 协议的不可靠性或者是其它网络原因，导致 Server 没有收到 Client 最后回复的 ACK。那么 Server 就会在超时之后继续发送 FIN，此时由于 Client 已经 CLOSED 了，就找不到与重发的 FIN 对应的连接，最后 Server 就会收到 RST 而不是 ACK，Server 就会以为是连接错误把问题报告给高层。这样的情况虽然不会造成数据丢失，但是却导致 TCP 协议不符合可靠连接的要求。所以，Client 不是直接进入 CLOSED，而是要保持 TIME_WAIT，当再次收到 FIN 的时候，能够保证对方收到 ACK，最后正确的关闭连接。</li>
+<li>保证这次连接的重复数据段从网络中消失。再说第二点，如果 Client 直接 CLOSED，然后又再向 Server 发起一个新连接，我们不能保证这个新连接与刚关闭的连接的端口号是不同的。也就是说有可能新连接和老连接的端口号是相同的。一般来说不会发生什么问题，但是还是有特殊情况出现：假设新连接和已经关闭的老连接端口号是一样的，如果前一次连接的某些数据仍然滞留在网络中，这些延迟数据在建立新连接之后才到达 Server，由于新连接和老连接的端口号是一样的，又因为 TCP 协议判断不同连接的依据是 socket pair，于是，TCP 协议就认为那个延迟的数据是属于新连接的，这样就和真正的新连接的数据包发生混淆了。所以 TCP 连接还要在 TIME_WAIT 状态等待 2 倍 MSL，这样可以保证本次连接的所有数据都从网络中消失。</li>
 </ol>
-<h3 id="tcp如何保证可靠的传输">TCP如何保证可靠的传输?</h3>
+<h3 id="tcp-如何保证可靠的传输">TCP 如何保证可靠的传输?</h3>
 <ol>
 <li>确认和重传</li>
 <li>数据校验</li>
@@ -217,46 +219,417 @@
 <h2 id="进程和线程">进程和线程</h2>
 <h3 id="定义">定义</h3>
 <p>进程:具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</p>
-<p>线程:进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
+<p>线程:进程的一个实体,是 CPU 调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
 <h3 id="关系">关系</h3>
 <p>一个线程可以创建和撤销另一个线程;同一个进程中的多个线程之间可以并发执行.</p>
 <p>相对进程而言，线程是一个更加接近于执行体的概念，它可以与同进程中的其他线程共享数据，但拥有自己的栈空间，拥有独立的执行序列。</p>
 <h3 id="区别">区别</h3>
 <p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
 <ol>
-<li>
-<p>简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
-</li>
-<li>
-<p>线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
-</li>
-<li>
-<p>另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
-</li>
-<li>
-<p>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
-</li>
-<li>
-<p>从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
-</li>
+<li>简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</li>
+<li>线程的划分尺度小于进程，使得多线程程序的并发性高。</li>
+<li>另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</li>
+<li>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</li>
+<li>从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</li>
 </ol>
 <hr>
 <p>根本区别：进程是操作系统资源分配的基本单位，而线程是任务调度和执行的基本单位</p>
 <p>在开销方面：每个进程都有独立的代码和数据空间（程序上下文），程序之间的切换会有较大的开销；线程可以看做轻量级的进程，同一类线程共享代码和数据空间，每个线程都有自己独立的运行栈和程序计数器（PC），线程之间切换的开销小。</p>
-<p>所处环境：在操作系统中能同时运行多个进程（程序）；而在同一个进程（程序）中有多个线程同时执行（通过CPU调度，在每个时间片中只有一个线程执行）</p>
-<p>内存分配方面：系统在运行的时候会为每个进程分配不同的内存空间；而对线程而言，除了CPU外，系统不会为线程分配内存（线程所使用的资源来自其所属进程的资源），线程组之间只能共享资源。</p>
+<p>所处环境：在操作系统中能同时运行多个进程（程序）；而在同一个进程（程序）中有多个线程同时执行（通过 CPU 调度，在每个时间片中只有一个线程执行）</p>
+<p>内存分配方面：系统在运行的时候会为每个进程分配不同的内存空间；而对线程而言，除了 CPU 外，系统不会为线程分配内存（线程所使用的资源来自其所属进程的资源），线程组之间只能共享资源。</p>
 <p>包含关系：没有线程的进程可以看做是单线程的，如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程。</p>
 <h3 id="协程">协程</h3>
 <p>协程，是一种比线程更加轻量级的存在，协程不是被操作系统内核所管理，而完全是由程序所控制（也就是在用户态执行）。这样带来的好处就是性能得到了很大的提升，不会像线程切换那样消耗资源。</p>
 <p>极高的执行效率：因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显；<br>
 不需要多线程的锁机制：因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
+<h2 id="红黑树">红黑树</h2>
+<h3 id="性质">性质</h3>
+<ol>
+<li>每个节点要么是黑色，要么是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点（NIL）是黑色。</li>
+<li>每个红色结点的两个子结点一定都是黑色。</li>
+<li>任意一结点到每个叶子结点的路径都包含数量相同的黑结点。</li>
+</ol>
+<h3 id="插入">插入</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20200703-1.png" alt="插入"></p>
+</center>
+<h3 id="删除">删除</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20200703-2.png" alt="删除"></p>
+</center>
+<h3 id="时间复杂度">时间复杂度</h3>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Average</th>
+<th>Worst case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Space</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="与-avl-区别">与 AVL 区别</h3>
+<p>AVL 是严格的平衡树，因此在增加或者删除节点的时候，根据不同情况，旋转的次数比红黑树要多；<br>
+红黑树是用非严格的平衡来换取增删节点时候旋转次数的降低开销；<br>
+所以简单说，如果你的应用中，搜索的次数远远大于插入和删除，那么选择 AVL 树，<br>
+如果搜索，插入删除次数几乎差不多，应选择红黑树。即，有时仅为了排序（建立-遍历-删除），不查找或查找次数很少，R-B 树合算一些。<br>
+AVL 树在顺序插入和删除时有 20%左右的性能优势，但随机性能反而落后 15%左右，现实应用当然一般都是随机情况，所以红黑树得到了更广泛的应用。</p>
+<h2 id="死锁">死锁</h2>
+<p>死锁是指多个进程（线程）在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象（互相挂起等待），若无外力作用，它们都将无法推进下去。</p>
+<h3 id="常见死锁">常见死锁</h3>
+<ol>
+<li>线程将自己锁住</li>
+</ol>
+<p>为了保证线程之间的同步和互斥，我们往往需要给其加锁，有时候，线程申请了锁资源，还没有等待释放，又一次申请这把锁，结果就是挂起等待这把锁的释放，但是这把锁是被自己拿着，所以就会永远挂起等待，就造成了死锁。</p>
+<ol start="2">
+<li>多线程竞争资源循环等待</li>
+</ol>
+<p>有两个线程 P1 和 P2，P1 首先申请得到了锁 L1,P2 申请得到了锁 L2,这个时候 P1 有向去申请锁 L2，结果是被挂起等待 P2 释放锁 L2,而 P2 恰好也想申请锁 L1，结果是挂起等待 P1 释放锁 L1，此时就造成两个线程互相僵持，造成死锁。</p>
+<ol start="3">
+<li>进程推进顺序不当引起的死锁问题</li>
+</ol>
+<p>有三个线程，P1，P2 和 P3，分别生产数据 M1，M2，M3，同时分别接收别的线程产生的数据 M3,M2,M1,如果线程推进的顺序正确，即三个线程都先生产数据，再接收，那么没有问题，但是一旦线程先接受数据，再生产数据，因为一开始没有数据产生，那么就会造成三个线程的死锁问题。</p>
+<h3 id="产生原因">产生原因</h3>
+<ol>
+<li>系统的资源不足。</li>
+<li>进程（线程）推进的顺序不对。</li>
+<li>资源的分配不当。</li>
+</ol>
+<h3 id="必要条件">必要条件</h3>
+<ol>
+<li>互斥条件：进程（线程）申请的资源在一段时间中只能被一个进程（线程）使用。</li>
+<li>请求与等待条件：进程（线程）已经拥有了一个资源，但是又申请新的资源，拥有的资源保持不变 。</li>
+<li>不可剥夺条件：在一个进程（线程）没有用完，主动释放资源的时候，不能被抢占。</li>
+<li>循环等待条件：多个进程（线程）之间存在资源循环链。</li>
+</ol>
+<h4 id="打破">打破</h4>
+<ol>
+<li>打破互斥条件：改造独占性资源为虚拟大资源，但是大部分资源无法改造，因此不建议使用这个方法。</li>
+<li>打破请求与保持条件：在进程（线程）运行之前，就把需要申请的资源一次性申请到位，满足则运行，不满足就等待，这样就不会造成在占有资源的情况下，还要申请新资源。</li>
+<li>打破不可剥夺条件：在占有资源并且还想要申请新资源的时候，归还已经占有的资源。</li>
+<li>打破循环等待条件：实现资源的有序分配，即对所有的设备进行分类编号，只能以升序的方式来申请资源。</li>
+</ol>
+<h3 id="处理方法">处理方法</h3>
+<ol>
+<li>预防死锁：破坏死锁产生的四个条件之一，注意，互斥条件不能破坏。</li>
+<li>避免死锁：合理的分配资源。</li>
+<li>检查死锁：利用专门的死锁机构检查死锁的发生，然后采取相应的方法。</li>
+<li>解除死锁：发生死锁时候，采取合理的方法解决死锁。一般是强行剥夺资源。</li>
+</ol>
+<ul>
+<li>等待某个资源时，使用超时机制。</li>
+<li>采用消息通信的通信机制，而不是共享内存的通信机制。</li>
+</ul>
+<h2 id="http">HTTP</h2>
+<p>HTTP 协议是 Hyper Text Transfer Protocol（超文本传输协议）的缩写，是用于从万维网服务器传输超文本到本地浏览器的传送协议。<br>
+HTTP 是一个基于 TCP/IP 通信协议来传递数据。<br>
+应用层协议。</p>
+<ol>
+<li>HTTP 是无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
+<li>HTTP 是媒体独立的：这意味着，只要客户端和服务器知道如何处理的数据内容，任何类型的数据都可以通过 HTTP 发送。客户端以及服务器指定使用适合的 MIME-type 内容类型。</li>
+<li>HTTP 是无状态：HTTP 协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
+</ol>
+<h3 id="http-2-0">HTTP 2.0</h3>
+<p>HTTP/2（超文本传输协议第 2 版，最初命名为 HTTP2.0），是 HTTP 协议的第二个主要版本。HTTP/2 是 HTTP 协议自 1999 年 HTTP1.1 发布后的首个更新，主要基于 SPDY 协议。<br>
+HTTP2.0 的特点是：在不改动 HTTP 语义、方法、状态码、URI 及首部字段的情况下，大幅度提高了 web 性能。</p>
+<p>SPDY 协议：Google 开发的基于 TCP 协议的应用层协议。目标是优化 HTTP 协议的性能，通过压缩、多路复用和优先级等技术，缩短网页的加载时间并提高安全性。SPDY 协议的核心思想是尽量减少 TCP 连接数。SPDY 并不是一种用于替代 HTTP 的协议，而是对 HTTP 协议的增强。</p>
+<h4 id="二进制传输">二进制传输</h4>
+<p>HTTP2.0 中所有加强性能的核心是二进制传输，在 HTTP1.x 中，我们是通过文本的方式传输数据。基于文本的方式传输数据存在很多缺陷，文本的表现形式有多样性，因此要做到健壮性考虑的场景必然有很多，但是二进制则不同，只有 0 和 1 的组合，因此选择了二进制传输，实现方便且健壮。<br>
+在 HTTP2.0 中引入了新的编码机制，所有传输的数据都会被分割，并采用二进制格式编码。<br>
+为了保证 HTTP 不受影响，那就需要在应用层（HTTP2.0）和传输层（TCP or UDP）之间增加一个二进制分帧层。在二进制分帧层上，HTTP2.0 会将所有传输的信息分为更小的消息和帧，并采用二进制格式编码，其中 HTTP1.x 的首部信息会被封装到 Headers 帧，而 Request Body 则封装到 Data 帧。</p>
+<h4 id="多路复用">多路复用</h4>
+<p>在 HTTP1.0 中，我们经常会使用到雪碧图、使用多个域名等方式来进行优化，都是因为浏览器限制了同一个域名下的请求数量，当页面需要请求很多资源的时候，队头阻塞（Head of line blocking）会导致在达到最大请求时，资源需要等待其他资源请求完成后才能继续发送。<br>
+HTTP2.0 中，有两个概念非常重要：帧（frame）和流（stream）。<br>
+帧是最小的数据单位，每个帧会标识出该帧属于哪个流，流是多个帧组成的数据流。<br>
+所谓多路复用，即在一个 TCP 连接中存在多个流，即可以同时发送多个请求，对端可以通过帧中的表示知道该帧属于哪个请求。在客户端，这些帧乱序发送，到对端后再根据每个帧首部的流标识符重新组装。通过该技术，可以避免 HTTP 旧版本的队头阻塞问题，极大提高传输性能。</p>
+<h4 id="header-压缩">Header 压缩</h4>
+<p>在 HTTP1.0 中，我们使用文本的形式传输 header，在 header 中携带 cookie 的话，每次都需要重复传输几百到几千的字节，这着实是一笔不小的开销。<br>
+在 HTTP2.0 中，我们使用了 HPACK（HTTP2 头部压缩算法）压缩格式对传输的 header 进行编码，减少了 header 的大小。并在两端维护了索引表，用于记录出现过的 header，后面在传输过程中就可以传输已经记录过的 header 的键名，对端收到数据后就可以通过键名找到对应的值。</p>
+<h4 id="服务器-push">服务器 Push</h4>
+<p>在 HTTP2.0 中，服务端可以在客户端某个请求后，主动推送其他资源。<br>
+可以想象一下，某些资源客户端是一定会请求的，这时就可以采取服务端 push 的技术，提前给客户端推送必要的资源，就可以相对减少一点延迟时间。在浏览器兼容的情况下也可以使用 prefetch。</p>
+<h4 id="更安全">更安全</h4>
+<p>HTTP2.0 使用了 tls 的拓展 ALPN 做为协议升级，除此之外，HTTP2.0 对 tls 的安全性做了近一步加强，通过黑名单机制禁用了几百种不再安全的加密算法。</p>
+<h2 id="数据库">数据库</h2>
+<h3 id="三个问题">三个问题</h3>
+<h4 id="脏读（读取未提交数据）">脏读（读取未提交数据）</h4>
+<p>A 事务读取 B 事务尚未提交的数据，此时如果 B 事务发生错误并执行回滚操作，那么 A 事务读取到的数据就是脏数据。就好像原本的数据比较干净、纯粹，此时由于 B 事务更改了它，这个数据变得不再纯粹。这个时候 A 事务立即读取了这个脏数据，但事务 B 良心发现，又用回滚把数据恢复成原来干净、纯粹的样子，而事务 A 却什么都不知道，最终结果就是事务 A 读取了此次的脏数据，称为脏读。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">时间顺序</th>
+<th style="text-align:center">转账事务</th>
+<th style="text-align:center">取款事务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">开始事务</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">开始事务</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">查询账户余额为 2000 元</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">取款 1000 元，余额被更改为 1000 元</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">查询账户余额为 1000 元（产生脏读）</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">取款操作发生未知错误，事务回滚，余额变更为 2000 元</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">转入 2000 元，余额被更改为 3000 元（脏读的 1000+2000）</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">提交事务</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">备注</td>
+<td style="text-align:center">按照正确逻辑，此时账户余额应该为 4000 元</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="不可重复读（前后多次读取，数据内容不一致）">不可重复读（前后多次读取，数据内容不一致）</h4>
+<p>事务 A 在执行读取操作，由整个事务 A 比较大，前后读取同一条数据需要经历很长的时间 。而在事务 A 第一次读取数据，比如此时读取了小明的年龄为 20 岁，事务 B 执行更改操作，将小明的年龄更改为 30 岁，此时事务 A 第二次读取到小明的年龄时，发现其年龄是 30 岁，和之前的数据不一样了，也就是数据不重复了，系统不可以读取到重复的数据，成为不可重复读。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">时间顺序</th>
+<th style="text-align:center">事务 A</th>
+<th style="text-align:center">事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">开始事务</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">第一次查询，小明的年龄为 20 岁</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">开始事务</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">其他操作</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">更改小明的年龄为 30 岁</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">提交事务</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">第二次查询，小明的年龄为 30 岁</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">备注</td>
+<td style="text-align:center">按照正确逻辑，事务 A 前后两次读取到的数据应该一致</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="幻读（前后多次读取，数据总量不一致）">幻读（前后多次读取，数据总量不一致）</h4>
+<p>事务 A 在执行读取操作，需要两次统计数据的总量，前一次查询数据总量后，此时事务 B 执行了新增数据的操作并提交后，这个时候事务 A 读取的数据总量和之前统计的不一样，就像产生了幻觉一样，平白无故的多了几条数据，成为幻读。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">时间顺序</th>
+<th style="text-align:center">事务 A</th>
+<th style="text-align:center">事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">开始事务</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">第一次查询，数据总量为 100 条</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">开始事务</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">其他操作</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">新增 100 条数据</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">提交事务</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">第二次查询，数据总量为 200 条</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">备注</td>
+<td style="text-align:center">按照正确逻辑，事务 A 前后两次读取到的数据总量应该一致</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="隔离级别">隔离级别</h3>
+<h4 id="读未提交（read-uncommitted）">读未提交（Read uncommitted）</h4>
+<p>在这种隔离级别下，所有事务能够读取其他事务未提交的数据。读取其他事务未提交的数据，会造成脏读。因此在该种隔离级别下，不能解决脏读、不可重复读和幻读。</p>
+<h4 id="读已提交（read-committed）">读已提交（Read committed）</h4>
+<p>在这种隔离级别下，所有事务只能读取其他事务已经提交的内容。能够彻底解决脏读的现象。但在这种隔离级别下，会出现一个事务的前后多次的查询中却返回了不同内容的数据的现象，也就是出现了不可重复读。</p>
+<p>这是大多数数据库系统默认的隔离级别，例如 Oracle 和 SQL Server，但 mysql 不是。</p>
+<h4 id="可重复读（repeatable-read）">可重复读（Repeatable read）</h4>
+<p>在这种隔离级别下，所有事务前后多次的读取到的数据内容是不变的。也就是某个事务在执行的过程中，不允许其他事务进行 update 操作，但允许其他事务进行 add 操作，造成某个事务前后多次读取到的数据总量不一致的现象，从而产生幻读。</p>
+<p>mysql 的默认事务隔离级别。</p>
+<h4 id="可串行化（serializable）">可串行化（Serializable）</h4>
+<p>在这种隔离级别下，所有的事务顺序执行，所以他们之间不存在冲突，从而能有效地解决脏读、不可重复读和幻读的现象。但是安全和效率不能兼得，这样事务隔离级别，会导致大量的操作超时和锁竞争，从而大大降低数据库的性能，一般不使用这样事务隔离级别。</p>
+<h4 id="总结">总结</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读未提交（Read uncommitted）</td>
+<td style="text-align:center">×(未解决)</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">读已提交（Read committed）</td>
+<td style="text-align:center">√(解决)</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">可重复读（Repeatable read）</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">可串行化（Serializable）</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事务">事务</h3>
+<p>数据库事务(Database Transaction) ，是指作为单个逻辑工作单元执行的一系列操作（对数据库的相关增删改查的操作），要么完全地执行，要么完全地不执行。</p>
+<h4 id="特性（acid）">特性（ACID）</h4>
+<ol>
+<li>原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行。</li>
+<li>一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。</li>
+<li>隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其他事务的执行。</li>
+<li>持久性（Durability）：一个事务一旦提交，他对数据库的修改应该永久保存在数据库中。</li>
+</ol>
+<p>用一个常用的“A 账户向 B 账号汇钱”的例子来说明如何通过数据库事务保证数据的准确性和完整性。熟悉关系型数据库事务的都知道从帐号 A 到帐号 B 需要 6 个操作：</p>
+<p>1、从 A 账号中把余额读出来（500）。<br>
+2、对 A 账号做减法操作（500-100）。<br>
+3、把结果写回 A 账号中（400）。<br>
+4、从 B 账号中把余额读出来（500）。<br>
+5、对 B 账号做加法操作（500+100）。<br>
+6、把结果写回 B 账号中（600）。</p>
+<p>原子性：<br>
+保证 1-6 所有过程要么都执行，要么都不执行。一旦在执行某一步骤的过程中发生问题，就需要执行回滚操作。 假如执行到第五步的时候，B 账户突然不可用（比如被注销），那么之前的所有操作都应该回滚到执行事务之前的状态。</p>
+<p>一致性<br>
+在转账之前，A 和 B 的账户中共有 500+500=1000 元钱。在转账之后，A 和 B 的账户中共有 400+600=1000 元。也就是说，数据的状态在执行该事务操作之后从一个状态改变到了另外一个状态。同时一致性还能保证账户余额不会变成负数等。</p>
+<p>隔离性<br>
+在 A 向 B 转账的整个过程中，只要事务还没有提交（commit），查询 A 账户和 B 账户的时候，两个账户里面的钱的数量都不会有变化。<br>
+如果在 A 给 B 转账的同时，有另外一个事务执行了 C 给 B 转账的操作，那么当两个事务都结束的时候，B 账户里面的钱应该是 A 转给 B 的钱加上 C 转给 B 的钱再加上自己原有的钱。</p>
+<p>持久性<br>
+一旦转账成功（事务提交），两个账户的里面的钱就会真的发生变化（会把数据写入数据库做持久化保存）！</p>
+<p>原子性与隔离行<br>
+一致性与原子性是密切相关的,原子性的破坏可能导致数据库的不一致，数据的一致性问题并不都和原子性有关。<br>
+比如刚刚的例子，在第五步的时候，对 B 账户做加法时只加了 50 元。那么该过程可以符合原子性，但是数据的一致性就出现了问题。</p>
+<p>因此，事务的原子性与一致性缺一不可。</p>
 <h2 id="参考链接">参考链接</h2>
 <ul>
-<li><a href="https://blog.csdn.net/greentealc/article/details/79880220" target="_blank" rel="noopener">关于TCP，UDP，针对面试。超详细</a></li>
-<li><a href="https://www.jianshu.com/p/deee6abf0b72" target="_blank" rel="noopener">面试常问之TCP与UDP</a></li>
-<li><a href="https://www.cnblogs.com/lgk8023/p/6430592.html" target="_blank" rel="noopener">Java基础面试题（进程和线程的区别）</a></li>
+<li><a href="https://blog.csdn.net/greentealc/article/details/79880220" target="_blank" rel="noopener">关于 TCP，UDP，针对面试。超详细</a></li>
+<li><a href="https://www.jianshu.com/p/deee6abf0b72" target="_blank" rel="noopener">面试常问之 TCP 与 UDP</a></li>
+<li><a href="https://www.cnblogs.com/lgk8023/p/6430592.html" target="_blank" rel="noopener">Java 基础面试题（进程和线程的区别）</a></li>
 <li><a href="https://blog.csdn.net/daaikuaichuan/article/details/82951084" target="_blank" rel="noopener">进程、线程和协程之间的区别和联系</a></li>
 <li><a href="https://www.cnblogs.com/jobbible/p/9766649.html" target="_blank" rel="noopener">每个程序员都会遇到的面试问题：谈谈进程和线程的区别</a></li>
+<li><a href="https://www.jianshu.com/p/e136ec79235c" target="_blank" rel="noopener">30 张图带你彻底理解红黑树</a></li>
+<li><a href="https://www.cnblogs.com/ryxiong-blog/p/10892010.html" target="_blank" rel="noopener">进程（线程）死锁详解</a></li>
+<li><a href="https://www.runoob.com/http/http-intro.html" target="_blank" rel="noopener">HTTP 简介</a></li>
+<li><a href="https://segmentfault.com/a/1190000016656529?utm_source=tag-newest" target="_blank" rel="noopener">【快速入门系列】一篇文章让你入门 HTTP2.0</a></li>
+<li><a href="https://blog.csdn.net/qq_33591903/article/details/81672260" target="_blank" rel="noopener">【数据库】快速理解脏读、不可重复读、幻读</a></li>
+<li><a href="https://blog.csdn.net/qq_33591903/article/details/82079302" target="_blank" rel="noopener">【数据库】事务隔离级别</a></li>
+<li><a href="http://www.hollischuang.com/archives/898" target="_blank" rel="noopener">彻底理解数据库事务</a></li>
 </ul>
 
       </div>
