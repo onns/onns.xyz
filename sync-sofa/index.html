@@ -1406,6 +1406,10 @@
         </li>
       </ul>
       <p>
+        PS: I&apos;m a fan of Boki, and screenshots have been Gaussian blurred.
+        If there is copyright infringement, please contact us to delete.
+      </p>
+      <p>
         <img
           src="https://onns.xyz/blog/image/20200627-1.png"
           alt="User A"
@@ -1691,19 +1695,19 @@
             data-info="shell"
             class="language-shell"
           >go get github.com/LouisYLWang/Sync-Sofa/server
-  <span class="token comment"># If you don&apos;t know $GOPATH</span>
-  <span class="token comment"># try &quot;go env GOPATH&quot;</span>
-  <span class="token function">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server
-  
-  <span class="token comment"># Next step is optional</span>
-  <span class="token comment"># If you have any error message like:</span>
-  <span class="token comment"># &quot;dial tcp 216.58.200.49:443: i/o timeout&quot;</span>
-  <span class="token comment"># then try</span>
-  <span class="token function">export</span> GOPROXY<span class="token operator">=</span>https://goproxy.io
-  
-  go <span class="token function">install</span>
-  <span class="token function">cd</span> <span class="token variable">$GOPATH</span>/bin
-  </pre>
+<span class="token comment"># If you don&apos;t know $GOPATH</span>
+<span class="token comment"># try &quot;go env GOPATH&quot;</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server
+
+<span class="token comment"># Next step is optional</span>
+<span class="token comment"># If you have any error message like:</span>
+<span class="token comment"># &quot;dial tcp 216.58.200.49:443: i/o timeout&quot;</span>
+<span class="token comment"># then try</span>
+<span class="token function">export</span> GOPROXY<span class="token operator">=</span>https://goproxy.io
+
+go <span class="token function">install</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/bin
+</pre>
         </li>
         <li>
           <p>If you want to only deploy the binary file:</p>
@@ -1761,10 +1765,10 @@
             data-info="json"
             class="language-json"
           ><span class="token punctuation">{</span>
-    <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:80&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dev&quot;</span>
-  <span class="token punctuation">}</span>
-  </pre>
+<span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:80&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dev&quot;</span>
+<span class="token punctuation">}</span>
+</pre>
         </li>
         <li>
           <p>production environment (https) config file:</p>
@@ -1773,15 +1777,15 @@
             data-info="json"
             class="language-json"
           ><span class="token punctuation">{</span>
-    <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:443&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prod&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;tlsdir&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;tlskey&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;tlscert&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  
-  </pre>
+<span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:443&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prod&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;tlsdir&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;tlskey&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;tlscert&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</pre>
         </li>
       </ul>
       <p>
@@ -1795,8 +1799,8 @@
         data-info
         class="language-"
       ><code>found config file, read parameters from config file...
-  server is listening at {your_port_number}...
-  </code></pre>
+server is listening at {your_port_number}...
+</code></pre>
       <h3 class="mume-header" id="with-docker">With Docker</h3>
 
       <p>
@@ -1830,17 +1834,17 @@
             data-info="sh"
             class="language-bash"
           >docker pull louisylwang/watchtogether
-  
-  <span class="token function">export</span> ADDR<span class="token operator">=</span>:4000 \      
-  <span class="token function">export</span> RUNMODE<span class="token operator">=</span>dev \   
-  <span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
-  
-  docker run -d \
-  -e ADDR<span class="token operator">=</span>:4000 \
-  -e RUNMODE<span class="token operator">=</span>RUNMODE \
-  -p 4000:4000 \
-  --name IMGNAME louisylwang/watchtogether
-  </pre>
+
+<span class="token function">export</span> ADDR<span class="token operator">=</span>:4000 \      
+<span class="token function">export</span> RUNMODE<span class="token operator">=</span>dev \   
+<span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
+
+docker run -d \
+-e ADDR<span class="token operator">=</span>:4000 \
+-e RUNMODE<span class="token operator">=</span>RUNMODE \
+-p 4000:4000 \
+--name IMGNAME louisylwang/watchtogether
+</pre>
         </li>
         <li>
           <p>production environment (https) hosting script:</p>
@@ -1849,29 +1853,29 @@
             data-info="sh"
             class="language-bash"
           >docker pull louisylwang/watchtogether
-  
-  <span class="token function">export</span> ADDR<span class="token operator">=</span>:443 \      
-  <span class="token function">export</span> RUNMODE<span class="token operator">=</span>prod \   
-  <span class="token function">export</span> APIHOST<span class="token operator">=</span>your.host.name \   
-  <span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
-  <span class="token function">export</span> TLSKEYPATH<span class="token operator">=</span>/your/path/to/TLS/privatekey \
-  <span class="token function">export</span> TLSCERTPATH<span class="token operator">=</span>/your/path/to/TLS/certification \
-  
-  
-  docker run -d \
-  -e ADDR<span class="token operator">=</span>:ADDR \
-  <span class="token comment">#docker port to server:server port to docker, not necessarily the same</span>
-  -p ADDR:ADDR \ 
-  -e RUNMODE<span class="token operator">=</span>RUNMODE \
-  <span class="token comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span>
-  -e TLSKEY<span class="token operator">=</span>TLSKEYPATH \ 
-  <span class="token comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span>
-  -e TLSCERT<span class="token operator">=</span>TLSCERTPATH \ 
-  <span class="token comment">#need to expose your TLS certification file to docker</span>
-  -v /etc/letsencrypt:/etc/letsencrypt:ro \ 
-  --name IMGNAME louisylwang/watchtogether \
-  --restart<span class="token operator">=</span>always
-  </pre>
+
+<span class="token function">export</span> ADDR<span class="token operator">=</span>:443 \      
+<span class="token function">export</span> RUNMODE<span class="token operator">=</span>prod \   
+<span class="token function">export</span> APIHOST<span class="token operator">=</span>your.host.name \   
+<span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
+<span class="token function">export</span> TLSKEYPATH<span class="token operator">=</span>/your/path/to/TLS/privatekey \
+<span class="token function">export</span> TLSCERTPATH<span class="token operator">=</span>/your/path/to/TLS/certification \
+
+
+docker run -d \
+-e ADDR<span class="token operator">=</span>:ADDR \
+<span class="token comment">#docker port to server:server port to docker, not necessarily the same</span>
+-p ADDR:ADDR \ 
+-e RUNMODE<span class="token operator">=</span>RUNMODE \
+<span class="token comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span>
+-e TLSKEY<span class="token operator">=</span>TLSKEYPATH \ 
+<span class="token comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span>
+-e TLSCERT<span class="token operator">=</span>TLSCERTPATH \ 
+<span class="token comment">#need to expose your TLS certification file to docker</span>
+-v /etc/letsencrypt:/etc/letsencrypt:ro \ 
+--name IMGNAME louisylwang/watchtogether \
+--restart<span class="token operator">=</span>always
+</pre>
         </li>
         <li>
           <p>
@@ -1883,8 +1887,8 @@
             data-info
             class="language-"
           ><code>not found config file, read parameters from system variables...
-  YYYY/MM/DD HH:MM:SS server is listening at :ADDR...
-  </code></pre>
+YYYY/MM/DD HH:MM:SS server is listening at :ADDR...
+</code></pre>
         </li>
       </ul>
       <h2 class="mume-header" id="release-history">Release History</h2>
@@ -2385,6 +2389,9 @@
         </li>
       </ul>
       <p>
+        PS&#xFF1A;&#x6211;&#x662F;boki&#x7684;&#x7C89;&#x4E1D;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x7528;&#x4E86;&#x5979;&#x7684;&#x89C6;&#x9891;&#x622A;&#x56FE;&#xFF0C;&#x5DF2;&#x7ECF;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x5904;&#x7406;&#x8FC7;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4FB5;&#x6743;&#x7684;&#x8BDD;&#xFF0C;&#x8BF7;&#x8054;&#x7CFB;&#x6211;&#x4EEC;&#x5220;&#x9664;&#xFF0C;&#x771F;&#x7684;&#x5F88;&#x62B1;&#x6B49;&#xFF01;
+      </p>
+      <p>
         &#x5982;&#x679C;&#x89C6;&#x9891;&#x5F00;&#x59CB;&#x524D;&#x6709;&#x5E7F;&#x544A;&#xFF0C;&#x8BF7;&#x5728;&#x5E7F;&#x544A;&#x7ED3;&#x675F;&#x540E;&#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x6B65;&#x3002;
       </p>
       <h3
@@ -2653,9 +2660,13 @@
       <p>
         <strong>&#x6CE8;&#x610F;</strong>:<br />
         &#x5982;&#x679C;&#x8BE5;&#x63D2;&#x4EF6;&#x88AB;Chrome&#x6D4F;&#x89C8;&#x5668;&#x7981;&#x7528;&#xFF0C;&#x8BF7;&#x5C1D;&#x8BD5;
-        <a href>&#x4ECE;chrome web store&#x4E0B;&#x8F7D;&#x5B89;&#x88C5;</a>
+        <a
+          href="#%E4%BB%8E%E8%B0%B7%E6%AD%8C%E5%95%86%E5%BA%97%E5%AE%89%E8%A3%85"
+          >&#x4ECE;&#x8C37;&#x6B4C;&#x5546;&#x5E97;&#x5B89;&#x88C5;</a
+        >
         &#x6216;&#x8005;
-        <a href
+        <a
+          href="#%E5%AE%89%E8%A3%85%E6%9C%AA%E6%89%93%E5%8C%85%E7%9A%84%E6%8F%92%E4%BB%B6"
           >&#x5B89;&#x88C5;&#x672A;&#x6253;&#x5305;&#x7684;&#x63D2;&#x4EF6;</a
         >
       </p>
@@ -2783,19 +2794,19 @@
             data-info="shell"
             class="language-shell"
           >go get github.com/LouisYLWang/Sync-Sofa/server
-  <span class="token comment"># &#x5982;&#x679C;&#x4F60;&#x4E0D;&#x6E05;&#x695A; $GOPATH</span>
-  <span class="token comment"># &#x8BF7;&#x5C1D;&#x8BD5;&#x8F93;&#x5165;&#x5E76;&#x6267;&#x884C; &quot;go env GOPATH&quot;</span>
-  <span class="token function">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server
-  
-  <span class="token comment"># &#xFF08;&#x4E0B;&#x4E00;&#x6B65;&#x53EF;&#x7701;&#x7565;&#xFF09;</span>
-  <span class="token comment"># &#x5982;&#x679C;&#x4F60;&#x770B;&#x5230;&#x4E86;&#x8FD9;&#x6761;&#x6D88;&#x606F;:</span>
-  <span class="token comment"># &quot;dial tcp 216.58.200.49:443: i/o timeout&quot;</span>
-  <span class="token comment"># &#x8BF7;&#x6DFB;&#x52A0;&#x5E76;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6761;&#x547D;&#x4EE4;</span>
-  <span class="token function">export</span> GOPROXY<span class="token operator">=</span>https://goproxy.io
-  
-  go <span class="token function">install</span>
-  <span class="token function">cd</span> <span class="token variable">$GOPATH</span>/bin
-  </pre>
+<span class="token comment"># &#x5982;&#x679C;&#x4F60;&#x4E0D;&#x6E05;&#x695A; $GOPATH</span>
+<span class="token comment"># &#x8BF7;&#x5C1D;&#x8BD5;&#x8F93;&#x5165;&#x5E76;&#x6267;&#x884C; &quot;go env GOPATH&quot;</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server
+
+<span class="token comment"># &#xFF08;&#x4E0B;&#x4E00;&#x6B65;&#x53EF;&#x7701;&#x7565;&#xFF09;</span>
+<span class="token comment"># &#x5982;&#x679C;&#x4F60;&#x770B;&#x5230;&#x4E86;&#x8FD9;&#x6761;&#x6D88;&#x606F;:</span>
+<span class="token comment"># &quot;dial tcp 216.58.200.49:443: i/o timeout&quot;</span>
+<span class="token comment"># &#x8BF7;&#x6DFB;&#x52A0;&#x5E76;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6761;&#x547D;&#x4EE4;</span>
+<span class="token function">export</span> GOPROXY<span class="token operator">=</span>https://goproxy.io
+
+go <span class="token function">install</span>
+<span class="token function">cd</span> <span class="token variable">$GOPATH</span>/bin
+</pre>
         </li>
         <li>
           <p>
@@ -2871,10 +2882,10 @@
             data-info="json"
             class="language-json"
           ><span class="token punctuation">{</span>
-    <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:80&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dev&quot;</span>
-  <span class="token punctuation">}</span>
-  </pre>
+<span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:80&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dev&quot;</span>
+<span class="token punctuation">}</span>
+</pre>
         </li>
         <li>
           <p>
@@ -2885,15 +2896,15 @@
             data-info="json"
             class="language-json"
           ><span class="token punctuation">{</span>
-    <span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:443&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prod&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;tlsdir&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;tlskey&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;tlscert&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  
-  </pre>
+<span class="token property">&quot;addr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;:443&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;runmode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prod&quot;</span><span class="token punctuation">,</span>
+<span class="token property">&quot;tlsdir&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;tlskey&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/privkey.pem&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;tlscert&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/etc/letsencrypt/live/your.host.url/fullchain.pem&quot;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</pre>
         </li>
       </ul>
       <p>
@@ -2909,8 +2920,8 @@
         data-info
         class="language-"
       ><code>found config file, read parameters from config file...
-  server is listening at {your_port_number}...
-  </code></pre>
+server is listening at {your_port_number}...
+</code></pre>
       <h3
         class="mume-header"
         id="%E4%BD%BF%E7%94%A8docker%E5%AE%B9%E5%99%A8%E9%83%A8%E7%BD%B2"
@@ -2961,17 +2972,17 @@
             data-info="sh"
             class="language-bash"
           >docker pull louisylwang/watchtogether
-  
-  <span class="token function">export</span> ADDR<span class="token operator">=</span>:4000 \      
-  <span class="token function">export</span> RUNMODE<span class="token operator">=</span>dev \   
-  <span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
-  
-  docker run -d \
-  -e ADDR<span class="token operator">=</span>:4000 \
-  -e RUNMODE<span class="token operator">=</span>RUNMODE \
-  -p 4000:4000 \
-  --name IMGNAME louisylwang/watchtogether
-  </pre>
+
+<span class="token function">export</span> ADDR<span class="token operator">=</span>:4000 \      
+<span class="token function">export</span> RUNMODE<span class="token operator">=</span>dev \   
+<span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
+
+docker run -d \
+-e ADDR<span class="token operator">=</span>:4000 \
+-e RUNMODE<span class="token operator">=</span>RUNMODE \
+-p 4000:4000 \
+--name IMGNAME louisylwang/watchtogether
+</pre>
         </li>
         <li>
           <p>
@@ -2982,29 +2993,29 @@
             data-info="sh"
             class="language-bash"
           >docker pull louisylwang/watchtogether
-  
-  <span class="token function">export</span> ADDR<span class="token operator">=</span>:443 \      
-  <span class="token function">export</span> RUNMODE<span class="token operator">=</span>prod \   
-  <span class="token function">export</span> APIHOST<span class="token operator">=</span>your.host.name \   
-  <span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
-  <span class="token function">export</span> TLSKEYPATH<span class="token operator">=</span>/your/path/to/TLS/privatekey \
-  <span class="token function">export</span> TLSCERTPATH<span class="token operator">=</span>/your/path/to/TLS/certification \
-  
-  
-  docker run -d \
-  -e ADDR<span class="token operator">=</span>:ADDR \
-  <span class="token comment">#docker port to server:server port to docker, not necessarily the same</span>
-  -p ADDR:ADDR \ 
-  -e RUNMODE<span class="token operator">=</span>RUNMODE \
-  <span class="token comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span>
-  -e TLSKEY<span class="token operator">=</span>TLSKEYPATH \ 
-  <span class="token comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span>
-  -e TLSCERT<span class="token operator">=</span>TLSCERTPATH \ 
-  <span class="token comment">#need to expose your TLS certification file to docker</span>
-  -v /etc/letsencrypt:/etc/letsencrypt:ro \ 
-  --name IMGNAME louisylwang/watchtogether \
-  --restart<span class="token operator">=</span>always
-  </pre>
+
+<span class="token function">export</span> ADDR<span class="token operator">=</span>:443 \      
+<span class="token function">export</span> RUNMODE<span class="token operator">=</span>prod \   
+<span class="token function">export</span> APIHOST<span class="token operator">=</span>your.host.name \   
+<span class="token function">export</span> IMGNAME<span class="token operator">=</span>yourimagename \   
+<span class="token function">export</span> TLSKEYPATH<span class="token operator">=</span>/your/path/to/TLS/privatekey \
+<span class="token function">export</span> TLSCERTPATH<span class="token operator">=</span>/your/path/to/TLS/certification \
+
+
+docker run -d \
+-e ADDR<span class="token operator">=</span>:ADDR \
+<span class="token comment">#docker port to server:server port to docker, not necessarily the same</span>
+-p ADDR:ADDR \ 
+-e RUNMODE<span class="token operator">=</span>RUNMODE \
+<span class="token comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span>
+-e TLSKEY<span class="token operator">=</span>TLSKEYPATH \ 
+<span class="token comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span>
+-e TLSCERT<span class="token operator">=</span>TLSCERTPATH \ 
+<span class="token comment">#need to expose your TLS certification file to docker</span>
+-v /etc/letsencrypt:/etc/letsencrypt:ro \ 
+--name IMGNAME louisylwang/watchtogether \
+--restart<span class="token operator">=</span>always
+</pre>
         </li>
         <li>
           <p>
@@ -3017,8 +3028,8 @@
             data-info
             class="language-"
           ><code>not found config file, read parameters from system variables...
-  YYYY/MM/DD HH:MM:SS server is listening at :ADDR...
-  </code></pre>
+YYYY/MM/DD HH:MM:SS server is listening at :ADDR...
+</code></pre>
         </li>
       </ul>
       <h2 class="mume-header" id="%E7%89%88%E6%9C%AC%E6%97%A5%E5%BF%97">
