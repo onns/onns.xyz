@@ -84,86 +84,92 @@
             var $input = document.getElementById(search_id);
 			if (!$input) return;
             var $resultContent = document.getElementById(content_id);
-            if ($("#local-search-input").length > 0) {
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
                     }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var content_index = [];
-                        if (!data.title || data.title.trim() === '') {
-                            data.title = "Untitled";
-                        }
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty contents
-                        if (data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
 
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i == 0) {
-                                        first_occur = index_content;
-                                    }
-                                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
                                 }
-                            });
-                        } else {
-                            isMatch = false;
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-
-                                if (start < 0) {
-                                    start = 0;
+                                if (i == 0) {
+                                    first_occur = index_content;
                                 }
-
-                                if (start == 0) {
-                                    end = 100;
-                                }
-
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-
-                                var match_content = content.substring(start, end);
-
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
                             }
-                            str += "</li>";
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
                         }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
+                        str += "</article>";
+                    }
                 });
-            }
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
         }
     });
 }    
@@ -211,9 +217,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       </a><a href="/blog/about">
         <li class="mobile-menu-item">About
           </li>
-      </a><a href="/blog/search">
-        <li class="mobile-menu-item">Search
-          </li>
       </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
@@ -221,7 +224,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
   <a href="/blog/." class="logo">Onns Blog</a>
 </div>
 
-<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/blog/home">
             Home
             </a>
@@ -256,17 +264,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             About
             </a>
         </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/blog/search">
-            Search
-            </a>
-        </li>
       </ul></nav>
 </header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><section id="archive" class="archive"><div class="archive-title tag">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
           <h2 class="archive-name">sync-sofa</h2>
         </div>
       <div class="archive-post">
