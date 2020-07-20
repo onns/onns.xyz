@@ -235,13 +235,13 @@
       
         <tags>
             
+            <tag> macos </tag>
+            
             <tag> cron </tag>
             
             <tag> crontab </tag>
             
             <tag> Catalina </tag>
-            
-            <tag> macos </tag>
             
         </tags>
       
@@ -295,13 +295,13 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> homebrew </tag>
             
             <tag> ftpd </tag>
             
             <tag> pure-ftpd </tag>
+            
+            <tag> macos </tag>
             
         </tags>
       
@@ -328,9 +328,9 @@
             
             <tag> python </tag>
             
-            <tag> macos </tag>
-            
             <tag> homebrew </tag>
+            
+            <tag> macos </tag>
             
             <tag> pyenv </tag>
             
@@ -1599,44 +1599,11 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/blog/about/index.html"/>
-      <url>/blog/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个 lowlow 的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>categories</title>
       <link href="/blog/categories/index.html"/>
       <url>/blog/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>2019年总结</title>
-      <link href="/blog/drafts/2019-summary.html"/>
-      <url>/blog/drafts/2019-summary.html</url>
-      
-        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Xlibrary接口文档</title>
-      <link href="/blog/drafts/xlibrary-api-document.html"/>
-      <url>/blog/drafts/xlibrary-api-document.html</url>
-      
-        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码">生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书">转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
       
     </entry>
     
@@ -1654,11 +1621,33 @@
     
     
     <entry>
-      <title>画啊画涂啊涂</title>
-      <link href="/blog/draw/index.html"/>
-      <url>/blog/draw/index.html</url>
+      <title>about</title>
+      <link href="/blog/about/index.html"/>
+      <url>/blog/about/index.html</url>
       
-        <content type="html"><![CDATA[<h3 id="2020-02">2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12">2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10">2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07">2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06">2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
+        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Xlibrary接口文档</title>
+      <link href="/blog/drafts/xlibrary-api-document.html"/>
+      <url>/blog/drafts/xlibrary-api-document.html</url>
+      
+        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码">生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书">转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2019年总结</title>
+      <link href="/blog/drafts/2019-summary.html"/>
+      <url>/blog/drafts/2019-summary.html</url>
+      
+        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
       
     </entry>
     
@@ -1676,11 +1665,11 @@
     
     
     <entry>
-      <title>links</title>
-      <link href="/blog/links/index.html"/>
-      <url>/blog/links/index.html</url>
+      <title>画啊画涂啊涂</title>
+      <link href="/blog/draw/index.html"/>
+      <url>/blog/draw/index.html</url>
       
-        <content type="html"><![CDATA[<!-- * [流光博客](http://blog.liuguangw.com/) * [何湘辉博客](http://www.hexianghui.net/)* [小鱼blog](https://www.mycgx.com/) -->]]></content>
+        <content type="html"><![CDATA[<h3 id="2020-02">2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12">2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10">2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07">2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06">2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
       
     </entry>
     
@@ -1703,6 +1692,17 @@
       <url>/blog/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>links</title>
+      <link href="/blog/links/index.html"/>
+      <url>/blog/links/index.html</url>
+      
+        <content type="html"><![CDATA[<!-- * [流光博客](http://blog.liuguangw.com/) * [何湘辉博客](http://www.hexianghui.net/)* [小鱼blog](https://www.mycgx.com/) -->]]></content>
       
     </entry>
     
