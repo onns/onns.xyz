@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tools - Remove last bracket</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//onns.xyz/css/normalize.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  </head>
+
+  <body>
+    <div class="container-contact100">
+      <div class="wrap-contact100">
+        <form class="contact100-form validate-form">
+          <span class="contact100-form-title">
+            Remove last bracket
+          </span>
+          <div class="wrap-input100">
+            <textarea
+              id="original"
+              class="input100"
+              name="original"
+              placeholder="Remove Last (Bracket)"
+            ></textarea>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100">
+            <textarea
+              id="current"
+              class="input100"
+              name="current"
+              placeholder="Remove Last "
+            ></textarea>
+            <span class="focus-input100"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function removeLastBracket(str) {
+        return str.replace(/\(([\S]+)\)([\s]*)\n/g, "\n");
+      }
+
+
+      var original = document.getElementById("original");
+      var current = document.getElementById("current");
+      original.addEventListener("input", function () {
+        current.innerHTML = removeLastBracket(this.value);
+      });
+    </script>
+  </body>
+</html>
