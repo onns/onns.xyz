@@ -289,14 +289,14 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>本实验的流程如<code>图1</code>所示。</p>
 <center>
 <div id="flowchart-0" class="flow-chart"></div>
-图1 实验流程图
+<p>图 1 实验流程图</p>
 </center>
 <h3 id="滤波器">滤波器<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h3>
 <p>高通滤波器可以通过低通滤波器取反得到，故不再区分高/低通滤波器。<br>
 下面对比结果的输入图像如<code>图2</code>所示。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-1.jpg" alt="滤波器输入图像"><br>
-图2 输入图像</p>
+图 2 输入图像</p>
 </center>
 <h4 id="理想的低通滤波器">理想的低通滤波器</h4>
 <p>$$<br>
@@ -308,14 +308,15 @@ H(u,v)=<br>
 \tag{1}<br>
 $$</p>
 <p>其中，$D_0$表示通带的半径。$D(u,v)$的计算方式也就是两点间的距离，计算公式如<code>公式2.2</code>所示。</p>
-<span>$$D(u,v)=\sqrt{\left( u-\frac{P}{2} \right)^{2} 
-+ \left( v-\frac{Q}{2} \right)^{2}}
-\tag{2}$$</span><!-- Has MathJax -->
+<p>$$<br>
+D(u,v)=\sqrt{\left( u-\frac{P}{2} \right)^{2} + \left( v-\frac{Q}{2} \right)^{2}}<br>
+\tag{2}<br>
+$$</p>
 <p>低通滤波器所得到的结果如下所示。低通滤波器滤除了高频成分，所以使得图像模糊。由于理想低通滤波器的过度特性过于急峻，所以会产生了振铃现象。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-2.jpg" alt="理想的低通滤波器"><br>
 <img src="//onns.xyz/blog/image/20181117-3.jpg" alt="理想的低通滤波器"><br>
-图3 理想的低通滤波器</p>
+图 3 理想的低通滤波器</p>
 </center>
 <h4 id="巴特沃斯低通滤波器">巴特沃斯低通滤波器</h4>
 <p>$$<br>
@@ -326,7 +327,7 @@ $$</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-4.jpg" alt="理想的低通滤波器"><br>
 <img src="//onns.xyz/blog/image/20181117-5.jpg" alt="理想的低通滤波器"><br>
-图4 巴特沃斯低通滤波器</p>
+图 4 巴特沃斯低通滤波器</p>
 </center>
 <h4 id="高斯低通滤波器">高斯低通滤波器</h4>
 <p>$$<br>
@@ -339,7 +340,7 @@ $$</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-6.jpg" alt="理想的低通滤波器"><br>
 <img src="//onns.xyz/blog/image/20181117-7.jpg" alt="理想的低通滤波器"><br>
-图5 高斯低通滤波器</p>
+图 5 高斯低通滤波器</p>
 </center>
 <h3 id="结论">结论</h3>
 <p>综合以上分析, 我们最终选择了<code>高斯低通滤波器</code>.</p>
@@ -347,10 +348,10 @@ $$</p>
 <h3 id="编程语言介绍">编程语言介绍</h3>
 <p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
 <h3 id="图像预处理">图像预处理</h3>
-<p><code>10张</code>bmp图像可以分成<code>5对</code>图像进行实验，如<code>图6</code>所示，大小都是<code>225*265</code>，故不需要进行缩放。若选取的图像大小不一，需要先对图像进行大小调整，用<code>Matlab</code>的<code>imresize</code>函数。</p>
+<p><code>10张</code>bmp 图像可以分成<code>5对</code>图像进行实验，如<code>图6</code>所示，大小都是<code>225*265</code>，故不需要进行缩放。若选取的图像大小不一，需要先对图像进行大小调整，用<code>Matlab</code>的<code>imresize</code>函数。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-einstein.bmp" alt="原图以及HOG特征图"><img src="//onns.xyz/blog/image/20181117-marilyn.bmp" alt="原图以及HOG特征图"><br>
-图6 样例图像</p>
+图 6 样例图像</p>
 </center>
 <h3 id="程序编写">程序编写</h3>
 <h4 id="空域图像滤波">空域图像滤波</h4>
@@ -358,29 +359,30 @@ $$</p>
 <p>滤波结果如<code>图7</code>所示。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-8.jpg" alt="高通滤波结果图"><img src="//onns.xyz/blog/image/20181117-9.jpg" alt="低通滤波结果图"><br>
-图7 空域图像滤波结果图</p>
+图 7 空域图像滤波结果图</p>
 </center>
 <h4 id="频域图像滤波">频域图像滤波</h4>
 <p>先对图像进行傅里叶变换，转换至频率域，在频域使用滤波函数进行滤波，最后将结果反变换至空间域。</p>
 <p>滤波结果如<code>图8</code>所示。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-11.jpg" alt="高通滤波结果图"><img src="//onns.xyz/blog/image/20181117-12.jpg" alt="低通滤波结果图"><br>
-图8 频域图像滤波结果图</p>
+图 8 频域图像滤波结果图</p>
 </center>
 <h4 id="图像融合">图像融合</h4>
-<p>在Matlab中将两个滤波后的图像<code>相加</code>即可得到融合图像。</p>
+<p>在 Matlab 中将两个滤波后的图像<code>相加</code>即可得到融合图像。</p>
 <p>结果如<code>图9</code>所示。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-10.jpg" alt="空域图像滤波融合图"><img src="//onns.xyz/blog/image/20181117-13.jpg" alt="频域图像滤波融合图"><br>
-图9 图像融合结果图</p>
+图 9 图像融合结果图</p>
 </center>
 <h2 id="实验结果">实验结果</h2>
 <center>
 <p><img src="//onns.xyz/blog/image/20181117-14.png" alt="程序可视化界面图"><br>
-图10 程序可视化界面图</p>
+图 10 程序可视化界面图</p>
 </center>
 <h3 id="实验结果分析">实验结果分析</h3>
-<p>给定频率域滤波器，可对其进行傅里叶逆变换得到对应的空域滤波器；滤波在频域更为直观，但空域适合使用更小的滤波模板以提高滤波速度。因为相同尺寸下，频域滤波器效率高于空域滤波器，故空域滤波需要一个更小尺寸的模板近似得到需要的滤波结果。<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st1=>start: 开始
+<p>给定频率域滤波器，可对其进行傅里叶逆变换得到对应的空域滤波器；滤波在频域更为直观，但空域适合使用更小的滤波模板以提高滤波速度。因为相同尺寸下，频域滤波器效率高于空域滤波器，故空域滤波需要一个更小尺寸的模板近似得到需要的滤波结果。</p>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st1=>start: 开始
 e1=>end: 结束
 io1=>inputoutput: 输入图像1
 io2=>inputoutput: 输入图像2
@@ -389,8 +391,7 @@ op1=>operation: 通过低通滤波器得到低频部分
 op2=>operation: 通过高通滤波器得到高频部分
 op3=>operation: 将两部分相加得到混合图像
 
-st1->io1->op1->io2->op2->op3->io3->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
-<hr class="footnotes-sep">
+st1->io1->op1->io2->op2->op3->io3->e1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/zhoufan900428/article/details/17194289" target="_blank" rel="noopener">基础与低通滤波器</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
