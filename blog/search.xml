@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title>Linux追加日志测试</title>
+      <link href="/blog/2020/08/10/log-write-test/"/>
+      <url>/blog/2020/08/10/log-write-test/</url>
+      
+        <content type="html"><![CDATA[<p>插件监控有用到简单的文件系统，想知道写入量很大之后会不会有太大的性能问题，这样才好确定是单个日志文件（方便收集和查看）还是要多个日志文件。</p><a id="more"></a><h2 id="修改私钥权限">修改私钥权限</h2><p>一般 SSH 私钥都要赋予一个<code>600</code>的权限，否则会提示权限过高不能使用，但是 Windows 没有类似<code>chmod</code>的命令，所以只能手动的修改权限。</p><ol><li>打开<code>Windows PowerShell</code>，输入<code>$env:username</code>得到当前用户名</li><li>右键-&gt;属性-&gt;安全-&gt;高级</li><li>禁用继承</li><li>删除所有的<code>权限条目</code></li><li>将私钥文件的所有者设置为当前用户，即刚刚拿到的用户名</li></ol><p>详细内容可以参考 <a href="https://blog.csdn.net/joshua2011/article/details/90208741" target="_blank" rel="noopener">真正解决 windows OpenSSH WARNING: UNPROTECTED PRIVATE KEY FILE!</a>。</p><h2 id="查看系统">查看系统</h2><p>首先要看下文件系统，因为各个文件系统可能存在差异。</p><p>服务器是阿里云的，系统版本为<code>CentOS7</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br><span class="line">LSB Version:    :core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID: CentOS</span><br><span class="line">Description:    CentOS Linux release 7.8.2003 (Core)</span><br><span class="line">Release:        7.8.2003</span><br><span class="line">Codename:       Core</span><br></pre></td></tr></table></figure><h2 id="查看文件系统">查看文件系统</h2><p>所用的文件系统是<code>ext4</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        909M     0  909M   0% /dev</span><br><span class="line">tmpfs           919M     0  919M   0% /dev/shm</span><br><span class="line">tmpfs           919M  540K  919M   1% /run</span><br><span class="line">tmpfs           919M     0  919M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1        40G  3.1G   35G   9% /</span><br><span class="line">overlay          40G  3.1G   35G   9% /var/lib/docker/overlay2/ccce49da9cce1095aa9a4c46c83ec608529802a0ad8643e90e99e4e60bdc5a00/merged</span><br><span class="line">tmpfs           184M     0  184M   0% /run/user/0</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ file -s /dev/vda1</span><br><span class="line">/dev/vda1: Linux rev 1.0 ext4 filesystem data, UUID=59d9ca7b-4f39-4c0c-9334-c56c182076b5 (needs journal recovery) (extents) (large files) (huge files)</span><br></pre></td></tr></table></figure><h2 id="生成数据文件">生成数据文件</h2><p>模拟已经写入过的数据文件，一个<code>1GB</code>，一个<code>10GB</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=/dev/zero of=1.test bs=8M count=128</span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=10.test bs=8M count=1280</span><br></pre></td></tr></table></figure><h2 id="写入测试">写入测试</h2><p>简单的用 Python 测试一下，写入<code>10万</code>条数据记录时间。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">work_dir = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># file_name = os.path.join(work_dir,'1.test')</span></span><br><span class="line">file_name = os.path.join(work_dir,<span class="string">'10.test'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> time.time()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100000</span>):</span><br><span class="line">url_us = <span class="string">'https://app.ylwang.me/v1/status'</span></span><br><span class="line">us = url_us</span><br><span class="line"></span><br><span class="line">url_cn = <span class="string">'https://sync-cn.onns.xyz/v1/status'</span></span><br><span class="line">cn = url_cn</span><br><span class="line"></span><br><span class="line">url_cn2 = <span class="string">'https://api.huoranxuanyuan.cn/v1/status'</span></span><br><span class="line">cn2 = url_cn2</span><br><span class="line"></span><br><span class="line">f = open(file_name, <span class="string">'a'</span>)</span><br><span class="line">f.write(json.dumps(&#123;time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>, time.localtime(time.time())):&#123;<span class="string">"us"</span>:us,<span class="string">"cn"</span>:cn,<span class="string">"cn2"</span>:cn2&#125;&#125;))</span><br><span class="line">f.write(<span class="string">"\n"</span>)</span><br><span class="line">f.close()</span><br><span class="line"><span class="keyword">print</span> time.time()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> time.time()</span><br></pre></td></tr></table></figure><h2 id="测试结果">测试结果</h2><center><table><thead><tr><th style="text-align:center">已有文件大小</th><th style="text-align:center">开始时间戳</th><th style="text-align:center">结束时间戳</th><th style="text-align:center">差值（单位：秒）</th></tr></thead><tbody><tr><td style="text-align:center">1GB</td><td style="text-align:center">1597029893.02</td><td style="text-align:center">1597029897.22</td><td style="text-align:center">4.20</td></tr><tr><td style="text-align:center">10GB</td><td style="text-align:center">1597029915.22</td><td style="text-align:center">1597029919.57</td><td style="text-align:center">4.30</td></tr></tbody></table></center><p>总得来说，追加写入文件是一件被优化过的事情（我自己理解的），不会对已有的系统造成太大的负担，我之前还在想会不会因为文件过大，从而造成主要操作耗时过长。</p><p>知道了一个大概的数量级，对以后的应用也能有个粗略的概念！<br>知道了一些新的 Linux 命令~</p><h2 id="参考文档">参考文档</h2><ul><li><a href="https://blog.csdn.net/joshua2011/article/details/90208741" target="_blank" rel="noopener">真正解决 windows OpenSSH WARNING: UNPROTECTED PRIVATE KEY FILE!</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> system </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> log </tag>
+            
+            <tag> file system </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> ext4 </tag>
+            
+            <tag> ssh </tag>
+            
+            <tag> windows </tag>
+            
+            <tag> permission </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>新邮件签名！</title>
       <link href="/blog/2020/08/09/new-email-signature/"/>
       <url>/blog/2020/08/09/new-email-signature/</url>
@@ -23,43 +62,6 @@
             <tag> email </tag>
             
             <tag> signature </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Leetcode题解：分割数组的最大值</title>
-      <link href="/blog/2020/07/24/solution-of-split-array-largest-sum/"/>
-      <url>/blog/2020/07/24/solution-of-split-array-largest-sum/</url>
-      
-        <content type="html"><![CDATA[<h2 id="410-分割数组的最大值"><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></h2><p>给定一个非负整数数组和一个整数<code>m</code>，你需要将这个数组分成<code>m</code>个非空的连续子数组。设计一个算法使得这<code>m</code>个子数组各自和的最大值最小。</p><p>注意:<br>数组长度<code>n</code>满足以下条件:</p><ul><li>1 ≤ <code>n</code> ≤ 1000</li><li>1 ≤ <code>m</code> ≤ min(50, n)</li></ul><p>示例:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">nums &#x3D; [7,2,5,10,8]</span><br><span class="line">m &#x3D; 2</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">18</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">一共有四种方法将nums分割为2个子数组。</span><br><span class="line">其中最好的方式是将其分为[7,2,5] 和 [10,8]，</span><br><span class="line">因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="写在前面">写在前面</h2><p><a href="https://onns.xyz/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/">上次说的</a>数组溢出问题，这次倒是没有犯了，但这次找边界条件的又是因为<code>+1</code>没有搞明白，其实上次就有遇到，这次一定要记住了。</p><h2 id="不可行方案">不可行方案</h2><p>我最开始想到的方法是，先把子数组<code>粗略地</code>划分一下。</p><ol><li>求出所有元素之和<code>total</code>，然后除以<code>m</code>得到每个子数组的平均值，记为<code>threshold</code>。</li><li>尽量靠近边界进行划分，比如说如果当前的和<code>current</code>比<code>current + nums[i]</code>离<code>threshold</code>更近，就不加，否则加。</li><li>最后一次划分的时候将所有未统计过的数字都归到最后一个子数组中。</li></ol><p>如果说想得到一个<code>局部最优解</code>，那么这样的划分方法肯定没有问题，但局部最优不是全局最优，想了好久如何调整，没有思路，此方法就此作罢。</p><h2 id="动态规划">动态规划</h2><p>动态规划最重要的是要找到<code>状态转移方程</code>，然后确定<code>初始条件</code>。</p><p>令<code>f(i)(j)</code>为将<code>nums[0]</code>到<code>nums[i]</code>划分成<code>j</code>个子数组的各自和的最小值，则<code>f(i)(j)</code>一定可以表示为某个子划分的最小值。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> code </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> java </tag>
-            
-            <tag> leetcode </tag>
-            
-            <tag> tips </tag>
-            
-            <tag> dynamic programming </tag>
-            
-            <tag> 动态规划 </tag>
-            
-            <tag> binary search </tag>
-            
-            <tag> 二分查找 </tag>
             
         </tags>
       
@@ -90,17 +92,54 @@
             
             <tag> tips </tag>
             
-            <tag> dynamic programming </tag>
-            
             <tag> 动态规划 </tag>
             
             <tag> 递归 </tag>
             
             <tag> 回溯 </tag>
             
+            <tag> dynamic programming </tag>
+            
             <tag> recursion </tag>
             
             <tag> traceback </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Leetcode题解：分割数组的最大值</title>
+      <link href="/blog/2020/07/24/solution-of-split-array-largest-sum/"/>
+      <url>/blog/2020/07/24/solution-of-split-array-largest-sum/</url>
+      
+        <content type="html"><![CDATA[<h2 id="410-分割数组的最大值"><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></h2><p>给定一个非负整数数组和一个整数<code>m</code>，你需要将这个数组分成<code>m</code>个非空的连续子数组。设计一个算法使得这<code>m</code>个子数组各自和的最大值最小。</p><p>注意:<br>数组长度<code>n</code>满足以下条件:</p><ul><li>1 ≤ <code>n</code> ≤ 1000</li><li>1 ≤ <code>m</code> ≤ min(50, n)</li></ul><p>示例:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">nums &#x3D; [7,2,5,10,8]</span><br><span class="line">m &#x3D; 2</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">18</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">一共有四种方法将nums分割为2个子数组。</span><br><span class="line">其中最好的方式是将其分为[7,2,5] 和 [10,8]，</span><br><span class="line">因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="写在前面">写在前面</h2><p><a href="https://onns.xyz/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/">上次说的</a>数组溢出问题，这次倒是没有犯了，但这次找边界条件的又是因为<code>+1</code>没有搞明白，其实上次就有遇到，这次一定要记住了。</p><h2 id="不可行方案">不可行方案</h2><p>我最开始想到的方法是，先把子数组<code>粗略地</code>划分一下。</p><ol><li>求出所有元素之和<code>total</code>，然后除以<code>m</code>得到每个子数组的平均值，记为<code>threshold</code>。</li><li>尽量靠近边界进行划分，比如说如果当前的和<code>current</code>比<code>current + nums[i]</code>离<code>threshold</code>更近，就不加，否则加。</li><li>最后一次划分的时候将所有未统计过的数字都归到最后一个子数组中。</li></ol><p>如果说想得到一个<code>局部最优解</code>，那么这样的划分方法肯定没有问题，但局部最优不是全局最优，想了好久如何调整，没有思路，此方法就此作罢。</p><h2 id="动态规划">动态规划</h2><p>动态规划最重要的是要找到<code>状态转移方程</code>，然后确定<code>初始条件</code>。</p><p>令<code>f(i)(j)</code>为将<code>nums[0]</code>到<code>nums[i]</code>划分成<code>j</code>个子数组的各自和的最小值，则<code>f(i)(j)</code>一定可以表示为某个子划分的最小值。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> leetcode </tag>
+            
+            <tag> tips </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> dynamic programming </tag>
+            
+            <tag> binary search </tag>
+            
+            <tag> 二分查找 </tag>
             
         </tags>
       
@@ -682,9 +721,9 @@
       
         <tags>
             
-            <tag> software </tag>
-            
             <tag> windows </tag>
+            
+            <tag> software </tag>
             
             <tag> teleport ultra </tag>
             
@@ -1715,6 +1754,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/blog/categories/index.html"/>
+      <url>/blog/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2019年总结</title>
       <link href="/blog/drafts/2019-summary.html"/>
       <url>/blog/drafts/2019-summary.html</url>
@@ -1737,33 +1787,11 @@
     
     
     <entry>
-      <title>ifc file parsing</title>
-      <link href="/blog/drafts/ifc-file-parsing.html"/>
-      <url>/blog/drafts/ifc-file-parsing.html</url>
-      
-        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>画啊画涂啊涂</title>
       <link href="/blog/draw/index.html"/>
       <url>/blog/draw/index.html</url>
       
         <content type="html"><![CDATA[<h3 id="2020-02">2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12">2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10">2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07">2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06">2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/blog/categories/index.html"/>
-      <url>/blog/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -1781,6 +1809,17 @@
     
     
     <entry>
+      <title>ifc file parsing</title>
+      <link href="/blog/drafts/ifc-file-parsing.html"/>
+      <url>/blog/drafts/ifc-file-parsing.html</url>
+      
+        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>links</title>
       <link href="/blog/links/index.html"/>
       <url>/blog/links/index.html</url>
@@ -1792,9 +1831,9 @@
     
     
     <entry>
-      <title>image</title>
-      <link href="/blog/image/index.html"/>
-      <url>/blog/image/index.html</url>
+      <title>tags</title>
+      <link href="/blog/tags/index.html"/>
+      <url>/blog/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1803,9 +1842,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/blog/tags/index.html"/>
-      <url>/blog/tags/index.html</url>
+      <title>image</title>
+      <link href="/blog/image/index.html"/>
+      <url>/blog/image/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
