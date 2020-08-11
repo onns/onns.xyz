@@ -277,7 +277,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境依赖"><span class="toc-text">环境依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统启动流程"><span class="toc-text">系统启动流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关配置文件"><span class="toc-text">相关配置文件</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="环境依赖">环境依赖</h2>
+  </div><div class="post-content"><h2 id="环境依赖"><a class="header-anchor" href="#环境依赖">#</a>环境依赖</h2>
 <ul>
 <li>Centos/7.x.x</li>
 <li>nginx/1.12.2</li>
@@ -286,7 +286,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>unoconv/0.8.x</li>
 </ul>
 <a id="more"></a>
-<h2 id="系统启动流程">系统启动流程</h2>
+<h2 id="系统启动流程"><a class="header-anchor" href="#系统启动流程">#</a>系统启动流程</h2>
 <ol>
 <li>打开nginx服务器 <code>nginx</code></li>
 <li>开启php服务 <code>service php-fpm start</code></li>
@@ -295,7 +295,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>开启iptables对相应端口的屏蔽 <code>iptables -I INPUT -p tcp --dport </code><font color=#ff0000><code>10080</code></font><code> -j ACCEPT</code></li>
 <li>开启unoconv监听器并后台运行 <code>nohup unoconv --listener &amp;</code></li>
 </ol>
-<h2 id="相关配置文件">相关配置文件</h2>
+<h2 id="相关配置文件"><a class="header-anchor" href="#相关配置文件">#</a>相关配置文件</h2>
 <ol>
 <li>nginx配置文件目录 <code>/etc/nginx/nginx.conf</code></li>
 <li>php配置文件目录 <code>/etc/php.ini</code></li>

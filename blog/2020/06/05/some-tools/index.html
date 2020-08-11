@@ -281,9 +281,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><a href="https://onns.xyz/tools/hyphens-to-camel-case/">连字符转驼峰式</a></li>
 </ul>
 <a id="more"></a>
-<h2 id="连字符转驼峰式"><a href="https://onns.xyz/tools/hyphens-to-camel-case/">连字符转驼峰式</a></h2>
+<h2 id="连字符转驼峰式"><a class="header-anchor" href="#连字符转驼峰式">#</a><a href="https://onns.xyz/tools/hyphens-to-camel-case/">连字符转驼峰式</a></h2>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCamel</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> temp = str.replace(<span class="regexp">/(?:-+([^-]))/g</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$<span class="number">1</span>, $<span class="number">2</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $<span class="number">2.</span>toUpperCase();</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> temp.slice(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + temp.slice(<span class="number">1</span>);;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考链接">参考链接</h2>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
 <ul>
 <li><a href="https://colorlib.com/wp/template/contact-form-v9/" target="_blank" rel="noopener">Contact Form v9</a></li>
 <li><a href="https://regexper.com/#%2F%28%5B%5E-%5D%29%28%3F%3A-%2B%28%5B%5E-%5D%29%29%2Fg" target="_blank" rel="noopener">Regexper</a></li>

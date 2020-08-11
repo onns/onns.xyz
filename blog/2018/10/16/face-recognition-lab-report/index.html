@@ -277,16 +277,16 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集分析"><span class="toc-text">数据集分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现有方法"><span class="toc-text">现有方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统方法"><span class="toc-text">传统方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特征提取"><span class="toc-text">特征提取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类器"><span class="toc-text">分类器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络方法"><span class="toc-text">神经网络方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验过程"><span class="toc-text">实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编程语言介绍"><span class="toc-text">编程语言介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集预处理"><span class="toc-text">数据集预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序编写"><span class="toc-text">程序编写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#svm构造15个二分类器"><span class="toc-text">SVM构造15个二分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hog-svm构造15个二分类器"><span class="toc-text">HOG+SVM构造15个二分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hog-svm构造多分类器"><span class="toc-text">HOG+SVM构造多分类器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验过程说明"><span class="toc-text">实验过程说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同实验方法结果对比"><span class="toc-text">不同实验方法结果对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#svm-hog多分类"><span class="toc-text">SVM+HOG多分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果分析"><span class="toc-text">实验结果分析</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="问题分析">问题分析</h2>
-<h3 id="问题描述">问题描述</h3>
+  </div><div class="post-content"><h2 id="问题分析"><a class="header-anchor" href="#问题分析">#</a>问题分析</h2>
+<h3 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h3>
 <p>在给定的Yale人脸数据集上进行人脸识别. 输入一张待测试的人脸图片, 判断其属于数据库中哪个人的脸.</p>
-<h3 id="数据集分析">数据集分析</h3>
+<h3 id="数据集分析"><a class="header-anchor" href="#数据集分析">#</a>数据集分析</h3>
 <p>Yale人脸数据集中包含有165张<code>bmp</code>格式的黑白人脸图像, 图像大小为<code>100*100</code>像素, 这些图像分别属于15个人, 每人11张图像.</p>
 <a id="more"></a>
-<h2 id="现有方法">现有方法</h2>
-<h3 id="传统方法">传统方法</h3>
+<h2 id="现有方法"><a class="header-anchor" href="#现有方法">#</a>现有方法</h2>
+<h3 id="传统方法"><a class="header-anchor" href="#传统方法">#</a>传统方法</h3>
 <p>传统的方法是先对图像进行处理后, 对图像的特征进行提取, 然后用分类器对图像进行分类, 最后识别出图像的方法.</p>
-<h4 id="特征提取">特征提取</h4>
+<h4 id="特征提取"><a class="header-anchor" href="#特征提取">#</a>特征提取</h4>
 <ul>
 <li>弹性模版<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></li>
 </ul>
@@ -322,7 +322,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>将某中心像素的灰度值和其相邻的8个像素作比较, 生成LBP码用来反映纹理信息.</p>
 </blockquote>
 <p>它具有旋转和灰度不变性的优点, 对方向信息比较敏感, 一般用于处理8位或16位的图片.</p>
-<h4 id="分类器">分类器</h4>
+<h4 id="分类器"><a class="header-anchor" href="#分类器">#</a>分类器</h4>
 <ul>
 <li>最邻近分类器<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup></li>
 </ul>
@@ -347,19 +347,19 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <blockquote>
 <p>最小化类间的最大间隔得到最优决策面. 对数据分布的要求低, 适用性更广.</p>
 </blockquote>
-<h3 id="神经网络方法">神经网络方法</h3>
+<h3 id="神经网络方法"><a class="header-anchor" href="#神经网络方法">#</a>神经网络方法</h3>
 <p>神经网络方法需要大量的数据, 不符合本实验的条件.</p>
-<h3 id="结论">结论</h3>
+<h3 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h3>
 <p>综合以上分析, 我们最终选择了<code>HOG+SVM</code>的方法.</p>
-<h2 id="实验过程">实验过程</h2>
-<h3 id="编程语言介绍">编程语言介绍</h3>
+<h2 id="实验过程"><a class="header-anchor" href="#实验过程">#</a>实验过程</h2>
+<h3 id="编程语言介绍"><a class="header-anchor" href="#编程语言介绍">#</a>编程语言介绍</h3>
 <p>本实验所选择的编程语言为<code>Matlab</code>, 编程软件为<code>Matlab 2018b</code>.</p>
-<h3 id="数据集预处理">数据集预处理</h3>
+<h3 id="数据集预处理"><a class="header-anchor" href="#数据集预处理">#</a>数据集预处理</h3>
 <p>对每个人选取1张作为测试样本, 其余10张作为训练样本. 因此最终的训练集包含150张图像, 测试集为15张.</p>
-<h3 id="程序编写">程序编写</h3>
-<h4 id="svm构造15个二分类器">SVM构造15个二分类器</h4>
+<h3 id="程序编写"><a class="header-anchor" href="#程序编写">#</a>程序编写</h3>
+<h4 id="svm构造15个二分类器"><a class="header-anchor" href="#svm构造15个二分类器">#</a>SVM构造15个二分类器</h4>
 <p>构造15个分类器, 每一个分类器用10张作为正样本, 其余140张作为该分类器的负样本, 然后进行训练. 最终得到15个分类器, 用于分别识别是否为15个人的图像.</p>
-<h4 id="hog-svm构造15个二分类器">HOG+SVM构造15个二分类器</h4>
+<h4 id="hog-svm构造15个二分类器"><a class="header-anchor" href="#hog-svm构造15个二分类器">#</a>HOG+SVM构造15个二分类器</h4>
 <p>和之前的方法相同, 在图像被加入分类器中进行训练之前, 先将图像的大小转换为<code>256*256</code>, 然后提取出HOG特征, 重复上述实验.<br>
 <code>extractHOGFeatures</code><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup>是Matlab预先实现好的方法, 选取<code>cell</code>为<code>8*8</code>, <code>block</code>为<code>2*2</code>.<br>
 图一为<code>s1.bmp</code>和它的HOG特征图:</p>
@@ -367,13 +367,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p><img src="https://onns.xyz/blog/image/20181017-1.jpg" alt="原图以及HOG特征图"></p>
 <p>图1 原图以及HOG特征图</p>
 </center>
-<h4 id="hog-svm构造多分类器">HOG+SVM构造多分类器</h4>
+<h4 id="hog-svm构造多分类器"><a class="header-anchor" href="#hog-svm构造多分类器">#</a>HOG+SVM构造多分类器</h4>
 <p>在训练图像开始之前, 将HOG特征图和特征图对应的标签(即对应的人脸的标号1-15)传入<code>fitcecoc</code><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup>函数即可训练得到一个多标签的SVM, 对于给定的测试样例, 可以给出样例所对应的标签.</p>
-<h2 id="实验结果">实验结果</h2>
-<h3 id="实验过程说明">实验过程说明</h3>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
+<h3 id="实验过程说明"><a class="header-anchor" href="#实验过程说明">#</a>实验过程说明</h3>
 <p>由于前一个实验方法并不能到达理想的100%准确率, 所以改变了不同的方法重新实现, 最终有三种不同的实验方法.<br>
 下述实验结果如无特殊说明, 都是按照<code>训练集10:测试集1</code>进行的实验, 实验结果为<code>1次</code>实验的结果.</p>
-<h3 id="不同实验方法结果对比">不同实验方法结果对比</h3>
+<h3 id="不同实验方法结果对比"><a class="header-anchor" href="#不同实验方法结果对比">#</a>不同实验方法结果对比</h3>
 <center>表1 实验结果</center>
 <table>
 <thead>
@@ -402,7 +402,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </tbody>
 </table>
 <p>实验结果如表1所示, 在准确率上, <code>SVM+HOG多分类</code>的方法在准确率上初步达到了<code>100%</code>, 但仍需要后续的多次实验证明; 在程序运行时间上, <code>SVM+HOG二分类</code>的方法耗时最少, 与第一种方法相对比, 提取的特征图较原图像相比, 更容易得到特征, 更容易训练, 与第三种方法相对比, 二分类器只需要判断<code>是或不是</code>的问题, 较<code>是哪个</code>这个问题来说相对简单, 故消耗时间最少.</p>
-<h3 id="svm-hog多分类">SVM+HOG多分类</h3>
+<h3 id="svm-hog多分类"><a class="header-anchor" href="#svm-hog多分类">#</a>SVM+HOG多分类</h3>
 <p>一次实验的结果具有随机性, 故取<code>10次</code>实验的<code>平均值</code>并改变训练集与测试集的比例, 得到的结果如表2所示.</p>
 <center>表2 10次随机实验结果平均值</center>
 <table>
@@ -441,7 +441,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </tr>
 </tbody>
 </table>
-<h3 id="实验结果分析">实验结果分析</h3>
+<h3 id="实验结果分析"><a class="header-anchor" href="#实验结果分析">#</a>实验结果分析</h3>
 <p><code>SVM分类</code>方法训练的分类器未能识别的图像都是单侧光照下的图像, 故后续改进时增加了对<code>光照不敏感</code>的HOG特性来进行训练; <code>HOG+SVM二分类</code>方法存在着<code>样本不对称</code>的问题, 也未能达到理想的实验效果; <code>SVM+HOG多分类器</code>方法在<code>对光照不敏感</code>的同时, 也不存在<code>样本不对称</code>的问题, 最终达到了预期的实验结果, 即<code>100%</code>的准确率.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">

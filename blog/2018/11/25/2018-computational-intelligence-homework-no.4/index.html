@@ -275,25 +275,25 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text">多尺度协同变异的粒子群优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#速度更新"><span class="toc-text">速度更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位置更新"><span class="toc-text">位置更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多尺度高斯变异算子"><span class="toc-text">多尺度高斯变异算子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多尺度协同变异的粒子群优化算法"><span class="toc-text">多尺度协同变异的粒子群优化算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#速度更新"><span class="toc-text">速度更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位置更新"><span class="toc-text">位置更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多尺度高斯变异算子"><span class="toc-text">多尺度高斯变异算子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h1>多尺度协同变异的粒子群优化算法</h1>
-<h2 id="问题描述">问题描述</h2>
+  </div><div class="post-content"><h1 id="多尺度协同变异的粒子群优化算法"><a class="header-anchor" href="#多尺度协同变异的粒子群优化算法">#</a>多尺度协同变异的粒子群优化算法</h1>
+<h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2>
 <p>实现文《一种多尺度协同变异的粒子群优化算法》<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>的测试实验。</p>
 <a id="more"></a>
-<h2 id="算法设计">算法设计</h2>
+<h2 id="算法设计"><a class="header-anchor" href="#算法设计">#</a>算法设计</h2>
 <p>  粒子群算法(Particle Swarm Optimizer，PSO)是由Kennedy和Eberhart博士提出的一种基于群体智能的优化算法, 其基本思想是受到他们早期对许多鸟类的群体行为进行建模与仿真研究的启发. 粒子群算法的优势在于其简单容易实现,没有很多参数需要调整,是非线性连续优化问题、组合优化问题和混合整数非线性优化问题的有效优化工具. 由于PSO算法概念简单、实现容易，在函数优化和神经网络权值训练等方面都有很好的表现. 由于其又具有深刻的智能背景，既适合科学研究，又特别适于工程应用, 因此在近年来得到了飞速的发展. 其应用涉及系统控制、人工智能、模式识别、计算机、通信工程等各个领域. 粒子群优化算法问世以来受到了广泛的重视, 经过十几年的研究, 其不论在应用方面还是在优化性能方面都得到了很大的发展. 然而, 研究人员仍然无法解决一直困扰该算法的两个难题: 早熟和收敛速度慢.<br>
   文中提出一种多尺度协同变异的微粒群算法(MAEPSO). 该算法利用不同大小方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 在算法后期有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀算子维护种群多样性. 利用试验对不同评测函数进行测试均验证新算法优良的优化性能.</p>
-<h3 id="速度更新">速度更新</h3>
+<h3 id="速度更新"><a class="header-anchor" href="#速度更新">#</a>速度更新</h3>
 <p>  速度更新的公式为:</p>
 <span>$$v_{id}(t+1)=w&times;v_{id}(t) + c_1&times;r_1&times;(p_{id}(t)&minus;x_{id}(t)) \\
 \ + c_2&times;r_2&times;(p_{gd}(t)&minus;x_{id}(t))
 \tag{1}$$</span><!-- Has MathJax -->
-<h3 id="位置更新">位置更新</h3>
+<h3 id="位置更新"><a class="header-anchor" href="#位置更新">#</a>位置更新</h3>
 <p>  位置更新的公式为:</p>
 <span>$$x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)
 \tag{2}$$</span><!-- Has MathJax -->
-<h3 id="多尺度高斯变异算子">多尺度高斯变异算子</h3>
+<h3 id="多尺度高斯变异算子"><a class="header-anchor" href="#多尺度高斯变异算子">#</a>多尺度高斯变异算子</h3>
 <p>  设尺度个数为$M$, 首先初始化多尺度高斯变异算子的初始方差</p>
 <span>$$\sigma^{(0)} = (\sigma_1^{(0)},\sigma_2^{(0)},\cdots,\sigma_M^{(0)})
 \tag{3}$$</span><!-- Has MathJax -->
@@ -313,13 +313,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>$W$为待优化变量空间的宽度, 重复使用上式, 直到满足$\sigma_i^{(k)} &lt; W/4$. 为了能最大范围的实现空间勘探$i$能力, 在进行完多尺度高斯变异后, 同时进行一次均匀变异操作, 比较后取所有变异后适应值最好的位置作为新的逃逸点, 均匀变异算子实现同<code>式(9)</code>.通过多尺度变异算子能实现整个搜索空间的覆盖, 其中大尺度有利于实现解空间的粗搜索, 可以快速定位到最优解区域, 小尺度能在进化后期实现局部精确解的搜索.</p>
 <span>$$If \quad (v_{id} &lt; T_d ) \quad then \quad v_{id} = rand &times; V_{max}
 \tag{9}$$</span><!-- Has MathJax -->
-<h2 id="程序流程">程序流程</h2>
+<h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>
 <div id="flowchart-0" class="flow-chart"></div>
 <p>图1 程序流程图</p>
 </center>
-<h2 id="代码运行及测试">代码运行及测试</h2>
+<h2 id="代码运行及测试"><a class="header-anchor" href="#代码运行及测试">#</a>代码运行及测试</h2>
 <p>代码运行结果如<code>表1</code>所示.</p>
 <center>表1: 运行结果</center>
 <table>
@@ -377,7 +377,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </tr>
 </tbody>
 </table>
-<h2 id="结论">结论</h2>
+<h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2>
 <p>论文提出一种新的多尺度协同变异的微粒群算法, 利用不同大小初始方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀变异算子维护种群多样性. 通过6个benchmark 数据进行测试, 实验结果表明新算法能够在算法初期就能够快速定位到搜索空间的最优解区域, 进而使得微粒通过进化PSO及小尺度变异算子向着最优精确解空间逼近, 使其在进化过程中保持局部最优解空间开采的能力, 加快了算法的收敛速度.</p>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 随机初始化每个粒子
 op1=>operation: 评估每个粒子并得到全局最优

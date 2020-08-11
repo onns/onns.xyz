@@ -69,33 +69,33 @@
     var $footer = $('.post-footer');
 
     if ($toc.length) {
-      var minScrollTop = $toc.offset().top - SPACING;
-      var maxScrollTop = $footer.offset().top - $toc.height() - SPACING;
-
-      var tocState = {
-        start: {
-          'position': 'absolute',
-          'top': minScrollTop
-        },
-        process: {
-          'position': 'fixed',
-          'top': SPACING
-        },
-        end: {
-          'position': 'absolute',
-          'top': maxScrollTop
-        }
-      }
 
       $(window).scroll(function () {
+        var minScrollTop = $toc.offset().top - SPACING;
+  
+        var tocState = {
+          start: {
+            'position': 'absolute',
+            'top': minScrollTop
+          },
+          process: {
+            'position': 'fixed',
+            'top': SPACING
+          }
+        }
         var scrollTop = $(window).scrollTop();
-
         if (scrollTop < minScrollTop) {
           $toc.css(tocState.start);
-        } else if (scrollTop > maxScrollTop) {
-          $toc.css(tocState.end);
         } else {
           $toc.css(tocState.process);
+          
+          if($('.toc-link.active').offset() != undefined && $('.toc-link.active').offset().top - document.documentElement.scrollTop > window.innerHeight*5/6){
+            $('.post-toc').offset({top:Math.min($footer.offset().top - $toc.height()- SPACING,window.innerHeight*5/6 + document.documentElement.scrollTop - ($('.toc-link.active').offset().top - $('.post-toc').offset().top))});
+          }
+          if($footer.offset().top <$('.post-toc').offset().top + $toc.height() + SPACING){
+            $('.post-toc').offset({top:$footer.offset().top- $toc.height()-SPACING});
+          }
+          //   $('.toc').offset({top:window.innerHeight/2 + document.documentElement.scrollTop - ($('.toc-link.active').offset().top - $('.toc').offset().top)});
         }
       })
     }
@@ -104,7 +104,7 @@
   Even.prototype.tocFollow = function () {
     var HEADERFIX = 30;
     var $toclink = $('.toc-link'),
-      $headerlink = $('.headerlink');
+      $headerlink = $('.header-anchor');
 
     $(window).scroll(function () {
       var headerlinkTop = $.map($headerlink, function (link) {

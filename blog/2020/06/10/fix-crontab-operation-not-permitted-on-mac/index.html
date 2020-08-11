@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="修复MacOS上crontab的Operation not permitted问题"/><meta name="keywords" content="macos, cron, crontab, Catalina, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="修复MacOS上crontab的Operation not permitted问题"/><meta name="keywords" content="cron, crontab, Catalina, macos, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/06/10/fix-crontab-operation-not-permitted-on-mac/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
@@ -279,7 +279,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     </div>
   </div><div class="post-content"><p>因为项目需要Xcode，但是Xcode又必须要在<code>10.15</code>以上的系统下运行，不得已更新了系统，然而更新一时爽，bug修复***。真的是出现了各种问题，没办法，挨个解决叭…</p>
 <a id="more"></a>
-<h2 id="起因">起因</h2>
+<h2 id="起因"><a class="header-anchor" href="#起因">#</a>起因</h2>
 <p>为了方便电脑自动化整理文档，我的电脑上一直运行着一堆定时的脚本，用来隔一段时间将截图整理到<code>图片</code>文件夹。有人这里可能会问，为什么不直接把截图目录设置成<code>Pictures</code>目录，因为截图在桌面用起来更方便诶，毕竟截图就是为了发出去或者做什么的不是。</p>
 <p>但用完所有截图都在桌面真的好乱。</p>
 <p>所以我之前版本的定时脚本都是：</p>
@@ -302,8 +302,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>shell工具的权限不够</li>
 <li>crontab的权限不够（自我猜测，不知道这点是不是影响因素）</li>
 </ol>
-<h2 id="解决">解决</h2>
-<h3 id="更改shell">更改shell</h3>
+<h2 id="解决"><a class="header-anchor" href="#解决">#</a>解决</h2>
+<h3 id="更改shell"><a class="header-anchor" href="#更改shell">#</a>更改shell</h3>
 <p>这一点很好操作，首先先将<code>zsh</code>作为默认的shell工具。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
 <p>然后只需要重启一下<code>Terminal</code>就可以了。</p>
@@ -312,7 +312,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>然后我这样又试了一下，还是报错了：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh: can<span class="string">'t open input file: /Users/onns/Documents/code/bash/clear</span></span><br></pre></td></tr></table></figure>
 <p>所以还是需要给<code>zsh</code>权限</p>
-<h3 id="赋予full-disk-access权限">赋予Full Disk Access权限</h3>
+<h3 id="赋予full-disk-access权限"><a class="header-anchor" href="#赋予full-disk-access权限">#</a>赋予Full Disk Access权限</h3>
 <ol>
 <li>打开<code>System Preference -&gt; Security &amp; Privacy -&gt; Privacy</code>。</li>
 <li>找到<code>Full Disk Access</code>。</li>
@@ -321,7 +321,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>同理在<code>/usr/sbin/</code>目录下找到<code>cron</code>，添加。</li>
 </ol>
 <p>成功，完。</p>
-<h2 id="参考文档">参考文档</h2>
+<h2 id="参考文档"><a class="header-anchor" href="#参考文档">#</a>参考文档</h2>
 <ul>
 <li><a href="https://support.apple.com/en-us/HT204899" target="_blank" rel="noopener">About System Integrity Protection on your Mac</a></li>
 <li><a href="https://support.apple.com/en-us/HT208050" target="_blank" rel="noopener">Use zsh as the default shell on your Mac</a></li>
@@ -336,10 +336,10 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/macos/">macos</a>
             <a href="/blog/tags/cron/">cron</a>
             <a href="/blog/tags/crontab/">crontab</a>
             <a href="/blog/tags/Catalina/">Catalina</a>
+            <a href="/blog/tags/macos/">macos</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/06/15/hexo-plugin-test/">

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Leetcode题解：分割数组的最大值"/><meta name="keywords" content="java, leetcode, tips, 动态规划, dynamic programming, binary search, 二分查找, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="Leetcode题解：分割数组的最大值"/><meta name="keywords" content="java, leetcode, tips, dynamic programming, 动态规划, binary search, 二分查找, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/07/24/solution-of-split-array-largest-sum/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
@@ -277,7 +277,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#410-分割数组的最大值"><span class="toc-text">410. 分割数组的最大值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不可行方案"><span class="toc-text">不可行方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-text">动态规划</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="410-分割数组的最大值"><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></h2>
+  </div><div class="post-content"><h2 id="410-分割数组的最大值"><a class="header-anchor" href="#410-分割数组的最大值">#</a><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></h2>
 <p>给定一个非负整数数组和一个整数<code>m</code>，你需要将这个数组分成<code>m</code>个非空的连续子数组。设计一个算法使得这<code>m</code>个子数组各自和的最大值最小。</p>
 <p>注意:<br>
 数组长度<code>n</code>满足以下条件:</p>
@@ -288,9 +288,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">nums &#x3D; [7,2,5,10,8]</span><br><span class="line">m &#x3D; 2</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">18</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">一共有四种方法将nums分割为2个子数组。</span><br><span class="line">其中最好的方式是将其分为[7,2,5] 和 [10,8]，</span><br><span class="line">因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="写在前面">写在前面</h2>
+<h2 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h2>
 <p><a href="https://onns.xyz/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/">上次说的</a>数组溢出问题，这次倒是没有犯了，但这次找边界条件的又是因为<code>+1</code>没有搞明白，其实上次就有遇到，这次一定要记住了。</p>
-<h2 id="不可行方案">不可行方案</h2>
+<h2 id="不可行方案"><a class="header-anchor" href="#不可行方案">#</a>不可行方案</h2>
 <p>我最开始想到的方法是，先把子数组<code>粗略地</code>划分一下。</p>
 <ol>
 <li>求出所有元素之和<code>total</code>，然后除以<code>m</code>得到每个子数组的平均值，记为<code>threshold</code>。</li>
@@ -298,7 +298,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>最后一次划分的时候将所有未统计过的数字都归到最后一个子数组中。</li>
 </ol>
 <p>如果说想得到一个<code>局部最优解</code>，那么这样的划分方法肯定没有问题，但局部最优不是全局最优，想了好久如何调整，没有思路，此方法就此作罢。</p>
-<h2 id="动态规划">动态规划</h2>
+<h2 id="动态规划"><a class="header-anchor" href="#动态规划">#</a>动态规划</h2>
 <p>动态规划最重要的是要找到<code>状态转移方程</code>，然后确定<code>初始条件</code>。</p>
 <p>令<code>f(i)(j)</code>为将<code>nums[0]</code>到<code>nums[i]</code>划分成<code>j</code>个子数组的各自和的最小值，则<code>f(i)(j)</code>一定可以表示为某个子划分的最小值。</p>
 
@@ -309,8 +309,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/java/">java</a>
             <a href="/blog/tags/leetcode/">leetcode</a>
             <a href="/blog/tags/tips/">tips</a>
-            <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             <a href="/blog/tags/dynamic-programming/">dynamic programming</a>
+            <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
             <a href="/blog/tags/binary-search/">binary search</a>
             <a href="/blog/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
             </div>

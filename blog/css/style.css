@@ -667,7 +667,10 @@ h6 {
   .post .post-content code {
     padding: 3px 5px;
     border-radius: 4px;
-    color: #c7254e; }
+    color: #c7254e;
+    word-break: normal;
+    white-space: pre-warp;
+    word-wrap: break-word; }
   .post .post-content .highlight {
     margin: 1em 0;
     border-radius: 5px;
@@ -907,7 +910,10 @@ h6 {
     padding-top: 10px;
     border-top: 1px dashed #e6e6e6; }
     .post .post-copyright .copyright-item {
-      margin: 5px 0; }
+      margin: 5px 0;
+      word-break: normal;
+      white-space: pre-warp;
+      word-wrap: break-word; }
       .post .post-copyright .copyright-item a {
         color: #c05b4d; }
   .post .post-reward {

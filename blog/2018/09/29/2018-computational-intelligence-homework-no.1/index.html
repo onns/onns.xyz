@@ -277,15 +277,15 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法设计"><span class="toc-text">算法设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的数据结构表示问题状态"><span class="toc-text">选择合适的数据结构表示问题状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定智能算子，用以变化状态的规则"><span class="toc-text">确定智能算子，用以变化状态的规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定搜索方法"><span class="toc-text">确定搜索方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序流程"><span class="toc-text">程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#核心伪代码"><span class="toc-text">核心伪代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码运行及测试"><span class="toc-text">代码运行及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="问题描述">问题描述</h2>
+  </div><div class="post-content"><h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2>
 <p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p>
 <a id="more"></a>
-<h2 id="算法设计">算法设计</h2>
-<h3 id="选择合适的数据结构表示问题状态">选择合适的数据结构表示问题状态</h3>
+<h2 id="算法设计"><a class="header-anchor" href="#算法设计">#</a>算法设计</h2>
+<h3 id="选择合适的数据结构表示问题状态"><a class="header-anchor" href="#选择合适的数据结构表示问题状态">#</a>选择合适的数据结构表示问题状态</h3>
 <p>用向量<code>(T, S, Q)</code>表示状态, <code>E</code>表示10斤瓶中的油量, <code>S</code>表示7斤瓶中的油量, <code>Q</code>表示3斤瓶中的油量.</p>
 <p>问题的起始状态: <font color="#FF0000">(10, 0, 0)</font></p>
 <p>问题的目标状态: <font color="#FF0000">(5, 5, 0)</font></p>
-<h3 id="确定智能算子，用以变化状态的规则">确定智能算子，用以变化状态的规则</h3>
+<h3 id="确定智能算子，用以变化状态的规则"><a class="header-anchor" href="#确定智能算子，用以变化状态的规则">#</a>确定智能算子，用以变化状态的规则</h3>
 <center id="rulelist">规则表</center>
 <table>
 <thead>
@@ -358,17 +358,17 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </tr>
 </tbody>
 </table>
-<h3 id="确定搜索方法">确定搜索方法</h3>
+<h3 id="确定搜索方法"><a class="header-anchor" href="#确定搜索方法">#</a>确定搜索方法</h3>
 <p>最基本的搜索方法为<code>深度优先搜索</code>和<code>广度优先搜索</code>, 考虑到本题目存在着无限深度的情况, 故选用<code>广度优先搜索</code>方法来实现.</p>
-<h2 id="程序流程">程序流程</h2>
+<h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2>
 <p>大体的程序流程如图1所示</p>
 <center>
 <div id="flowchart-0" class="flow-chart"></div>
 图1 程序流程图
 </center>
-<h2 id="核心伪代码">核心伪代码</h2>
+<h2 id="核心伪代码"><a class="header-anchor" href="#核心伪代码">#</a>核心伪代码</h2>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//取出当前队列的头部节点</span></span><br><span class="line">  currNode = list.shift();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//队列为空, 搜索失败</span></span><br><span class="line">  <span class="keyword">if</span>(currNode == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断是否为目标状态</span></span><br><span class="line">  <span class="keyword">if</span>(checkNode(currNode)) &#123;</span><br><span class="line">    printPath(currNode);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//将所有可能的下一步状态加入队列尾部</span></span><br><span class="line">  pour(currNode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="代码运行及测试">代码运行及测试</h2>
+<h2 id="代码运行及测试"><a class="header-anchor" href="#代码运行及测试">#</a>代码运行及测试</h2>
 <p>代码运行结果如图2所示, 由于并未对状态进行优化, 首次出现的目标状态在<code>第十层</code>, 有<code>190221 </code>个重复状态, 严重影响了运算速度.</p>
 <center>
 <p><img src="https://onns.xyz/blog/image/20180930-1.png" alt="代码运行结果图"></p>
@@ -379,7 +379,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p><img src="https://onns.xyz/blog/image/20180930-2.png" alt="改进后代码运行结果图"></p>
 <p>图3 改进后代码运行结果图</p>
 </center>
-<h2 id="结论">结论</h2>
+<h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2>
 <p>从<font color="#FF0000">(10, 0, 0)</font>到<font color="#FF0000">(5, 5, 0)</font>的分油方法为:</p>
 <ul>
 <li>用10斤瓶油装满7斤瓶 (10, 0, 0) -&gt; (3, 7, 0)</li>

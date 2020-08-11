@@ -279,36 +279,36 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     </div>
   </div><div class="post-content"><p>新环境总担心旧博文的插件会出问题，这个页面里的插件如果没问题的话，其它的也应该没问题。</p>
 <a id="more"></a>
-<h2 id="flowchart"><a href="https://github.com/bubkoo/hexo-filter-flowchart" target="_blank" rel="noopener">flowchart</a></h2>
-<h3 id="安装方法">安装方法</h3>
+<h2 id="flowchart"><a class="header-anchor" href="#flowchart">#</a><a href="https://github.com/bubkoo/hexo-filter-flowchart" target="_blank" rel="noopener">flowchart</a></h2>
+<h3 id="安装方法"><a class="header-anchor" href="#安装方法">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-filter-flowchart --save</span><br></pre></td></tr></table></figure>
-<h3 id="参数配置">参数配置</h3>
+<h3 id="参数配置"><a class="header-anchor" href="#参数配置">#</a>参数配置</h3>
 <p>在 <code>_config.yml</code> 中。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flowchart:</span></span><br><span class="line">  <span class="attr">raphael:</span>   <span class="string">//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js</span></span><br><span class="line">  <span class="attr">flowchart:</span> <span class="string">//flowchart.js.org/flowchart-latest.js</span></span><br></pre></td></tr></table></figure>
-<h3 id="效果展示">效果展示</h3>
+<h3 id="效果展示"><a class="header-anchor" href="#效果展示">#</a>效果展示</h3>
 <center>
 <div id="flowchart-0" class="flow-chart"></div>
 <p>图1 程序流程图</p>
 </center>
-<h2 id="sub-sup-footnote-ins"><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">sub,sup,footnote,ins</a></h2>
-<h3 id="安装方法-2">安装方法</h3>
+<h2 id="sub-sup-footnote-ins"><a class="header-anchor" href="#sub-sup-footnote-ins">#</a><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">sub,sup,footnote,ins</a></h2>
+<h3 id="安装方法-2"><a class="header-anchor" href="#安装方法-2">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-renderer-markdown-it --save</span><br></pre></td></tr></table></figure>
-<h3 id="参数配置-2">参数配置</h3>
+<h3 id="参数配置-2"><a class="header-anchor" href="#参数配置-2">#</a>参数配置</h3>
 <p>在 <code>_config.yml</code> 中。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">'“”‘’'</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">''</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSide:</span> <span class="string">'right'</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">¶</span></span><br><span class="line">    <span class="attr">case:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">separator:</span> <span class="string">'-'</span></span><br></pre></td></tr></table></figure>
-<h3 id="效果展示-2">效果展示</h3>
-<h4 id="sub">sub</h4>
+<h3 id="效果展示-2"><a class="header-anchor" href="#效果展示-2">#</a>效果展示</h3>
+<h4 id="sub"><a class="header-anchor" href="#sub">#</a>sub</h4>
 <p>H<sub>2</sub>O</p>
-<h4 id="sup">sup</h4>
+<h4 id="sup"><a class="header-anchor" href="#sup">#</a>sup</h4>
 <p>x<sup>2</sup>y<sup>2</sup></p>
-<h4 id="footnote">footnote</h4>
+<h4 id="footnote"><a class="header-anchor" href="#footnote">#</a>footnote</h4>
 <p>这是一段正文<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
-<h4 id="ins">ins</h4>
+<h4 id="ins"><a class="header-anchor" href="#ins">#</a>ins</h4>
 <p><ins>inserted</ins></p>
-<h2 id="pdf"><a href="https://github.com/superalsrk/hexo-pdf" target="_blank" rel="noopener">pdf</a></h2>
-<h3 id="安装方法-3">安装方法</h3>
+<h2 id="pdf"><a class="header-anchor" href="#pdf">#</a><a href="https://github.com/superalsrk/hexo-pdf" target="_blank" rel="noopener">pdf</a></h2>
+<h3 id="安装方法-3"><a class="header-anchor" href="#安装方法-3">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-pdf --save</span><br></pre></td></tr></table></figure>
-<h3 id="效果展示-3">效果展示</h3>
+<h3 id="效果展示-3"><a class="header-anchor" href="#效果展示-3">#</a>效果展示</h3>
 
 
 	<div class="row">
@@ -317,22 +317,22 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 
 
 
-<h2 id="math"><a href="https://github.com/hexojs/hexo-math" target="_blank" rel="noopener">math</a></h2>
-<h3 id="安装方法-4">安装方法</h3>
+<h2 id="math"><a class="header-anchor" href="#math">#</a><a href="https://github.com/hexojs/hexo-math" target="_blank" rel="noopener">math</a></h2>
+<h3 id="安装方法-4"><a class="header-anchor" href="#安装方法-4">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-math --save</span><br></pre></td></tr></table></figure>
-<h3 id="参数配置-3">参数配置</h3>
+<h3 id="参数配置-3"><a class="header-anchor" href="#参数配置-3">#</a>参数配置</h3>
 <p>在 <code>_config.yml</code> 中。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">engine:</span> <span class="string">'mathjax'</span> <span class="comment"># or 'katex'</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">custom_mathjax_source</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="comment"># MathJax config</span></span><br><span class="line">  <span class="attr">katex:</span></span><br><span class="line">    <span class="attr">css:</span> <span class="string">custom_css_source</span></span><br><span class="line">    <span class="attr">js:</span> <span class="string">custom_js_source</span> <span class="comment"># not used</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="comment"># KaTeX config</span></span><br></pre></td></tr></table></figure>
-<h3 id="效果展示-4">效果展示</h3>
+<h3 id="效果展示-4"><a class="header-anchor" href="#效果展示-4">#</a>效果展示</h3>
 <span>$$\begin{aligned}
 \dot{x} &amp; = \sigma(y-x) \\
 \dot{y} &amp; = \rho x - y - xz \\
 \dot{z} &amp; = -\beta z + xy
 \end{aligned}$$</span><!-- Has MathJax -->
-<h2 id="math-2"><a href="https://github.com/hexojs/hexo-math" target="_blank" rel="noopener">math</a></h2>
-<h3 id="安装方法-5">安装方法</h3>
+<h2 id="math-2"><a class="header-anchor" href="#math-2">#</a><a href="https://github.com/hexojs/hexo-math" target="_blank" rel="noopener">math</a></h2>
+<h3 id="安装方法-5"><a class="header-anchor" href="#安装方法-5">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-math --save</span><br></pre></td></tr></table></figure>
-<h3 id="效果展示-5">效果展示</h3>
+<h3 id="效果展示-5"><a class="header-anchor" href="#效果展示-5">#</a>效果展示</h3>
 <div id="graphviz-0"></div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列
 e1=>end: 未找到目标状态
