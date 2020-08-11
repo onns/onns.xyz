@@ -69,10 +69,8 @@
     var $footer = $('.post-footer');
 
     if ($toc.length) {
-
+      var minScrollTop = $toc.offset().top - SPACING;
       $(window).scroll(function () {
-        var minScrollTop = $toc.offset().top - SPACING;
-  
         var tocState = {
           start: {
             'position': 'absolute',
