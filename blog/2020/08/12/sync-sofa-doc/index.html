@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Sync Sofa"/><meta name="keywords" content="chrome, extension, sync-sofa, document, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/12/sync-sofa-doc/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>Sync Sofa - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Sync Sofa
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-12
+        </span><span class="post-category">
+            <a href="/blog/categories/try/">try</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/12/sync-sofa-doc/"
+             data-title="Sync Sofa">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-sofa-streaming-video-playback-synchronizer-extension"><span class="toc-text">Sync Sofa (streaming video playback synchronizer extension)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#current-version"><span class="toc-text">Current version</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#supported-list"><span class="toc-text">Supported list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setting"><span class="toc-text">Setting</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#server-list"><span class="toc-text">Server list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#options-page"><span class="toc-text">Options page</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#refresh-video-page"><span class="toc-text">Refresh video page</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#usage"><span class="toc-text">Usage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#notices"><span class="toc-text">Notices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#open-a-video-page"><span class="toc-text">Open a video page</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#request-new-code"><span class="toc-text">Request new code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#start-connection"><span class="toc-text">Start connection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#enjoy-yourselves"><span class="toc-text">Enjoy yourselves</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vlc-support"><span class="toc-text">VLC support</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#start-vlc-on-the-server-with-the-web-interface"><span class="toc-text">Start VLC on the server with the Web Interface</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#open-your-video"><span class="toc-text">Open your video</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#request-new-code-2"><span class="toc-text">Request new code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#start-connection-2"><span class="toc-text">Start connection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#enjoy-yourselves-2"><span class="toc-text">Enjoy yourselves</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#close-controller-webpage"><span class="toc-text">Close Controller webpage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#installation"><span class="toc-text">Installation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#google-chrome"><span class="toc-text">Google Chrome</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#install-from-chrome-web-store"><span class="toc-text">Install from Chrome Web Store</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install-from-local-crx-file"><span class="toc-text">Install from local .crx file</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install-from-unpackaged-folder"><span class="toc-text">Install from unpackaged folder</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#microsoft-edge"><span class="toc-text">Microsoft Edge:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#install-from-microsoft-edge-addons"><span class="toc-text">Install from Microsoft Edge Addons</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#firefox-will-be-supported-in-later-version"><span class="toc-text">Firefox (will be supported in later version)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#self-hosting-guide"><span class="toc-text">Self-hosting Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#without-docker"><span class="toc-text">Without Docker</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#release-history"><span class="toc-text">Release History</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-8"><span class="toc-text">v1.0.8</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-8-aug-2020"><span class="toc-text">🛠 update on 8 Aug 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-7"><span class="toc-text">v1.0.7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-7-july-2020"><span class="toc-text">🛠 update on 7 July 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-6"><span class="toc-text">v1.0.6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-28-june-2020"><span class="toc-text">🛠 update on 28 June 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-5"><span class="toc-text">v1.0.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-12-may-2020"><span class="toc-text">🛠 update on 12 May 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-4"><span class="toc-text">v1.0.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-10-may-2020"><span class="toc-text">🛠 update on 10 May 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-3"><span class="toc-text">v1.0.3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-8-may-2020"><span class="toc-text">🛠 update on 8 May 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-2"><span class="toc-text">v1.0.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-31-mar-2020"><span class="toc-text">🛠 update on 31 Mar 2020</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v0-0-1"><span class="toc-text">v0.0.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-update-on-26-mar-2020-beta-version"><span class="toc-text">🛠 update on 26 Mar 2020 (beta version)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#meta"><span class="toc-text">Meta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#contributing"><span class="toc-text">Contributing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#faq"><span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#how-to-get-debug-info"><span class="toc-text">How to get debug info</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-sofa-（在线视频同步播放插件）"><span class="toc-text">Sync Sofa （在线视频同步播放插件）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#当前版本特性"><span class="toc-text">当前版本特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持网站列表"><span class="toc-text">支持网站列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置"><span class="toc-text">设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器列表"><span class="toc-text">服务器列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选项页"><span class="toc-text">选项页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#刷新视频页面"><span class="toc-text">刷新视频页面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用说明"><span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开视频页面"><span class="toc-text">打开视频页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取连接码"><span class="toc-text">获取连接码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始连接"><span class="toc-text">开始连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#愉快观看吧"><span class="toc-text">愉快观看吧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vlc支持"><span class="toc-text">VLC支持</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#通过web控制界面操控vlc播放"><span class="toc-text">通过Web控制界面操控VLC播放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开本地视频"><span class="toc-text">打开本地视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取连接码-2"><span class="toc-text">获取连接码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始连接-2"><span class="toc-text">开始连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#愉快观看吧-2"><span class="toc-text">愉快观看吧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭控制页面"><span class="toc-text">关闭控制页面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#谷歌浏览器"><span class="toc-text">谷歌浏览器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从谷歌商店安装"><span class="toc-text">从谷歌商店安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从本地-crx-文件安装"><span class="toc-text">从本地 .crx 文件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装未打包的插件"><span class="toc-text">安装未打包的插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微软edge浏览器"><span class="toc-text">微软Edge浏览器:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从edge浏览器插件中心安装"><span class="toc-text">从Edge浏览器插件中心安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#firefox（后续版本添加支持）"><span class="toc-text">Firefox（后续版本添加支持）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端部署指南"><span class="toc-text">服务端部署指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接部署（不使用docker容器）"><span class="toc-text">直接部署（不使用Docker容器）:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本日志"><span class="toc-text">版本日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-8-2"><span class="toc-text">v1.0.8</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年8月8日更新"><span class="toc-text">🛠 2020年8月8日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-7-2"><span class="toc-text">v1.0.7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年7月5日更新"><span class="toc-text">🛠 2020年7月5日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-6-2"><span class="toc-text">v1.0.6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年6月28日更新"><span class="toc-text">🛠 2020年6月28日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-5-2"><span class="toc-text">v1.0.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年5月12日更新"><span class="toc-text">🛠 2020年5月12日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-4-2"><span class="toc-text">v1.0.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年5月10日更新"><span class="toc-text">🛠 2020年5月10日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-3-2"><span class="toc-text">v1.0.3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年5月8日更新"><span class="toc-text">🛠 2020年5月8日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-0-2-2"><span class="toc-text">v1.0.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年3月31日更新"><span class="toc-text">🛠 2020年3月31日更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v0-0-1-2"><span class="toc-text">v0.0.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🛠-2020年3月26日更新-测试版"><span class="toc-text">🛠 2020年3月26日更新 (测试版)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发者"><span class="toc-text">开发者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参与更新"><span class="toc-text">参与更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见问题"><span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何获取调试信息"><span class="toc-text">如何获取调试信息</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="sync-sofa-streaming-video-playback-synchronizer-extension"><a class="header-anchor" href="#sync-sofa-streaming-video-playback-synchronizer-extension">#</a>Sync Sofa (streaming video playback synchronizer extension)</h1>
+<blockquote>
+<p>This chrome extension allows multi-user sync streaming video in a fast, simple and stable way.</p>
+</blockquote>
+<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square" alt="GitHub go.mod Go version (subfolder of monorepo)"> <a href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener"><img src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square" alt="Chrome web store users"></a></p>
+<p>Sync Sofa is a full stack web extension support a easy-to-use and stable way to synchronize streaming playback for multiple users. It can improve the experience when users from different locations want to share a video/movie remotely. Currently, the feartures include:</p>
+<ul>
+<li>2 party connection: either party can be the host of a sync room and the other can join with connection code.</li>
+<li>sync pause/play: each user pause/play the video, the other side will do the same</li>
+<li>sync play process bar control: the playing time change will also affect other side user</li>
+<li>local video sync: provide two ways to sync your playing of local video file</li>
+</ul>
+<h2 id="current-version"><a class="header-anchor" href="#current-version">#</a>Current version</h2>
+<p><strong>v1.0.8 - update on 8 Aug 2020</strong></p>
+<p>⚠️⚠️⚠️ <strong>Do Not</strong> try to use <code>Room code</code> like <code>0000</code> or <code>1234</code>, We strongly recommend you use uncommon code so that you do not need to change it.</p>
+<p>Add:</p>
+<ol>
+<li>allow customized connection code, user can directly connect to peer simply click the start button, without reapplying a new code</li>
+<li>simple built-in chat feature (can be toggled in options page)</li>
+<li>add system notification (can be toggled in options page)</li>
+<li>add connection status budge to extension icon (red-unconnected, yellow-pending connection, green-connecting)</li>
+<li>add a notification for unknown socket disconcerting</li>
+<li>add duplicate connection code notification</li>
+</ol>
+<p>Fix:</p>
+<ol>
+<li>Fix bug of no new bugs</li>
+</ol>
+<hr>
+<a id="more"></a>
+<h2 id="supported-list"><a class="header-anchor" href="#supported-list">#</a>Supported list</h2>
+<ul>
+<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener">Iqiyi</a></li>
+<li><a href="https://www.youku.com/" target="_blank" rel="noopener">Youku</a></li>
+<li><a href="https://www.weiyun.com/" target="_blank" rel="noopener">Tencent Cloud</a></li>
+<li><a href="https://v.qq.com/" target="_blank" rel="noopener">Tencent Video</a></li>
+<li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+<li><a href="https://www.mgtv.com/" target="_blank" rel="noopener">Mango TV</a></li>
+<li>Local mp4 file via Browser</li>
+<li><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">Local video file via VLC media player</a></li>
+</ul>
+<p><a href="https://github.com/LouisYLWang/Sync-Sofa/issues/22" target="_blank" rel="noopener">Click here to tell us more</a></p>
+<h2 id="setting"><a class="header-anchor" href="#setting">#</a>Setting</h2>
+<p>😊 This part is optional, we have already set default options for you, if you are not interested, please skip to <a href="#usage">next part</a>.</p>
+<h3 id="server-list"><a class="header-anchor" href="#server-list">#</a>Server list</h3>
+<p>Recently, Many Chinese users said our service is unstable, that is because our default server is located at us, so here is the server list, you can pick the nearest one.</p>
+<ul>
+<li>sync-cn:
+<ul>
+<li><code>https</code></li>
+<li><code>sync-cn.onns.xyz</code></li>
+</ul>
+</li>
+<li>sync-cn-2 (Thanks to <a href="https://github.com/huoranxuanyuan" target="_blank" rel="noopener">@huoranxuanyuan</a>):
+<ul>
+<li><code>https</code></li>
+<li><code>api.huoranxuanyuan.cn</code></li>
+</ul>
+</li>
+<li>sync-us:
+<ul>
+<li><code>https</code></li>
+<li><code>app.ylwang.me</code></li>
+</ul>
+</li>
+</ul>
+<p>Before setting, check server status here: <a href="https://sync-status.onns.xyz/" target="_blank" rel="noopener">https://sync-status.onns.xyz/</a>.</p>
+<p>We will be grateful for supporting us to build more server, if it is convenient (Cause this project is unprofitable).</p>
+<p><strong>Alipay, Wechat pay, Paypal</strong></p>
+<p><img src="https://onns.xyz/blog/image/20200704-1.png" alt="alipay"> <img src="https://onns.xyz/blog/image/20200704-2.png" alt="wechat pay"> <img src="https://onns.xyz/blog/image/20200704-3.jpg" alt="paypal"></p>
+<p>If you have already built your own server, and wanna share, please tell us!</p>
+<h3 id="options-page"><a class="header-anchor" href="#options-page">#</a>Options page</h3>
+<p>There are two ways to visit options page.</p>
+<ol>
+<li>Right click <code>Sync Sofa</code> extension, choose <code>Options</code>.</li>
+<li>Left click <code>Sync Sofa</code> extension, choose <code>Setting</code> icon in popup page.</li>
+</ol>
+<p>Your webpage should be like this:</p>
+<p><img src="https://onns.xyz/blog/image/20200629-3.png" alt="Sync Sofa - Options"></p>
+<h3 id="refresh-video-page"><a class="header-anchor" href="#refresh-video-page">#</a>Refresh video page</h3>
+<p>After saving options, please also refresh the video page or local mp4 page or <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a> to make changes work.</p>
+<h2 id="usage"><a class="header-anchor" href="#usage">#</a>Usage</h2>
+<h3 id="notices"><a class="header-anchor" href="#notices">#</a>Notices</h3>
+<p>⚠️ Before use, please make sure <code>the version number</code> of two clients are consistent.</p>
+<p>⚠️ Before use, please make sure <code>the server host</code> of two clients are consistent.</p>
+<p>⚠️ If you want to play local <code>.mp4</code> file, please enable <code>Allow access to file URLs</code> in extension details page.</p>
+<ol>
+<li>Open <code>chrome://extensions/</code>, find <code>Sync Sofa</code>, click <code>Details</code> button, enable <code>Allow access to file URLs</code>.</li>
+<li>Right click <code>Sync Sofa</code> extension, choose <code>Manage Extensions</code>, enable <code>Allow access to file URLs</code>.</li>
+</ol>
+<p>⚠️ If there are <code>multiple versions</code> of extensions in your browser, please enable one and disable others.</p>
+<h3 id="open-a-video-page"><a class="header-anchor" href="#open-a-video-page">#</a>Open a video page</h3>
+<p>You two don’t have to open the same webpage, you play the video via local <code>.mp4</code> file and your partner watch it one some video websites, is ok as long as you both watch the same video actually (source providers are different).</p>
+<p>In this doc, for example, <code>User A</code> will watch the video on Bilibili and <code>User B</code> will do it on Youtube. Here is the webpage:</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1k5411Y7Rc" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1k5411Y7Rc</a></li>
+<li><a href="https://www.youtube.com/watch?v=QAelMP1PoNA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QAelMP1PoNA</a></li>
+</ul>
+<p>PS: I’m a fan of Boki, and screenshots have been Gaussian blurred. If there is copyright infringement, please contact us to delete.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-1.png" alt="User A"><br>
+<img src="https://onns.xyz/blog/image/20200627-2.png" alt="User B"></p>
+<p>If there are any ads before the video, watch them before the next step.</p>
+<h3 id="request-new-code"><a class="header-anchor" href="#request-new-code">#</a>Request new code</h3>
+<p>Click the <code>Sync Sofa</code> extension and then click <code>START</code> button.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-3.png" alt="User A"></p>
+<p>If nothing goes wrong you will receive a message like <code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied to your clipboard, send it to your partner.</p>
+<h3 id="start-connection"><a class="header-anchor" href="#start-connection">#</a>Start connection</h3>
+<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the input area and click <code>START</code> button.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-4.png" alt="User B"></p>
+<h3 id="enjoy-yourselves"><a class="header-anchor" href="#enjoy-yourselves">#</a>Enjoy yourselves</h3>
+<p><img src="https://onns.xyz/blog/image/20200627-5.png" alt="User A"><br>
+<img src="https://onns.xyz/blog/image/20200627-6.png" alt="User B"></p>
+<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
+<h2 id="vlc-support"><a class="header-anchor" href="#vlc-support">#</a>VLC support</h2>
+<p>If you and your partner play video via <code>VLC media player</code>, <code>Sync Sofa</code> can also synchronize your operations.</p>
+<h3 id="start-vlc-on-the-server-with-the-web-interface"><a class="header-anchor" href="#start-vlc-on-the-server-with-the-web-interface">#</a>Start VLC on the server with the Web Interface</h3>
+<p>First we need to enable controlling VLC via our browser, here is the official documentation:</p>
+<ul>
+<li><a href="https://wiki.videolan.org/Control_VLC_via_a_browser/" target="_blank" rel="noopener">Control VLC via a browser</a></li>
+<li><a href="https://wiki.videolan.org/Documentation:Modules/http_intf/#VLC_2.0.0_and_later" target="_blank" rel="noopener">Start VLC on the server with the Web Interface</a></li>
+</ul>
+<ol>
+<li>Open VLC media player</li>
+<li>Go <code>Tools → Preferences (select &quot;All&quot; radio-button) → Interface → Main interfaces</code>, check “Web”<br>
+<img src="https://onns.xyz/blog/image/20200628-1.png" alt="Step 2"></li>
+<li>Go <code>Tools → Preferences (select &quot;All&quot; radio-button) → Interface → Main interfaces → Lua</code>, set <code>Lua HTTP - Password</code><br>
+<img src="https://onns.xyz/blog/image/20200628-2.png" alt="Step 3"></li>
+<li><code>Save</code> and <code>reopen</code> VLC media player</li>
+<li>Open <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a> in your browser</li>
+</ol>
+<p>Your webpage should be like this:</p>
+<p><img src="https://onns.xyz/blog/image/20200628-3.png" alt="VLC media player - Web Interface"></p>
+<h3 id="open-your-video"><a class="header-anchor" href="#open-your-video">#</a>Open your video</h3>
+<p>Our extension control <code>VLC</code> via controlling <code>VLC Web Interface</code>(<a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>), so next step you should open your local video via <code>VLC Media Player</code> and see if <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a> can control the video. If the answer is “yes”, go to the next step, otherwise you should check if there are multiple <code>VLC windows</code>, close the others and recheck. Your <code>VLC Web Interface</code> should be like this:</p>
+<p><img src="https://onns.xyz/blog/image/20200722-1.png" alt="VLC media player - Web Interface"></p>
+<p>Video title, current time and total time on the webpage.</p>
+<h3 id="request-new-code-2"><a class="header-anchor" href="#request-new-code-2">#</a>Request new code</h3>
+<p>Open <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>, click the <code>Sync Sofa</code> extension and then click <code>REQUEST NEW CODE</code> button.</p>
+<p>If nothing goes wrong you will receive a message like <code>Room created and room code copied to clipboard</code>, and the <code>room code</code> has been copied to your clipboard, send it to your partner.</p>
+<h3 id="start-connection-2"><a class="header-anchor" href="#start-connection-2">#</a>Start connection</h3>
+<p>Your partner receives the <code>room code</code>, click the <code>Sync Sofa</code> extension, paste it in the input area and click <code>START</code> button.</p>
+<h3 id="enjoy-yourselves-2"><a class="header-anchor" href="#enjoy-yourselves-2">#</a>Enjoy yourselves</h3>
+<p>Now you can play the video, your operations will be synced to your partner. Enjoy yourselves!</p>
+<p><strong>Notice</strong>:</p>
+<p>⚠️ Keep your browser open and <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a> itself.</p>
+<h3 id="close-controller-webpage"><a class="header-anchor" href="#close-controller-webpage">#</a>Close Controller webpage</h3>
+<p>After your video is finished, please click <code>STOP</code> button on <code>Sync Sofa</code> extension manually or just close <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>.</p>
+<h2 id="installation"><a class="header-anchor" href="#installation">#</a>Installation</h2>
+<h3 id="google-chrome"><a class="header-anchor" href="#google-chrome">#</a>Google Chrome</h3>
+<h4 id="install-from-chrome-web-store"><a class="header-anchor" href="#install-from-chrome-web-store">#</a>Install from Chrome Web Store</h4>
+<ol>
+<li>Open <a href="https://chrome.google.com/webstore/detail/sync-sofa-online-video-sy/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener">Sync Sofa - Online Video Synchronizer - Chrome Web Store</a> in your Chrome</li>
+<li>Click <code>Add to Chrome</code> button</li>
+<li>Choose <code>Add extension</code></li>
+</ol>
+<h4 id="install-from-local-crx-file"><a class="header-anchor" href="#install-from-local-crx-file">#</a>Install from local .crx file</h4>
+<ol>
+<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest" target="_blank" rel="noopener">Github release page</a></li>
+<li>Download <code>sync_sofa.[version].crx</code>, <em>[version]</em> is the number of the latest version</li>
+<li>Open <code>chrome://extensions/</code> in your Chrome</li>
+<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
+<li>Drag <code>sync_sofa.[version].crx</code> into the <code>chrome://extensions/</code> page</li>
+<li>Choose <code>Add extension</code></li>
+</ol>
+<p><strong>Notices</strong>:<br>
+If the extension is disabled by Chrome, try <a href="#install-from-chrome-web-store">Install from chrome web store</a> or <a href="#install-from-unpackaged-folder">Install from unpackaged folder</a>.</p>
+<blockquote>
+<p>This extension is not listed in the Chrome Web Store and may have been added without your knowledge.</p>
+</blockquote>
+<h4 id="install-from-unpackaged-folder"><a class="header-anchor" href="#install-from-unpackaged-folder">#</a>Install from unpackaged folder</h4>
+<ol>
+<li>Download <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/master.zip" target="_blank" rel="noopener">stable version</a> or <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/dev.zip" target="_blank" rel="noopener">development version</a> (with new features and some bugs maybe)</li>
+<li>Unzip the <code>.zip</code> file you downloaded</li>
+<li>Open <code>chrome://extensions/</code> in your Chrome</li>
+<li>Turn on <code>Developer mode</code> (in the top right corner)</li>
+<li>Click <code>Load unpacked</code> (in the top left corner)</li>
+<li>Choose <code>[download_path]/[unzip folder]/client/chrome_extension</code></li>
+<li>Click <code>select</code></li>
+</ol>
+<h3 id="microsoft-edge"><a class="header-anchor" href="#microsoft-edge">#</a>Microsoft Edge:</h3>
+<h4 id="install-from-microsoft-edge-addons"><a class="header-anchor" href="#install-from-microsoft-edge-addons">#</a>Install from Microsoft Edge Addons</h4>
+<ol>
+<li>Open <a href="https://microsoftedge.microsoft.com/addons/detail/kpfbclpafmmjalikjjlcoddffpfgghgp" target="_blank" rel="noopener">Sync Sofa - Online Video Synchronizer - Microsoft Edge Addons</a> in your Microsoft Edge</li>
+<li>Click <code>Get</code> button</li>
+</ol>
+<h3 id="firefox-will-be-supported-in-later-version"><a class="header-anchor" href="#firefox-will-be-supported-in-later-version">#</a>Firefox (will be supported in later version)</h3>
+<h2 id="self-hosting-guide"><a class="header-anchor" href="#self-hosting-guide">#</a>Self-hosting Guide</h2>
+<p><strong>Notices</strong>:<br>
+⚠️ Before hosting, make sure your server can communicate securely with HTTPS and link to an domain name. All deploy script are based on Let’s Encrypt certificates, you can customize with your own SSL certificate providers.<br>
+⚠️ dev mode intends for http transmission, prod mode intends for https transmission.</p>
+<h3 id="without-docker"><a class="header-anchor" href="#without-docker">#</a>Without Docker</h3>
+<p><strong>1. Get binary executable file</strong></p>
+<ul>
+<li>
+<p>If you want to alter the source code and build yourself, make sure you have <code>golang environment</code> in your server, then run script below to get and build binary file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line"><span class="meta">#</span><span class="bash"> If you don<span class="string">'t know $GOPATH</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> try <span class="string">"go env GOPATH"</span></span></span><br><span class="line">cd $GOPATH/src/github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Next step is optional</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If you have any error message like:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">"dial tcp 216.58.200.49:443: i/o timeout"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">then</span> try</span></span><br><span class="line">export GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line">go install</span><br><span class="line">cd $GOPATH/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>If you want to only deploy the binary file:</p>
+<ol>
+<li>Open <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest" target="_blank" rel="noopener">Github release page</a></li>
+<li>Download <code>server</code> binary file for linux server</li>
+<li>Download <code>config.json</code> file to the same directory of binary file</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. In the directory of binary file, adjust config file base on your need:</strong></p>
+<ul>
+<li>
+<p>Config file variables:</p>
+<ul>
+<li><code>addr</code>: port of server</li>
+<li><code>runmode</code>:
+<ul>
+<li>dev: developing mode</li>
+<li>prod: producting mode</li>
+</ul>
+</li>
+<li><code>tlsdir</code>: TLS certificate paths
+<ul>
+<li><code>tlskey</code>: TLS certificate privatekey path</li>
+<li><code>tlscert</code>: TLS certification path</li>
+</ul>
+</li>
+</ul>
+<p><strong>Notices</strong>: <code>addr</code>, <code>runmode</code> are mandatory, <code>tlskey</code>, <code>tlscert</code> are required for TLS connection</p>
+</li>
+<li>
+<p>minimal (non-https) config file:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"addr"</span>: <span class="string">":80"</span>,</span><br><span class="line">  <span class="attr">"runmode"</span>: <span class="string">"dev"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>production environment (https) config file:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"addr"</span>: <span class="string">":443"</span>,</span><br><span class="line">    <span class="attr">"runmode"</span>: <span class="string">"prod"</span>,</span><br><span class="line">    <span class="attr">"tlsdir"</span>: &#123;</span><br><span class="line">      <span class="attr">"tlskey"</span>: <span class="string">"/etc/letsencrypt/live/your.host.url/privkey.pem"</span>,</span><br><span class="line">      <span class="attr">"tlscert"</span>: <span class="string">"/etc/letsencrypt/live/your.host.url/fullchain.pem"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">**3. Run `./server` to delopy the server, deployment is successful if you see:**</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>found config file, read parameters from config file…<br>
+server is listening at {your_port_number}…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### With Docker</span><br><span class="line"></span><br><span class="line">Make sure docker service is runing on your server, make change to the script blow and run:</span><br><span class="line">- variables</span><br><span class="line">  - &#96;ADDR&#96;: port of server</span><br><span class="line">  - &#96;RUNMODE&#96;:</span><br><span class="line">    - dev: developing mode</span><br><span class="line">    - prod: producting mode</span><br><span class="line">  - &#96;APIHOST&#96;: your host name</span><br><span class="line">  - &#96;IMGNAME&#96;: your docker image name, set arbitrarily</span><br><span class="line">  - &#96;TLSKEYPATH&#96;: TLS certificate privatekey path</span><br><span class="line">  - &#96;TLSCERTPATH&#96;: TLS certification path</span><br><span class="line"></span><br><span class="line">- minimal (non-https) hosting script:</span><br><span class="line"></span><br><span class="line">  &#96;&#96;&#96;sh</span><br><span class="line">  docker pull louisylwang&#x2F;watchtogether</span><br><span class="line"></span><br><span class="line">  export ADDR&#x3D;:4000 \      </span><br><span class="line">  export RUNMODE&#x3D;dev \   </span><br><span class="line">  export IMGNAME&#x3D;yourimagename \   </span><br><span class="line"></span><br><span class="line">  docker run -d \</span><br><span class="line">  -e ADDR&#x3D;:4000 \</span><br><span class="line">  -e RUNMODE&#x3D;RUNMODE \</span><br><span class="line">  -p 4000:4000 \</span><br><span class="line">  --name IMGNAME louisylwang&#x2F;watchtogether</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>production environment (https) hosting script:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker pull louisylwang/watchtogether</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ADDR=:443 \      </span><br><span class="line"><span class="built_in">export</span> RUNMODE=prod \   </span><br><span class="line"><span class="built_in">export</span> APIHOST=your.host.name \   </span><br><span class="line"><span class="built_in">export</span> IMGNAME=yourimagename \   </span><br><span class="line"><span class="built_in">export</span> TLSKEYPATH=/your/path/to/TLS/privatekey \</span><br><span class="line"><span class="built_in">export</span> TLSCERTPATH=/your/path/to/TLS/certification \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run -d \</span><br><span class="line">-e ADDR=:ADDR \</span><br><span class="line"><span class="comment">#docker port to server:server port to docker, not necessarily the same</span></span><br><span class="line">-p ADDR:ADDR \ </span><br><span class="line">-e RUNMODE=RUNMODE \</span><br><span class="line"><span class="comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span></span><br><span class="line">-e TLSKEY=TLSKEYPATH \ </span><br><span class="line"><span class="comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span></span><br><span class="line">-e TLSCERT=TLSCERTPATH \ </span><br><span class="line"><span class="comment">#need to expose your TLS certification file to docker</span></span><br><span class="line">-v /etc/letsencrypt:/etc/letsencrypt:ro \ </span><br><span class="line">--name IMGNAME louisylwang/watchtogether \</span><br><span class="line">--restart=always</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>deployment is successful if you see in <code>docker logs {your docker image name}</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">not found config file, read parameters from system variables...</span><br><span class="line">YYYY&#x2F;MM&#x2F;DD HH:MM:SS server is listening at :ADDR...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="release-history"><a class="header-anchor" href="#release-history">#</a>Release History</h2>
+<h3 id="v1-0-8"><a class="header-anchor" href="#v1-0-8">#</a>v1.0.8</h3>
+<h2 id="🛠-update-on-8-aug-2020"><a class="header-anchor" href="#🛠-update-on-8-aug-2020">#</a>🛠 update on 8 Aug 2020</h2>
+<p>⚠️⚠️⚠️ <strong>Do Not</strong> try to use <code>Room code</code> like <code>0000</code> or <code>1234</code>, We strongly recommend you use uncommon code so that you do not need to change it.</p>
+<p>Add:</p>
+<ol>
+<li>allow customized connection code, user can directly connect to peer simply click the start button, without reapplying a new code</li>
+<li>simple built-in chat feature (can be toggled in options page)</li>
+<li>add system notification (can be toggled in options page)</li>
+<li>add connection status budge to extension icon (red-unconnected, yellow-pending connection, green-connecting)</li>
+<li>add a notification for unknown socket disconcerting</li>
+<li>add duplicate connection code notification</li>
+</ol>
+<p>Fix:</p>
+<ol>
+<li>Fix bug of no new bugs</li>
+</ol>
+<h3 id="v1-0-7"><a class="header-anchor" href="#v1-0-7">#</a>v1.0.7</h3>
+<h2 id="🛠-update-on-7-july-2020"><a class="header-anchor" href="#🛠-update-on-7-july-2020">#</a>🛠 update on 7 July 2020</h2>
+<p>⚠️⚠️⚠️ Notice, this version is not compatible with any version before 1.0.6 (&lt;= 1.0.5), please please please make sure your version is the same as your peer’s version</p>
+<p>Add:<br>
+add version detection (lower version number will be detected from user with higher version number if room was established by lower version extension)</p>
+<p>Fix:<br>
+fix support for <a href="https://www.bilibili.com/bangumi/*" target="_blank" rel="noopener">https://www.bilibili.com/bangumi/*</a> (bilibili movie)<br>
+fix support for Youku &amp; mangoTV</p>
+<h3 id="v1-0-6"><a class="header-anchor" href="#v1-0-6">#</a>v1.0.6</h3>
+<h2 id="🛠-update-on-28-june-2020"><a class="header-anchor" href="#🛠-update-on-28-june-2020">#</a>🛠 update on 28 June 2020</h2>
+<p>⚠️⚠️⚠️ Notice, this version is not compatible with any version before, please please please make sure your version is the same as your peer’s version</p>
+<ul>
+<li>Add:
+<ul>
+<li>add support for Mango TV (happy Sistering 🤣)</li>
+<li>add support for local video file syncing with VLC player #20</li>
+<li>add options page - debugging mode &amp; self-hosting option #21</li>
+<li>add donating page</li>
+<li>add new wiki page #11</li>
+</ul>
+</li>
+<li>Fix:
+<ul>
+<li>improve sync performance &amp; stability:
+<ul>
+<li>new sync logic, not compatible with any version before</li>
+<li>improve buffer detection</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-5"><a class="header-anchor" href="#v1-0-5">#</a>v1.0.5</h3>
+<h2 id="🛠-update-on-12-may-2020"><a class="header-anchor" href="#🛠-update-on-12-may-2020">#</a>🛠 update on 12 May 2020</h2>
+<p>Improve stability</p>
+<blockquote>
+<p>Test for a new logic to avoid infinite echo back (each party repeat the last operation of other party) : introduce a queue as a buffer of operation and if the operations is beyond frequency threshold, the client will automatically to halt and cool down for sometime.</p>
+</blockquote>
+<p>Add support for edge browser (beta)</p>
+<h3 id="v1-0-4"><a class="header-anchor" href="#v1-0-4">#</a>v1.0.4</h3>
+<h2 id="🛠-update-on-10-may-2020"><a class="header-anchor" href="#🛠-update-on-10-may-2020">#</a>🛠 update on 10 May 2020</h2>
+<p>Now user will get notification when they successfully connected to each other<br>
+Improve stability, better sync performance<br>
+Change the notification UI using sweetalert</p>
+<h3 id="v1-0-3"><a class="header-anchor" href="#v1-0-3">#</a>v1.0.3</h3>
+<h2 id="🛠-update-on-8-may-2020"><a class="header-anchor" href="#🛠-update-on-8-may-2020">#</a>🛠 update on 8 May 2020</h2>
+<p>improve stability &amp; UX logic<br>
+Added support of following websites:</p>
+<ul>
+<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener">iqiyi</a></li>
+<li><a href="https://www.youku.com/" target="_blank" rel="noopener">youku</a></li>
+<li><a href="https://www.weiyun.com/" target="_blank" rel="noopener">weiyun</a></li>
+<li><a href="https://v.qq.com/" target="_blank" rel="noopener">tencent video</a></li>
+</ul>
+<p>Fixed the support of duonao live;<br>
+Removed the support of 91mjw (temporarily);<br>
+Refined documentation, will add more detail in next verison;</p>
+<h3 id="v1-0-2"><a class="header-anchor" href="#v1-0-2">#</a>v1.0.2</h3>
+<h2 id="🛠-update-on-31-mar-2020"><a class="header-anchor" href="#🛠-update-on-31-mar-2020">#</a>🛠 update on 31 Mar 2020</h2>
+<p>Add support of play process bar control sync<br>
+Fixed the issue that when syncing playing time, there is the possibility to crash the extension</p>
+<h3 id="v0-0-1"><a class="header-anchor" href="#v0-0-1">#</a>v0.0.1</h3>
+<h2 id="🛠-update-on-26-mar-2020-beta-version"><a class="header-anchor" href="#🛠-update-on-26-mar-2020-beta-version">#</a>🛠 update on 26 Mar 2020 (beta version)</h2>
+<p>Add support of 2 parties connection<br>
+Add support of sync pause and play action<br>
+Add support of out-of-sync notification</p>
+<h2 id="meta"><a class="header-anchor" href="#meta">#</a>Meta</h2>
+<p>Yiliang “Louis” Wang – <a href="https://ylwang.codes/" target="_blank" rel="noopener">@blog</a> – <a href="mailto:louis.yl.wang@outlook.com">@mail</a></p>
+<p>Onns – <a href="https://onns.xyz/">@blog</a> – <a href="mailto:onns@onns.xyz">@mail</a></p>
+<h2 id="contributing"><a class="header-anchor" href="#contributing">#</a>Contributing</h2>
+<ol>
+<li>Fork it (<a href="https://github.com/LouisYLWang/Sync-Sofa/fork" target="_blank" rel="noopener">https://github.com/LouisYLWang/Sync-Sofa/fork</a>)</li>
+<li>Create your feature branch (<code>git checkout -b feature/fooBar</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some fooBar'</code>)</li>
+<li>Push to the branch (<code>git push origin feature/fooBar</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+<!-- Markdown link & img dfn's -->
+<h2 id="faq"><a class="header-anchor" href="#faq">#</a>FAQ</h2>
+<ol>
+<li>
+<p><strong>Q:</strong> When I installed, Chrome popup says that Sync Sofa requires the permissions of <code>read and change your data on a number of websites</code> and <code>read your browsing history</code>, sounds so horrible, is that safe?<br>
+<strong>A:</strong> We do not collect your browsing data, the only thing we do is to get your current tab information and make sure you are visiting a site we support (<a href="#supported-list">support list</a>). All information is collected and processed locally. We do not mess up the data on the websites you are watching, just inject a sync script to get your pause, play and seek operation. <strong>All source code can be reviewed at <a href="https://github.com/LouisYLWang/Sync-Sofa" target="_blank" rel="noopener">our github page</a>, we promise everything we did is necessary and not harmful.</strong></p>
+</li>
+<li>
+<p>If your find your extension <strong>button is darken</strong>, please first make sure you are in a video playing page.</p>
+</li>
+<li>
+<p>If you find your extension <strong>can not request room code</strong>, please first check the  <a href="#options-page">option page</a> and click <code>RESET</code> button. If it still not work, please close your web browser, wait for a while and try again. Currently our server is hosting abroad, it may cause connecting issue.</p>
+</li>
+<li>
+<p>If you find your extension cannot connect to your peer, please check following:</p>
+<ol>
+<li>please make sure the <strong>version number</strong> of two clients are consistent. To check the version number, you need to open <a href="chrome://extensions/">chrome extension page</a> (if this link is not work, please type <code>chrome://extensions/</code> into the address bar and visit). You will find a extension with the title of <code>Sync Sofa - Online Video Synchronizer 1.0.6</code>. <code>1.0.6</code> is your current version number of Sync Sofa.</li>
+<li>If 4.1 does not solve your problem, please try step 2 again.</li>
+</ol>
+</li>
+</ol>
+<h3 id="how-to-get-debug-info"><a class="header-anchor" href="#how-to-get-debug-info">#</a>How to get debug info</h3>
+<ol>
+<li>Open <code>Debug mode</code> in <a href="#options-page">Options page</a>.</li>
+<li>Refresh video page (to make changes work).</li>
+<li><code>Shift + ctrl + i</code> in Windows or <code>Shift + cmd + i</code> in MacOS.</li>
+<li>Choose <code>console</code> tab.</li>
+</ol>
+<h1 id="sync-sofa-（在线视频同步播放插件）"><a class="header-anchor" href="#sync-sofa-（在线视频同步播放插件）">#</a>Sync Sofa （在线视频同步播放插件）</h1>
+<blockquote>
+<p>以稳定，快捷的方式远程同步观看在线/本地视频</p>
+</blockquote>
+<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square" alt="GitHub go.mod Go version (subfolder of monorepo)"> <a href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener"><img src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square" alt="Chrome web store users"></a></p>
+<p>Sync Sofa是一个稳定易用的Chrome浏览器拓展插件，可同步两端用户的视频播放操作，提高与身处异地的小伙伴一同观看视频的体验，目前支持以下主要功能：</p>
+<ul>
+<li>平等双人连接：任意一端均可控制对方播放状态</li>
+<li>同步播放进度：支持播放、暂停、进度切换等操作</li>
+<li>本地视频同步：可通过VLC同步本地视频播放状态</li>
+</ul>
+<h2 id="当前版本特性"><a class="header-anchor" href="#当前版本特性">#</a>当前版本特性</h2>
+<p><strong>v1.0.8 - 2020年8月8日更新</strong></p>
+<p>⚠️⚠️⚠️ <strong>请不要</strong>尝试使用像<code>0000</code>和<code>1234</code>这样简单的<code>房间码</code>，我们强烈建议你使用不常见的房间码，这样就不必频繁更改它。</p>
+<p>新增：</p>
+<ol>
+<li>修改房间申请码逻辑，用户可自行输入房间码，且下次连接时无需重新申请，只需点击start按钮即可快速连接（！房间码须为四位小写字母+数字的组合）</li>
+<li>增加内置文字聊天（可在配置页面切换）</li>
+<li>增加系统通知选项（可在配置页面切换）</li>
+<li>增加连接状态指示灯，显示在插件图标右下角（红-未连接，黄-等待对方连接，绿-正在连接）</li>
+<li>增加socket断开因未知原因断开通知</li>
+<li>增加房间码占用通知</li>
+</ol>
+<p>修复：</p>
+<ol>
+<li>修复了没有bug的bug</li>
+</ol>
+<hr>
+<h2 id="支持网站列表"><a class="header-anchor" href="#支持网站列表">#</a>支持网站列表</h2>
+<ul>
+<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener">爱奇艺</a></li>
+<li><a href="https://www.youku.com/" target="_blank" rel="noopener">优酷</a></li>
+<li><a href="https://www.weiyun.com/" target="_blank" rel="noopener">微云</a></li>
+<li><a href="https://v.qq.com/" target="_blank" rel="noopener">腾讯视频</a></li>
+<li><a href="https://www.youtube.com/" target="_blank" rel="noopener">油管</a></li>
+<li><a href="https://www.mgtv.com/" target="_blank" rel="noopener">芒果</a></li>
+<li>通过浏览器播放本地视频（仅支持AVC/H.264编码）</li>
+<li><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">通过VLC视频播放器播放本地视频</a></li>
+</ul>
+<p><a href="https://github.com/LouisYLWang/Sync-Sofa/issues/22" target="_blank" rel="noopener">点击这里向我们反馈更多网站</a></p>
+<h2 id="设置"><a class="header-anchor" href="#设置">#</a>设置</h2>
+<p>😊 此部分为可选设置，我们已经为你配置好默认服务器，如果你不感兴趣，或者没有修改服务器的需求，请移步至<a href="#usage">下一部分</a>.</p>
+<h3 id="服务器列表"><a class="header-anchor" href="#服务器列表">#</a>服务器列表</h3>
+<p>最近许多用户反映国内的访问不稳定，是因为我们的默认服务器在美国，因此我们提供了备用服务器列表，你可以根据你的位置切换到离你距离更近的服务器。</p>
+<ul>
+<li>中国杭州:
+<ul>
+<li><code>https</code></li>
+<li><code>sync-cn.onns.xyz</code></li>
+</ul>
+</li>
+<li>中国北京 (感谢 <a href="https://github.com/huoranxuanyuan" target="_blank" rel="noopener">@huoranxuanyuan</a>):
+<ul>
+<li><code>https</code></li>
+<li><code>api.huoranxuanyuan.cn</code></li>
+</ul>
+</li>
+<li>美国:
+<ul>
+<li><code>https</code></li>
+<li><code>app.ylwang.me</code></li>
+</ul>
+</li>
+</ul>
+<p>在设置服务器前，请检查服务器的状态：<a href="https://sync-status.onns.xyz/" target="_blank" rel="noopener">https://sync-status.onns.xyz/</a>.</p>
+<p>我们会感谢你对该开源项目作出的贡献，你可以通过<strong>提供自己部署的服务</strong>来支持我们，也可以帮我们<strong>分担一点服务器费用</strong>的压力。（<s>也可以一键三连</s>）</p>
+<p><strong>支付宝, 微信支付, 贝宝</strong></p>
+<p><img src="https://onns.xyz/blog/image/20200704-1.png" alt="alipay"> <img src="https://onns.xyz/blog/image/20200704-2.png" alt="wechat pay"> <img src="https://onns.xyz/blog/image/20200704-3.jpg" alt="paypal"></p>
+<h3 id="选项页"><a class="header-anchor" href="#选项页">#</a>选项页</h3>
+<p>打开选项页有下列两种方法：</p>
+<ol>
+<li>右键点击<code>Sync Sofa</code>插件图标, 选择<code>选项</code>。</li>
+<li>左键点击<code>Sync Sofa</code>插件图标, 在插件弹窗中选择底部<code>设置</code>图标。</li>
+</ol>
+<p>设置界面如下：</p>
+<p><img src="https://onns.xyz/blog/image/20200629-3.png" alt="Sync Sofa - Options"></p>
+<h3 id="刷新视频页面"><a class="header-anchor" href="#刷新视频页面">#</a>刷新视频页面</h3>
+<p>修改设置并保存后，请刷新视频网站页面/本地视频页面/ <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>（如果你使用VLC播放本地视频）来使设置生效。</p>
+<h2 id="使用说明"><a class="header-anchor" href="#使用说明">#</a>使用说明</h2>
+<h3 id="注意事项"><a class="header-anchor" href="#注意事项">#</a>注意事项</h3>
+<p>⚠️ 使用前请确保两个<code>客户端版本号</code>一致。</p>
+<p>⚠️ 使用前请确保两个<code>服务器域名</code>一致。</p>
+<p>⚠️ 如需播放本地<code>.mp4</code>文件，请在扩展详细信息页面启用“允许访问文件url”。</p>
+<p>方法1. 在地址栏输入<code>chrome://extensions/</code>，找到<code>Sync Sofa</code>，点击<code>详情</code>按钮，启用<code>允许访问文件网址</code>。</p>
+<p>方法2.右击浏览器左上角<code>Sync Sofa</code>图标，选择<code>管理拓展程序</code>, 启用<code>允许访问文件网址</code>。</p>
+<p>⚠️ 如果你的浏览器中安装了<code>多个不同版本</code>的<code>Sync Sofa</code>,请只启用其中一个并禁用其他版本。</p>
+<h3 id="打开视频页面"><a class="header-anchor" href="#打开视频页面">#</a>打开视频页面</h3>
+<p>你们可以同步观看不同来源的视频，在播放本地<code>.mp4</code>视频文件时，你的小伙伴可以选择在视频网站上和你同步观看，此外，你们还可以在不同的视频网站看观看相同的视频。</p>
+<p>例如，<code>用户A</code>在Bilibili上观看此视频：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1k5411Y7Rc" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1k5411Y7Rc</a><br>
+<img src="https://onns.xyz/blog/image/20200627-1.png" alt="User A"></li>
+</ul>
+<p>此时<code>用户B</code>可在YouTube上同步观看同一视频：</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=QAelMP1PoNA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QAelMP1PoNA</a><br>
+<img src="https://onns.xyz/blog/image/20200627-2.png" alt="User B"></li>
+</ul>
+<p>PS：我是boki的粉丝，所以就用了她的视频截图，已经高斯模糊处理过了，如果有侵权的话，请联系我们删除，真的很抱歉！</p>
+<p>如果视频开始前有广告，请在广告结束后进入下一步。</p>
+<h3 id="获取连接码"><a class="header-anchor" href="#获取连接码">#</a>获取连接码</h3>
+<p>点击 <code>Sync Sofa</code> 插件图标并点击<code>START</code>（开始） 按钮.</p>
+<p><img src="https://onns.xyz/blog/image/20200627-3.png" alt="User A"></p>
+<p>如一切正常，你会收到弹窗提示<code>Room created and room code copied to clipboard</code> （房间已建立，连接码已复制到剪贴板），同时<code>连接码</code>将自动拷贝到剪切板中，请将它发给你的小伙伴。</p>
+<h3 id="开始连接"><a class="header-anchor" href="#开始连接">#</a>开始连接</h3>
+<p>你的小伙伴收到<code>room code（连接码）</code>后，点击<code>Sync Sofa</code>插件图标，粘贴到输入栏中点击<code>START（开始）</code>按钮。</p>
+<p><img src="https://onns.xyz/blog/image/20200627-4.png" alt="User B"></p>
+<h3 id="愉快观看吧"><a class="header-anchor" href="#愉快观看吧">#</a>愉快观看吧</h3>
+<p><img src="https://onns.xyz/blog/image/20200627-5.png" alt="User A"><br>
+<img src="https://onns.xyz/blog/image/20200627-6.png" alt="User B"></p>
+<p>现在你可以播放视频了，你的播放，暂停，更改时间等操作都会同步给你的小伙伴。愉快地同步观看吧!</p>
+<h2 id="vlc支持"><a class="header-anchor" href="#vlc支持">#</a>VLC支持</h2>
+<p>如果你们都通过<code>VLC 媒体播放器</code>播放视频，<code>Sync Sofa</code>也可以同步你们的操作。</p>
+<h3 id="通过web控制界面操控vlc播放"><a class="header-anchor" href="#通过web控制界面操控vlc播放">#</a>通过Web控制界面操控VLC播放</h3>
+<p>首先你们需要开启VLC的Web控制界面，使浏览器可以控制VLC的播放，请参考以下官方文档：</p>
+<ul>
+<li><a href="https://wiki.videolan.org/Control_VLC_via_a_browser/" target="_blank" rel="noopener">通过浏览器控制VLC</a></li>
+<li><a href="https://wiki.videolan.org/Documentation:Modules/http_intf/#VLC_2.0.0_and_later" target="_blank" rel="noopener">开启VLC的web控制界面</a></li>
+</ul>
+<ol>
+<li>打开VLC媒体播放器</li>
+<li>进入 <code>工具 → 偏好设置 (左下角显示设置选择 &quot;全部&quot;) → 界面 → 主界面</code>, 勾选 “Web”<br>
+<img src="https://onns.xyz/blog/image/20200628-1.png" alt="Step 2"></li>
+<li>进入 <code>工具 → 偏好设置 (左下角显示设置选择 &quot;全部&quot;) → 界面 → 主界面 → Lua</code>, 设置 <code>Lua HTTP - 密码</code><br>
+<img src="https://onns.xyz/blog/image/20200628-2.png" alt="Step 3"></li>
+<li>点击<code>保存</code> 并重启VLC媒体播放器</li>
+<li>在浏览器中打开 <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a></li>
+</ol>
+<p>这时你的网页应该如下图所示:</p>
+<p><img src="https://onns.xyz/blog/image/20200628-3.png" alt="VLC media player - Web Interface"></p>
+<h3 id="打开本地视频"><a class="header-anchor" href="#打开本地视频">#</a>打开本地视频</h3>
+<p>本插件本质上是通过控制<code>VLC的网页控制页面</code>（<a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>）来控制<code>VLC</code>的，所以下一步你应该用<code>VLC媒体播放器</code>来打开你想同步的视频，然后检查一下<a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>能否顺利控制视频的播放等。如果可以，即可进入下一步；否则需要检查一下是不是打开了多个<code>VLC的窗口</code>，如果是请关掉其它的，然后重新尝试控制。一个正常的<code>VLC控制界面</code>应该如下图所示：</p>
+<p><img src="https://onns.xyz/blog/image/20200722-1.png" alt="VLC media player - Web Interface"></p>
+<p>在网页上有视频标题，当前播放时间和总播放时长等。</p>
+<h3 id="获取连接码-2"><a class="header-anchor" href="#获取连接码-2">#</a>获取连接码</h3>
+<p>确认已在浏览器中打开 <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>,<br>
+点击 <code>Sync Sofa</code> 插件图标并点击<code>REQUEST NEW CODE</code>（获取链接码） 按钮.</p>
+<p>如一切正常，你会收到弹窗提示<code>Room created and room code copied to clipboard</code>（房间已建立，连接码已复制到剪贴板，同时<code>连接码</code>将自动拷贝到剪切板中，请将它发给你的小伙伴。</p>
+<h3 id="开始连接-2"><a class="header-anchor" href="#开始连接-2">#</a>开始连接</h3>
+<p>你的小伙伴收到<code>room code</code>后，点击<code>Sync Sofa</code>插件图标，粘贴到输入栏中点击<code>START</code>（开始）按钮。</p>
+<h3 id="愉快观看吧-2"><a class="header-anchor" href="#愉快观看吧-2">#</a>愉快观看吧</h3>
+<p>现在你可以使用<code>Sync Sofa</code>通过VLC同步本地视频播放状态了，你的播放，暂停，更改时间等操作都会同步给你的小伙伴。愉快地同步观看吧!</p>
+<p><strong>注意</strong>:</p>
+<p>⚠️ 在播放时，切勿关闭<a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>页面。</p>
+<h3 id="关闭控制页面"><a class="header-anchor" href="#关闭控制页面">#</a>关闭控制页面</h3>
+<p>视频播放完毕后，点击<code>Sync Sofa</code>插件页面上的<code>STOP</code>按钮，或关闭<a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a>页面。</p>
+<h2 id="安装"><a class="header-anchor" href="#安装">#</a>安装</h2>
+<h3 id="谷歌浏览器"><a class="header-anchor" href="#谷歌浏览器">#</a>谷歌浏览器</h3>
+<h4 id="从谷歌商店安装"><a class="header-anchor" href="#从谷歌商店安装">#</a>从谷歌商店安装</h4>
+<ol>
+<li>在Chrome浏览器中打开 <a href="https://chrome.google.com/webstore/detail/sync-sofa-online-video-sy/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener">Sync Sofa - Online Video Synchronizer - Chrome Web Store</a></li>
+<li>点击 <code>Add to Chrome</code> 按钮</li>
+<li>选择 <code>Add extension</code></li>
+</ol>
+<h4 id="从本地-crx-文件安装"><a class="header-anchor" href="#从本地-crx-文件安装">#</a>从本地 .crx 文件安装</h4>
+<ol>
+<li>打开 <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest" target="_blank" rel="noopener">Github release page（版本发布页面）</a></li>
+<li>下载 <code>sync_sofa.[version].crx</code>, <em>[version]</em> 为当前最新版本编号</li>
+<li>在Chrome浏览器地址栏中输入 <code>chrome://extensions/</code></li>
+<li>启用 <code>开发者模式</code> (页面右上角)</li>
+<li>将 <code>sync_sofa.[版本号].crx</code> 拖入 <code>chrome://extensions/</code> 页面</li>
+<li>点击 <code>添加插件</code> 按钮</li>
+</ol>
+<p><strong>注意</strong>:<br>
+如果该插件被Chrome浏览器禁用，请尝试 <a href="#%E4%BB%8E%E8%B0%B7%E6%AD%8C%E5%95%86%E5%BA%97%E5%AE%89%E8%A3%85">从谷歌商店安装</a> 或者 <a href="#%E5%AE%89%E8%A3%85%E6%9C%AA%E6%89%93%E5%8C%85%E7%9A%84%E6%8F%92%E4%BB%B6">安装未打包的插件</a></p>
+<blockquote>
+<p>This extension is not listed in the Chrome Web Store and may have been added without your knowledge.</p>
+</blockquote>
+<h4 id="安装未打包的插件"><a class="header-anchor" href="#安装未打包的插件">#</a>安装未打包的插件</h4>
+<ol>
+<li>下载 <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/master.zip" target="_blank" rel="noopener">稳定版本</a> or <a href="https://github.com/LouisYLWang/Sync-Sofa/archive/dev.zip" target="_blank" rel="noopener">开发版本</a> (新特性，也许也有bug)</li>
+<li>解压你下载的<code>.zip</code> 压缩文件</li>
+<li>在Chrome地址栏输入 <code>chrome://extensions/</code> 打开插件管理页面</li>
+<li>开启右上角<code>开发者模式</code> 按钮</li>
+<li>点击左上角<code>加载未打包的拓展</code> 按钮</li>
+<li>选择 <code>下载路径/解压路径/client/chrome_extension</code></li>
+<li>点击 <code>选择</code></li>
+</ol>
+<h3 id="微软edge浏览器"><a class="header-anchor" href="#微软edge浏览器">#</a>微软Edge浏览器:</h3>
+<h4 id="从edge浏览器插件中心安装"><a class="header-anchor" href="#从edge浏览器插件中心安装">#</a>从Edge浏览器插件中心安装</h4>
+<ol>
+<li>在Edge浏览器中打开 <a href="https://microsoftedge.microsoft.com/addons/detail/kpfbclpafmmjalikjjlcoddffpfgghgp" target="_blank" rel="noopener">Sync Sofa - Online Video Synchronizer - Microsoft Edge Addons</a></li>
+<li>点击 <code>获取</code> 按钮</li>
+</ol>
+<h3 id="firefox（后续版本添加支持）"><a class="header-anchor" href="#firefox（后续版本添加支持）">#</a>Firefox（后续版本添加支持）</h3>
+<p><s>其实也可能不会</s></p>
+<h2 id="服务端部署指南"><a class="header-anchor" href="#服务端部署指南">#</a>服务端部署指南</h2>
+<p><strong>注意</strong>:</p>
+<p>⚠️ 部署前，建议你的服务器已经部署了SSL/TLS证书，并已连接到域名。以下部署脚本基于使用Let’s Encrypt certificates验证的服务器，如使用其他的证书提供商，可能需要修改部分脚本以正常运行。</p>
+<p>⚠️ dev模式使用http协议进行传输，prod使用https协议进行传输</p>
+<h3 id="直接部署（不使用docker容器）"><a class="header-anchor" href="#直接部署（不使用docker容器）">#</a>直接部署（不使用Docker容器）:</h3>
+<p><strong>1. 获取执行文件</strong></p>
+<ul>
+<li>
+<p>如果你想要修改源代码并自行编译，请执行以下shell脚本获取二进制文件。在执行前，请确认服务器已安装<code>Go</code>的环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你不清楚 <span class="variable">$GOPATH</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请尝试输入并执行 <span class="string">"go env GOPATH"</span></span></span><br><span class="line">cd $GOPATH/src/github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> （下一步可省略）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你看到了这条消息:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">"dial tcp 216.58.200.49:443: i/o timeout"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请添加并执行下一条命令</span></span><br><span class="line">export GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line">go install</span><br><span class="line">cd $GOPATH/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果无需修改源代码并自行编译，你也可以直接下载二进制文件:</p>
+<ol>
+<li>打开 <a href="https://github.com/LouisYLWang/Sync-Sofa/releases/latest" target="_blank" rel="noopener">Github release page</a></li>
+<li>下载 <code>server</code> 文件（适用于linux服务器）</li>
+<li>下载 <code>config.json</code> 文件，移动至<code>server</code>同一路径</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. 修改配置文件：</strong></p>
+<ul>
+<li>
+<p>配置变量：</p>
+<ul>
+<li><code>addr</code>: 服务器端口</li>
+<li><code>runmode</code>:
+<ul>
+<li>dev: 开发模式（建议本地使用，不包含对HTTPS的支持）</li>
+<li>prod: 生产模式</li>
+</ul>
+</li>
+<li><code>tlsdir</code>:
+<ul>
+<li><code>tlskey</code>: TLS证书私钥路径</li>
+<li><code>tlscert</code>: TLS证书路径</li>
+</ul>
+</li>
+</ul>
+<p><strong>Notices</strong>: <code>addr</code>, <code>runmode</code> 为必须参数, <code>tlskey</code>, <code>tlscert</code> 参数在使用HTTPS连接时（生产环境下）为必须参数</p>
+</li>
+<li>
+<p>开发模式（http）配置文件样例:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"addr"</span>: <span class="string">":80"</span>,</span><br><span class="line">  <span class="attr">"runmode"</span>: <span class="string">"dev"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生产模式（https）配置文件样例:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"addr"</span>: <span class="string">":443"</span>,</span><br><span class="line">    <span class="attr">"runmode"</span>: <span class="string">"prod"</span>,</span><br><span class="line">    <span class="attr">"tlsdir"</span>: &#123;</span><br><span class="line">      <span class="attr">"tlskey"</span>: <span class="string">"/etc/letsencrypt/live/your.host.url/privkey.pem"</span>,</span><br><span class="line">      <span class="attr">"tlscert"</span>: <span class="string">"/etc/letsencrypt/live/your.host.url/fullchain.pem"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">**3. 在执行文件所在路径下，执行 `./server` 部署服务器, 部署成功信息如下:**</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>found config file, read parameters from config file…<br>
+server is listening at {your_port_number}…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 使用Docker容器部署</span><br><span class="line"></span><br><span class="line">在部署前请确认Docker容器在服务器端可正常运行，请按照如下提示修改参数</span><br><span class="line"></span><br><span class="line">- 配置变量：</span><br><span class="line">  - &#96;ADDR&#96;: 服务器端口</span><br><span class="line">  - &#96;RUNMODE&#96;:</span><br><span class="line">    - dev: 开发模式（建议本地使用，不包含对HTTPS的支持）</span><br><span class="line">    - prod: 生产模式</span><br><span class="line">  - &#96;APIHOST&#96;: 服务器网址</span><br><span class="line">  - &#96;IMGNAME&#96;: docker容器名称（可自选）</span><br><span class="line">  - &#96;TLSKEYPATH&#96;: TLS证书私钥路径 </span><br><span class="line">  - &#96;TLSCERTPATH&#96;: TLS证书路径 </span><br><span class="line"></span><br><span class="line">- 开发模式（http）配置文件样例:</span><br><span class="line"></span><br><span class="line">  &#96;&#96;&#96;sh</span><br><span class="line">  docker pull louisylwang&#x2F;watchtogether</span><br><span class="line"></span><br><span class="line">  export ADDR&#x3D;:4000 \      </span><br><span class="line">  export RUNMODE&#x3D;dev \   </span><br><span class="line">  export IMGNAME&#x3D;yourimagename \   </span><br><span class="line"></span><br><span class="line">  docker run -d \</span><br><span class="line">  -e ADDR&#x3D;:4000 \</span><br><span class="line">  -e RUNMODE&#x3D;RUNMODE \</span><br><span class="line">  -p 4000:4000 \</span><br><span class="line">  --name IMGNAME louisylwang&#x2F;watchtogether</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>生产模式（https）配置文件样例:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker pull louisylwang/watchtogether</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ADDR=:443 \      </span><br><span class="line"><span class="built_in">export</span> RUNMODE=prod \   </span><br><span class="line"><span class="built_in">export</span> APIHOST=your.host.name \   </span><br><span class="line"><span class="built_in">export</span> IMGNAME=yourimagename \   </span><br><span class="line"><span class="built_in">export</span> TLSKEYPATH=/your/path/to/TLS/privatekey \</span><br><span class="line"><span class="built_in">export</span> TLSCERTPATH=/your/path/to/TLS/certification \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run -d \</span><br><span class="line">-e ADDR=:ADDR \</span><br><span class="line"><span class="comment">#docker port to server:server port to docker, not necessarily the same</span></span><br><span class="line">-p ADDR:ADDR \ </span><br><span class="line">-e RUNMODE=RUNMODE \</span><br><span class="line"><span class="comment">#if you use letsencrypt, TLSKEY value should be /etc/letsencrypt/live/$APIHOST/privkey.pem</span></span><br><span class="line">-e TLSKEY=TLSKEYPATH \ </span><br><span class="line"><span class="comment">#if you use letsencrypt, TLSCERT value should be /etc/letsencrypt/live/$APIHOST/fullchain.pem </span></span><br><span class="line">-e TLSCERT=TLSCERTPATH \ </span><br><span class="line"><span class="comment">#need to expose your TLS certification file to docker</span></span><br><span class="line">-v /etc/letsencrypt:/etc/letsencrypt:ro \ </span><br><span class="line">--name IMGNAME louisylwang/watchtogether \</span><br><span class="line">--restart=always</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>部署成功后，执行 <code>docker logs {your docker image name}</code>将会提示下列日志信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">not found config file, read parameters from system variables...</span><br><span class="line">YYYY&#x2F;MM&#x2F;DD HH:MM:SS server is listening at :ADDR...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="版本日志"><a class="header-anchor" href="#版本日志">#</a>版本日志</h2>
+<h3 id="v1-0-8-2"><a class="header-anchor" href="#v1-0-8-2">#</a>v1.0.8</h3>
+<h2 id="🛠-2020年8月8日更新"><a class="header-anchor" href="#🛠-2020年8月8日更新">#</a>🛠 2020年8月8日更新</h2>
+<p>⚠️⚠️⚠️ <strong>请不要</strong>尝试使用像<code>0000</code>和<code>1234</code>这样简单的<code>房间码</code>，我们强烈建议你使用不常见的房间码，这样就不必频繁更改它。</p>
+<p>新增：</p>
+<ol>
+<li>修改房间申请码逻辑，用户可自行输入房间码，且下次连接时无需重新申请，只需点击start按钮即可快速连接（！房间码须为四位小写字母+数字的组合）</li>
+<li>增加内置文字聊天（可在配置页面切换）</li>
+<li>增加系统通知选项（可在配置页面切换）</li>
+<li>增加连接状态指示灯，显示在插件图标右下角（红-未连接，黄-等待对方连接，绿-正在连接）</li>
+<li>增加socket断开因未知原因断开通知</li>
+<li>增加房间码占用通知</li>
+</ol>
+<p>修复：</p>
+<ol>
+<li>修复了没有bug的bug</li>
+</ol>
+<h3 id="v1-0-7-2"><a class="header-anchor" href="#v1-0-7-2">#</a>v1.0.7</h3>
+<h2 id="🛠-2020年7月5日更新"><a class="header-anchor" href="#🛠-2020年7月5日更新">#</a>🛠 2020年7月5日更新</h2>
+<p>⚠️⚠️⚠️ 注意，此版本与&lt;= 1.0.5的任何版本都不兼容，请务必确保你的版本与小伙伴的版本一致。</p>
+<ul>
+<li>新增功能：
+<ul>
+<li>新增版本检测（高版本用户与低版本用户连接时，若连接码由低版本用户申请，高版本用户将收到提示，请根据提示告知对方升级最新版本）</li>
+</ul>
+</li>
+<li>修复功能:
+<ul>
+<li>修复对 <a href="https://www.bilibili.com/bangumi/*" target="_blank" rel="noopener">bilibili movie</a> 的支持</li>
+<li>修复了优酷及芒果TV无法同步操作的问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-6-2"><a class="header-anchor" href="#v1-0-6-2">#</a>v1.0.6</h3>
+<h2 id="🛠-2020年6月28日更新"><a class="header-anchor" href="#🛠-2020年6月28日更新">#</a>🛠 2020年6月28日更新</h2>
+<p>⚠️⚠️⚠️ 注意，此版本与之前的任何版本都不兼容，请务必确保你的版本与小伙伴的版本一致。</p>
+<ul>
+<li>新增功能：
+<ul>
+<li>支持芒果TV（来乘风破浪吧！🤣）</li>
+<li>支持使用VLC播放器同步播放本地视频文件</li>
+<li>新增设置页面-调试模式</li>
+<li>新增捐赠页面</li>
+<li>新增wiki页面</li>
+</ul>
+</li>
+<li>修复功能:
+<ul>
+<li>提高同步的稳定性:
+<ul>
+<li>更新了同步逻辑（不与之前的任何版本兼容，请尽快更新至1.0.6+）</li>
+<li>增加缓冲检测</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-5-2"><a class="header-anchor" href="#v1-0-5-2">#</a>v1.0.5</h3>
+<h2 id="🛠-2020年5月12日更新"><a class="header-anchor" href="#🛠-2020年5月12日更新">#</a>🛠 2020年5月12日更新</h2>
+<ul>
+<li>新增功能：
+<ul>
+<li>增加对Edge浏览器的支持</li>
+</ul>
+</li>
+<li>修复功能：
+<ul>
+<li>提高同步的稳定性</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-4-2"><a class="header-anchor" href="#v1-0-4-2">#</a>v1.0.4</h3>
+<h2 id="🛠-2020年5月10日更新"><a class="header-anchor" href="#🛠-2020年5月10日更新">#</a>🛠 2020年5月10日更新</h2>
+<ul>
+<li>新增功能：
+<ul>
+<li>新增成功连接提示</li>
+</ul>
+</li>
+<li>修复功能：
+<ul>
+<li>提高同步的稳定性</li>
+<li>修改消息弹窗样式</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-3-2"><a class="header-anchor" href="#v1-0-3-2">#</a>v1.0.3</h3>
+<h2 id="🛠-2020年5月8日更新"><a class="header-anchor" href="#🛠-2020年5月8日更新">#</a>🛠 2020年5月8日更新</h2>
+<ul>
+<li>新增功能：
+<ul>
+<li>新增对以下视频网站的支持
+<ul>
+<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener">爱奇艺</a></li>
+<li><a href="https://www.youku.com/" target="_blank" rel="noopener">优酷</a></li>
+<li><a href="https://www.weiyun.com/" target="_blank" rel="noopener">微云</a></li>
+<li><a href="https://v.qq.com/" target="_blank" rel="noopener">腾讯视频</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修复功能：
+<ul>
+<li>提高同步的稳定性</li>
+<li>修改文档</li>
+</ul>
+</li>
+</ul>
+<h3 id="v1-0-2-2"><a class="header-anchor" href="#v1-0-2-2">#</a>v1.0.2</h3>
+<h2 id="🛠-2020年3月31日更新"><a class="header-anchor" href="#🛠-2020年3月31日更新">#</a>🛠 2020年3月31日更新</h2>
+<ul>
+<li>新增功能：
+<ul>
+<li>支持对修改播放进度的同步</li>
+</ul>
+</li>
+<li>修复功能：
+<ul>
+<li>提高同步的稳定性</li>
+</ul>
+</li>
+</ul>
+<h3 id="v0-0-1-2"><a class="header-anchor" href="#v0-0-1-2">#</a>v0.0.1</h3>
+<h2 id="🛠-2020年3月26日更新-测试版"><a class="header-anchor" href="#🛠-2020年3月26日更新-测试版">#</a>🛠 2020年3月26日更新 (测试版)</h2>
+<ul>
+<li>新增功能：
+<ul>
+<li>支持播放暂停同步</li>
+<li>支持断开连接提示</li>
+</ul>
+</li>
+</ul>
+<h2 id="开发者"><a class="header-anchor" href="#开发者">#</a>开发者</h2>
+<p>Yiliang “Louis” Wang – <a href="https://ylwang.codes/" target="_blank" rel="noopener">@blog</a> – <a href="mailto:louis.yl.wang@outlook.com">@mail</a></p>
+<p>Onns – <a href="https://onns.xyz/">@blog</a> – <a href="mailto:onns@onns.xyz">@mail</a></p>
+<h2 id="参与更新"><a class="header-anchor" href="#参与更新">#</a>参与更新</h2>
+<ol>
+<li>拷贝当前代码（<a href="https://github.com/LouisYLWang/Sync-Sofa/fork%EF%BC%89" target="_blank" rel="noopener">https://github.com/LouisYLWang/Sync-Sofa/fork）</a></li>
+<li>创建你自己的分支 (<code>git checkout -b feature/fooBar</code>)</li>
+<li>添加评论 (<code>git commit -am 'Add some fooBar'</code>)</li>
+<li>提交代码 (<code>git push origin feature/fooBar</code>)</li>
+<li>创建一个更新请求</li>
+</ol>
+<!-- Markdown link & img dfn's -->
+<h2 id="常见问题"><a class="header-anchor" href="#常见问题">#</a>常见问题</h2>
+<ol>
+<li>
+<p><strong>Q:</strong> 在我安装的时候，Chrome提示我Sync Sofa可以<code>读取和更改您在一些网站上的数据</code>以及<code>读取您的浏览记录</code>，听起来很严重，它安全吗？</p>
+<p><strong>A:</strong> 我们不会收集你的浏览数据，我们只会读取你当前标签页的标题，用来判断你是否在访问我们支持的页面(<a href="#supported-list">支持网站列表</a>)，以避免影响使用体验的事情发生。所有对你浏览数据的收集和处理只会发生在本地；事实上我们也不会随意修改网站的数据，我们只会使用一个同步脚本来监测你播放，暂停及更新进度等操作（我们不得不这样做）。<strong>所有的源码都可以在 [我们的项目主页]审核(<a href="https://github.com/LouisYLWang/Sync-Sofa" target="_blank" rel="noopener">https://github.com/LouisYLWang/Sync-Sofa</a>), 我们承诺目前做的所有事情都是必要且无害的.</strong></p>
+</li>
+<li>
+<p>如果你发现<strong>按钮变灰</strong>, 请确认你是否在我们支持的网站操作(<a href="#supported-list">支持网站列表</a>).</p>
+</li>
+<li>
+<p>如果你发现插件<strong>无法获取同步码</strong>，请按以下顺序检查问题：</p>
+<ol>
+<li>请检查 <a href="#options-page">选项页面</a> 并点击<code>重置</code> 按钮</li>
+<li>请参考 <a href="#options-page">选项页面</a> 根据你所在的位置选择并设置合适的服务器</li>
+<li>请检查服务器当前状态 <a href="https://sync-status.onns.xyz/" target="_blank" rel="noopener">https://sync-status.onns.xyz/</a>是否正常启动</li>
+<li>如以上都不能解决你的问题，请通过<a href="https://github.com/LouisYLWang/Sync-Sofa/issues" target="_blank" rel="noopener">项目反馈页面</a>或<a href="https://onns.xyz/sync-sofa/">项目wiki页面</a>右下角的反馈按钮通知我们。</li>
+</ol>
+</li>
+<li>
+<p>如果你发现插件<strong>无法正常同步操作</strong>，请按以下顺序检查问题：</p>
+<ol>
+<li>请务必确认两方版本号是否一致，欲检测版本号，需打开<a href="chrome://extensions/">chrome extension page</a>，并找到<code>Sync Sofa - Online Video Synchronizer *.*.*</code>，其中 <code>*.*.*</code> 为当前版本。</li>
+<li>请检查 <a href="#options-page">选项页面</a> 并点击<code>重置</code> 按钮</li>
+<li>请参考 <a href="#options-page">选项页面</a> 根据你所在的位置选择并设置合适的服务器</li>
+<li>请检查服务器当前状态 <a href="https://sync-status.onns.xyz/" target="_blank" rel="noopener">https://sync-status.onns.xyz/</a>是否正常启动.</li>
+<li>如以上都不能解决你的问题，请通过<a href="https://github.com/LouisYLWang/Sync-Sofa/issues" target="_blank" rel="noopener">项目反馈页面</a>或<a href="https://onns.xyz/sync-sofa/">项目wiki页面</a>右下角的反馈按钮通知我们。</li>
+</ol>
+</li>
+</ol>
+<h3 id="如何获取调试信息"><a class="header-anchor" href="#如何获取调试信息">#</a>如何获取调试信息</h3>
+<ol>
+<li>在<a href="#%E9%80%89%E9%A1%B9%E9%A1%B5">选项页</a>里打开 <code>debug模式</code>。</li>
+<li>刷新视频页面。</li>
+<li><code>Shift + ctrl + i</code> 在 Windows 下 或者 <code>Shift + cmd + i</code> 在 MacOS 下.</li>
+<li>选择 <code>console</code> 标签页.</li>
+</ol>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/chrome/">chrome</a>
+            <a href="/blog/tags/extension/">extension</a>
+            <a href="/blog/tags/sync-sofa/">sync-sofa</a>
+            <a href="/blog/tags/document/">document</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/10/wechat-sticker/">
+        <span class="next-text nav-default">微信表情包</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
