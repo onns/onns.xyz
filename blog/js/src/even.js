@@ -87,8 +87,8 @@
         } else {
           $toc.css(tocState.process);
           
-          if($('.toc-link.active').offset() != undefined && $('.toc-link.active').offset().top - document.documentElement.scrollTop > window.innerHeight*5/6){
-            $('.post-toc').offset({top:Math.min($footer.offset().top - $toc.height()- SPACING,window.innerHeight*5/6 + document.documentElement.scrollTop - ($('.toc-link.active').offset().top - $('.post-toc').offset().top))});
+          if($('.toc-link.active').offset() != undefined && $('.toc-link.active').offset().top - document.documentElement.scrollTop > window.innerHeight*1/2){
+            $('.post-toc').offset({top:Math.min($footer.offset().top - $toc.height()- SPACING,window.innerHeight*1/2 + document.documentElement.scrollTop - ($('.toc-link.active').offset().top - $('.post-toc').offset().top))});
           }
           if($footer.offset().top <$('.post-toc').offset().top + $toc.height() + SPACING){
             $('.post-toc').offset({top:$footer.offset().top- $toc.height()-SPACING});
