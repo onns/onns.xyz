@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/"/>
+<meta name="description" content="博客修复超长目录的显示"/><meta name="keywords" content="hexo, hexo-theme-even, blog, toc, js, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/12/blog-toc-fix/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Categories - Onns Blog</title>
+    <title>博客修复超长目录的显示 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,14 +253,69 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="categories">
-    <div class="categories-title">
-      17 Categories In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">博客修复超长目录的显示
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-12
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/12/blog-toc-fix/"
+             data-title="博客修复超长目录的显示">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么滚"><span class="toc-text">怎么滚</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">31</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/study/">study<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/system/">system<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/try/">try<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">2</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><p>我发现我总是需要解决一个问题之前，先解决若干个前置问题，差不多花了八个小时左右…解决了超长 toc 的滚动问题。</p>
+<a id="more"></a>
+<h2 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h2>
+<p>不愿意往下看的可以直接在<code>/source/js/src/even.js</code>里的<code>Even.prototype.scrollToc</code>替换如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Even.prototype.scrollToc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> SPACING = <span class="number">20</span>;</span><br><span class="line">  <span class="keyword">var</span> $toc = $(<span class="string">".post-toc"</span>);</span><br><span class="line">  <span class="keyword">var</span> $footer = $(<span class="string">".post-footer"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ($toc.length) &#123;</span><br><span class="line">    <span class="keyword">var</span> minScrollTop = $toc.offset().top - SPACING;</span><br><span class="line">    $(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> tocState = &#123;</span><br><span class="line">        start: &#123;</span><br><span class="line">          position: <span class="string">"absolute"</span>,</span><br><span class="line">          top: minScrollTop,</span><br><span class="line">        &#125;,</span><br><span class="line">        process: &#123;</span><br><span class="line">          position: <span class="string">"fixed"</span>,</span><br><span class="line">          top: SPACING,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">var</span> scrollTop = $(<span class="built_in">window</span>).scrollTop();</span><br><span class="line">      <span class="keyword">if</span> (scrollTop &lt; minScrollTop) &#123;</span><br><span class="line">        $toc.css(tocState.start);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $toc.css(tocState.process);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">          $(<span class="string">".toc-link.active"</span>).offset() != <span class="literal">undefined</span> &amp;&amp;</span><br><span class="line">          $(<span class="string">".toc-link.active"</span>).offset().top -</span><br><span class="line">            <span class="built_in">document</span>.documentElement.scrollTop &gt;</span><br><span class="line">            (<span class="built_in">window</span>.innerHeight * <span class="number">1</span>) / <span class="number">2</span></span><br><span class="line">        ) &#123;</span><br><span class="line">          $(<span class="string">".post-toc"</span>).offset(&#123;</span><br><span class="line">            top: <span class="built_in">Math</span>.min(</span><br><span class="line">              $footer.offset().top - $toc.height() - SPACING,</span><br><span class="line">              (<span class="built_in">window</span>.innerHeight * <span class="number">1</span>) / <span class="number">2</span> +</span><br><span class="line">                <span class="built_in">document</span>.documentElement.scrollTop -</span><br><span class="line">                ($(<span class="string">".toc-link.active"</span>).offset().top -</span><br><span class="line">                  $(<span class="string">".post-toc"</span>).offset().top)</span><br><span class="line">            ),</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">          $footer.offset().top &lt;</span><br><span class="line">          $(<span class="string">".post-toc"</span>).offset().top + $toc.height() + SPACING</span><br><span class="line">        ) &#123;</span><br><span class="line">          $(<span class="string">".post-toc"</span>).offset(&#123;</span><br><span class="line">            top: $footer.offset().top - $toc.height() - SPACING,</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>具体效果可以去<a href="https://onns.xyz/blog/2020/08/12/sync-sofa-doc/">Sync Sofa</a>里看，个人认为是最优解决方案。</p>
+<h2 id="问题"><a class="header-anchor" href="#问题">#</a>问题</h2>
+<p>在这个主题的<code>toc</code>超出浏览器页面高度之后，会没办法显示所有的目录信息，导致阅读障碍。</p>
+<p>个人认为比较可行的方案有三个：</p>
+<ol>
+<li>折叠子标题</li>
+<li>目录支持滚轮</li>
+<li>目录跟随文档一起滚动</li>
+</ol>
+<p>先说第一个方法，也是我看这个主题的<a href="https://github.com/ahonn/hexo-theme-even/issues/248" target="_blank" rel="noopener">issue</a>时里面提到的，效果可以去看<a href="https://hugo-theme-even.netlify.app/post/even-preview/" target="_blank" rel="noopener">Theme preview</a>，我个人认为不是一个很好的解决方案，因为如果极端情况下，所有的标题都是同一级的，那势必没办法进行子标题折叠，此方案 pass。（亏我还花了 1 个小时时间来研究怎么迁移过来。）</p>
+<p>第二个方法，我个人觉得有点蠢，且不说目录本身就是浮动的，不好滚，就算是滚起来了，翻一会页的时候还要再翻目录页。。。想想就有点不合适，留给有缘人尝试吧。</p>
+<h2 id="怎么滚"><a class="header-anchor" href="#怎么滚">#</a>怎么滚</h2>
+<p>六七个小时断断续续的解决方案我也不在这瞎 BB 了，直接上核心代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (</span><br><span class="line">  $(<span class="string">".toc-link.active"</span>).offset() != <span class="literal">undefined</span> &amp;&amp;</span><br><span class="line">  $(<span class="string">".toc-link.active"</span>).offset().top - <span class="built_in">document</span>.documentElement.scrollTop &gt;</span><br><span class="line">    (<span class="built_in">window</span>.innerHeight * <span class="number">1</span>) / <span class="number">2</span></span><br><span class="line">) &#123;</span><br><span class="line">  $(<span class="string">".post-toc"</span>).offset(&#123;</span><br><span class="line">    top: <span class="built_in">Math</span>.min(</span><br><span class="line">      $footer.offset().top - $toc.height() - SPACING,</span><br><span class="line">      (<span class="built_in">window</span>.innerHeight * <span class="number">1</span>) / <span class="number">2</span> +</span><br><span class="line">        <span class="built_in">document</span>.documentElement.scrollTop -</span><br><span class="line">        ($(<span class="string">".toc-link.active"</span>).offset().top - $(<span class="string">".post-toc"</span>).offset().top)</span><br><span class="line">    ),</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>逻辑就是，如果当前正在访问的目录在屏幕的 1/2 处往下了，那么我么就往上滑目录，使得当前正在访问的标题始终处于文档的正中心。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/hexo/">hexo</a>
+            <a href="/blog/tags/hexo-theme-even/">hexo-theme-even</a>
+            <a href="/blog/tags/blog/">blog</a>
+            <a href="/blog/tags/toc/">toc</a>
+            <a href="/blog/tags/js/">js</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/12/note-20200812/">
+        <span class="next-text nav-default">学习笔记-20200812</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
