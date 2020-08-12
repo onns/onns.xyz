@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>学习笔记-20200812</title>
+      <link href="/blog/2020/08/12/note-20200812/"/>
+      <url>/blog/2020/08/12/note-20200812/</url>
+      
+        <content type="html"><![CDATA[<p>过去的研究主要通过静态时间相关的测量（例如每个学生所有作业的平均开始时间）或时间模型的参数来描述学生的拖延，假设学生的活动以恒定的速率发生（例如齐次泊松模型）。</p><p>学生与一种学习材料的互动独立于与另一种材料的互动</p><p>在这项工作中，我们建议考虑学生的时间活动之间的相互依赖性，同时在一个连续的时间尺度上模拟他们的序列。</p><p>为此，我们建议将每个学生和每个课程模块，即每个模块学生对之间的交互序列建模为多维霍克斯过程，它不仅捕捉到学生的学习活动与其外生刺激（如作业截止日期）之间的关系，同时也能捕捉到学习材料类型内部和之间的内源性反应。我们的实验表明，当涉及不同类型的学习材料时，不仅学生的历史活动与未来活动之间存在依赖关系，而且这种依赖性也对学生的拖延行为提供了有意义的解释。此外，我们的研究结果显示，除了与延迟相关外，多维 Hawkes 过程学习的参数提供了更多与拖延相关的信息，并且可以改善我们对学生成绩的解释。</p><p>以往的历史多基于学生的自我调查报告或者与学生拖延行为相关的时间相关特征。</p><p>考虑到自我报告数据的噪音，在最近的研究中，更多的关注集中在拖延的行为方面，提出了与时间相关的测量方法，并将其作为学生拖延的表征。</p><p>这些指标缺乏描述学生在一段时间内持续行为的能力。与这种方法类似的是，在不完全了解分布的情况下，使用样本平均值来描述整个分布。为了解决这一局限性，最近，重点是通过随机模型从学生的学习轨迹数据中提取学生活动的时间点（例如，学生历史行为的日志或点击流）。</p><p>然而，据我们所知，过去的研究没有考虑到学生与不同学习材料类型的互动之间可能存在的时间依赖性。</p><p>例如，在作业的第一次尝试之前更集中地观看视频讲课，可能表明学生更喜欢在尝试作业之前先学习材料。另一方面，在作业的第一次尝试之后，主要观看课堂视频，这可能意味着学生更喜欢先尝试作业，然后在遇到任何问题时再看视频讲座。</p><p>过去的研究试图用静态的时间度量来描述拖延，或者从更复杂的时间模型中总结出来的度量，基于学生与一个或多个学习材料的交互作用。然而，学生行为的两个重要因素及其与拖延的关系还没有得到充分的研究：（1）在每种学习材料类型中，学生过去和将来的互动之间的依赖性（例如，知道一个学生在某个时间看过幻灯片，他们将如何以及何时进行下一项活动？）以及（2）学生与不同类型学习材料的互动之间的依赖性（例如，观看视频讲座后通常会提交作业吗？）在这项工作中，我们的目标是通过回答以下问题来解决这两个因素：在每个学习模块中，即提供学习材料的课程单元，（Q1）过去的活动是否独立于未来的活动？或者某些活动可以触发其他活动在短时间内到达（即活动之间的时间依赖性）？以及（问题 2），学生与一种类型的学习材料（如视频讲座）的互动是否独立于另一种类型（如论坛）？此外，（问题 3）如果这种依赖性存在，它们与学生拖延症有什么关系？（即学生过去和未来活动之间的依赖关系，以及学生与一种学习材料与另一种学习材料之间的相互依赖关系。）</p><p>因此，我们的目标是在不同类型的在线学习材料中找到学生拖延和学生活动之间的缺失环节。为了达到这一目标，我们建议使用多维 Hawkes 过程作为一个强有力的工具来解决学生拖延分析中的上述问题。特别地，我们将一类学习材料上的所有活动表示为多维 Hawkes 模型中的一维。我们表明，与基准时间过程相比，该模型更适合我们的数据。同时，为了回答问题 1 和问题 2，我们证明了它既能捕捉到学生对截止日期的反应，作为来自外部的行动触发因素（即外生刺激），也能捕捉到学生对之前与不同类型学习材料（如视频讲座、作业）互动的反应，和讨论（即自我兴奋）。这样，我们可以从随机过程的角度来理解学生的拖延行为，主要有两个刺激因素：（1）学生的一些活动可以看作是对外部刺激的反应，比如作业的截止日期（2）其他一些学生活动可以看作是学生以前与相同或其他学习材料类型互动的结果。在模型参数的基础上，为了回答问题 3，我们还提出了一个不仅能描述学生拖延而且能更好地解释学生表现的测量方法。</p><h2 id="基于作业开始时间的在线学习拖延指数"><a class="header-anchor" href="#基于作业开始时间的在线学习拖延指数">#</a>基于作业开始时间的在线学习拖延指数</h2><h3 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h3><p>这项工作的结果是一个简单而可靠的拖延指数，它可以概括多个学科，考虑到作业的个体特点，是学习成绩的一个强有力的预测因子，并提供了一个早期信号，使教育工作者能够为高危学生设计适当的干预措施。</p><h3 id="介绍"><a class="header-anchor" href="#介绍">#</a>介绍</h3><p>所有基于主观填写的拖延症分析都具有缺陷。本文采用了一种基于作业开始时间的度量拖延的方式。</p><h3 id="方法"><a class="header-anchor" href="#方法">#</a>方法</h3><p>采用了<code>Connect</code>在线学习平台的关于作业的开始时间、截止时间以及学生提交时间的数据，并只选择美国机构的，以消除相关参数影响。</p><h3 id="操作定义"><a class="header-anchor" href="#操作定义">#</a>操作定义</h3><h4 id="定义拖延"><a class="header-anchor" href="#定义拖延">#</a>定义拖延</h4><p>首先根据作业提交时间和最终成绩进行统计，到了60%，分数低于家庭作业的平均成绩。在75%附近，分数下降到比平均值低10%，而且下降速度加快。</p><p>所以探性地将作业的阈值时间<code>τt</code>设为75%，即75%的学生开始作业的时间。在这之前的拖延指数为0，否则为1。</p><p>学习者拖延指数（PI）（Learner Procrastination Index）：即总拖延指数除以总作业次数。</p><h3 id="讨论与结论"><a class="header-anchor" href="#讨论与结论">#</a>讨论与结论</h3><p>尽管在过去的几十年里已经有了大量的关于拖延的工作，但大部分工作都着眼于自我报告的措施或提交时间。在本文中，我们考虑学生开始作业的时间，相对于其他学生在同一作业上的作业，这可以跨上下文工作，并且可以跨课程聚合。我们的集合，称为拖延指数，不仅与Connect平台内的分数相关，而且与课程的整体分数相关，并且可以预测学生的成绩，实现先前自我报告措施中学生成绩的两到三倍相关性。</p><p>可以提出一些干预措施来减少拖延。</p><ul><li>让学生提供自己的截止日期</li><li>设想一个系统，使学生能够提出最后期限或提出额外的最后期限（例如，完成一半作业的目标），以帮助他们分解任务并减少拖延。</li></ul><p>在以可扩展的方式减少拖延和改善结果方面，哪些干预措施最有效，还有待观察。与寻求帮助等其他领域一样，拖延与结果之间的关系可能不是完全因果关系，并且可能在不改善结果的情况下减少拖延。找到正确的干预措施来改善结果不仅有助于改善结果，而且有助于理解拖延是否以及如何对学习产生因果影响。更一般地说，对拖延的更全面的理解可能有助于我们更好地减轻拖延的影响。学生拖延是一种习惯，还是在估计他们的时间需求时一直存在错误？无聊和缺乏参与扮演什么角色？更好地理解这些问题的答案可能最终导致重新设计课程和/或作业，以更好地让学生在整个学期内以稳定的方式参与学习。</p><p>我们计划利用这项研究来改进我们的产品——针对那些经常拖延改进的内容——并开发一些方法来促使学生更有效地工作并更早地完成他们的任务。如果我们作为一个领域，停止在这个重要问题上拖延，对我们学生的影响可能是深远的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> procrastination </tag>
+            
+            <tag> 拖延症 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Sync Sofa</title>
       <link href="/blog/2020/08/12/sync-sofa-doc/"/>
       <url>/blog/2020/08/12/sync-sofa-doc/</url>
@@ -154,13 +181,13 @@
             
             <tag> tips </tag>
             
-            <tag> binary search </tag>
-            
-            <tag> 二分查找 </tag>
-            
             <tag> dynamic programming </tag>
             
             <tag> 动态规划 </tag>
+            
+            <tag> binary search </tag>
+            
+            <tag> 二分查找 </tag>
             
         </tags>
       
@@ -1805,17 +1832,6 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/blog/about/index.html"/>
-      <url>/blog/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>categories</title>
       <link href="/blog/categories/index.html"/>
       <url>/blog/categories/index.html</url>
@@ -1827,22 +1843,11 @@
     
     
     <entry>
-      <title>2019年总结</title>
-      <link href="/blog/drafts/2019-summary.html"/>
-      <url>/blog/drafts/2019-summary.html</url>
+      <title>about</title>
+      <link href="/blog/about/index.html"/>
+      <url>/blog/about/index.html</url>
       
-        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ifc file parsing</title>
-      <link href="/blog/drafts/ifc-file-parsing.html"/>
-      <url>/blog/drafts/ifc-file-parsing.html</url>
-      
-        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
+        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
       
     </entry>
     
@@ -1860,22 +1865,11 @@
     
     
     <entry>
-      <title>画啊画涂啊涂</title>
-      <link href="/blog/draw/index.html"/>
-      <url>/blog/draw/index.html</url>
+      <title>ifc file parsing</title>
+      <link href="/blog/drafts/ifc-file-parsing.html"/>
+      <url>/blog/drafts/ifc-file-parsing.html</url>
       
-        <content type="html"><![CDATA[<h3 id="2020-02"><a class="header-anchor" href="#2020-02">#</a>2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12"><a class="header-anchor" href="#2019-12">#</a>2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10"><a class="header-anchor" href="#2019-10">#</a>2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07"><a class="header-anchor" href="#2019-07">#</a>2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06"><a class="header-anchor" href="#2019-06">#</a>2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>image</title>
-      <link href="/blog/image/index.html"/>
-      <url>/blog/image/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
       
     </entry>
     
@@ -1893,11 +1887,44 @@
     
     
     <entry>
+      <title>画啊画涂啊涂</title>
+      <link href="/blog/draw/index.html"/>
+      <url>/blog/draw/index.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="2020-02"><a class="header-anchor" href="#2020-02">#</a>2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12"><a class="header-anchor" href="#2019-12">#</a>2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10"><a class="header-anchor" href="#2019-10">#</a>2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07"><a class="header-anchor" href="#2019-07">#</a>2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06"><a class="header-anchor" href="#2019-06">#</a>2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2019年总结</title>
+      <link href="/blog/drafts/2019-summary.html"/>
+      <url>/blog/drafts/2019-summary.html</url>
+      
+        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>links</title>
       <link href="/blog/links/index.html"/>
       <url>/blog/links/index.html</url>
       
         <content type="html"><![CDATA[<!-- * [流光博客](http://blog.liuguangw.com/) * [何湘辉博客](http://www.hexianghui.net/)* [小鱼blog](https://www.mycgx.com/) -->]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>image</title>
+      <link href="/blog/image/index.html"/>
+      <url>/blog/image/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
