@@ -398,7 +398,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>图4 分油方法示意图</p>
 </center>
 <p><a href="#rulelist">注:箭头上方数字即为规则号</a></p>
-<script src="https://unpkg.com/viz.js@2.1.2/viz.js"></script><script src="https://unpkg.com/viz.js@2.1.2/full.render.js"></script><textarea id="graphviz-0-code" style="display: none">digraph G {
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列
+e1=>end: 未找到目标状态
+e2=>end: 达到目标状态(5, 5, 0)
+op1=>operation: 取出队列头部中的第一个状态
+cond1=>condition: 此状态是否为空?
+cond2=>condition: 是否为目标状态?
+op2=>operation: 将所有可能下一步状态加入队列尾部
+
+st->op1->cond1
+cond1(yes)->e1
+cond1(no)->cond2
+cond2(yes)->e2
+cond2(no)->op2
+op2->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://unpkg.com/viz.js@2.1.2/viz.js"></script><script src="https://unpkg.com/viz.js@2.1.2/full.render.js"></script><textarea id="graphviz-0-code" style="display: none">digraph G {
   "(10,0,0)" -> "(3,7,0)"[color=red,label="1"]
   "(10,0,0)" -> "(7,0,3)"[label="2"]
   "(3,7,0)" -> "(0,7,3)"[label="2"]
@@ -418,20 +431,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
   "(8,0,2)" -> "(8,2,0)"[label="12"]
   "(2,5,3)" -> "(5,5,0)"[color=red,label="11"]
   "(8,2,0)" -> "(5,2,3)"[label="2"]
-}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-0-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-0").append(element)  });</script><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列
-e1=>end: 未找到目标状态
-e2=>end: 达到目标状态(5, 5, 0)
-op1=>operation: 取出队列头部中的第一个状态
-cond1=>condition: 此状态是否为空?
-cond2=>condition: 是否为目标状态?
-op2=>operation: 将所有可能下一步状态加入队列尾部
-
-st->op1->cond1
-cond1(yes)->e1
-cond1(no)->cond2
-cond2(yes)->e2
-cond2(no)->op2
-op2->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>
+}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-0-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-0").append(element)  });</script>
       </div>
       
       <footer class="post-footer">
