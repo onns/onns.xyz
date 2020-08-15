@@ -275,45 +275,87 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类、超类和子类"><span class="toc-text">类、超类和子类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#object：所有类的超类"><span class="toc-text">Object：所有类的超类</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
+  </div><div class="post-content"><p>Java 核心技术卷一基础知识第 10 版</p>
 <h2 id="继承"><a class="header-anchor" href="#继承">#</a>继承</h2>
 <a id="more"></a>
+<h3 id="类、超类和子类"><a class="header-anchor" href="#类、超类和子类">#</a>类、超类和子类</h3>
 <ul>
-<li>在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中。</li>
-<li>子类继承的方法不能直接地访问超类的私有域，可以使用 <code>super</code> 调用超类的方法来重写子类的方法。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>
+<p>关键字<code>extends</code>表示继承。</p>
 </li>
-<li>使用 <code>super</code> 调用构造器的语句必须是子类构造器的第一条语句。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, <span class="keyword">double</span> salary, <span class="keyword">int</span> year, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> month, <span class="keyword">int</span> day)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>(name, salary, year, month, day);</span><br><span class="line">  <span class="comment">// 调用超类 Employee 中含有 n、s、year month </span></span><br><span class="line">  <span class="comment">// 和 day 参数的构造器</span></span><br><span class="line">  bonus = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>
+<p>在通过扩展超类定义子类的时候，仅需要指出子类与超类的不同之处。</p>
 </li>
-<li>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则 Java 编译器将报告错误。</li>
-<li><code>super</code> 关键字的两个用途:
+<li>
+<p>在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中。</p>
+</li>
+<li>
+<p>子类继承的方法不能直接地访问超类的私有域，可以使用 <code>super</code> 调用超类的方法来重写子类的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 <code>super</code> 调用构造器的语句必须是子类构造器的第一条语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, <span class="keyword">double</span> salary, <span class="keyword">int</span> year,</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> month, <span class="keyword">int</span> day)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">super</span>(name, salary, year, month, day);</span><br><span class="line">  <span class="comment">// 调用超类 Employee 中含有 n、s、year month</span></span><br><span class="line">  <span class="comment">// 和 day 参数的构造器</span></span><br><span class="line">  bonus = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则 Java 编译器将报告错误。</p>
+</li>
+<li>
+<p><code>super</code> 关键字的两个用途:</p>
 <ol>
 <li>调用超类的方法。</li>
 <li>调用超类的构造器。</li>
 </ol>
 </li>
-<li><strong>多态（polymorphism）</strong>：一个对象变量可以指示多种实际类型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个例子中，变量 staff[0] 与 boss 引用同一个对象。</span></span><br><span class="line"><span class="comment">// 但编译器将 staff[0] 看成 Employee 对象。 这意味着，</span></span><br><span class="line"><span class="comment">// 可以这样调用</span></span><br><span class="line">boss.setBonus(<span class="number">5000</span>); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不能这样调用</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>); <span class="comment">// Error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是因为 staff[0] 声明的类型是 Employee，</span></span><br><span class="line"><span class="comment">// 而 setBonus 不是 Employee 类的方法。</span></span><br></pre></td></tr></table></figure>
+<li>
+<p><strong>多态（polymorphism）</strong>：一个对象变量可以指示多种实际类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个例子中，变量 staff[0] 与 boss 引用同一个对象。</span></span><br><span class="line"><span class="comment">// 但编译器将 staff[0] 看成 Employee 对象。 这意味着，</span></span><br><span class="line"><span class="comment">// 可以这样调用</span></span><br><span class="line">boss.setBonus(<span class="number">5000</span>); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不能这样调用</span></span><br><span class="line">staff[<span class="number">0</span>].setBonus(<span class="number">5000</span>); <span class="comment">// Error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是因为 staff[0] 声明的类型是 Employee，</span></span><br><span class="line"><span class="comment">// 而 setBonus 不是 Employee 类的方法。</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><strong>动态绑定（dynamic binding）</strong>：在运行时能够自动地选择调用哪个方法。</li>
-<li>可以将一个子类的对象赋给超类变量，但不能将一个超类的引用赋给子类变量。</li>
-<li>假设要调用 <code>x.f(args)</code>，隐式参数 <code>x</code> 声明为类 <code>C</code> 的一个对象。
+<li>
+<p><strong>动态绑定（dynamic binding）</strong>：在运行时能够自动地选择调用哪个方法。</p>
+</li>
+<li>
+<p>可以将一个子类的对象赋给超类变量，但不能将一个超类的引用赋给子类变量。不是所有的水果都是西瓜<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+</li>
+<li>
+<p>假设要调用 <code>x.f(args)</code>，隐式参数 <code>x</code> 声明为类 <code>C</code> 的一个对象。</p>
 <ol>
 <li>编译器査看对象的声明类型和方法名。编译器将会一一列举所有 <code>C</code> 类中名为 <code>f</code> 的方法和其超类中访问属性为 <code>public</code> 且名为 <code>f</code> 的方法（超类的私有方法不可访问）。</li>
-<li>编译器将査看调用方法时提供的参数类型。</li>
-<li>如果是private方法、static方法、final方法或者构造器，那么编译器将可以准确地知道应该调用哪个方法，我们将这种调用方式称 <code>为静态绑定(static binding)</code>。</li>
+<li>编译器将査看调用方法时提供的参数类型。如果在所有名为 <code>f</code> 的方法中存在一个与提供的参数类型完全匹配，就选择这个方法。这个过程被称为<code>重载解析(overloading resolution)</code>。返回类型不是签名的一部分，因此，在覆盖方法时，一定要保证返回类型的兼容性。允许子类将覆盖方法的返回类型定义为原返回类型的子类型。<sup class="footnote-ref"><a href="#fn1" id="fnref1:1">[1:1]</a></sup></li>
+<li>如果是 private 方法、static 方法、final 方法或者构造器，那么编译器将可以准确地知道应该调用哪个方法，我们将这种调用方式称 <code>为静态绑定(static binding)</code>。</li>
 <li>当程序运行，并且采用动态绑定调用方法时，虚拟机一定调用与 <code>x</code> 所引用对象的实际类型最合适的那个类的方法。</li>
 </ol>
 </li>
-<li>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个方法表(method table)，其中列出了所有方法的签名和实际调用的方法。</li>
-<li>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></li>
-<li>不允许扩展的类被称为 <code>final</code> 类。</li>
-<li><code>final</code> 类中的所有方法自动地成为 <code>final</code> 方法。</li>
-<li>如果将一个类声明为 <code>final</code>， 只有其中的方法自动地成为 <code>final</code>， 而不包括域。</li>
+<li>
+<p>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个<code>方法表(method table)</code>，其中列出了所有方法的签名和实际调用的方法。</p>
+</li>
+<li>
+<p>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>多了一个新的类之后，比如<code>Executive</code>类也是<code>Employee</code>的子类，那<code>Employee e</code>如果刚好引用一个 <code>Executive</code> 类的对象，就可以自动的调用而不需要修改代码。<sup class="footnote-ref"><a href="#fn1" id="fnref1:2">[1:2]</a></sup></p>
+</li>
+<li>
+<p>在覆盖一个方法的时候，子类方法不能低于超类方法的可见性。<sup class="footnote-ref"><a href="#fn1" id="fnref1:3">[1:3]</a></sup></p>
+</li>
+<li>
+<p>不允许扩展的类被称为 <code>final</code> 类。</p>
+</li>
+<li>
+<p><code>final</code> 类中的所有方法自动地成为 <code>final</code> 方法。</p>
+</li>
+<li>
+<p>如果将一个类声明为 <code>final</code>，只有其中的方法自动地成为 <code>final</code>，而不包括域。</p>
+</li>
+<li>
+<p>如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理，这个过程为称为<code>内联(inlining)</code>。例如，内联调用<code>e.getName()</code>将被替换为访问 <code>e.name</code> 域。<sup class="footnote-ref"><a href="#fn1" id="fnref1:4">[1:4]</a></sup></p>
+</li>
 </ul>
 <hr>
 <ul>
 <li>进行类型转换的唯一原因是：在暂时忽视对象的实际类型之后，使用对象的全部功能。</li>
+<li>将一个值存人变量时，编译器将检查是否允许该操作。将一个子类的引用赋给一个超类变量，编译器是允许的。但将一个超类的引用赋给一个子类变量，必须进行类型转换，这样才能够通过运行时的检査。<sup class="footnote-ref"><a href="#fn1" id="fnref1:5">[1:5]</a></sup></li>
+<li>运行这个程序时，Java 运行时系统将报告这个错误，并产生一个<code>ClassCastException</code>异常。<sup class="footnote-ref"><a href="#fn1" id="fnref1:6">[1:6]</a></sup><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(. . .);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss;</span><br><span class="line">Manager boss = (Manager) staff[<span class="number">1</span>]; <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+</li>
 <li>在进行类型转换之前，先查看一下是否能够成功地转换。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li>只能在继承层次内进行类型转换。</li>
@@ -323,7 +365,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <hr>
 <ul>
 <li>包含一个或多个抽象方法的类本身必须被声明为抽象的。</li>
-<li>抽象方法充当着占位的角色，它们的具体实现在子类中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  . . .</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>抽象方法充当着占位的角色，它们的具体实现在子类中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  . . .</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li>抽象类可以包含具体数据和具体方法。
 <blockquote>
@@ -345,6 +387,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </li>
 </ul>
 <hr>
+<h3 id="object：所有类的超类"><a class="header-anchor" href="#object：所有类的超类">#</a>Object：所有类的超类</h3>
 <ul>
 <li>Object 类是 Java 中所有类的始祖，在 Java 中每个类都是由它扩展而来的。</li>
 <li>可以使用 Object 类型的变量引用任何类型的对象。</li>
@@ -352,28 +395,34 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <hr>
 <p>编写一个完美的 equals 方法的建议：</p>
 <ol>
-<li>显式参数命名为 otherObject，稍后需要将它转换成另一个叫做 other 的变量。</li>
-<li>检测 this 与 otherObject 是否引用同一个对象：</li>
-</ol>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span> = otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
-<p>这条语句只是一个优化。实际上，这是一种经常采用的形式。因为计算这个等式要比一个一个地比较类中的域所付出的代价小得多。<br>
-3. 检测 otherObject 是否为 null ,如果为 null ，返回 false。这项检测是很必要的。</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (otherObject = <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>比较 this 与 otherObject 是否属于同一个类。如果 equals 的语义在每个子类中有所改变，就使用 getClass 检测：</li>
-</ol>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<li>
+<p>显式参数命名为 otherObject，稍后需要将它转换成另一个叫做 other 的变量。</p>
+</li>
+<li>
+<p>检测 this 与 otherObject 是否引用同一个对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span> = otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<p>这条语句只是一个优化。实际上，这是一种经常采用的形式。因为计算这个等式要比一个一个地比较类中的域所付出的代价小得多。</p>
+</li>
+<li>
+<p>检测 otherObject 是否为 null ,如果为 null ，返回 false。这项检测是很必要的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (otherObject = <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>比较 this 与 otherObject 是否属于同一个类。如果 equals 的语义在每个子类中有所改变，就使用 getClass 检测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
 <p>如果所有的子类都拥有统一的语义，就使用 instanceof 检测:</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>将 otherObject 转换为相应的类类型变量：</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将 otherObject 转换为相应的类类型变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName other = (ClassName) otherObject</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>现在开始对所有需要比较的域进行比较了。使用 <code>==</code> 比较基本类型域，使用 equals 比较对象域。如果所有的域都匹配，就返回 true；否则返回 false。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 == other.field1</span><br><span class="line">  &amp;&amp; Objects.equals(field2, other.field2)</span><br><span class="line">  &amp;&amp; . . . ;</span><br></pre></td></tr></table></figure>
+<p>如果在子类中重新定义 equals, 就要在其中包含调用 super.equals(other)。</p>
+</li>
 </ol>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName other = (ClassName) otherObject</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>现在开始对所有需要比较的域进行比较了。使用 <code>==</code> 比较基本类型域，使用equals比较对象域。如果所有的域都匹配，就返回true；否则返回false。</li>
-</ol>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 == other.field1</span><br><span class="line">  &amp;&amp; Objects.equals(field2, other.field2)</span><br><span class="line">  &amp;&amp; . . . ;</span><br></pre></td></tr></table></figure>
-<p>如果在子类中重新定义equals, 就要在其中包含调用 super.equals(other)。</p>
 <hr>
 <ul>
 <li>只要对象与一个字符串通过操作符 “+” 连接起来，Java 编译就会自动地调用 <code>toString</code> 方法，以便获得这个对象的字符串描述。</li>
@@ -390,9 +439,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>一旦整理了数组列表的大小，添加新元素就需要花时间再次移动存储块， 所以应该在确认不会添加任何元素时，再调用 <code>trimToSize</code>。</li>
 </ul>
 <hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>在比较两个枚举类型的值时，永远不需要调用 <code>equals</code>, 而直接使用 <code>==</code> 就可以了。</li>
+<li>在比较两个枚举类型的值时，永远不需要调用 <code>equals</code>, 而直接使用 <code>==</code> 就可以了。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <hr>
 <ul>
@@ -420,7 +469,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>其实没太懂。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>20200815 更新，看<a href="https://www.bilibili.com/video/BV12J41137hu?p=74" target="_blank" rel="noopener">【狂神说Java】Java零基础学习视频通俗易懂</a>再回来看看。 <a href="#fnref1" class="footnote-backref">↩︎</a> <a href="#fnref1:1" class="footnote-backref">↩︎</a> <a href="#fnref1:2" class="footnote-backref">↩︎</a> <a href="#fnref1:3" class="footnote-backref">↩︎</a> <a href="#fnref1:4" class="footnote-backref">↩︎</a> <a href="#fnref1:5" class="footnote-backref">↩︎</a> <a href="#fnref1:6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>其实没太懂。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
