@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/"/>
+<meta name="description" content="修改文件格式"/><meta name="keywords" content="crlf, lf, file format, 文件格式, github, line endings, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/17/change-file-format/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Categories - Onns Blog</title>
+    <title>修改文件格式 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,14 +253,71 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="categories">
-    <div class="categories-title">
-      17 Categories In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">修改文件格式
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-17
+        </span><span class="post-category">
+            <a href="/blog/categories/work/">work</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/17/change-file-format/"
+             data-title="修改文件格式">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#新的文件"><span class="toc-text">新的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旧的文件"><span class="toc-text">旧的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">32</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/study/">study<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/system/">system<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/try/">try<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">2</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><p>MacOS、Linux 和 Windows 下使用不同的生成工具可能会有不同的文件格式：<code>LF</code>或者<code>CRLF</code>等，导致每次 github 在同步的时候，都会出现其实内容没更新，但是文件却更新了的<code>伪更新情况</code>。</p>
+<a id="more"></a>
+<h2 id="新的文件"><a class="header-anchor" href="#新的文件">#</a>新的文件</h2>
+<p>对于之后的文件，可以参考 <a href="https://docs.github.com/en/github/using-git/configuring-git-to-handle-line-endings" target="_blank" rel="noopener">Configuring Git to handle line endings</a>，通过配置<code>git</code>来实现自动兼容，就不用我们自己考虑了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.autocrlf <span class="literal">true</span></span><br><span class="line"><span class="comment"># Configure Git to ensure line endings in files you checkout are correct for Windows.</span></span><br><span class="line"><span class="comment"># For compatibility, line endings are converted to Unix style when you commit files.</span></span><br></pre></td></tr></table></figure>
+<h2 id="旧的文件"><a class="header-anchor" href="#旧的文件">#</a>旧的文件</h2>
+<p>可以通过<code>unix2dos</code>工具来批量进行转换，官网：<a href="http://dos2unix.sourceforge.net/" target="_blank" rel="noopener">Dos2Unix / Unix2Dos - Text file format converters</a>，下载地址：<a href="https://sourceforge.net/projects/dos2unix/" target="_blank" rel="noopener">dos2unix</a>。</p>
+<p>下载解压之后的 bin 文件夹里有我们需要的可执行文件，我的是<code>D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe</code>。</p>
+<ol>
+<li>打开命令行<code>win+R</code>，输入<code>cmd</code>，回车。</li>
+<li><code>cd</code>定位到所需要的批量处理的根目录。</li>
+<li>输入下列命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /R %G <span class="keyword">in</span> (*.md) <span class="keyword">do</span> D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe <span class="string">"%G"</span></span><br><span class="line"><span class="comment"># *.md 代表以所有md结尾的文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>完成。</li>
+</ol>
+<h2 id="参考文档"><a class="header-anchor" href="#参考文档">#</a>参考文档</h2>
+<ul>
+<li><a href="http://dos2unix.sourceforge.net/" target="_blank" rel="noopener">Dos2Unix / Unix2Dos - Text file format converters</a></li>
+<li><a href="https://blog.csdn.net/panda1234lee/article/details/89289097" target="_blank" rel="noopener">批量转换 LF 和 CRLF 的小技巧【详细步骤】</a></li>
+<li><a href="https://docs.github.com/en/github/using-git/configuring-git-to-handle-line-endings" target="_blank" rel="noopener">Configuring Git to handle line endings</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/crlf/">crlf</a>
+            <a href="/blog/tags/lf/">lf</a>
+            <a href="/blog/tags/file-format/">file format</a>
+            <a href="/blog/tags/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">文件格式</a>
+            <a href="/blog/tags/github/">github</a>
+            <a href="/blog/tags/line-endings/">line endings</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/17/intranet-penetration-use-ngrok/">
+        <span class="next-text nav-default">用ngrok进行内网穿透</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 

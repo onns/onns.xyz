@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>修改文件格式</title>
+      <link href="/blog/2020/08/17/change-file-format/"/>
+      <url>/blog/2020/08/17/change-file-format/</url>
+      
+        <content type="html"><![CDATA[<p>MacOS、Linux 和 Windows 下使用不同的生成工具可能会有不同的文件格式：<code>LF</code>或者<code>CRLF</code>等，导致每次 github 在同步的时候，都会出现其实内容没更新，但是文件却更新了的<code>伪更新情况</code>。</p><a id="more"></a><h2 id="新的文件"><a class="header-anchor" href="#新的文件">#</a>新的文件</h2><p>对于之后的文件，可以参考 <a href="https://docs.github.com/en/github/using-git/configuring-git-to-handle-line-endings" target="_blank" rel="noopener">Configuring Git to handle line endings</a>，通过配置<code>git</code>来实现自动兼容，就不用我们自己考虑了。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.autocrlf <span class="literal">true</span></span><br><span class="line"><span class="comment"># Configure Git to ensure line endings in files you checkout are correct for Windows.</span></span><br><span class="line"><span class="comment"># For compatibility, line endings are converted to Unix style when you commit files.</span></span><br></pre></td></tr></table></figure><h2 id="旧的文件"><a class="header-anchor" href="#旧的文件">#</a>旧的文件</h2><p>可以通过<code>unix2dos</code>工具来批量进行转换，官网：<a href="http://dos2unix.sourceforge.net/" target="_blank" rel="noopener">Dos2Unix / Unix2Dos - Text file format converters</a>，下载地址：<a href="https://sourceforge.net/projects/dos2unix/" target="_blank" rel="noopener">dos2unix</a>。</p><p>下载解压之后的 bin 文件夹里有我们需要的可执行文件，我的是<code>D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe</code>。</p><ol><li>打开命令行<code>win+R</code>，输入<code>cmd</code>，回车。</li><li><code>cd</code>定位到所需要的批量处理的根目录。</li><li>输入下列命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /R %G <span class="keyword">in</span> (*.md) <span class="keyword">do</span> D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe <span class="string">"%G"</span></span><br><span class="line"><span class="comment"># *.md 代表以所有md结尾的文件</span></span><br></pre></td></tr></table></figure></li><li>完成。</li></ol><h2 id="参考文档"><a class="header-anchor" href="#参考文档">#</a>参考文档</h2><ul><li><a href="http://dos2unix.sourceforge.net/" target="_blank" rel="noopener">Dos2Unix / Unix2Dos - Text file format converters</a></li><li><a href="https://blog.csdn.net/panda1234lee/article/details/89289097" target="_blank" rel="noopener">批量转换 LF 和 CRLF 的小技巧【详细步骤】</a></li><li><a href="https://docs.github.com/en/github/using-git/configuring-git-to-handle-line-endings" target="_blank" rel="noopener">Configuring Git to handle line endings</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> work </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> crlf </tag>
+            
+            <tag> lf </tag>
+            
+            <tag> file format </tag>
+            
+            <tag> 文件格式 </tag>
+            
+            <tag> github </tag>
+            
+            <tag> line endings </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>用ngrok进行内网穿透</title>
       <link href="/blog/2020/08/17/intranet-penetration-use-ngrok/"/>
       <url>/blog/2020/08/17/intranet-penetration-use-ngrok/</url>
