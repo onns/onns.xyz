@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="在MacOS上部署ftp服务器"/><meta name="keywords" content="macos, homebrew, ftpd, pure-ftpd, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="在MacOS上部署ftp服务器"/><meta name="keywords" content="homebrew, ftpd, pure-ftpd, macos, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/06/02/ftp-server-on-mac/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
@@ -277,7 +277,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#汇总"><span class="toc-text">汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
+  </div><div class="post-content"><p>20200717 更新：<br>
+每次电脑重启之后需要执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>ftp 才会生效。</p>
+<hr>
+<p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
 <a id="more"></a>
 <center>
 <p><img src="//onns.xyz/blog/image/20200602-1.jpg" alt="手机文件管理支持远程存储列表"></p>
@@ -329,10 +334,10 @@ FTP is not secure because the connection is not encrypted. Modern network protoc
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/macos/">macos</a>
             <a href="/blog/tags/homebrew/">homebrew</a>
             <a href="/blog/tags/ftpd/">ftpd</a>
             <a href="/blog/tags/pure-ftpd/">pure-ftpd</a>
+            <a href="/blog/tags/macos/">macos</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/06/05/some-tools/">

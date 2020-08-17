@@ -298,7 +298,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         </div>
     </header>
 
-    <div class="post-content"><p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
+    <div class="post-content"><p>20200717 更新：<br>
+每次电脑重启之后需要执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure>
+<p>ftp 才会生效。</p>
+<hr>
+<p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
           <div class="read-more">
             <a href="/blog/2020/06/02/ftp-server-on-mac/" class="read-more-link">Read more..</a>
           </div>

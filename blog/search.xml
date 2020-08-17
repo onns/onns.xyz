@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> work </category>
+          <category> code </category>
           
       </categories>
       
@@ -623,13 +623,13 @@
       
         <tags>
             
+            <tag> macos </tag>
+            
             <tag> cron </tag>
             
             <tag> crontab </tag>
             
             <tag> Catalina </tag>
-            
-            <tag> macos </tag>
             
         </tags>
       
@@ -671,7 +671,7 @@
       <link href="/blog/2020/06/02/ftp-server-on-mac/"/>
       <url>/blog/2020/06/02/ftp-server-on-mac/</url>
       
-        <content type="html"><![CDATA[<p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p><a id="more"></a><center><p><img src="//onns.xyz/blog/image/20200602-1.jpg" alt="手机文件管理支持远程存储列表"></p></center><p>之前搜索的，无一例外，全是叫我输入如下所示的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist</span><br></pre></td></tr></table></figure><p>但是看下面的消息，原文链接点<a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">这里</a>：</p><blockquote><p>Apple removed the included File Transfer Protocol (FTP) server from recent versions of macOS. FTP is not secure by default and better avoided.<br>FTP is not secure because the connection is not encrypted. Modern network protocols are encrypted by default – even on local networks.</p></blockquote><p>出于安全考虑，苹果官方已经把 ftp.plist<code>移除</code>了，解决办法是需要自己安装一个<code>ftpd服务</code>。</p><p>用<code>homebrew</code>就可以安装了，如果没有安装可以参考<a href="https://onns.xyz/blog/2020/06/01/install-homebrew-on-mac/">这里</a>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install pure-ftpd</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure><p>然后需要配置<code>ftpd</code>的验证，使之可以通过系统用户进行验证登录。<br>新建一个<code>/etc/pam.d/pure-ftpd</code>文件，记得用 root 权限编辑。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure><p>内容如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure><p>然后让配置文件生效</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br></pre></td></tr></table></figure><p>最后重启一下<code>pure-ftpd</code>服务：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure><p>停止的命令是：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br></pre></td></tr></table></figure><p>这里是<code>pure-ftpd</code>的<a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">官方文档</a>，虽然很简单但。。。聊胜于无吧。</p><h2 id="汇总"><a class="header-anchor" href="#汇总">#</a>汇总</h2><p>如果出现任何问题，可以参考 <a href="https://superuser.com/questions/1398800/pure-ftpd-connection-refused-localhost-on-high-sierra" target="_blank" rel="noopener">pure-ftpd Connection refused localhost on high sierra</a>，这个软件的相关文档真的很不完善，重复完成下述步骤应该就可以解决了，我也不知道为什么我出问题了，但是重装就解决了，这大概就是重启/重装解决 99%的问题的人生四大哲理吧。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">brew remove pure-ftpd</span><br><span class="line">brew upgrade</span><br><span class="line">brew cleanup</span><br><span class="line">brew install pure-ftpd</span><br><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure><p>完。</p><p>真的很方便，直接在手机上存取了就。</p><center><p><img src="//onns.xyz/blog/image/20200602-2.jpg" alt="手机连接ftp示意图"></p></center><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.jianshu.com/p/f4994754b74a" target="_blank" rel="noopener">MAC 搭建 FTP 服务器</a>（不靠谱，错误答案）</li><li><a href="https://zhidao.baidu.com/question/653759039211321605.html" target="_blank" rel="noopener">mac os 10.13.6 如何启动 FTP 服务器？急！ </a>（不靠谱，错误答案）</li><li><a href="https://blog.csdn.net/weixin_33733810/article/details/92498798" target="_blank" rel="noopener">Mac 实践–MAC 搭建 FTP 服务器</a>（SFTP 可以参照这个，FTP 依然是错误的）</li><li><a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">host ftp server on Mojave</a></li><li><a href="https://apple.stackexchange.com/questions/141633/quick-to-install-and-set-up-ftp-server-on-homebrew-for-osx" target="_blank" rel="noopener">quick to install and set up FTP server on homebrew for OSX</a></li><li><a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">PURE-FTPD DOCUMENTATION-Notes for MacOS users</a></li><li><a href="https://superuser.com/questions/1398800/pure-ftpd-connection-refused-localhost-on-high-sierra" target="_blank" rel="noopener">pure-ftpd Connection refused localhost on high sierra</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>20200717 更新：<br>每次电脑重启之后需要执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure><p>ftp 才会生效。</p><hr><p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p><a id="more"></a><center><p><img src="//onns.xyz/blog/image/20200602-1.jpg" alt="手机文件管理支持远程存储列表"></p></center><p>之前搜索的，无一例外，全是叫我输入如下所示的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist</span><br></pre></td></tr></table></figure><p>但是看下面的消息，原文链接点<a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">这里</a>：</p><blockquote><p>Apple removed the included File Transfer Protocol (FTP) server from recent versions of macOS. FTP is not secure by default and better avoided.<br>FTP is not secure because the connection is not encrypted. Modern network protocols are encrypted by default – even on local networks.</p></blockquote><p>出于安全考虑，苹果官方已经把 ftp.plist<code>移除</code>了，解决办法是需要自己安装一个<code>ftpd服务</code>。</p><p>用<code>homebrew</code>就可以安装了，如果没有安装可以参考<a href="https://onns.xyz/blog/2020/06/01/install-homebrew-on-mac/">这里</a>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install pure-ftpd</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure><p>然后需要配置<code>ftpd</code>的验证，使之可以通过系统用户进行验证登录。<br>新建一个<code>/etc/pam.d/pure-ftpd</code>文件，记得用 root 权限编辑。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure><p>内容如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure><p>然后让配置文件生效</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br></pre></td></tr></table></figure><p>最后重启一下<code>pure-ftpd</code>服务：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure><p>停止的命令是：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br></pre></td></tr></table></figure><p>这里是<code>pure-ftpd</code>的<a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">官方文档</a>，虽然很简单但。。。聊胜于无吧。</p><h2 id="汇总"><a class="header-anchor" href="#汇总">#</a>汇总</h2><p>如果出现任何问题，可以参考 <a href="https://superuser.com/questions/1398800/pure-ftpd-connection-refused-localhost-on-high-sierra" target="_blank" rel="noopener">pure-ftpd Connection refused localhost on high sierra</a>，这个软件的相关文档真的很不完善，重复完成下述步骤应该就可以解决了，我也不知道为什么我出问题了，但是重装就解决了，这大概就是重启/重装解决 99%的问题的人生四大哲理吧。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">brew remove pure-ftpd</span><br><span class="line">brew upgrade</span><br><span class="line">brew cleanup</span><br><span class="line">brew install pure-ftpd</span><br><span class="line">sudo vi /etc/pam.d/pure-ftpd</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># pure-ftpd: auth account password session</span><br><span class="line">auth       required       pam_opendirectory.so</span><br><span class="line">account    required       pam_permit.so</span><br><span class="line">password   required       pam_deny.so</span><br><span class="line">session    required       pam_permit.so</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services restart pure-ftpd</span><br></pre></td></tr></table></figure><p>完。</p><p>真的很方便，直接在手机上存取了就。</p><center><p><img src="//onns.xyz/blog/image/20200602-2.jpg" alt="手机连接ftp示意图"></p></center><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.jianshu.com/p/f4994754b74a" target="_blank" rel="noopener">MAC 搭建 FTP 服务器</a>（不靠谱，错误答案）</li><li><a href="https://zhidao.baidu.com/question/653759039211321605.html" target="_blank" rel="noopener">mac os 10.13.6 如何启动 FTP 服务器？急！ </a>（不靠谱，错误答案）</li><li><a href="https://blog.csdn.net/weixin_33733810/article/details/92498798" target="_blank" rel="noopener">Mac 实践–MAC 搭建 FTP 服务器</a>（SFTP 可以参照这个，FTP 依然是错误的）</li><li><a href="https://apple.stackexchange.com/questions/361901/host-ftp-server-on-mojave" target="_blank" rel="noopener">host ftp server on Mojave</a></li><li><a href="https://apple.stackexchange.com/questions/141633/quick-to-install-and-set-up-ftp-server-on-homebrew-for-osx" target="_blank" rel="noopener">quick to install and set up FTP server on homebrew for OSX</a></li><li><a href="https://download.pureftpd.org/pub/pure-ftpd/doc/README.MacOS-X" target="_blank" rel="noopener">PURE-FTPD DOCUMENTATION-Notes for MacOS users</a></li><li><a href="https://superuser.com/questions/1398800/pure-ftpd-connection-refused-localhost-on-high-sierra" target="_blank" rel="noopener">pure-ftpd Connection refused localhost on high sierra</a></li></ul>]]></content>
       
       
       <categories>
@@ -683,13 +683,13 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> homebrew </tag>
             
             <tag> ftpd </tag>
             
             <tag> pure-ftpd </tag>
+            
+            <tag> macos </tag>
             
         </tags>
       
@@ -716,9 +716,9 @@
             
             <tag> python </tag>
             
-            <tag> macos </tag>
-            
             <tag> homebrew </tag>
+            
+            <tag> macos </tag>
             
             <tag> pyenv </tag>
             
@@ -1987,6 +1987,17 @@
     
     
     <entry>
+      <title>about</title>
+      <link href="/blog/about/index.html"/>
+      <url>/blog/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>categories</title>
       <link href="/blog/categories/index.html"/>
       <url>/blog/categories/index.html</url>
@@ -2009,17 +2020,6 @@
     
     
     <entry>
-      <title>画啊画涂啊涂</title>
-      <link href="/blog/draw/index.html"/>
-      <url>/blog/draw/index.html</url>
-      
-        <content type="html"><![CDATA[<h3 id="2020-02"><a class="header-anchor" href="#2020-02">#</a>2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12"><a class="header-anchor" href="#2019-12">#</a>2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10"><a class="header-anchor" href="#2019-10">#</a>2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07"><a class="header-anchor" href="#2019-07">#</a>2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06"><a class="header-anchor" href="#2019-06">#</a>2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>ifc file parsing</title>
       <link href="/blog/drafts/ifc-file-parsing.html"/>
       <url>/blog/drafts/ifc-file-parsing.html</url>
@@ -2031,11 +2031,22 @@
     
     
     <entry>
-      <title>image</title>
-      <link href="/blog/image/index.html"/>
-      <url>/blog/image/index.html</url>
+      <title>Xlibrary接口文档</title>
+      <link href="/blog/drafts/xlibrary-api-document.html"/>
+      <url>/blog/drafts/xlibrary-api-document.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>画啊画涂啊涂</title>
+      <link href="/blog/draw/index.html"/>
+      <url>/blog/draw/index.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="2020-02"><a class="header-anchor" href="#2020-02">#</a>2020.02</h3><p><img src="//onns.xyz/blog/image/draw-20200207.jpg" alt="20200207"></p><h3 id="2019-12"><a class="header-anchor" href="#2019-12">#</a>2019.12</h3><p><img src="//onns.xyz/blog/image/draw-20191215.jpg" alt="20191215"></p><h3 id="2019-10"><a class="header-anchor" href="#2019-10">#</a>2019.10</h3><p><img src="//onns.xyz/blog/image/draw-20191031.jpg" alt="20191031"></p><h3 id="2019-07"><a class="header-anchor" href="#2019-07">#</a>2019.07</h3><p><img src="//onns.xyz/blog/image/draw-20190731.jpg" alt="20190731"></p><p><img src="//onns.xyz/blog/image/draw-20190728.jpg" alt="20190728"></p><h3 id="2019-06"><a class="header-anchor" href="#2019-06">#</a>2019.06</h3><p><img src="//onns.xyz/blog/image/draw-20190608.jpg" alt="20190608"></p><p><img src="//onns.xyz/blog/image/draw-20190606.jpg" alt="20190606"></p>]]></content>
       
     </entry>
     
@@ -2064,9 +2075,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/blog/tags/index.html"/>
-      <url>/blog/tags/index.html</url>
+      <title>image</title>
+      <link href="/blog/image/index.html"/>
+      <url>/blog/image/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -2075,22 +2086,11 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/blog/about/index.html"/>
-      <url>/blog/about/index.html</url>
+      <title>tags</title>
+      <link href="/blog/tags/index.html"/>
+      <url>/blog/tags/index.html</url>
       
-        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Xlibrary接口文档</title>
-      <link href="/blog/drafts/xlibrary-api-document.html"/>
-      <url>/blog/drafts/xlibrary-api-document.html</url>
-      
-        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
