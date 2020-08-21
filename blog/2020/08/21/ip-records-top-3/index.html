@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="ip访问记录查询top3"/><meta name="keywords" content="python, linux, interview, sort, uniq, ip, 4399, wc, head, tail, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/21/ip-records-top-3/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>ip访问记录查询top3 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">ip访问记录查询top3
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-21
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/21/ip-records-top-3/"
+             data-title="ip访问记录查询top3">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成测试数据"><span class="toc-text">生成测试数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看基本信息"><span class="toc-text">查看基本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip-记录-top3"><span class="toc-text">ip 记录 top3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#统计个数"><span class="toc-text">统计个数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#再排序"><span class="toc-text">再排序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>昨晚 4399 笔试：</p>
+<blockquote>
+<p>有一个文件 ip.txt，每行一条 ip 记录，共若干行，如何统计出现次数最多的前 3 个 ip 及其次数？</p>
+</blockquote>
+<p>被问懵了，记录下，学习之。</p>
+<a id="more"></a>
+<h2 id="生成测试数据"><a class="header-anchor" href="#生成测试数据">#</a>生成测试数据</h2>
+<p>首先用 Python 来生成一下测试数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">	n = <span class="number">4</span></span><br><span class="line">	<span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">		n = <span class="number">20</span></span><br><span class="line">	a = random.randint(<span class="number">1</span>, <span class="number">255</span>)</span><br><span class="line">	b = random.randint(<span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">	c = random.randint(<span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">	d = random.randint(<span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(random.randint(<span class="number">1</span>, n)):</span><br><span class="line">		print(str(a)+<span class="string">"."</span>+str(b)+<span class="string">"."</span>+str(c)+<span class="string">"."</span>+str(d))</span><br></pre></td></tr></table></figure>
+<p>然后把数据保存进<code>ip.txt</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python generate_ip.py &gt;&gt; ip.txt</span><br></pre></td></tr></table></figure>
+<h2 id="查看基本信息"><a class="header-anchor" href="#查看基本信息">#</a>查看基本信息</h2>
+<p>获取前五行的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ head ip.txt -n 5</span><br><span class="line">34.150.120.118</span><br><span class="line">34.150.120.118</span><br><span class="line">34.150.120.118</span><br><span class="line">34.150.120.118</span><br><span class="line">34.150.120.118</span><br></pre></td></tr></table></figure>
+<p>获取最后五行的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ tail ip.txt -n 5</span><br><span class="line">145.250.127.90</span><br><span class="line">145.250.127.90</span><br><span class="line">145.250.127.90</span><br><span class="line">47.14.104.50</span><br><span class="line">10.100.11.223</span><br></pre></td></tr></table></figure>
+<p>一共有多少行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wc -l ip.txt</span><br><span class="line">25282 ip.txt</span><br></pre></td></tr></table></figure>
+<h2 id="ip-记录-top3"><a class="header-anchor" href="#ip-记录-top3">#</a>ip 记录 top3</h2>
+<h3 id="排序"><a class="header-anchor" href="#排序">#</a>排序</h3>
+<p>统计方法<code>uniq</code>只能对连续的相同行生效，一般使用之前都需要先排序，用<code>sort</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort ip.txt</span><br></pre></td></tr></table></figure>
+<p>会全都打印到标准输出流里，看看最后 10 行就好啦：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ sort ip.txt | tail -n 10</span><br><span class="line">99.91.60.161</span><br><span class="line">99.91.60.161</span><br><span class="line">99.91.60.161</span><br><span class="line">99.91.60.161</span><br><span class="line">99.93.105.24</span><br><span class="line">99.96.209.20</span><br><span class="line">99.96.209.20</span><br><span class="line">99.96.209.20</span><br><span class="line">99.96.209.20</span><br><span class="line">99.98.96.57</span><br></pre></td></tr></table></figure>
+<p>排序没问题。</p>
+<h3 id="统计个数"><a class="header-anchor" href="#统计个数">#</a>统计个数</h3>
+<p>把排序的输出作为<code>uniq</code>的输入，<code>uniq</code>的用法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ uniq --<span class="built_in">help</span></span><br><span class="line">Usage: uniq [OPTION]... [INPUT [OUTPUT]]</span><br><span class="line">Filter adjacent matching lines from INPUT (or standard input),</span><br><span class="line">writing to OUTPUT (or standard output).</span><br><span class="line"></span><br><span class="line">With no options, matching lines are merged to the first occurrence.</span><br><span class="line"></span><br><span class="line">Mandatory arguments to long options are mandatory <span class="keyword">for</span> short options too.</span><br><span class="line">  -c, --count           prefix lines by the number of occurrences</span><br><span class="line">  -d, --repeated        only <span class="built_in">print</span> duplicate lines, one <span class="keyword">for</span> each group</span><br><span class="line">  -D, --all-repeated[=METHOD]  <span class="built_in">print</span> all duplicate lines</span><br><span class="line">                          groups can be delimited with an empty line</span><br><span class="line">                          METHOD=&#123;none(default),prepend,separate&#125;</span><br><span class="line">  -f, --skip-fields=N   avoid comparing the first N fields</span><br><span class="line">      --group[=METHOD]  show all items, separating groups with an empty line</span><br><span class="line">                          METHOD=&#123;separate(default),prepend,append,both&#125;</span><br><span class="line">  -i, --ignore-case     ignore differences <span class="keyword">in</span> <span class="keyword">case</span> when comparing</span><br><span class="line">  -s, --skip-chars=N    avoid comparing the first N characters</span><br><span class="line">  -u, --unique          only <span class="built_in">print</span> unique lines</span><br><span class="line">  -z, --zero-terminated  end lines with 0 byte, not newline</span><br><span class="line">  -w, --check-chars=N   compare no more than N characters <span class="keyword">in</span> lines</span><br><span class="line">      --<span class="built_in">help</span>     display this <span class="built_in">help</span> and <span class="built_in">exit</span></span><br><span class="line">      --version  output version information and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">A field is a run of blanks (usually spaces and/or TABs), <span class="keyword">then</span> non-blank</span><br><span class="line">characters.  Fields are skipped before chars.</span><br><span class="line"></span><br><span class="line">Note: <span class="string">'uniq'</span> does not detect repeated lines unless they are adjacent.</span><br><span class="line">You may want to sort the input first, or use <span class="string">'sort -u'</span> without <span class="string">'uniq'</span>.</span><br><span class="line">Also, comparisons honor the rules specified by <span class="string">'LC_COLLATE'</span>.</span><br><span class="line"></span><br><span class="line">GNU coreutils online <span class="built_in">help</span>: &lt;http://www.gnu.org/software/coreutils/&gt;</span><br><span class="line">For complete documentation, run: info coreutils <span class="string">'uniq invocation'</span></span><br></pre></td></tr></table></figure>
+<p>我们用<code>-c</code>参数即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort ip.txt | uniq -c</span><br></pre></td></tr></table></figure>
+<p>然后我们就得到了每个 ip 及其出现次数。</p>
+<h3 id="再排序"><a class="header-anchor" href="#再排序">#</a>再排序</h3>
+<p>这次需要按照次数排序而不是字典序排序了，先看<code>sort</code>的参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">$ sort --<span class="built_in">help</span></span><br><span class="line">Usage: sort [OPTION]... [FILE]...</span><br><span class="line">  or:  sort [OPTION]... --files0-from=F</span><br><span class="line">Write sorted concatenation of all FILE(s) to standard output.</span><br><span class="line"></span><br><span class="line">Mandatory arguments to long options are mandatory <span class="keyword">for</span> short options too.</span><br><span class="line">Ordering options:</span><br><span class="line"></span><br><span class="line">  -b, --ignore-leading-blanks  ignore leading blanks</span><br><span class="line">  -d, --dictionary-order      consider only blanks and alphanumeric characters</span><br><span class="line">  -f, --ignore-case           fold lower <span class="keyword">case</span> to upper <span class="keyword">case</span> characters</span><br><span class="line">  -g, --general-numeric-sort  compare according to general numerical value</span><br><span class="line">  -i, --ignore-nonprinting    consider only printable characters</span><br><span class="line">  -M, --month-sort            compare (unknown) &lt; <span class="string">'JAN'</span> &lt; ... &lt; <span class="string">'DEC'</span></span><br><span class="line">  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)</span><br><span class="line">  -n, --numeric-sort          compare according to string numerical value</span><br><span class="line">  -R, --random-sort           sort by random <span class="built_in">hash</span> of keys</span><br><span class="line">      --random-source=FILE    get random bytes from FILE</span><br><span class="line">  -r, --reverse               reverse the result of comparisons</span><br><span class="line">      --sort=WORD             sort according to WORD:</span><br><span class="line">                                general-numeric -g, human-numeric -h, month -M,</span><br><span class="line">                                numeric -n, random -R, version -V</span><br><span class="line">  -V, --version-sort          natural sort of (version) numbers within text</span><br><span class="line"></span><br><span class="line">Other options:</span><br><span class="line"></span><br><span class="line">      --batch-size=NMERGE   merge at most NMERGE inputs at once;</span><br><span class="line">                            <span class="keyword">for</span> more use temp files</span><br><span class="line">  -c, --check, --check=diagnose-first  check <span class="keyword">for</span> sorted input; <span class="keyword">do</span> not sort</span><br><span class="line">  -C, --check=quiet, --check=silent  like -c, but <span class="keyword">do</span> not report first bad line</span><br><span class="line">      --compress-program=PROG  compress temporaries with PROG;</span><br><span class="line">                              decompress them with PROG -d</span><br><span class="line">      --debug               annotate the part of the line used to sort,</span><br><span class="line">                              and warn about questionable usage to stderr</span><br><span class="line">      --files0-from=F       <span class="built_in">read</span> input from the files specified by</span><br><span class="line">                            NUL-terminated names <span class="keyword">in</span> file F;</span><br><span class="line">                            If F is - <span class="keyword">then</span> <span class="built_in">read</span> names from standard input</span><br><span class="line">  -k, --key=KEYDEF          sort via a key; KEYDEF gives location and <span class="built_in">type</span></span><br><span class="line">  -m, --merge               merge already sorted files; <span class="keyword">do</span> not sort</span><br><span class="line">  -o, --output=FILE         write result to FILE instead of standard output</span><br><span class="line">  -s, --stable              stabilize sort by disabling last-resort comparison</span><br><span class="line">  -S, --buffer-size=SIZE    use SIZE <span class="keyword">for</span> main memory buffer</span><br><span class="line">  -t, --field-separator=SEP  use SEP instead of non-blank to blank transition</span><br><span class="line">  -T, --temporary-directory=DIR  use DIR <span class="keyword">for</span> temporaries, not <span class="variable">$TMPDIR</span> or /tmp;</span><br><span class="line">                              multiple options specify multiple directories</span><br><span class="line">      --parallel=N          change the number of sorts run concurrently to N</span><br><span class="line">  -u, --unique              with -c, check <span class="keyword">for</span> strict ordering;</span><br><span class="line">                              without -c, output only the first of an equal run</span><br><span class="line">  -z, --zero-terminated     end lines with 0 byte, not newline</span><br><span class="line">      --<span class="built_in">help</span>     display this <span class="built_in">help</span> and <span class="built_in">exit</span></span><br><span class="line">      --version  output version information and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">KEYDEF is F[.C][OPTS][,F[.C][OPTS]] <span class="keyword">for</span> start and stop position, <span class="built_in">where</span> F is a</span><br><span class="line">field number and C a character position <span class="keyword">in</span> the field; both are origin 1, and</span><br><span class="line">the stop position defaults to the line<span class="string">'s end.  If neither -t nor -b is in</span></span><br><span class="line"><span class="string">effect, characters in a field are counted from the beginning of the preceding</span></span><br><span class="line"><span class="string">whitespace.  OPTS is one or more single-letter ordering options [bdfgiMhnRrV],</span></span><br><span class="line"><span class="string">which override global ordering options for that key.  If no key is given, use</span></span><br><span class="line"><span class="string">the entire line as the key.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">SIZE may be followed by the following multiplicative suffixes:</span></span><br><span class="line"><span class="string">% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">With no FILE, or when FILE is -, read standard input.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">*** WARNING ***</span></span><br><span class="line"><span class="string">The locale specified by the environment affects sort order.</span></span><br><span class="line"><span class="string">Set LC_ALL=C to get the traditional sort order that uses</span></span><br><span class="line"><span class="string">native byte values.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;</span></span><br><span class="line"><span class="string">For complete documentation, run: info coreutils '</span>sort invocation<span class="string">'</span></span><br></pre></td></tr></table></figure>
+<p>我们需要用到的是<code>-n</code>参数，根据数字大小排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort ip.txt | uniq -c | sort -n</span><br></pre></td></tr></table></figure>
+<p>最后我们需要的是最大的三个，先降序排：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort ip.txt | uniq -c | sort -rn</span><br></pre></td></tr></table></figure>
+<p>然后取<code>top3</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sort ip.txt | uniq -c | sort -rn | head -n 3</span><br><span class="line">     20 79.137.86.84</span><br><span class="line">     18 178.40.3.117</span><br><span class="line">     17 224.64.206.181</span><br></pre></td></tr></table></figure>
+<p>收工！</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/chengonghao/article/details/52160694" target="_blank" rel="noopener">有一个文件 ip.txt，每行一条 ip 记录，共若干行，下面哪个命令可以实现“统计出现次数最多的前 3 个 ip 及其次数”？</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/python/">python</a>
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/interview/">interview</a>
+            <a href="/blog/tags/sort/">sort</a>
+            <a href="/blog/tags/uniq/">uniq</a>
+            <a href="/blog/tags/ip/">ip</a>
+            <a href="/blog/tags/4399/">4399</a>
+            <a href="/blog/tags/wc/">wc</a>
+            <a href="/blog/tags/head/">head</a>
+            <a href="/blog/tags/tail/">tail</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/19/udp-in-java/">
+        <span class="next-text nav-default">用Java实现UDP通信</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
