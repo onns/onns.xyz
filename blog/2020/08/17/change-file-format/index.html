@@ -288,7 +288,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <ol>
 <li>打开命令行<code>win+R</code>，输入<code>cmd</code>，回车。</li>
 <li><code>cd</code>定位到所需要的批量处理的根目录。</li>
-<li>输入下列命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /R %G <span class="keyword">in</span> (*.md *.html) <span class="keyword">do</span> D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe <span class="string">"%G"</span></span><br><span class="line"><span class="comment"># *.md 代表以所有md结尾的文件</span></span><br></pre></td></tr></table></figure>
+<li>输入下列命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /R %G <span class="keyword">in</span> (*.md) <span class="keyword">do</span> D:\Download\dos2unix-7.4.1-win64\bin\unix2dos.exe <span class="string">"%G"</span></span><br><span class="line"><span class="comment"># *.md 代表以所有md结尾的文件</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>完成。</li>
 </ol>

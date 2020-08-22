@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="深入理解Java虚拟机（一）"/><meta name="keywords" content="java, jvm, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/22/jvm-note-1/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>深入理解Java虚拟机（一） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">深入理解Java虚拟机（一）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-22
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/22/jvm-note-1/"
+             data-title="深入理解Java虚拟机（一）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动内存管理"><span class="toc-text">自动内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#程序计数器"><span class="toc-text">程序计数器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java-虚拟机栈"><span class="toc-text">Java 虚拟机栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地方法栈"><span class="toc-text">本地方法栈</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
+<h2 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h2>
+<a id="more"></a>
+<center>
+<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
+<p>Java 虚拟机运行时数据区</p>
+</center>
+<h3 id="程序计数器"><a class="header-anchor" href="#程序计数器">#</a>程序计数器</h3>
+<p><code>程序计数器</code>(Program Counter Register)是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。</p>
+<p>字节码解释器工作时就是通过改变这个<code>计数器</code>的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
+<p>为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+<p>如果线程正在执行的是一个 Java 方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是本地(Native)方法，这个计数器值则应为空(Undefined)。此内存区域是唯一一个在《Java 虚拟机规范》中没有规定任何<code>OutOfMemoryError</code>情况的区域。</p>
+<h3 id="java-虚拟机栈"><a class="header-anchor" href="#java-虚拟机栈">#</a>Java 虚拟机栈</h3>
+<p><code>Java虚拟机栈</code>(Java Virtual Machine Stack)也是线程私有的，它的生命周期与线程相同。</p>
+<p>虚拟机栈描述的是 Java 方法执行的线程内存模型:每个方法被执行的时候，Java 虚拟机都会同步创建一个<code>栈帧</code>(Stack Frame)用于存储局部变量表、操作数栈、动态连接、方法出口等信息。每一个方法被调用直至执行完毕的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">栈帧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">局部变量表</td>
+</tr>
+<tr>
+<td style="text-align:center">操作数栈</td>
+</tr>
+<tr>
+<td style="text-align:center">动态连接</td>
+</tr>
+<tr>
+<td style="text-align:center">方法出口</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>局部变量表存放了编译期可知的各种 Java 虚拟机基本数据类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference 类型，它并不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或者其他与此对象相关的位置)和 returnAddress 类型(指向了一条字节码指令的地址)。</p>
+<p>这些数据类型在局部变量表中的存储空间以局部<code>变量槽</code>(Slot)来表示，其中 64 位长度的 long 和 double 类型的数据会占用两个变量槽，其余的数据类型只占用一个。</p>
+<p>局部变量表所需的内存空间<code>在编译期间</code>完成分配，当进入一个方法时，这个方法需要在栈帧中分配多大的局部变量空间是<code>完全确定的</code>，在方法运行期间不会改变局部变量表的大小。</p>
+<p>如果线程请求的栈深度大于虚拟机所允许的深度，将抛出<code>StackOverflowError</code>异常；如果 Java 虚拟机栈容量可以动态扩展<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，当栈扩展时无法申请到足够的内存会抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="本地方法栈"><a class="header-anchor" href="#本地方法栈">#</a>本地方法栈</h3>
+<p>本地方法栈会在栈深度溢出或者栈扩展失败时分别抛 StackOverflowError 和 OutOfMemoryError 异常。</p>
+<ul>
+<li><a href="//onns.xyz/blog/files/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89.pdf">传送门</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>HotSpot 虚拟机的栈容量是不可以动态扩展的，所以在 HotSpot 虚拟机上是不会由于虚拟机栈无法扩展而导致 OutOfMemoryError 异常——只要线程申请栈空间成功了就不会有 OOM，但是如果申请时就失败，仍然是会出现 OOM 异常的。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/jvm/">jvm</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/08/22/nodejs-in-linux/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Linux安装Nodejs</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/08/21/ip-records-top-3/">
+        <span class="next-text nav-default">ip访问记录查询top3</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
