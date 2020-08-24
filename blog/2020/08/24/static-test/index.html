@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="tags"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/"/>
+<meta name="description" content="Java静态加载顺序"/><meta name="keywords" content="java, static, nowcoder, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/24/static-test/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Tags - Onns Blog</title>
+    <title>Java静态加载顺序 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,14 +253,80 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="tag-cloud">
-    <div class="tag-cloud-title">
-      137 Tags In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Java静态加载顺序
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-24
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/24/static-test/"
+             data-title="Java静态加载顺序">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#进阶"><span class="toc-text">进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-    <div class="tag-cloud-tags">
-      <a href="/blog/tags/movie/" style="font-size: 19.43px;">movie</a> <a href="/blog/tags/computational-intelligence/" style="font-size: 24.57px;">computational intelligence</a> <a href="/blog/tags/TSP/" style="font-size: 19.43px;">TSP</a> <a href="/blog/tags/GA/" style="font-size: 17.71px;">GA</a> <a href="/blog/tags/SA/" style="font-size: 16px;">SA</a> <a href="/blog/tags/artificial-neural-network/" style="font-size: 17.71px;">artificial neural network</a> <a href="/blog/tags/perceptron/" style="font-size: 17.71px;">perceptron</a> <a href="/blog/tags/book/" style="font-size: 16px;">book</a> <a href="/blog/tags/indesign/" style="font-size: 16px;">indesign</a> <a href="/blog/tags/adobe/" style="font-size: 17.71px;">adobe</a> <a href="/blog/tags/ddns/" style="font-size: 16px;">ddns</a> <a href="/blog/tags/aliyun/" style="font-size: 16px;">aliyun</a> <a href="/blog/tags/python/" style="font-size: 24.57px;">python</a> <a href="/blog/tags/Arduino/" style="font-size: 16px;">Arduino</a> <a href="/blog/tags/bim/" style="font-size: 16px;">bim</a> <a href="/blog/tags/html/" style="font-size: 16px;">html</a> <a href="/blog/tags/hexo/" style="font-size: 21.14px;">hexo</a> <a href="/blog/tags/toc/" style="font-size: 16px;">toc</a> <a href="/blog/tags/hexo-theme-even/" style="font-size: 17.71px;">hexo-theme-even</a> <a href="/blog/tags/blog/" style="font-size: 17.71px;">blog</a> <a href="/blog/tags/js/" style="font-size: 16px;">js</a> <a href="/blog/tags/search/" style="font-size: 16px;">search</a> <a href="/blog/tags/hexo-generator-search/" style="font-size: 16px;">hexo-generator-search</a> <a href="/blog/tags/c/" style="font-size: 21.14px;">c</a> <a href="/blog/tags/crlf/" style="font-size: 16px;">crlf</a> <a href="/blog/tags/lf/" style="font-size: 16px;">lf</a> <a href="/blog/tags/file-format/" style="font-size: 16px;">file format</a> <a href="/blog/tags/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" style="font-size: 16px;">文件格式</a> <a href="/blog/tags/github/" style="font-size: 16px;">github</a> <a href="/blog/tags/line-endings/" style="font-size: 16px;">line endings</a> <a href="/blog/tags/chrome/" style="font-size: 19.43px;">chrome</a> <a href="/blog/tags/extension/" style="font-size: 17.71px;">extension</a> <a href="/blog/tags/sync-sofa/" style="font-size: 17.71px;">sync-sofa</a> <a href="/blog/tags/oj/" style="font-size: 16px;">oj</a> <a href="/blog/tags/dark-mode/" style="font-size: 16px;">dark mode</a> <a href="/blog/tags/mac/" style="font-size: 17.71px;">mac</a> <a href="/blog/tags/drama/" style="font-size: 16px;">drama</a> <a href="/blog/tags/email/" style="font-size: 17.71px;">email</a> <a href="/blog/tags/%E8%99%BD%E7%84%B6%E6%98%AF%E7%B2%BE%E7%A5%9E%E7%97%85%E4%BD%86%E6%B2%A1%E5%85%B3%E7%B3%BB/" style="font-size: 16px;">虽然是精神病但没关系</a> <a href="/blog/tags/%E9%9F%A9%E5%89%A7/" style="font-size: 16px;">韩剧</a> <a href="/blog/tags/computer-vision/" style="font-size: 21.14px;">computer vision</a> <a href="/blog/tags/matlab/" style="font-size: 21.14px;">matlab</a> <a href="/blog/tags/homebrew/" style="font-size: 17.71px;">homebrew</a> <a href="/blog/tags/ftpd/" style="font-size: 16px;">ftpd</a> <a href="/blog/tags/pure-ftpd/" style="font-size: 16px;">pure-ftpd</a> <a href="/blog/tags/macos/" style="font-size: 22.86px;">macos</a> <a href="/blog/tags/visual-basic-for-applications/" style="font-size: 16px;">visual basic for applications</a> <a href="/blog/tags/macro/" style="font-size: 16px;">macro</a> <a href="/blog/tags/LCS/" style="font-size: 16px;">LCS</a> <a href="/blog/tags/excel/" style="font-size: 16px;">excel</a> <a href="/blog/tags/cron/" style="font-size: 16px;">cron</a> <a href="/blog/tags/crontab/" style="font-size: 16px;">crontab</a> <a href="/blog/tags/Catalina/" style="font-size: 16px;">Catalina</a> <a href="/blog/tags/markdown/" style="font-size: 16px;">markdown</a> <a href="/blog/tags/hexo-plugin/" style="font-size: 16px;">hexo plugin</a> <a href="/blog/tags/photoshop/" style="font-size: 16px;">photoshop</a> <a href="/blog/tags/design/" style="font-size: 16px;">design</a> <a href="/blog/tags/intranet-penetration/" style="font-size: 16px;">intranet penetration</a> <a href="/blog/tags/ngrok/" style="font-size: 16px;">ngrok</a> <a href="/blog/tags/doc/" style="font-size: 16px;">doc</a> <a href="/blog/tags/java/" style="font-size: 28px;">java</a> <a href="/blog/tags/HashMap/" style="font-size: 16px;">HashMap</a> <a href="/blog/tags/source-code/" style="font-size: 16px;">source code</a> <a href="/blog/tags/pyenv/" style="font-size: 16px;">pyenv</a> <a href="/blog/tags/note/" style="font-size: 26.29px;">note</a> <a href="/blog/tags/shell/" style="font-size: 16px;">shell</a> <a href="/blog/tags/log/" style="font-size: 16px;">log</a> <a href="/blog/tags/file-system/" style="font-size: 16px;">file system</a> <a href="/blog/tags/linux/" style="font-size: 19.43px;">linux</a> <a href="/blog/tags/ext4/" style="font-size: 16px;">ext4</a> <a href="/blog/tags/ssh/" style="font-size: 17.71px;">ssh</a> <a href="/blog/tags/windows/" style="font-size: 17.71px;">windows</a> <a href="/blog/tags/permission/" style="font-size: 16px;">permission</a> <a href="/blog/tags/mysql/" style="font-size: 17.71px;">mysql</a> <a href="/blog/tags/life/" style="font-size: 16px;">life</a> <a href="/blog/tags/signature/" style="font-size: 16px;">signature</a> <a href="/blog/tags/procrastination/" style="font-size: 16px;">procrastination</a> <a href="/blog/tags/%E6%8B%96%E5%BB%B6%E7%97%87/" style="font-size: 16px;">拖延症</a> <a href="/blog/tags/nginx/" style="font-size: 16px;">nginx</a> <a href="/blog/tags/multiple-domains/" style="font-size: 16px;">multiple domains</a> <a href="/blog/tags/sync/" style="font-size: 16px;">sync</a> <a href="/blog/tags/serverless/" style="font-size: 16px;">serverless</a> <a href="/blog/tags/engagement/" style="font-size: 16px;">engagement</a> <a href="/blog/tags/%E5%8F%82%E4%B8%8E%E5%BA%A6/" style="font-size: 16px;">参与度</a> <a href="/blog/tags/longking/" style="font-size: 16px;">longking</a> <a href="/blog/tags/windows10/" style="font-size: 16px;">windows10</a> <a href="/blog/tags/PCL/" style="font-size: 16px;">PCL</a> <a href="/blog/tags/point-cloud/" style="font-size: 16px;">point cloud</a> <a href="/blog/tags/teamviewer/" style="font-size: 16px;">teamviewer</a> <a href="/blog/tags/leetcode/" style="font-size: 21.14px;">leetcode</a> <a href="/blog/tags/tips/" style="font-size: 22.86px;">tips</a> <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 17.71px;">动态规划</a> <a href="/blog/tags/%E9%80%92%E5%BD%92/" style="font-size: 16px;">递归</a> <a href="/blog/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 16px;">回溯</a> <a href="/blog/tags/dynamic-programming/" style="font-size: 17.71px;">dynamic programming</a> <a href="/blog/tags/recursion/" style="font-size: 16px;">recursion</a> <a href="/blog/tags/traceback/" style="font-size: 16px;">traceback</a> <a href="/blog/tags/centos7/" style="font-size: 16px;">centos7</a> <a href="/blog/tags/review/" style="font-size: 16px;">review</a> <a href="/blog/tags/interview/" style="font-size: 17.71px;">interview</a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><style type="text/css">
+.question-right:hover { 
+	color:#1CDDB1; 
+} 
+.question-wrong:hover { 
+	color:#FE4C40; 
+} 
+</style>
+<p>以下代码的输出结果是？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"静态块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"构造块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StaticTest t = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><span class="question-wrong">A. 静态块 构造块 构造块 构造块</span><br>
+<span class="question-wrong">B. 构造块 静态块 构造块 构造块</span><br>
+<span class="question-right">C. 构造块 构造块 静态块 构造块</span><br>
+<span class="question-wrong">D. 构造块 构造块 构造块 静态块</span></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ /Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=51677:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 -classpath /Users/onns/Documents/code/java/jvm/out/production/jvm xyz.onns.nowcoder.StaticTest</span><br><span class="line">构造块</span><br><span class="line">构造块</span><br><span class="line">静态块</span><br><span class="line">构造块</span><br><span class="line"></span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+<ol>
+<li>开始时 JVM 加载 StaticTest.class，对所有的静态成员进行声明，t1、t2 被初始化为默认值<code>null</code>。</li>
+<li>又因为 t1、t2 需要被显式初始化，所以对 t1 进行显式初始化，初始化代码块 → 构造函数（没有就是调用默认的构造函数）。</li>
+<li>因为在开始时已经对 static 部分进行了初始化，虽然只对 static 变量进行了初始化，但在初始化 t1 时也不会再执行 static 块了，因为 JVM 认为这是第二次加载类 B 了，</li>
+<li>所以 static 会在 t1 初始化时被忽略掉，所以直接初始化非 static 部分，也就是构造块部分（输出’构造块’）接着构造函数（无输出）。</li>
+<li>接着对 t2 进行初始化过程同 t1 相同（输出’构造块’）。</li>
+<li>此时就对所有的 static 变量都完成了初始化，接着就执行 static 块部分（输出’静态块’）。</li>
+<li>接着执行，main 方法，同样也，new 了对象，调用构造函数输出（‘构造块’）。</li>
+</ol>
+<h2 id="进阶"><a class="header-anchor" href="#进阶">#</a>进阶</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> B t1 = <span class="keyword">new</span> B();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> B t2 = <span class="keyword">new</span> B();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span><span class="params">()</span></span>&#123;</span><br><span class="line">    	<span class="keyword">super</span>();</span><br><span class="line">        System.out.println(<span class="string">"B类构造块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"B类静态块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> A t1 = <span class="keyword">new</span> A();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> A t2 = <span class="keyword">new</span> A();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">()</span></span>&#123;</span><br><span class="line">    	<span class="keyword">super</span>();</span><br><span class="line">        System.out.println(<span class="string">"A类构造块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"A类静态块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A t = <span class="keyword">new</span> A();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://www.nowcoder.com/questionTerminal/ab6eb06face84c4e81ab5bc6f0f7f258" target="_blank" rel="noopener">以下代码的输出结果是？</a></li>
+<li><a href="https://www.cnblogs.com/leiqiannian/p/7922824.html" target="_blank" rel="noopener">JAVA 中静态块、静态变量加载顺序详解</a></li>
+<li><a href="https://blog.csdn.net/niufeihu/article/details/89216243" target="_blank" rel="noopener">Java 静态代码块和静态属性加载顺序</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/static/">static</a>
+            <a href="/blog/tags/nowcoder/">nowcoder</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/24/jvm-note-3/">
+        <span class="next-text nav-default">深入理解Java虚拟机（三）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
