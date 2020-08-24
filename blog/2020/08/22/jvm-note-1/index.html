@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="深入理解Java虚拟机（一）"/><meta name="keywords" content="java, jvm, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="深入理解Java虚拟机（一）"/><meta name="keywords" content="java, jvm, jvm note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/08/22/jvm-note-1/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
@@ -321,6 +321,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>局部变量表所需的内存空间<code>在编译期间</code>完成分配，当进入一个方法时，这个方法需要在栈帧中分配多大的局部变量空间是<code>完全确定的</code>，在方法运行期间不会改变局部变量表的大小。</p>
 <p>如果线程请求的栈深度大于虚拟机所允许的深度，将抛出<code>StackOverflowError</code>异常；如果 Java 虚拟机栈容量可以动态扩展<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，当栈扩展时无法申请到足够的内存会抛出<code>OutOfMemoryError</code>异常。</p>
 <h3 id="本地方法栈"><a class="header-anchor" href="#本地方法栈">#</a>本地方法栈</h3>
+<p><code>本地方法栈</code>(Native Method Stacks)与虚拟机栈所发挥的作用是非常相似的，其区别只是虚拟机栈为虚拟机执行Java方法(也就是字节码)服务，而本地方法栈则是为虚拟机使用到的本地(Native)方法服务。</p>
 <p>本地方法栈会在栈深度溢出或者栈扩展失败时分别抛 StackOverflowError 和 OutOfMemoryError 异常。</p>
 <ul>
 <li><a href="//onns.xyz/blog/files/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89.pdf">传送门</a></li>
@@ -339,6 +340,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         <div class="post-tags">
             <a href="/blog/tags/java/">java</a>
             <a href="/blog/tags/jvm/">jvm</a>
+            <a href="/blog/tags/jvm-note/">jvm note</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/08/22/nodejs-in-linux/">
