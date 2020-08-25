@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="深入理解Java虚拟机（三）"/><meta name="keywords" content="java, jvm, jvm note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/25/jvm-note-4/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>深入理解Java虚拟机（三） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">深入理解Java虚拟机（三）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-25
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/25/jvm-note-4/"
+             data-title="深入理解Java虚拟机（三）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自动内存管理"><span class="toc-text">自动内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#垃圾收集器与内存分配策略"><span class="toc-text">垃圾收集器与内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可达性分析算法"><span class="toc-text">可达性分析算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用"><span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#finalize-方法"><span class="toc-text">finalize()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回收方法区"><span class="toc-text">回收方法区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分代收集理论"><span class="toc-text">分代收集理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“标记-清除”-mark-sweep-算法"><span class="toc-text">“标记-清除”(Mark-Sweep)算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标记-复制算法"><span class="toc-text">标记-复制算法</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
+<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
+<h2 id="垃圾收集器与内存分配策略"><a class="header-anchor" href="#垃圾收集器与内存分配策略">#</a>垃圾收集器与内存分配策略</h2>
+<a id="more"></a>
+<h3 id="可达性分析算法"><a class="header-anchor" href="#可达性分析算法">#</a>可达性分析算法</h3>
+<p>在 Java 技术体系里面，固定可作为<code>GC Roots</code>的对象包括以下几种：</p>
+<ul>
+<li>在虚拟机栈(栈帧中的本地变量表)中引用的对象，譬如各个线程被调用的方法堆栈中使用到的 参数、局部变量、临时变量等。</li>
+<li>在方法区中类静态属性引用的对象，譬如 Java 类的引用类型静态变量。</li>
+<li>在方法区中常量引用的对象，譬如字符串常量池(String Table)里的引用。</li>
+<li>在本地方法栈中 JNI(即通常所说的 Native 方法)引用的对象。</li>
+<li>Java 虚拟机内部的引用，如基本数据类型对应的 Class 对象，一些常驻的异常对象(比如 NullPointExcepiton、OutOfMemoryError)等，还有系统类加载器。</li>
+<li>所有被同步锁(synchronized 关键字)持有的对象。</li>
+<li>反映 Java 虚拟机内部情况的 JM XBean、JVM TI 中注册的回调、本地代码缓存等。</li>
+</ul>
+<p>除了这些固定的<code>GC Roots</code>集合以外，根据用户所选用的垃圾收集器以及当前回收的内存区域不同，还可以有其他对象“临时性”地加入，共同构成完整<code>GC Roots</code>集合。</p>
+<h3 id="引用"><a class="header-anchor" href="#引用">#</a>引用</h3>
+<p>在<code>JDK 1.2</code>版之后，Java 对引用的概念进行了扩充，将引用分为<code>强引用</code>(Strongly Reference)、<code>软引用</code>(Soft Reference)、<code>弱引用</code>(Weak Reference)和<code>虚引用</code>(Phantom Reference)4 种，这 4 种引用强度依次逐渐减弱。</p>
+<ul>
+<li><code>强引用</code>是最传统的“引用”的定义，是指在程序代码之中普遍存在的引用赋值，即类似“Object obj=new Object()”这种引用关系。无论任何情况下，只要强引用关系还存在，垃圾收集器就永远不会回收掉被引用的对象。</li>
+<li><code>软引用</code>是用来描述一些还有用，但非必须的对象。只被软引用关联着的对象，在系统将要发生内存溢出异常前，会把这些对象列进回收范围之中进行第二次回收，如果这次回收还没有足够的内存，才会抛出内存溢出异常。在 JDK 1.2 版之后提供了 SoftReference 类来实现软引用。</li>
+<li><code>弱引用</code>也是用来描述那些非必须对象，但是它的强度比软引用更弱一些，被弱引用关联的对象只能生存到下一次垃圾收集发生为止。当垃圾收集器开始工作，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。在 JDK 1.2 版之后提供了 WeakReference 类来实现弱引用。</li>
+<li><code>虚引用</code>也称为“幽灵引用”或者“幻影引用”，它是最弱的一种引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。为一个对象设置虚引用关联的唯一目的只是为了能在这个对象被收集器回收时收到一个系统通知。在 JDK 1.2 版之后提供 了 Phant omReference 类来实现虚引用。</li>
+</ul>
+<h3 id="finalize-方法"><a class="header-anchor" href="#finalize-方法">#</a>finalize()方法</h3>
+<p>要真正宣告一个对象死亡，至少要经历两次标记过程:如果对象在进行可达性分析后发现没有与<code>GC Roots</code>相连接的引用链，那它将会被第一次标记，随后进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize()</code>方法。假如对象没有覆盖<code>finalize()</code>方法，或者<code>finalize()</code>方法已经被虚拟机调用过，那么虚拟机将这两种情况都视为“没有必要执行”。</p>
+<p>如果这个对象被判定为确有必要执行<code>finalize()</code>方法，那么该对象将会被放置在一个名为<code>F-Queue</code>的队列之中，并在稍后由一条由虚拟机自动建立的、低调度优先级的<code>Finalizer</code>线程去执行它们的<code>finalize()</code>方法。这里所说的“执行”是指虚拟机会触发这个方法开始运行，但<code>并不承诺一定会等待它运行结束</code>。</p>
+<p>任何一个对象的<code>finalize()</code>方法都只会被系统自动调用一次，如果对象面临下一次回收，它的<code>finalize()</code>方法不会被再次执行。</p>
+<p><code>finalize()</code>方法运行代价高昂，不确定性大，无法保证各个对象的调用顺序，如今已被官方明确声明为<code>不推荐使用</code>的语法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.jvm;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 此代码演示了两点:</span></span><br><span class="line"><span class="comment"> * 1.对象可以在被GC时自我拯救。</span></span><br><span class="line"><span class="comment"> * 2.这种自救的机会只有一次，因为一个对象的finalize()方法最多只会被系统自动调用一次 * <span class="doctag">@author</span> zzm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalizeEscapeGC</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> FinalizeEscapeGC SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		SAVE_HOOK = <span class="keyword">new</span> FinalizeEscapeGC();</span><br><span class="line"><span class="comment">// 对象第一次成功拯救自己</span></span><br><span class="line">		SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">		System.gc();</span><br><span class="line"><span class="comment">// 因为Finalizer方法优先级很低，暂停0.5秒，以等待它</span></span><br><span class="line">		Thread.sleep(<span class="number">500</span>);</span><br><span class="line">		<span class="keyword">if</span> (SAVE_HOOK != <span class="keyword">null</span>) &#123;</span><br><span class="line">			SAVE_HOOK.isAlive();</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">"no, i am dead :("</span>);</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">// 下面这段代码与上面的完全相同，但是这次自救却失败了</span></span><br><span class="line"></span><br><span class="line">		SAVE_HOOK = <span class="keyword">null</span>;</span><br><span class="line">		System.gc();</span><br><span class="line"><span class="comment">// 因为Finalizer方法优先级很低，暂停0.5秒，以等待它</span></span><br><span class="line">		Thread.sleep(<span class="number">500</span>);</span><br><span class="line">		<span class="keyword">if</span> (SAVE_HOOK != <span class="keyword">null</span>) &#123;</span><br><span class="line">			SAVE_HOOK.isAlive();</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(<span class="string">"no, i am dead :("</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">isAlive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"yes, i am still alive :)"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.finalize();</span><br><span class="line">		System.out.println(<span class="string">"finalize method executed!"</span>);</span><br><span class="line">		FinalizeEscapeGC.SAVE_HOOK = <span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ /Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=63179:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 -classpath /Users/onns/Documents/code/java/jvm/out/production/jvm xyz.onns.jvm.FinalizeEscapeGC</span><br><span class="line">finalize method executed!</span><br><span class="line">yes, i am still alive :)</span><br><span class="line">no, i am dead :(</span><br><span class="line"></span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+<h3 id="回收方法区"><a class="header-anchor" href="#回收方法区">#</a>回收方法区</h3>
+<p>方法区的垃圾收集主要回收两部分内容:<code>废弃的常量</code>和<code>不再使用的类型</code>。</p>
+<p>判定一个类型是否属于“不再被使用的类”：</p>
+<ul>
+<li>该类所有的实例都已经被回收，也就是 Java 堆中不存在该类及其任何派生子类的实例。</li>
+<li>加载该类的类加载器已经被回收，这个条件除非是经过精心设计的可替换类加载器的场景，如 OSGi、JSP 的重加载等，否则通常是很难达成的。</li>
+<li>该类对应的<code>java.lang.Class</code>对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
+</ul>
+<p>在大量使用反射、动态代理、CGLib 等字节码框架，动态生成 JSP 以及 OSGi 这类频繁自定义类加载器的场景中，通常都需要 Java 虚拟机具备类型卸载的能力，以保证不会对方法区造成过大的内存压 力。</p>
+<h3 id="分代收集理论"><a class="header-anchor" href="#分代收集理论">#</a>分代收集理论</h3>
+<ol>
+<li><code>弱分代假说</code>(Weak Generational Hypothesis):绝大多数对象都是朝生夕灭的。</li>
+<li><code>强分代假说</code>(Strong Generational Hypothesis):熬过越多次垃圾收集过程的对象就越难以消亡。</li>
+<li><code>跨代引用假说</code>(Intergenerational Reference Hypothesis):跨代引用相对于同代引用来说仅占极少数。</li>
+</ol>
+<p>在新生代上建立一个全局的数据结构(该结构被称为“<code>记忆集</code>”，<code>Remembered Set</code>)，这个结构把老年代划分成若干小块，标识出老年代的哪一块内存会存在跨代引用。此后当发生<code>Minor GC</code>时，只有包含了跨代引用的小块内存里的对象才会被加入到<code>GC Roots</code>进行扫描。</p>
+<p><code>部分收集</code>(<code>Partial GC</code>):指目标不是完整收集整个 Java 堆的垃圾收集，其中又分为:</p>
+<ul>
+<li><code>新生代收集</code>(<code>Minor GC</code>/<code>Young GC</code>):指目标只是新生代的垃圾收集。</li>
+<li><code>老年代收集</code>(<code>Major GC</code>/<code>Old GC</code>):指目标只是老年代的垃圾收集。目前只有 CMS 收集器会有单独收集老年代的行为。</li>
+<li><code>混合收集</code>(<code>Mixed GC</code>):指目标是收集整个新生代以及部分老年代的垃圾收集。目前只有 G1 收集器会有这种行为。</li>
+</ul>
+<p><code>整堆收集</code>(<code>Full GC</code>):收集整个 Java 堆和方法区的垃圾收集。</p>
+<h3 id="“标记-清除”-mark-sweep-算法"><a class="header-anchor" href="#“标记-清除”-mark-sweep-算法">#</a>“标记-清除”(Mark-Sweep)算法</h3>
+<p>“<code>标记-清除</code>”(<code>Mark-Sweep</code>)算法：首先标记出所有需要回收的对象，在标记完成后，统一回收掉所有被标记的对象，也可以反过来，标记存活的对象，统一回收所有未被标记的对象。</p>
+<p>主要缺点有两个:</p>
+<ul>
+<li>第一个是执行效率不稳定，如果 Java 堆中包含大量对象，而且其中大部分是需要被回收的，这时必须进行大量标记和清除的动作，导致标记和清除两个过程的执行效率都随对象数量增长而降低;</li>
+<li>第二个是内存空间的碎片化问题，标记、清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致当以后在程序运行过程中需要分配较大对象时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</li>
+</ul>
+<h3 id="标记-复制算法"><a class="header-anchor" href="#标记-复制算法">#</a>标记-复制算法</h3>
+<p>将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/jvm/">jvm</a>
+            <a href="/blog/tags/jvm-note/">jvm note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/24/static-test/">
+        <span class="next-text nav-default">Java静态加载顺序</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
