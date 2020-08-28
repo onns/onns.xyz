@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tools - To hyphens </title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					To hyphens
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original"
+						placeholder="To hyphens"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current"
+						placeholder="to-hyphens"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+	<script>
+		function toHyphen(str) {
+			return str.replace(/(\s|:)+/g,"-");
+		}
+
+		var original = document.getElementById('original');
+		var current = document.getElementById('current');
+		original.addEventListener('input', function () {
+			current.innerHTML = toHyphen(this.value.trim().toLowerCase());
+		});
+	</script>
+</body>
+
+</html>
