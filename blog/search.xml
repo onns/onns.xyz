@@ -4,7 +4,173 @@
   
     
     <entry>
-      <title>深入理解Java虚拟机（三）</title>
+      <title>周报-20200830</title>
+      <link href="/blog/2020/08/30/weekly-report-20200830/"/>
+      <url>/blog/2020/08/30/weekly-report-20200830/</url>
+      
+        <content type="html"><![CDATA[<center><table><thead><tr><th style="text-align:center">2020-08-30</th><th style="text-align:center">周报#03</th><th style="text-align:center">刘潘</th></tr></thead><tbody></tbody></table></center><a id="more"></a><h2 id="i-task-achieved-last-week"><a class="header-anchor" href="#i-task-achieved-last-week">#</a>I. Task achieved last week</h2><hr><ul><li>阅读 CVPR2020 论文《Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition》。</li><li>阅读《一种基于 2D 时空信息提取的行为识别算法》。</li></ul><h2 id="ii-reports"><a class="header-anchor" href="#ii-reports">#</a>II. Reports</h2><hr><h3 id="disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition"><a class="header-anchor" href="#disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition">#</a>Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition</h3><p>基于骨架的动作识别的分离统一图卷积</p><p>创新点：</p><ol><li>在多尺度算子下无偏的远程联合关系建模</li><li>在信息流中无障碍的跨时空捕获复杂的时空依赖性</li></ol><p>首先介绍了一下基于人体骨架的行为识别的高效性和广阔前景。</p><p>对于骨架图的鲁棒动作识别，一个理想的算法应该不仅仅局限于局部关节连通性，提取多尺度结构特征和长距离依赖关系，因为结构上分离的关节也具有很强的相关性。</p><p>现有的方法是通过图卷积的骨架邻接矩阵的高阶多项式，邻接多项式通过使远邻可到达而增加了图卷积的感受野。</p><p>但因此就会出现<code>biasedweighting problem</code>，即<code>偏加权问题</code>。更高的多项式阶在从远端关节获取信息方面仅具有一点点的效果，因为聚集的特征将由来自局部身体部位的关节控制。这是限制现有多尺度聚合器可扩展性的一个关键缺点。</p><p>鲁棒算法的另一个可取特征是能够利用复杂的跨时空联合关系进行动作识别。然而，为了达到这一目的，大多数现有的方法都是使用交错的空间独立（spatial-only）和时间独立（temporal-only）模型，类似于分解的三维卷积。一种典型的方法是首先使用图卷积提取每个时间片的空间关系，然后使用循环的或一维卷积层来模拟时间动态。这种<code>因式分解</code>允许高效的远程建模，它支持跨时空的直接信息流，但是它无法捕获复杂的区域时空联合依赖关系。例如，“站起来”的动作常常同时发生上下身体跨越时空的运动，上半身的运动（前倾）与下半身的运动（站起来）有着强烈的关联。<code>因式分解</code>建模可能无法有效地捕捉到做出预测的有力线索。</p><ol><li>我们提出了一个分离的多尺度聚合方案，该方案消除了来自不同邻域的节点特征之间的冗余依赖关系，从而使强大的多尺度聚合器能够有效地捕获人类骨骼上的图形范围的关节关系。</li><li>我们提出了一个<code>G3D</code>操作单元。它促进了信息在时空中的直接流动，从而有效地进行特征学习。</li><li>将分离的聚集方案与 G3D 集成，提供了一个强大的特征抽取器（MS-G3D），具有跨空间和时间维度的多尺度感受野。时空特性的直接多尺度聚合进一步提高了模型性能。</li></ol><h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3><ul><li><a href="https://www.pianshen.com/article/75261564402/" target="_blank" rel="noopener">别人的笔记 1</a></li><li><a href="https://blog.csdn.net/qq_36852840/article/details/106374430" target="_blank" rel="noopener">别人的笔记 2</a></li><li><a href="https://blog.csdn.net/m0_37852937/article/details/106565861" target="_blank" rel="noopener">别人的笔记 3</a></li><li><a href="https://github.com/kenziyuliu/ms-g3d" target="_blank" rel="noopener">github 源码</a></li></ul><h3 id="spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view"><a class="header-anchor" href="#spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view">#</a>Spatiotemporal Fusion in 3D CNNs A Probabilistic View</h3><p>感觉是纯理论性质的研究…不是很能参考。</p><p>时间空间的融合方法有很多种，以往的探究方法是假设一种融合方法，然后进行假设验证。这样做的缺点是：因为训练需要很久的时间，所以验证要花费很长时间。</p><p>所以文章通过将融合方法映射到概率空间，通过理论模拟来提高验证效率。</p><h3 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h3><ul><li><a href="https://mp.weixin.qq.com/s/qZOCUuLt98fTpstGpC1ilg" target="_blank" rel="noopener">CVPR 2020 丨 Variational DropPath：提高 3D CNN 时空融合分析效率的秘诀</a></li><li><a href="https://github.com/scenarios/Probabilistic3DCNN" target="_blank" rel="noopener">https://github.com/scenarios/Probabilistic3DCNN</a></li></ul><h3 id="一种基于-2d-时空信息提取的行为识别算法"><a class="header-anchor" href="#一种基于-2d-时空信息提取的行为识别算法">#</a>一种基于 2D 时空信息提取的行为识别算法</h3><p>在<code>UCF101</code>数据集上准确率<code>94.46%</code>。</p><p>采用<code>DenseNet</code>做为网络的架构。</p><p>从一个视频片段提取出 <code>16</code> 帧的 <code>64 × 64 × 3</code> 的有时序顺序的图像，组织成 <code>4 × 4</code> 的图像。</p><center><p><img src="//onns.xyz/blog/image/20200829-1.png" alt="图像翻转设计"></p></center><center><p><img src="//onns.xyz/blog/image/20200829-2.png" alt="实验结果"></p></center><p>文章没有具体说明执行速度，但是我觉得应该比基于视频的快很多，也相对来讲更有实践性。</p><h2 id="iii-plan-for-this-week"><a class="header-anchor" href="#iii-plan-for-this-week">#</a>III. Plan for this week</h2><hr><ul><li>申请了 UCF101 的数据集，看看先跑一个别人的 demo 试一下。</li><li>继续读论文。</li><li>2D 时空信息提取的方法，说不定可以从图像的摆放和帧选取等方面进行创新。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> weekly report </tag>
+            
+            <tag> lab406 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown格式的周报模板</title>
+      <link href="/blog/2020/08/30/weekly-report-template/"/>
+      <url>/blog/2020/08/30/weekly-report-template/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">| date | report#ID | name |</span><br><span class="line">| :--: | :-------: | :--: |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">## I. Task achieved last week</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## II. Reports</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## III. Plan for this week</span></span><br><span class="line"></span><br><span class="line">---</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> weekly report </tag>
+            
+            <tag> lab406 </tag>
+            
+            <tag> template </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一种基于 2D 时空信息提取的行为识别算法</title>
+      <link href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/"/>
+      <url>/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一种基于-2d-时空信息提取的行为识别算法"><a class="header-anchor" href="#一种基于-2d-时空信息提取的行为识别算法">#</a>一种基于 2D 时空信息提取的行为识别算法</h2><p>在<code>UCF101</code>数据集上准确率<code>94.46%</code>。</p><p>采用<code>DenseNet</code>做为网络的架构。</p><p>从一个视频片段提取出 <code>16</code> 帧的 <code>64 × 64 × 3</code> 的有时序顺序的图像，组织成 <code>4 × 4</code> 的图像。</p><center><p><img src="//onns.xyz/blog/image/20200829-1.png" alt="图像翻转设计"></p></center><center><p><img src="//onns.xyz/blog/image/20200829-2.png" alt="实验结果"></p></center><p>文章没有具体说明执行速度，但是我觉得应该比基于视频的快很多，也相对来讲更有实践性。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition</title>
+      <link href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/"/>
+      <url>/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/</url>
+      
+        <content type="html"><![CDATA[<h2 id="disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition"><a class="header-anchor" href="#disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition">#</a>Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition</h2><p>基于骨架的动作识别的分离统一图卷积</p><p>在多尺度算子下无偏的远程联合关系建模<br>在信息流中无障碍的跨时空捕获复杂的时空依赖性</p><h2 id="introduction"><a class="header-anchor" href="#introduction">#</a>Introduction</h2><p>首先介绍了一下基于人体骨架的行为识别的高效性和广阔前景。</p><p>对于骨架图的鲁棒动作识别，一个理想的算法应该不仅仅局限于局部关节连通性，提取多尺度结构特征和长距离依赖关系，因为结构上分离的关节也具有很强的相关性。</p><p>现有的方法是通过图卷积的骨架邻接矩阵的高阶多项式，邻接多项式通过使远邻可到达而增加了图卷积的感受野。</p><p>但因此就会出现<code>biasedweighting problem</code>，即<code>偏加权问题</code>。更高的多项式阶在从远端关节获取信息方面仅具有一点点的效果，因为聚集的特征将由来自局部身体部位的关节控制。这是限制现有多尺度聚合器可扩展性的一个关键缺点。</p><p>鲁棒算法的另一个可取特征是能够利用复杂的跨时空联合关系进行动作识别。然而，为了达到这一目的，大多数现有的方法都是使用交错的空间独立（spatial-only）和时间独立（temporal-only）模型，类似于分解的三维卷积。一种典型的方法是首先使用图卷积提取每个时间片的空间关系，然后使用循环的或一维卷积层来模拟时间动态。这种<code>因式分解</code>允许高效的远程建模，它支持跨时空的直接信息流，但是它无法捕获复杂的区域时空联合依赖关系。例如，“站起来”的动作常常同时发生上下身体跨越时空的运动，上半身的运动（前倾）与下半身的运动（站起来）有着强烈的关联。<code>因式分解</code>建模可能无法有效地捕捉到做出预测的有力线索。</p><ol><li>我们提出了一个分离的多尺度聚合方案，该方案消除了来自不同邻域的节点特征之间的冗余依赖关系，从而使强大的多尺度聚合器能够有效地捕获人类骨骼上的图形范围的关节关系。</li><li>我们提出了一个<code>G3D</code>操作单元。它促进了信息在时空中的直接流动，从而有效地进行特征学习。</li><li>将分离的聚集方案与 G3D 集成，提供了一个强大的特征抽取器（MS-G3D），具有跨空间和时间维度的多尺度感受野。时空特性的直接多尺度聚合进一步提高了模型性能。</li></ol><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://www.pianshen.com/article/75261564402/" target="_blank" rel="noopener">别人的笔记 1</a></li><li><a href="https://blog.csdn.net/qq_36852840/article/details/106374430" target="_blank" rel="noopener">别人的笔记 2</a></li><li><a href="https://blog.csdn.net/m0_37852937/article/details/106565861" target="_blank" rel="noopener">别人的笔记 3</a></li><li><a href="https://github.com/kenziyuliu/ms-g3d" target="_blank" rel="noopener">github 源码</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Spatiotemporal Fusion in 3D CNNs A Probabilistic View</title>
+      <link href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/"/>
+      <url>/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/</url>
+      
+        <content type="html"><![CDATA[<h2 id="spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view"><a class="header-anchor" href="#spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view">#</a>Spatiotemporal Fusion in 3D CNNs A Probabilistic View</h2><p>感觉是纯理论性质的研究…不是很能参考。</p><ul><li><a href="https://mp.weixin.qq.com/s/qZOCUuLt98fTpstGpC1ilg" target="_blank" rel="noopener">CVPR 2020丨Variational DropPath：提高3D CNN时空融合分析效率的秘诀</a></li><li><a href="https://github.com/scenarios/Probabilistic3DCNN" target="_blank" rel="noopener">https://github.com/scenarios/Probabilistic3DCNN</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深入分析Java Web技术内幕（一）</title>
+      <link href="/blog/2020/08/27/jvm-web-1/"/>
+      <url>/blog/2020/08/27/jvm-web-1/</url>
+      
+        <content type="html"><![CDATA[<p>深入分析 Java Web 技术内幕</p><h2 id="深入分析-java-i-o-的工作机制"><a class="header-anchor" href="#深入分析-java-i-o-的工作机制">#</a>深入分析 Java I/O 的工作机制</h2><a id="more"></a><p>Java 的 I/O 操作类在包 <a href="http://java.io" target="_blank" rel="noopener">java.io</a> 下，大概分为四类：</p><ul><li>基于字节操作的 I/O 接口：<code>InputStream</code> 和 <code>OutputStream</code>。</li><li>基于字符操作的 I/O 接口：<code>Writer</code> 和 <code>Reader</code>。</li><li>基于磁盘操作的 I/O 接口：<code>File</code>。</li><li>基于网络操作的 I/O 接口：<code>Socket</code>。</li></ul><h3 id="java-序列化技术"><a class="header-anchor" href="#java-序列化技术">#</a>Java 序列化技术</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> java web </tag>
+            
+            <tag> java web note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深入理解Java虚拟机（四）</title>
       <link href="/blog/2020/08/25/jvm-note-4/"/>
       <url>/blog/2020/08/25/jvm-note-4/</url>
       
