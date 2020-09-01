@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/行为识别/"/>
+<meta name="description" content="PAN Towards Fast Action Recognition via Learning Persistence of Appearance"/><meta name="keywords" content="行为识别, action recognition, pan, persistent appearance network, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>行为识别 · Onns Blog
-  </title>
+    <title>PAN Towards Fast Action Recognition via Learning Persistence of Appearance - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,70 +253,80 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">行为识别</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">PAN Towards Fast Action Recognition via Learning Persistence of Appearance
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2020-09-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/" class="archive-post-link">
-            PAN Towards Fast Action Recognition via Learning Persistence of Appearance
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"
+             data-title="PAN Towards Fast Action Recognition via Learning Persistence of Appearance">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><span class="toc-text">PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2>
+<p>比光流网络快了1000倍</p>
+<blockquote>
+<p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p>
+</blockquote>
+<p>运动边界的微小位移在动作识别中起重要作用的角色。</p>
+<blockquote>
+<p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p>
+</blockquote>
+<p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p>
+<blockquote>
+<p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>
+In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p>
+</blockquote>
+<p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p>
+<blockquote>
+<p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p>
+</blockquote>
+<p>两种编码策略：</p>
+<p><strong>PA as motion modality</strong></p>
+<p><strong>PA as attention</strong></p>
+<p>第一种无论是从计算量上还是从准确率上都要更好。</p>
+<p>可能原因是第二种融合方法导致图像的不平衡。</p>
+<blockquote>
+<p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p>
+</blockquote>
+<p><strong>Various-timescale Aggregation Pooling</strong></p>
+<ul>
+<li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li>
+<li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/" class="archive-post-link">
-            TSM Temporal Shift Module for Efficient Video Understanding
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/" class="archive-post-link">
-            Gate-Shift Networks for Video Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/" class="archive-post-link">
-            一种基于 2D 时空信息提取的行为识别算法
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/" class="archive-post-link">
-            Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/" class="archive-post-link">
-            Spatiotemporal Fusion in 3D CNNs A Probabilistic View
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/pan/">pan</a>
+            <a href="/blog/tags/persistent-appearance-network/">persistent appearance network</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">
+        <span class="next-text nav-default">TSM Temporal Shift Module for Efficient Video Understanding</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

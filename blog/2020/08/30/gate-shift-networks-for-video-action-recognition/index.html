@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/行为识别/"/>
+<meta name="description" content="Gate-Shift Networks for Video Action Recognition"/><meta name="keywords" content="行为识别, action recognition, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/30/gate-shift-networks-for-video-action-recognition/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>行为识别 · Onns Blog
-  </title>
+    <title>Gate-Shift Networks for Video Action Recognition - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,70 +253,60 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">行为识别</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Gate-Shift Networks for Video Action Recognition
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/"
+             data-title="Gate-Shift Networks for Video Action Recognition">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/" class="archive-post-link">
-            PAN Towards Fast Action Recognition via Learning Persistence of Appearance
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gate-shift-networks-for-video-action-recognition"><span class="toc-text">Gate-Shift Networks for Video Action Recognition</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="gate-shift-networks-for-video-action-recognition"><a class="header-anchor" href="#gate-shift-networks-for-video-action-recognition">#</a>Gate-Shift Networks for Video Action Recognition</h2>
+<p>用于行为识别的<code>Gate-Shift</code>网络</p>
+<p>在实践中，由于涉及大量的参数和计算，在缺乏足够大的数据集进行大规模训练的情况下，<code>C3D</code>可能表现不佳。</p>
+<p>提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
+<p>通过<code>GSM</code>插件，一个<code>2D-CNN</code>可以适应性地学习时间路由特性并将它们结合起来，并且几乎没有额外的附加参数和计算开销。</p>
+<p>传统的方法演变：<code>C3D</code> -&gt; <code>2D spatial + 1D temporal</code> -&gt; <code>CSN</code> -&gt; <code>GST</code>（与分离信道组上的二维和三维卷积并行空间和时空交互建模） -&gt; <code>TSM</code>（时域卷积可以被限制为硬编码的时移，使一些信道在时间上向前或向后移动）</p>
+<p>所有这些现有的方法都学习具有硬连线连接和跨网络传播模式的结构化内核。<br>
+在网络中的任何一点上都没有数据依赖的决策来选择地通过不同的分支来路由特性，分组和随机的模式是在设计之初就固定的，并且学习如何随机是具有组合复杂性的。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/" class="archive-post-link">
-            TSM Temporal Shift Module for Efficient Video Understanding
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/" class="archive-post-link">
-            Gate-Shift Networks for Video Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/" class="archive-post-link">
-            一种基于 2D 时空信息提取的行为识别算法
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/" class="archive-post-link">
-            Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/" class="archive-post-link">
-            Spatiotemporal Fusion in 3D CNNs A Probabilistic View
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">TSM Temporal Shift Module for Efficient Video Understanding</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/08/30/weekly-report-20200830/">
+        <span class="next-text nav-default">周报-20200830</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

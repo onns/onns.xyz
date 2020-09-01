@@ -255,6 +255,116 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/">PAN Towards Fast Action Recognition via Learning Persistence of Appearance</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-01
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"
+             data-title="PAN Towards Fast Action Recognition via Learning Persistence of Appearance">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2>
+<p>比光流网络快了1000倍</p>
+<blockquote>
+<p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p>
+</blockquote>
+<p>运动边界的微小位移在动作识别中起重要作用的角色。</p>
+<blockquote>
+<p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p>
+</blockquote>
+<p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p>
+<blockquote>
+<p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>
+In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p>
+</blockquote>
+<p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p>
+<blockquote>
+<p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p>
+</blockquote>
+<p>两种编码策略：</p>
+<p><strong>PA as motion modality</strong></p>
+<p><strong>PA as attention</strong></p>
+<p>第一种无论是从计算量上还是从准确率上都要更好。</p>
+<p>可能原因是第二种融合方法导致图像的不平衡。</p>
+<blockquote>
+<p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p>
+</blockquote>
+<p><strong>Various-timescale Aggregation Pooling</strong></p>
+<ul>
+<li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li>
+<li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">TSM Temporal Shift Module for Efficient Video Understanding</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/"
+             data-title="TSM Temporal Shift Module for Efficient Video Understanding">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><ul>
+<li><a href="https://blog.csdn.net/justsolow/article/details/105127296" target="_blank" rel="noopener">《TSM: Temporal Shift Module for Efficient Video Understanding》学习小记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/66251207" target="_blank" rel="noopener">Temporal Shift Module</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/Amazingren/article/details/100715768" target="_blank" rel="noopener">【视频理解论文】——TSM：Temporal Shift Module for Efficient Video Understanding</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/strawqqhat/article/details/105292687" target="_blank" rel="noopener">Temporal Shift Module for Efficient Video Understanding</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/">Gate-Shift Networks for Video Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/"
+             data-title="Gate-Shift Networks for Video Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="gate-shift-networks-for-video-action-recognition"><a class="header-anchor" href="#gate-shift-networks-for-video-action-recognition">#</a>Gate-Shift Networks for Video Action Recognition</h2>
+<p>用于行为识别的<code>Gate-Shift</code>网络</p>
+<p>在实践中，由于涉及大量的参数和计算，在缺乏足够大的数据集进行大规模训练的情况下，<code>C3D</code>可能表现不佳。</p>
+<p>提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
+<p>通过<code>GSM</code>插件，一个<code>2D-CNN</code>可以适应性地学习时间路由特性并将它们结合起来，并且几乎没有额外的附加参数和计算开销。</p>
+<p>传统的方法演变：<code>C3D</code> -&gt; <code>2D spatial + 1D temporal</code> -&gt; <code>CSN</code> -&gt; <code>GST</code>（与分离信道组上的二维和三维卷积并行空间和时空交互建模） -&gt; <code>TSM</code>（时域卷积可以被限制为硬编码的时移，使一些信道在时间上向前或向后移动）</p>
+<p>所有这些现有的方法都学习具有硬连线连接和跨网络传播模式的结构化内核。<br>
+在网络中的任何一点上都没有数据依赖的决策来选择地通过不同的分支来路由特性，分组和随机的模式是在设计之初就固定的，并且学习如何随机是具有组合复杂性的。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/weekly-report-20200830/">周报-20200830</a>
         </h1>
 
@@ -369,7 +479,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>首先介绍了一下基于人体骨架的行为识别的高效性和广阔前景。</p>
 <p>对于骨架图的鲁棒动作识别，一个理想的算法应该不仅仅局限于局部关节连通性，提取多尺度结构特征和长距离依赖关系，因为结构上分离的关节也具有很强的相关性。</p>
 <p>现有的方法是通过图卷积的骨架邻接矩阵的高阶多项式，邻接多项式通过使远邻可到达而增加了图卷积的感受野。</p>
-<p>但因此就会出现<code>biasedweighting problem</code>，即<code>偏加权问题</code>。更高的多项式阶在从远端关节获取信息方面仅具有一点点的效果，因为聚集的特征将由来自局部身体部位的关节控制。这是限制现有多尺度聚合器可扩展性的一个关键缺点。</p>
+<p>但因此就会出现<code>biased weighting problem</code>，即<code>偏加权问题</code>。更高的多项式阶在从远端关节获取信息方面仅具有一点点的效果，因为聚集的特征将由来自局部身体部位的关节控制。这是限制现有多尺度聚合器可扩展性的一个关键缺点。</p>
 <p>鲁棒算法的另一个可取特征是能够利用复杂的跨时空联合关系进行动作识别。然而，为了达到这一目的，大多数现有的方法都是使用交错的空间独立（spatial-only）和时间独立（temporal-only）模型，类似于分解的三维卷积。一种典型的方法是首先使用图卷积提取每个时间片的空间关系，然后使用循环的或一维卷积层来模拟时间动态。这种<code>因式分解</code>允许高效的远程建模，它支持跨时空的直接信息流，但是它无法捕获复杂的区域时空联合依赖关系。例如，“站起来”的动作常常同时发生上下身体跨越时空的运动，上半身的运动（前倾）与下半身的运动（站起来）有着强烈的关联。<code>因式分解</code>建模可能无法有效地捕捉到做出预测的有力线索。</p>
 <ol>
 <li>我们提出了一个分离的多尺度聚合方案，该方案消除了来自不同邻域的节点特征之间的冗余依赖关系，从而使强大的多尺度聚合器能够有效地捕获人类骨骼上的图形范围的关节关系。</li>
@@ -406,8 +516,11 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 
     <div class="post-content"><h2 id="spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view"><a class="header-anchor" href="#spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view">#</a>Spatiotemporal Fusion in 3D CNNs A Probabilistic View</h2>
 <p>感觉是纯理论性质的研究…不是很能参考。</p>
+<p>时间空间的融合方法有很多种，以往的探究方法是假设一种融合方法，然后进行假设验证。这样做的缺点是：因为训练需要很久的时间，所以验证要花费很长时间。</p>
+<p>所以文章通过将融合方法映射到概率空间，通过理论模拟来提高验证效率。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
 <ul>
-<li><a href="https://mp.weixin.qq.com/s/qZOCUuLt98fTpstGpC1ilg" target="_blank" rel="noopener">CVPR 2020丨Variational DropPath：提高3D CNN时空融合分析效率的秘诀</a></li>
+<li><a href="https://mp.weixin.qq.com/s/qZOCUuLt98fTpstGpC1ilg" target="_blank" rel="noopener">CVPR 2020 丨 Variational DropPath：提高 3D CNN 时空融合分析效率的秘诀</a></li>
 <li><a href="https://github.com/scenarios/Probabilistic3DCNN" target="_blank" rel="noopener">https://github.com/scenarios/Probabilistic3DCNN</a></li>
 </ul>
 
@@ -461,99 +574,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h2 id="垃圾收集器与内存分配策略"><a class="header-anchor" href="#垃圾收集器与内存分配策略">#</a>垃圾收集器与内存分配策略</h2>
           <div class="read-more">
             <a href="/blog/2020/08/25/jvm-note-4/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/24/static-test/">Java静态加载顺序</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-24
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/24/static-test/"
-             data-title="Java静态加载顺序">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><style type="text/css">
-.question-right:hover { 
-	color:#1CDDB1; 
-} 
-.question-wrong:hover { 
-	color:#FE4C40; 
-} 
-</style>
-<p>以下代码的输出结果是？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"静态块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"构造块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StaticTest t = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/blog/2020/08/24/static-test/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/24/jvm-note-3/">深入理解Java虚拟机（三）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-24
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/24/jvm-note-3/"
-             data-title="深入理解Java虚拟机（三）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="java-内存区域与内存溢出异常"><a class="header-anchor" href="#java-内存区域与内存溢出异常">#</a>Java 内存区域与内存溢出异常</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
-<p>Java 虚拟机运行时数据区</p>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/24/jvm-note-3/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/23/jvm-note-2/">深入理解Java虚拟机（二）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-23
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/23/jvm-note-2/"
-             data-title="深入理解Java虚拟机（二）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="java-内存区域与内存溢出异常"><a class="header-anchor" href="#java-内存区域与内存溢出异常">#</a>Java 内存区域与内存溢出异常</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
-<p>Java 虚拟机运行时数据区</p>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/23/jvm-note-2/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
