@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>MacOS下配置maven</title>
+      <link href="/blog/2020/09/02/maven-in-mac/"/>
+      <url>/blog/2020/09/02/maven-in-mac/</url>
+      
+        <content type="html"><![CDATA[<p>官方下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p><p>下载：<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a></p><p>解压之后，复制目录：<code>/Users/onns/Downloads/java/apache-maven-3.6.3</code></p><p>因为系统更新后，命令行从<code>bash</code>换成了<code>zsh</code>所以环境变量文件也改了：<code>.zshrc</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export M2_HOME=/Users/onns/Downloads/java/apache-maven-3.6.3/bin'</span> &gt;&gt; .zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export MAVEN_HOME=/Users/onns/Downloads/java/apache-maven-3.6.3'</span> &gt;&gt; .zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$MAVEN_HOME/bin:$PATH'</span> &gt;&gt; .zshrc</span><br></pre></td></tr></table></figure><p>让环境变量生效：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure><p>测试：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mvn --version</span><br><span class="line">Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)</span><br><span class="line">Maven home: &#x2F;Users&#x2F;onns&#x2F;Downloads&#x2F;java&#x2F;apache-maven-3.6.3</span><br><span class="line">Java version: 13.0.2, vendor: Oracle Corporation, runtime: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-13.0.2.jdk&#x2F;Contents&#x2F;Home</span><br><span class="line">Default locale: en_CN, platform encoding: UTF-8</span><br><span class="line">OS name: &quot;mac os x&quot;, version: &quot;10.15.5&quot;, arch: &quot;x86_64&quot;, family: &quot;mac&quot;</span><br></pre></td></tr></table></figure><h2 id="修改镜像源"><a class="header-anchor" href="#修改镜像源">#</a>修改镜像源</h2><p>参照阿里云的使用指南：<a href="https://maven.aliyun.com/mvn/guide" target="_blank" rel="noopener">https://maven.aliyun.com/mvn/guide</a></p><p>打开<code>$MAVEN_HOME/conf/settings.xml</code></p><p>在<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code>标签中添加<code>mirror</code>子节点：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure><h2 id="配置本地仓库"><a class="header-anchor" href="#配置本地仓库">#</a>配置本地仓库</h2><p>打开<code>$MAVEN_HOME/conf/settings.xml</code></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- localRepository</span></span><br><span class="line"><span class="comment"> | The path to the local repository maven will use to store artifacts.</span></span><br><span class="line"><span class="comment"> |</span></span><br><span class="line"><span class="comment"> | Default: $&#123;user.home&#125;/.m2/repository</span></span><br><span class="line"><span class="comment">&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/Users/onns/Downloads/java/apache-maven-3.6.3/repo<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure><p>完</p><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://www.bilibili.com/video/BV12J411M7Sj?p=5" target="_blank" rel="noopener">教程地址</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> macos </tag>
+            
+            <tag> java </tag>
+            
+            <tag> maven </tag>
+            
+            <tag> zsh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PAN Towards Fast Action Recognition via Learning Persistence of Appearance</title>
       <link href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"/>
       <url>/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/</url>
