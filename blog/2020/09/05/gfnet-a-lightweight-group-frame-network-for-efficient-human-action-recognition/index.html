@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/action-recognition/"/>
+<meta name="description" content="GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION"/><meta name="keywords" content="行为识别, action recognition, gfnet, group frame network, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>action recognition · Onns Blog
-  </title>
+    <title>GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,80 +253,108 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">action recognition</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2020-09-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/" class="archive-post-link">
-            GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/"
+             data-title="GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition"><span class="toc-text">GFNET: A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#group-temporal-module"><span class="toc-text">Group Temporal Module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#group-spatial-module"><span class="toc-text">Group Spatial Module</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition"><a class="header-anchor" href="#gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition">#</a>GFNET: A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</h2>
+<p>为了现有的行为识别方法<code>计算量大``参数多</code>的问题，作者提出了<code>GFNet</code>。</p>
+<blockquote>
+<p>To handle these issues, we propose a lightweight neural network called Group Frame Network (GFNet).</p>
+</blockquote>
+<p>GFNet 通过帧级分解，以极小的代价提取每一帧的特征。</p>
+<blockquote>
+<p>GFNet adds frame-level decomposition to extract features of each frame at a minuscule cost.</p>
+</blockquote>
+<p>设计了两个核心组件，能够仅从<code>RGB图像</code>中提取时空信息，而不需要借助<code>光流</code>或<code>multi-scale testing</code>等。</p>
+<blockquote>
+<p>There are two core components: <code>Group Temporal Module</code> (GTM) and <code>Group Spatial Module</code> (GSM). These two modules enable GFNet to obtain temporal-spatial information only from RGB images.</p>
+</blockquote>
+<p>为了证明模型的有效性，他们没有使用预训练策略。</p>
+<blockquote>
+<p>To verify the validity of the model, no pre-training strategy is used in our experiments.</p>
+</blockquote>
+<p>网络的输入是<code>一定数量</code>的<code>视频帧</code>，对视频进行分段采样得到结果。</p>
+<blockquote>
+<p>The entire video with a variable number of frames is provided as the input of the network. Through an average sampling strategy, the video is divided into N equal-length segments and only one frame is selected from each segment. Due to the repeatability of adjacent frames, this sampling strategy can reduce inter-frame redundancy while preserving long-temporal information.</p>
+</blockquote>
+<p>K 个层同时输入网络获取时间信息。</p>
+<blockquote>
+<p>The first part is a feature extraction layer consisting of K separated branches. The sampled frames are simultaneously fed into the network to maintain the temporal information among these frames.</p>
+</blockquote>
+<p>各自的分支独立计算获得空间信息。</p>
+<blockquote>
+<p>In the feature extraction layer, each frame is learned independently using a network branch to get its spatial features.</p>
+</blockquote>
+<p>没太理解。</p>
+<blockquote>
+<p>all the sampled frames are stacked by channel-wise convolution.<br>
+It means that the input channel of GFNet is 3N when using RGB images as input.</p>
+</blockquote>
+<p>由于残差网络具有高度的泛化能力和性能，所以后续的块选择高度模块化残差单元。</p>
+<blockquote>
+<p>Owing to the impressive performance and strong generalization abil- ity of residual architecture, the block is based on the highly modularized residual unit.</p>
+</blockquote>
+<p>这句话没太理解。</p>
+<blockquote>
+<p>Considering the extraneous motion and identical texture features in sampled frames, GFNet decomposes frames and reduces the number of channels for each frame to lessen spatial redundancy. To be specific, the number of channels is equally divided among branches. It means that only a small number of channels are used per frame.</p>
+</blockquote>
+<h2 id="group-temporal-module"><a class="header-anchor" href="#group-temporal-module">#</a>Group Temporal Module</h2>
+<p>因为每个分支都是单独计算的，所以势必会降低准确率（没有提取帧间的联系），所以提出了<code>GTM</code>模块。</p>
+<blockquote>
+<p>To leverage the inter-frame information effectively and better strengthen temporal relationships, GTM is proposed to efficiently overcome the side effects brought by the separated branch.</p>
+</blockquote>
+<blockquote>
+<p>GTM consists of a translation layer and a 3D convolution layer.</p>
+</blockquote>
+<blockquote>
+<p>The translation layer makes the replacement of the data dimension. It includes the channel merger and the channel separation, which achieves the conversion of the feature map from four-dimensional data to five-dimensional data.</p>
+</blockquote>
+<h2 id="group-spatial-module"><a class="header-anchor" href="#group-spatial-module">#</a>Group Spatial Module</h2>
+<p>For the convolution layer of ResNet50, the computational cost is closely related to the number of channels. Motivated by this, a novel module called GSM is designed to significantly decrease the number of parameters and computational efforts.</p>
+<p>GSM 也是通过只取纹理来最小化计算成本。</p>
+<blockquote>
+<p>Because of the similarity among frames, the texture information is repetitive. Meanwhile, irrelevant motion inside frames increases the intra-frame redundancy. Aiming at minimizing the interference of redundant information, GSM diminishes the number of channels to extract features per frame.</p>
+</blockquote>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/" class="archive-post-link">
-            PAN Towards Fast Action Recognition via Learning Persistence of Appearance
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/" class="archive-post-link">
-            TSM Temporal Shift Module for Efficient Video Understanding
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/" class="archive-post-link">
-            Gate-Shift Networks for Video Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/" class="archive-post-link">
-            一种基于 2D 时空信息提取的行为识别算法
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/" class="archive-post-link">
-            Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/" class="archive-post-link">
-            Spatiotemporal Fusion in 3D CNNs A Probabilistic View
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/gfnet/">gfnet</a>
+            <a href="/blog/tags/group-frame-network/">group frame network</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/02/maven-in-mac/">
+        <span class="next-text nav-default">MacOS下配置maven</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
