@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/9/"/>
+<meta name="description" content="Linux下密钥登录"/><meta name="keywords" content="linux, ssh, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/07/ssh-key-in-linux/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>Linux下密钥登录 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,270 +253,67 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/10/04/bim-preview/">bim预览</a>
+      <h1 class="post-title">Linux下密钥登录
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-10-04
-        </span><span class="post-category">
-            <a href="/blog/categories/bim/">bim</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/10/04/bim-preview/"
-             data-title="bim预览">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-          <div class="read-more">
-            <a href="/blog/2018/10/04/bim-preview/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/10/03/hexo-plugin-list/">hexo插件整理</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-03
-        </span><span class="post-category">
-            <a href="/blog/categories/html/">html</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/10/03/hexo-plugin-list/"
-             data-title="hexo插件整理">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="介绍"><a class="header-anchor" href="#介绍">#</a>介绍</h2>
-<p>hexo有很多很好用的插件, 可以优化写博客的体验, 尤其是对于一些数学公示或图表的渲染.</p>
-          <div class="read-more">
-            <a href="/blog/2018/10/03/hexo-plugin-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/10/03/linux-command-list/">linux常用命令整理</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-03
-        </span><span class="post-category">
-            <a href="/blog/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/10/03/linux-command-list/"
-             data-title="linux常用命令整理">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-          <div class="read-more">
-            <a href="/blog/2018/10/03/linux-command-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/">2018 Computational Intelligence Homework No.1</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-09-29
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/"
-             data-title="2018 Computational Intelligence Homework No.1">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2>
-<p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p>
-          <div class="read-more">
-            <a href="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/04/03/mysql-string-search/">Mysql拼接字符串搜索</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-04-03
-        </span><span class="post-category">
-            <a href="/blog/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/04/03/mysql-string-search/"
-             data-title="Mysql拼接字符串搜索">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2>
-<p>在mysql的表中某一个键值是由<code>,</code>分隔的多个<code>id</code>组成的字符串, 例如: <code>1,2,3,4,5,6,7,8</code>.<br>
-现在需要搜索所有拥有<code>id</code>为<code>3</code>的行, 例如: <code>1,2,3,4</code>, <code>1,2,3</code>, <code>3,4,5,6</code>.</p>
-          <div class="read-more">
-            <a href="/blog/2018/04/03/mysql-string-search/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/04/02/ubuntu-client-setup/">乌班图下使用shadowsocksr客户端</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-04-02
-        </span><span class="post-category">
-            <a href="/blog/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/04/02/ubuntu-client-setup/"
-             data-title="乌班图下使用shadowsocksr客户端">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>新配置的电脑需要下载Google的插件和Google的搜索功能, 所以要配置代理. 记录一下.</p>
-          <div class="read-more">
-            <a href="/blog/2018/04/02/ubuntu-client-setup/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/01/30/server-document/">服务器文档</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-30
+          2020-09-07
         </span><span class="post-category">
             <a href="/blog/categories/work/">work</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2018/01/30/server-document/"
-             data-title="服务器文档">
+             data-url="/blog/2020/09/07/ssh-key-in-linux/"
+             data-title="Linux下密钥登录">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="环境依赖"><a class="header-anchor" href="#环境依赖">#</a>环境依赖</h2>
-<ul>
-<li>Centos/7.x.x</li>
-<li>nginx/1.12.2</li>
-<li>PHP/7.1.x、php-fpm/7.1.x</li>
-<li>mysql/5.7.x</li>
-<li>unoconv/0.8.x</li>
-</ul>
-          <div class="read-more">
-            <a href="/blog/2018/01/30/server-document/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/01/01/2018-movie-list/">2018 movie list</a>
-        </h1>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成密钥对"><span class="toc-text">生成密钥对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝生效"><span class="toc-text">拷贝生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#保存私钥"><span class="toc-text">保存私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改私钥权限"><span class="toc-text">修改私钥权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改-sshd-config"><span class="toc-text">修改 sshd_config</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>每次都教一遍，记录一下，下次直接甩链接吧。</p>
+<a id="more"></a>
+<h2 id="生成密钥对"><a class="header-anchor" href="#生成密钥对">#</a>生成密钥对</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen  -t rsa</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/root/.ssh/id_rsa):</span><br><span class="line"><span class="comment"># 回车</span></span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line"><span class="comment"># 回车</span></span><br><span class="line">Enter same passphrase again:</span><br><span class="line"><span class="comment"># 回车</span></span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="拷贝生效"><a class="header-anchor" href="#拷贝生效">#</a>拷贝生效</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> .ssh/</span><br><span class="line">$ ls</span><br><span class="line">authorized_keys  id_rsa  id_rsa.pub</span><br><span class="line">$ cp id_rsa.pub authorized_keys</span><br><span class="line">cp: overwrite ‘authorized_keys’? y</span><br><span class="line"><span class="comment"># 覆盖之前确认一下确实是可以覆盖的</span></span><br></pre></td></tr></table></figure>
+<h2 id="保存私钥"><a class="header-anchor" href="#保存私钥">#</a>保存私钥</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat id_rsa</span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">...</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>打开记事本，随便命名一个空后缀文件：比如我命名为：<code>node</code>，把从<code>-----BEGIN RSA PRIVATE KEY-----</code>到<code>-----END RSA PRIVATE KEY-----</code>粘贴进去，保存。</p>
+<h2 id="修改私钥权限"><a class="header-anchor" href="#修改私钥权限">#</a>修改私钥权限</h2>
+<p><code>Linux</code>和<code>MacOS</code>就很简单了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 node</span><br></pre></td></tr></table></figure>
+<p><code>Windows</code>比较麻烦，参照这篇：<a href="https://onns.xyz/blog/2020/08/10/log-write-test/#%E4%BF%AE%E6%94%B9%E7%A7%81%E9%92%A5%E6%9D%83%E9%99%90">Linux 追加日志测试</a>。</p>
+<h2 id="修改-sshd-config"><a class="header-anchor" href="#修改-sshd-config">#</a>修改 sshd_config</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<p>找到如下一行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PubkeyAuthentication yes</span></span><br><span class="line"><span class="comment"># 把"#"去掉</span></span><br><span class="line">PubkeyAuthentication yes</span><br></pre></td></tr></table></figure>
+<p>保存。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@node.onns.xyz -i node</span><br><span class="line">Last login: Mon Sep  7 13:27:19 2020 from 120.35.73.25</span><br><span class="line"></span><br><span class="line">Welcome to Alibaba Cloud Elastic Compute Service !</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-01
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/01/01/2018-movie-list/"
-             data-title="2018 movie list">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h3 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h3>
-          <div class="read-more">
-            <a href="/blog/2018/01/01/2018-movie-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/30/2017-movie-list/">2017 movie list</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-30
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/10/30/2017-movie-list/"
-             data-title="2017 movie list">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h3 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h3>
-<p>好看的电影好多, 截图放到手机里怕丢, 写下来.<br>
-定期更新.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/30/2017-movie-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/29/new-here/">New Here</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/10/29/new-here/"
-             data-title="New Here">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="first-and-foremost"><a class="header-anchor" href="#first-and-foremost">#</a>First and Foremost</h2>
-<p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/29/new-here/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/8/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/page/10/">
-        <span class="next-text">Next</span>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/ssh/">ssh</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/">
+        <span class="next-text nav-default">Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -547,7 +344,30 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
