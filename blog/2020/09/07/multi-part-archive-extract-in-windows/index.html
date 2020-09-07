@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/"/>
+<meta name="description" content="Windows下分卷压缩包解压"/><meta name="keywords" content="windows, tar, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/07/multi-part-archive-extract-in-windows/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Categories - Onns Blog</title>
+    <title>Windows下分卷压缩包解压 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,14 +253,79 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="categories">
-    <div class="categories-title">
-      18 Categories In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Windows下分卷压缩包解压
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/multi-part-archive-extract-in-windows/"
+             data-title="Windows下分卷压缩包解压">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">33</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/learn/">learn<span class="category-count">10</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/study/">study<span class="category-count">14</span></a> <a class="category-link" href="/blog/categories/system/">system<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/try/">try<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">2</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><blockquote>
+<p>The video data is provided as one large TGZ archive, split into parts of 1 GB max. The total download size is 19.4 GB. The archive contains webm-files using the VP9 codec. Files are numbered from 1 to 220847.</p>
+</blockquote>
+<p>20bn-something-something-v2-00<br>
+20bn-something-something-v2-01<br>
+20bn-something-something-v2-02<br>
+20bn-something-something-v2-03<br>
+20bn-something-something-v2-04<br>
+20bn-something-something-v2-05<br>
+20bn-something-something-v2-06<br>
+20bn-something-something-v2-07<br>
+20bn-something-something-v2-08<br>
+20bn-something-something-v2-09<br>
+20bn-something-something-v2-10<br>
+20bn-something-something-v2-11<br>
+20bn-something-something-v2-12<br>
+20bn-something-something-v2-13<br>
+20bn-something-something-v2-14<br>
+20bn-something-something-v2-15<br>
+20bn-something-something-v2-16<br>
+20bn-something-something-v2-17<br>
+20bn-something-something-v2-18<br>
+20bn-something-something-v2-19</p>
+<p><code>Linux</code>下很好解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 20bn-something-something-v2-?? | tar zx</span><br></pre></td></tr></table></figure>
+<p><code>Windows</code>下需要将所有的分卷先合并：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy /b 20n* temp.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后用解压软件打开即可。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/XX_123_1_RJ/article/details/95237636" target="_blank" rel="noopener">Windows 中解压 Linux 中产生的 tar.gz 分卷压缩包</a></li>
+<li><a href="https://20bn.com/datasets/something-something/v2#download" target="_blank" rel="noopener">The 20BN-something-something Dataset V2</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/windows/">windows</a>
+            <a href="/blog/tags/tar/">tar</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/07/ssh-key-in-linux/">
+        <span class="next-text nav-default">Linux下密钥登录</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 

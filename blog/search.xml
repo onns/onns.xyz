@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Windows下分卷压缩包解压</title>
+      <link href="/blog/2020/09/07/multi-part-archive-extract-in-windows/"/>
+      <url>/blog/2020/09/07/multi-part-archive-extract-in-windows/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>The video data is provided as one large TGZ archive, split into parts of 1 GB max. The total download size is 19.4 GB. The archive contains webm-files using the VP9 codec. Files are numbered from 1 to 220847.</p></blockquote><p>20bn-something-something-v2-00<br>20bn-something-something-v2-01<br>20bn-something-something-v2-02<br>20bn-something-something-v2-03<br>20bn-something-something-v2-04<br>20bn-something-something-v2-05<br>20bn-something-something-v2-06<br>20bn-something-something-v2-07<br>20bn-something-something-v2-08<br>20bn-something-something-v2-09<br>20bn-something-something-v2-10<br>20bn-something-something-v2-11<br>20bn-something-something-v2-12<br>20bn-something-something-v2-13<br>20bn-something-something-v2-14<br>20bn-something-something-v2-15<br>20bn-something-something-v2-16<br>20bn-something-something-v2-17<br>20bn-something-something-v2-18<br>20bn-something-something-v2-19</p><p><code>Linux</code>下很好解压：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 20bn-something-something-v2-?? | tar zx</span><br></pre></td></tr></table></figure><p><code>Windows</code>下需要将所有的分卷先合并：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy /b 20n* temp.tar.gz</span><br></pre></td></tr></table></figure><p>然后用解压软件打开即可。</p><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://blog.csdn.net/XX_123_1_RJ/article/details/95237636" target="_blank" rel="noopener">Windows 中解压 Linux 中产生的 tar.gz 分卷压缩包</a></li><li><a href="https://20bn.com/datasets/something-something/v2#download" target="_blank" rel="noopener">The 20BN-something-something Dataset V2</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> windows </tag>
+            
+            <tag> tar </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux下密钥登录</title>
       <link href="/blog/2020/09/07/ssh-key-in-linux/"/>
       <url>/blog/2020/09/07/ssh-key-in-linux/</url>
@@ -192,7 +219,7 @@
       <link href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"/>
       <url>/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/</url>
       
-        <content type="html"><![CDATA[<h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2><p>比光流网络快了1000倍</p><blockquote><p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p></blockquote><p>运动边界的微小位移在动作识别中起重要作用的角色。</p><blockquote><p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p></blockquote><p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p><blockquote><p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p></blockquote><p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p><blockquote><p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p></blockquote><p>两种编码策略：</p><p><strong>PA as motion modality</strong></p><p><strong>PA as attention</strong></p><p>第一种无论是从计算量上还是从准确率上都要更好。</p><p>可能原因是第二种融合方法导致图像的不平衡。</p><blockquote><p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p></blockquote><p><strong>Various-timescale Aggregation Pooling</strong></p><ul><li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li><li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2><p>比光流网络快了1000倍</p><blockquote><p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p></blockquote><p>运动边界的微小位移在动作识别中起重要作用的角色。</p><blockquote><p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p></blockquote><p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p><blockquote><p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p></blockquote><p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p><blockquote><p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p></blockquote><p>两种编码策略：</p><p><strong>PA as motion modality</strong></p><p><strong>PA as attention</strong></p><p>第一种无论是从计算量上还是从准确率上都要更好。</p><p>可能原因是第二种融合方法导致图像的不平衡。</p><blockquote><p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p></blockquote><p><strong>Various-timescale Aggregation Pooling</strong></p><h2 id="安装测试"><a class="header-anchor" href="#安装测试">#</a>安装测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install torch torchvision</span><br><span class="line">pip install tensorboardX</span><br><span class="line">pip install tqdm</span><br><span class="line">pip install scikit-learn</span><br></pre></td></tr></table></figure><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li><li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li></ul>]]></content>
       
       
       <categories>
