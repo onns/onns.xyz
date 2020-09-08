@@ -136,15 +136,15 @@
             
             <tag> java </tag>
             
-            <tag> tips </tag>
-            
-            <tag> idea </tag>
-            
-            <tag> idea tips </tag>
-            
             <tag> maven </tag>
             
             <tag> servlet </tag>
+            
+            <tag> idea </tag>
+            
+            <tag> tips </tag>
+            
+            <tag> idea tips </tag>
             
         </tags>
       
@@ -715,13 +715,13 @@
             
             <tag> java </tag>
             
-            <tag> udp </tag>
+            <tag> idea </tag>
             
             <tag> tips </tag>
             
-            <tag> idea </tag>
-            
             <tag> idea tips </tag>
+            
+            <tag> udp </tag>
             
         </tags>
       
@@ -812,9 +812,9 @@
             
             <tag> mysql </tag>
             
-            <tag> leetcode </tag>
-            
             <tag> tips </tag>
+            
+            <tag> leetcode </tag>
             
             <tag> centos7 </tag>
             
@@ -1058,13 +1058,13 @@
             
             <tag> java </tag>
             
-            <tag> leetcode </tag>
-            
             <tag> tips </tag>
             
-            <tag> 动态规划 </tag>
+            <tag> leetcode </tag>
             
             <tag> dynamic programming </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> binary search </tag>
             
@@ -1095,17 +1095,17 @@
             
             <tag> java </tag>
             
+            <tag> tips </tag>
+            
             <tag> leetcode </tag>
             
-            <tag> tips </tag>
+            <tag> dynamic programming </tag>
             
             <tag> 动态规划 </tag>
             
             <tag> 递归 </tag>
             
             <tag> 回溯 </tag>
-            
-            <tag> dynamic programming </tag>
             
             <tag> recursion </tag>
             
@@ -1260,9 +1260,9 @@
             
             <tag> java </tag>
             
-            <tag> leetcode </tag>
-            
             <tag> tips </tag>
+            
+            <tag> leetcode </tag>
             
             <tag> binary search </tag>
             
@@ -2713,17 +2713,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/blog/categories/index.html"/>
-      <url>/blog/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>about</title>
       <link href="/blog/about/index.html"/>
       <url>/blog/about/index.html</url>
@@ -2735,11 +2724,11 @@
     
     
     <entry>
-      <title>ifc file parsing</title>
-      <link href="/blog/drafts/ifc-file-parsing.html"/>
-      <url>/blog/drafts/ifc-file-parsing.html</url>
+      <title>categories</title>
+      <link href="/blog/categories/index.html"/>
+      <url>/blog/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -2768,11 +2757,11 @@
     
     
     <entry>
-      <title>home</title>
-      <link href="/blog/home/index.html"/>
-      <url>/blog/home/index.html</url>
+      <title>ifc file parsing</title>
+      <link href="/blog/drafts/ifc-file-parsing.html"/>
+      <url>/blog/drafts/ifc-file-parsing.html</url>
       
-        <content type="html"><![CDATA[<script language="javascript" type="text/javascript">window.location.href="//onns.xyz/";</script>]]></content>
+        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
       
     </entry>
     
@@ -2790,9 +2779,20 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/blog/tags/index.html"/>
-      <url>/blog/tags/index.html</url>
+      <title>home</title>
+      <link href="/blog/home/index.html"/>
+      <url>/blog/home/index.html</url>
+      
+        <content type="html"><![CDATA[<script language="javascript" type="text/javascript">window.location.href="//onns.xyz/";</script>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>image</title>
+      <link href="/blog/image/index.html"/>
+      <url>/blog/image/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -2805,16 +2805,16 @@
       <link href="/blog/links/index.html"/>
       <url>/blog/links/index.html</url>
       
-        <content type="html"><![CDATA[<!-- * [流光博客](http://blog.liuguangw.com/) * [何湘辉博客](http://www.hexianghui.net/)* [小鱼blog](https://www.mycgx.com/) -->]]></content>
+        <content type="html"><![CDATA[<ul><li><a href="https://www.mycgx.com/" target="_blank" rel="noopener">小鱼 blog</a></li><li><a href="http://xiangyi.pro/" target="_blank" rel="noopener">Xiangyi’s Blog</a></li></ul>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>image</title>
-      <link href="/blog/image/index.html"/>
-      <url>/blog/image/index.html</url>
+      <title>tags</title>
+      <link href="/blog/tags/index.html"/>
+      <url>/blog/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
