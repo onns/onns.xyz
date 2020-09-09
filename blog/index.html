@@ -255,6 +255,30 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/09/new-site-host/">新的静态博客托管商</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-09
+        </span><span class="post-category">
+            <a href="/blog/categories/life/">life</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/09/new-site-host/"
+             data-title="新的静态博客托管商">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天终于下定决心要换博客托管了，之前一直在<code>GitHub Page</code>，国内访问简直龟速，其实自己有服务器的，但是纯静态放上去感觉有点浪费，搜索了一下，这个真的可以的！传送门：<a href="https://vercel.com/dashboard" target="_blank" rel="noopener">https://vercel.com/dashboard</a>。</p>
+          <div class="read-more">
+            <a href="/blog/2020/09/09/new-site-host/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/09/nginx-proxy-websocket/">Nginx代理websocket</a>
         </h1>
 
@@ -589,61 +613,6 @@ It means that the input channel of GFNet is 3N when using RGB images as input.</
 <h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
 <ul>
 <li><a href="https://www.bilibili.com/video/BV12J411M7Sj?p=5" target="_blank" rel="noopener">教程地址</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/">PAN Towards Fast Action Recognition via Learning Persistence of Appearance</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-01
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"
-             data-title="PAN Towards Fast Action Recognition via Learning Persistence of Appearance">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2>
-<p>比光流网络快了1000倍</p>
-<blockquote>
-<p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p>
-</blockquote>
-<p>运动边界的微小位移在动作识别中起重要作用的角色。</p>
-<blockquote>
-<p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p>
-</blockquote>
-<p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p>
-<blockquote>
-<p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>
-In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p>
-</blockquote>
-<p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p>
-<blockquote>
-<p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p>
-</blockquote>
-<p>两种编码策略：</p>
-<p><strong>PA as motion modality</strong></p>
-<p><strong>PA as attention</strong></p>
-<p>第一种无论是从计算量上还是从准确率上都要更好。</p>
-<p>可能原因是第二种融合方法导致图像的不平衡。</p>
-<blockquote>
-<p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p>
-</blockquote>
-<p><strong>Various-timescale Aggregation Pooling</strong></p>
-<h2 id="安装测试"><a class="header-anchor" href="#安装测试">#</a>安装测试</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install torch torchvision</span><br><span class="line">pip install tensorboardX</span><br><span class="line">pip install tqdm</span><br><span class="line">pip install scikit-learn</span><br></pre></td></tr></table></figure>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li>
-<li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li>
 </ul>
 
         </div></article>

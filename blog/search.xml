@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>新的静态博客托管商</title>
+      <link href="/blog/2020/09/09/new-site-host/"/>
+      <url>/blog/2020/09/09/new-site-host/</url>
+      
+        <content type="html"><![CDATA[<p>今天终于下定决心要换博客托管了，之前一直在<code>GitHub Page</code>，国内访问简直龟速，其实自己有服务器的，但是纯静态放上去感觉有点浪费，搜索了一下，这个真的可以的！传送门：<a href="https://vercel.com/dashboard" target="_blank" rel="noopener">https://vercel.com/dashboard</a>。</p><a id="more"></a><center><p><img src="//onns.xyz/blog/image/20200909-1.png" alt="访问测速"></p></center><p>Happy Using!</p><p>和 GitHub 是相连的，自动部署，不用多次操作，往 GitHub<code>push</code>即可！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> life </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> github </tag>
+            
+            <tag> static </tag>
+            
+            <tag> onns.xyz </tag>
+            
+            <tag> host </tag>
+            
+            <tag> vercel </tag>
+            
+            <tag> github page </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Nginx代理websocket</title>
       <link href="/blog/2020/09/09/nginx-proxy-websocket/"/>
       <url>/blog/2020/09/09/nginx-proxy-websocket/</url>
