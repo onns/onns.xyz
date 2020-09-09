@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/linux/"/>
+<meta name="description" content="Nginx代理websocket"/><meta name="keywords" content="linux, nginx, socket, websocket, ws, golang, wss, ssl, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/09/nginx-proxy-websocket/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>linux · Onns Blog
-  </title>
+    <title>Nginx代理websocket - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,70 +253,75 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">linux</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Nginx代理websocket
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2020-09-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/09/nginx-proxy-websocket/" class="archive-post-link">
-            Nginx代理websocket
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/09/nginx-proxy-websocket/"
+             data-title="Nginx代理websocket">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-websocket"><span class="toc-text">配置 websocket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-nginx"><span class="toc-text">配置 nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>之前做的那个<code>chrome插件</code>的项目<code>Sync Sofa</code>，其实业务量很小但是必须要走<code>443</code>的端口，强行占了一台服务器！不能忍，无奈好几次<code>Nginx</code>反向代理都失败了，前两次累计花了<strong>七八个小时</strong>都没成功，在朋友的帮助下<code>3小时</code>手工！</p>
+<p>感谢！<a href="https://her-cat.com/" target="_blank" rel="noopener">她和她的猫</a></p>
+<a id="more"></a>
+<h2 id="配置-websocket"><a class="header-anchor" href="#配置-websocket">#</a>配置 websocket</h2>
+<p>首先确保有<code>golang</code>的环境，如果没有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install golang -y</span><br></pre></td></tr></table></figure>
+<p>安装客户端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 国内访问炒鸡慢，挂个代理</span></span><br><span class="line"><span class="built_in">export</span> GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line">go get github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/LouisYLWang/Sync-Sofa/server</span><br><span class="line">go install</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
+<p>创建一个<code>config.json</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi config.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"addr"</span>: <span class="string">":81"</span>,</span><br><span class="line">  <span class="attr">"runmode"</span>: <span class="string">"dev"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置-nginx"><a class="header-anchor" href="#配置-nginx">#</a>配置 nginx</h2>
+<p>把<code>SSL</code>的相关证书拷贝到 nginx 相关目录下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv sync.pem /etc/nginx/cert/</span><br><span class="line">mv sync.key /etc/nginx/cert/</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="attribute">map</span> <span class="variable">$http_upgrade</span> <span class="variable">$connection_upgrade</span> &#123;</span><br><span class="line">		<span class="attribute">default</span> upgrade;</span><br><span class="line">		'' close;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="attribute">upstream</span> websocket &#123;</span><br><span class="line">		<span class="attribute">server</span> <span class="number">127.0.0.1:81</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">upstream</span> web&#123;</span><br><span class="line">		<span class="attribute">server</span> <span class="number">127.0.0.1:81</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	<span class="section">server</span> &#123;</span><br><span class="line">		<span class="attribute">listen</span> <span class="number">443</span>  default ssl;</span><br><span class="line">		<span class="attribute">server_name</span> sync-cn.onns.xyz;</span><br><span class="line">		<span class="attribute">ssl_certificate</span> /etc/nginx/cert/sync.pem;</span><br><span class="line">		<span class="attribute">ssl_certificate_key</span> /etc/nginx/cert/sync.key;</span><br><span class="line">		<span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">		<span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">		<span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">		<span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">		<span class="attribute">location</span> / &#123;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> Host  <span class="variable">$http_host</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> X-Nginx-Proxy <span class="literal">true</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> Connection <span class="string">""</span>;</span><br><span class="line">			<span class="attribute">proxy_pass</span> http://web;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="attribute">location</span> /ws &#123;</span><br><span class="line">			<span class="attribute">proxy_pass</span> http://websocket;</span><br><span class="line">			<span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> Connection <span class="variable">$connection_upgrade</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">			<span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要可以参考一下 Nginx 的官方博客：<a href="https://www.nginx.com/blog/websocket-nginx/" target="_blank" rel="noopener">NGINX as a WebSocket Proxy</a>，但是也只是能参考。。里面给的命令都过期了，尤其是，<code>node</code>不要用<code>yum</code>装，各种旧版本。</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://www.nginx.com/blog/websocket-nginx/" target="_blank" rel="noopener">NGINX as a WebSocket Proxy</a></li>
+<li><a href="https://blog.csdn.net/nfq6612/article/details/88555092" target="_blank" rel="noopener">nginx 配置 ws wss 和 http https 和访问实例</a></li>
+<li><a href="https://help.aliyun.com/document_detail/98728.html" target="_blank" rel="noopener">在 Nginx 或 Tengine 服务器上安装证书</a></li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/08/rsync-usage/" class="archive-post-link">
-            rsync实现文件同步
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/07/ssh-key-in-linux/" class="archive-post-link">
-            Linux下密钥登录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/22/nodejs-in-linux/" class="archive-post-link">
-            Linux安装Nodejs
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/21/ip-records-top-3/" class="archive-post-link">
-            ip访问记录查询top3
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/10/log-write-test/" class="archive-post-link">
-            Linux追加日志测试
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/nginx/">nginx</a>
+            <a href="/blog/tags/socket/">socket</a>
+            <a href="/blog/tags/websocket/">websocket</a>
+            <a href="/blog/tags/ws/">ws</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/wss/">wss</a>
+            <a href="/blog/tags/ssl/">ssl</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/08/rsync-usage/">
+        <span class="next-text nav-default">rsync实现文件同步</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
