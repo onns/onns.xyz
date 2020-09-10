@@ -280,11 +280,24 @@ searchFunc(path, 'local-search-input', 'local-search-result');
   </div><div class="post-content"><h2 id="gate-shift-networks-for-video-action-recognition"><a class="header-anchor" href="#gate-shift-networks-for-video-action-recognition">#</a>Gate-Shift Networks for Video Action Recognition</h2>
 <p>用于行为识别的<code>Gate-Shift</code>网络</p>
 <p>在实践中，由于涉及大量的参数和计算，在缺乏足够大的数据集进行大规模训练的情况下，<code>C3D</code>可能表现不佳。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-5.png" alt="GSM"></p>
+</center>
 <p>提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
 <p>通过<code>GSM</code>插件，一个<code>2D-CNN</code>可以适应性地学习时间路由特性并将它们结合起来，并且几乎没有额外的附加参数和计算开销。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-4.png" alt="思路对比"></p>
+</center>
 <p>传统的方法演变：<code>C3D</code> -&gt; <code>2D spatial + 1D temporal</code> -&gt; <code>CSN</code> -&gt; <code>GST</code>（与分离信道组上的二维和三维卷积并行空间和时空交互建模） -&gt; <code>TSM</code>（时域卷积可以被限制为硬编码的时移，使一些信道在时间上向前或向后移动）</p>
 <p>所有这些现有的方法都学习具有硬连线连接和跨网络传播模式的结构化内核。<br>
 在网络中的任何一点上都没有数据依赖的决策来选择地通过不同的分支来路由特性，分组和随机的模式是在设计之初就固定的，并且学习如何随机是具有组合复杂性的。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-6.png" alt="实验"></p>
+</center>
+<blockquote>
+<p>From the experiments we conclude that adding GSM to the branch with the least number of convolution layers performs the best.</p>
+</blockquote>
+<p>在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
 
       </div>
       
