@@ -255,6 +255,40 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/07/24/solution-of-burst-balloons/">Leetcode题解：戳气球</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-24
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/07/24/solution-of-burst-balloons/"
+             data-title="Leetcode题解：戳气球">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="312-戳气球"><a class="header-anchor" href="#312-戳气球">#</a><a href="https://leetcode-cn.com/problems/burst-balloons/" target="_blank" rel="noopener">312. 戳气球</a></h2>
+<p>有 <code>n</code> 个气球，编号为 <code>0</code> 到 <code>n-1</code>，每个气球上都标有一个数字，这些数字存在数组 <code>nums</code> 中。</p>
+<p>现在要求你戳破所有的气球。如果你戳破气球 <code>i</code>，就可以获得 <code>nums[left] * nums[i] * nums[right]</code> 个硬币。这里的 <code>left</code> 和 <code>right</code> 代表和 <code>i</code> 相邻的两个气球的序号。注意当你戳破了气球 <code>i</code> 后，气球 <code>left</code> 和气球 <code>right</code> 就变成了相邻的气球。</p>
+<p>求所能获得硬币的最大数量。</p>
+<p>说明：</p>
+<ul>
+<li>你可以假设 <code>nums[-1] = nums[n] = 1</code>，但注意它们不是真实存在的所以并不能被戳破。</li>
+<li>0 ≤ <code>n</code> ≤ 500, 0 ≤ <code>nums[i]</code> ≤ 100</li>
+</ul>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,1,5,8]</span><br><span class="line">输出: 167</span><br><span class="line">解释: nums &#x3D; [3,1,5,8] --&gt; [3,5,8] --&gt;   [3,8]   --&gt;  [8]  --&gt; []</span><br><span class="line">     coins &#x3D;  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   &#x3D; 167</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/blog/2020/07/24/solution-of-burst-balloons/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/07/18/blog-search-support/">博客添加搜索支持</a>
         </h1>
 
@@ -474,35 +508,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ul>
           <div class="read-more">
             <a href="/blog/2020/06/05/some-tools/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/06/02/ftp-server-on-mac/">在MacOS上部署ftp服务器</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-02
-        </span><span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/06/02/ftp-server-on-mac/"
-             data-title="在MacOS上部署ftp服务器">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>20200717 更新：<br>
-每次电脑重启之后需要执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure>
-<p>ftp 才会生效。</p>
-<hr>
-<p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
-          <div class="read-more">
-            <a href="/blog/2020/06/02/ftp-server-on-mac/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/4/">
