@@ -274,7 +274,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-热更新"><span class="toc-text">JSP 热更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-语法"><span class="toc-text">JSP 语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-指令"><span class="toc-text">JSP 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关错误页"><span class="toc-text">相关错误页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-热更新"><span class="toc-text">JSP 热更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-语法"><span class="toc-text">JSP 语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-指令"><span class="toc-text">JSP 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关错误页"><span class="toc-text">相关错误页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-本质"><span class="toc-text">JSP 本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp-内置对象"><span class="toc-text">JSP 内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="jsp-热更新"><a class="header-anchor" href="#jsp-热更新">#</a>JSP 热更新</h2>
 <p>之前写 Java Servlet 的时候，每写一个就要重新启动一次<code>tomcat</code>，麻烦死，终于到<code>jsp</code>这里可以热更新了。</p>
@@ -294,6 +294,21 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  Created by IntelliJ IDEA.</span><br><span class="line">  User: onns</span><br><span class="line">  Date: <span class="number">2020</span>/<span class="number">9</span>/<span class="number">10</span></span><br><span class="line">  Time: <span class="number">12</span>:<span class="number">11</span> AM</span><br><span class="line">  To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%<span class="meta">@include</span> file=<span class="string">"common/header.jsp"</span>%&gt;</span><br><span class="line">&lt;h1&gt;Main!&lt;/h1&gt;</span><br><span class="line">&lt;%<span class="meta">@include</span> file=<span class="string">"common/footer.jsp"</span>%&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="相关错误页"><a class="header-anchor" href="#相关错误页">#</a>相关错误页</h2>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/404.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>500<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/500.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="jsp-本质"><a class="header-anchor" href="#jsp-本质">#</a>JSP 本质</h2>
+<p><code>JSP</code>的本质是，在访问某一个比如<code>hello.jsp</code>页面的时候，<code>tomcat</code>将<code>hello.jsp</code>文件生成了<code>hello.java</code>文件，并编译成<code>hello.class</code>文件，最终被<code>tomcat</code>所解析，然后返回给浏览器。</p>
+<h2 id="jsp-内置对象"><a class="header-anchor" href="#jsp-内置对象">#</a>JSP 内置对象</h2>
+<ul>
+<li>PageContext 存东西</li>
+<li>Request 存东西</li>
+<li>Response</li>
+<li>Session 存东西</li>
+<li>Application (ServletContext) 存东西</li>
+<li>Config (ServletConfig)</li>
+<li>Out</li>
+<li>Page</li>
+<li>Exception</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pageContext.setAttribute(<span class="string">"nameCon"</span>,<span class="string">"Con"</span>); <span class="comment">// 保存的数据只会在一个页面中有效</span></span><br><span class="line">request.setAttribute(<span class="string">"nameReq"</span>,<span class="string">"Req"</span>); <span class="comment">// 保存的数据只会在一次请求中有效，请求转发会携带这个数据</span></span><br><span class="line">session.setAttribute(<span class="string">"nameSes"</span>,<span class="string">"Ses"</span>); <span class="comment">// 保存的数据只会在一次会话中有效，从打开浏览器到关闭浏览器</span></span><br><span class="line">application.setAttribute(<span class="string">"nameApp"</span>,<span class="string">"App"</span>); <span class="comment">// 保存的数据会在服务器运行时一直有效，从打开服务器到关闭服务器</span></span><br></pre></td></tr></table></figure>
 <h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
 <ul>
 <li><a href="https://www.bilibili.com/video/BV12J411M7Sj?p=19" target="_blank" rel="noopener">教程地址</a></li>
@@ -312,7 +327,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/tomcat/">tomcat</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/09/10/weekly-report-20200910/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/09/12/use-vba-in-excel/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">在Excel中使用宏</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/09/10/weekly-report-20200910/">
         <span class="next-text nav-default">周报-20200910</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>

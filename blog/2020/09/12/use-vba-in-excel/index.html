@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/excel/"/>
+<meta name="description" content="在Excel中使用宏"/><meta name="keywords" content="excel, windows, vba, liberal, xls, xlsx, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/12/use-vba-in-excel/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -179,8 +179,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>excel · Onns Blog
-  </title>
+    <title>在Excel中使用宏 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,30 +252,135 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">excel</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">在Excel中使用宏
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2020-09-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/12/use-vba-in-excel/" class="archive-post-link">
-            在Excel中使用宏
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/xmu/">xmu</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/12/use-vba-in-excel/"
+             data-title="在Excel中使用宏">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xls-转-xlsx"><span class="toc-text">xls 转 xlsx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#去掉课程编号"><span class="toc-text">去掉课程编号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键入公式"><span class="toc-text">键入公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启宏"><span class="toc-text">开启宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键入宏"><span class="toc-text">键入宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后续"><span class="toc-text">后续</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>工作交接～</p>
+<a id="more"></a>
+<h2 id="xls-转-xlsx"><a class="header-anchor" href="#xls-转-xlsx">#</a>xls 转 xlsx</h2>
+<p>一般拿到的课程<code>excel</code>文件都是<code>xls</code>的老版后缀，所以第一步是另存为一个新版的<code>xlsx</code>后缀的文件：<code>new.xlsx</code>。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-1.png" alt="另存为"></p>
+</center>
+<h2 id="去掉课程编号"><a class="header-anchor" href="#去掉课程编号">#</a>去掉课程编号</h2>
+<p>正常一个课程的名字是<code>课程代号-课程名</code>这种格式，比如：<code>0410303-中共重要会议述评及专题研究</code>，需要先把前面的<code>课程代号</code>和<code>-</code>去掉。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-2.png" alt="课程名"></p>
+</center>
+<p>选中课程的列，<code>右键</code>-&gt;<code>插入</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-3.png" alt="插入"></p>
+</center>
+<h2 id="键入公式"><a class="header-anchor" href="#键入公式">#</a>键入公式</h2>
+<p>去除的公式如下：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=<span class="built_in">MID</span>(<span class="symbol">F2</span>,<span class="built_in">SEARCH</span>(<span class="string">"-"</span>,<span class="symbol">F2</span>)+<span class="number">1</span>,<span class="built_in">LEN</span>(<span class="symbol">F2</span>))</span><br></pre></td></tr></table></figure>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-4.png" alt="公式"></p>
+</center>
+<p>这里面的<code>F2</code>是同行的课程编号所在的表格位置，到时候你看着改。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-5.png" alt="拖动"></p>
+</center>
+<p>然后<code>左键</code>放到<code>单元格</code>的<code>右下角</code>，拉动到最后一行，就可以完成所有的替换：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-6.png" alt="效果图"></p>
+</center>
+<p>对了，记得把<code>标题栏</code>那行填一点东西，不然待会会报错，随便填什么都行：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-13.png" alt="标题栏"></p>
+</center>
+<h2 id="开启宏"><a class="header-anchor" href="#开启宏">#</a>开启宏</h2>
+<p><code>视图</code> -&gt; <code>宏</code> -&gt; <code>录制宏</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-7.png" alt="录制宏"></p>
+</center>
+<p><code>确定</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-8.png" alt="确定"></p>
+</center>
+<p>然后什么都不用点，<code>视图</code> -&gt; <code>宏</code> -&gt; <code>停止录制</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-9.png" alt="停止录制"></p>
+</center>
+<p><code>视图</code> -&gt; <code>宏</code> -&gt; <code>查看宏</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-10.png" alt="查看宏"></p>
+</center>
+<p><code>编辑</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-11.png" alt="编辑"></p>
+</center>
+<p>然后会有一个如下的页面：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-12.png" alt="vba界面"></p>
+</center>
+<h2 id="键入宏"><a class="header-anchor" href="#键入宏">#</a>键入宏</h2>
+<p>参考<a href="https://onns.xyz/blog/2020/02/19/find-string-in-excel/#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81">完整代码</a>，把<code>1-64</code>行的代码，<code>ctrl c</code>复制一下，回到上一个界面，<code>ctrl a</code>选择当前所有内容，<code>ctrl v</code>替换。</p>
+<p>注意的是<code>nameRow</code>这个变量是每次都变的，这次我们是<code>E</code>列，所以是<code>5</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-14.png" alt="E列"></p>
+</center>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-15.png" alt="5"></p>
+</center>
+<p><code>保存</code>按钮：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-16.png" alt="保存"></p>
+</center>
+<p><code>是</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-17.png" alt="是"></p>
+</center>
+<p><code>视图</code> -&gt; <code>宏</code> -&gt; <code>查看宏</code> -&gt; <code>FindAndMark</code> -&gt; <code>执行</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200912-18.png" alt="执行"></p>
+</center>
+<p>收工</p>
+<h2 id="后续"><a class="header-anchor" href="#后续">#</a>后续</h2>
+<p>注意事项都在这边：<a href="https://onns.xyz/blog/2020/02/19/find-string-in-excel/">https://onns.xyz/blog/2020/02/19/find-string-in-excel/</a>，也去看下。</p>
+<p>完。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-02-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/02/19/find-string-in-excel/" class="archive-post-link">
-            excel字符串查找
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/excel/">excel</a>
+            <a href="/blog/tags/windows/">windows</a>
+            <a href="/blog/tags/vba/">vba</a>
+            <a href="/blog/tags/liberal/">liberal</a>
+            <a href="/blog/tags/xls/">xls</a>
+            <a href="/blog/tags/xlsx/">xlsx</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/10/jsp-1/">
+        <span class="next-text nav-default">JSP</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
