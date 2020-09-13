@@ -301,12 +301,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Success:</span><br><span class="line">Runtime:1 ms, faster than 95.99% of Java online submissions.</span><br><span class="line">Memory Usage:40 MB, less than 17.17% of Java online submissions.</span><br></pre></td></tr></table></figure>
 <h2 id="官方解答"><a class="header-anchor" href="#官方解答">#</a>官方解答</h2>
 <p>假设 <code>nums</code> 数组的长度是 <em>n</em>，下标从 <em>0</em> 到 <em>n - 1</em>。</p>
-<p>我们用 <em>a_i</em> 代表 <code>nums[i]</code>，用 <em>f(i)</em> 代表以第 <em>i</em> 个数结尾的「连续子数组的最大和」，那么很显然我们要求的答案就是：</p>
-<span>$$\begin{aligned}&Tab;
-\max_{0 \leq i \leq n-1}\{f(i)\}
+<p>我们用 <em>a<sub>i</sub></em> 代表 <code>nums[i]</code>，用 <em>f(i)</em> 代表以第 <em>i</em> 个数结尾的「连续子数组的最大和」，那么很显然我们要求的答案就是：</p>
+<span>$$\begin{aligned}
+\max\_{0 \leq i \leq n-1}\{f(i)\}
 \end{aligned}$$</span><!-- Has MathJax -->
 <p>因此我们只需要求出每个位置的 <em>f(i)</em>，然后返回 <code>f</code> 数组中的最大值即可。那么我们如何求 <em>f(i)</em> 呢？我们可以考虑 <em>a_i</em> 单独成为一段还是加入 <em>f(i - 1)</em> 对应的那一段，这取决于 <em>a_i</em> 和 <em>f(i - 1) + a_i</em> 的大小，我们希望获得一个比较大的，于是可以写出这样的动态规划转移方程：</p>
-<span>$$\begin{aligned}&Tab;
+<span>$$\begin{aligned}
 f(i)=\max\{f(i-1)+a_i,a_i\}
 \end{aligned}$$</span><!-- Has MathJax -->
 <p>不难给出一个时间复杂度 <em>O(n)</em>、空间复杂度 <em>O(n)</em> 的实现，即用一个 <code>f</code> 数组来保存 <em>f(i)</em> 的值，用一个循环求出所有 <em>f(i)</em>。考虑到 <em>f(i)</em> 只和 <em>f(i - 1)</em> 相关，于是我们可以只用一个变量 <code>pre</code> 来维护对于当前 <em>f(i)</em> 的 <em>f(i - 1)</em> 的值是多少，从而让空间复杂度降低到 <em>O(1)</em>，这有点类似「滚动数组」的思想。</p>
@@ -325,7 +325,7 @@ f(i)=\max\{f(i-1)+a_i,a_i\}
 <li><code>mSum</code> 表示 <em>[l, r]</em> 内的最大子段和</li>
 <li><code>iSum</code> 表示 <em>[l, r]</em> 的区间和</li>
 </ul>
-<p>以下简称 <em>[l, m]</em> 为 <em>[l, r]</em> 的「左子区间」，<em>[m + 1, r]</em> 为 <em>[l, r]</em> 的「右子区间」。我们考虑如何维护这些量呢（如何通过左右子区间的信息合并得到 <em>[l, r]</em> 的信息）？对于长度为 <em>1</em> 的区间 <em>[i, i]</em>，四个量的值都和 <em>a_i</em> 相等。对于长度大于 <em>1</em> 的区间：</p>
+<p>以下简称 <em>[l, m]</em> 为 <em>[l, r]</em> 的「左子区间」，<em>[m + 1, r]</em> 为 <em>[l, r]</em> 的「右子区间」。我们考虑如何维护这些量呢（如何通过左右子区间的信息合并得到 <em>[l, r]</em> 的信息）？对于长度为 <em>1</em> 的区间 <em>[i, i]</em>，四个量的值都和 <em>a<sub>i</sub></em> 相等。对于长度大于 <em>1</em> 的区间：</p>
 <ul>
 <li>首先最好维护的是 <code>iSum</code>，区间 <em>[l, r]</em> 的 <code>iSum</code> 就等于「左子区间」的 <code>iSum</code> 加上「右子区间」的 <code>iSum</code>。</li>
 <li>对于 <em>[l, r]</em> 的 <code>lSum</code>，存在两种可能，它要么等于「左子区间」的 <code>lSum</code>，要么等于「左子区间」的 <code>iSum</code> 加上「右子区间」的 <code>lSum</code>，二者取大。</li>

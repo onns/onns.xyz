@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/interview/"/>
+<meta name="description" content="Leetcode题解：无重复字符的最长子串"/><meta name="keywords" content="java, interview, tips, leetcode, double pointer, 双指针, baidu, 百度, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/13/solution-of-longest-substring-without-repeating-characters/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -179,8 +179,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>interview · Onns Blog
-  </title>
+    <title>Leetcode题解：无重复字符的最长子串 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,50 +252,63 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">interview</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Leetcode题解：无重复字符的最长子串
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-13
+        </span><span class="post-category">
+            <a href="/blog/categories/jobs/">jobs</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/"
+             data-title="Leetcode题解：无重复字符的最长子串">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/" class="archive-post-link">
-            Leetcode题解：无重复字符的最长子串
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-无重复字符的最长子串"><span class="toc-text">3. 无重复字符的最长子串</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="3-无重复字符的最长子串"><a class="header-anchor" href="#3-无重复字符的最长子串">#</a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></h2>
+<p>给定一个字符串，请你找出其中不含有重复字符的<code>最长子串</code>的长度。</p>
+<p>示例<code>1</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;abcabcbb&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+<p>示例<code>2</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+<p>示例<code>3</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>百度一面。🙃</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Onns</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/9/13 2:31 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Website</span> https://onns.xyz/blog/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LongestSubstringWithoutRepeatingCharacters</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> LongestSubstringWithoutRepeatingCharacters().<span class="keyword">new</span> Solution().test();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">char</span>[] c = s.toCharArray();</span><br><span class="line">			<span class="keyword">int</span> n = c.length;</span><br><span class="line">			<span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>, max = <span class="number">0</span>;</span><br><span class="line">			Set&lt;Character&gt; hashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">			<span class="keyword">while</span> (r &lt; n) &#123;</span><br><span class="line">				<span class="keyword">while</span> (hashSet.contains(c[r])) &#123;</span><br><span class="line">					hashSet.remove(c[l++]);</span><br><span class="line">				&#125;</span><br><span class="line">				hashSet.add(c[r++]);</span><br><span class="line">				max = Math.max(max, r - l);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> max;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			System.out.println(lengthOfLongestSubstring(<span class="string">"bbbbbbbbb"</span>));</span><br><span class="line">			System.out.println(lengthOfLongestSubstring(<span class="string">"abcabcbb"</span>));</span><br><span class="line">			System.out.println(lengthOfLongestSubstring(<span class="string">"pwwkew"</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-maximum-subarray/" class="archive-post-link">
-            Leetcode题解：最大子序和
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/21/ip-records-top-3/" class="archive-post-link">
-            ip访问记录查询top3
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-06-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/06/18/review-for-the-interview/" class="archive-post-link">
-            面试复习提纲
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/interview/">interview</a>
+            <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/leetcode/">leetcode</a>
+            <a href="/blog/tags/double-pointer/">double pointer</a>
+            <a href="/blog/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            <a href="/blog/tags/baidu/">baidu</a>
+            <a href="/blog/tags/%E7%99%BE%E5%BA%A6/">百度</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/13/add-file-header-in-idea/">
+        <span class="next-text nav-default">在IntelliJ IDEA中添加自动注释</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
