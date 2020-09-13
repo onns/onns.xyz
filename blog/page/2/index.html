@@ -254,6 +254,31 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/09/nginx-proxy-websocket/">Nginx代理websocket</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-09
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/09/nginx-proxy-websocket/"
+             data-title="Nginx代理websocket">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>之前做的那个<code>chrome插件</code>的项目<code>Sync Sofa</code>，其实业务量很小但是必须要走<code>443</code>的端口，强行占了一台服务器！不能忍，无奈好几次<code>Nginx</code>反向代理都失败了，前两次累计花了<strong>七八个小时</strong>都没成功，在朋友的帮助下<code>3小时</code>手工！</p>
+<p>感谢！<a href="https://her-cat.com/" target="_blank" rel="noopener">她和她的猫</a></p>
+          <div class="read-more">
+            <a href="/blog/2020/09/09/nginx-proxy-websocket/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/08/rsync-usage/">rsync实现文件同步</a>
         </h1>
 
@@ -622,60 +647,6 @@ In summary, differences in low-level feature maps can reflect small displacement
 <ul>
 <li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li>
 <li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">TSM Temporal Shift Module for Efficient Video Understanding</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-30
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/"
-             data-title="TSM Temporal Shift Module for Efficient Video Understanding">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><center>
-<p><img src="//onns.xyz/blog/image/20200910-1.png" alt="核心思想"></p>
-</center>
-<p>实现在 2D 模型上达到 3D 模型的精度，极大的降低了计算。</p>
-<p>并不是所有的<code>shift</code>操作都可以达到效果的，虽然<code>shift</code>操作不需要额外的运算但是仍然需要数据的移动，太多的移动会带来延迟。</p>
-<p><code>shift</code>是增加时间特征的提取，太多的<code>shift</code>操作也会导致空间特征的提取受到影响。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-2.png" alt="作者思路"></p>
-</center>
-<p>改进的<code>shift</code>策略：并不是<code>shift</code>所有的<code>channels</code>，而是只选择性的<code>shift</code>其中的一部分，该策略能够有效的减少数据移动所带来的时间复杂度。</p>
-<p>TSM 并不是直接被插入到从前往后的干道中的，而是以旁路的形式进行，因此在获得了时序信息的同时不会对二维卷积的空间信息进行损害。</p>
-<p>同时作者对于一些实时的在线检测提出了相应的模型策略，不同于将第一层下移第二层上移这种：</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-3.png" alt="在线模型"></p>
-</center>
-<p>可以有相应的借鉴思路，并且这篇也是上一篇的基准之一。</p>
-<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-7.png" alt="过程"></p>
-</center>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-8.png" alt="结果"></p>
-</center>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://github.com/mit-han-lab/temporal-shift-module" target="_blank" rel="noopener">https://github.com/mit-han-lab/temporal-shift-module</a></li>
-<li><a href="https://blog.csdn.net/justsolow/article/details/105127296" target="_blank" rel="noopener">《TSM: Temporal Shift Module for Efficient Video Understanding》学习小记</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/66251207" target="_blank" rel="noopener">Temporal Shift Module</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
-<li><a href="https://blog.csdn.net/Amazingren/article/details/100715768" target="_blank" rel="noopener">【视频理解论文】——TSM：Temporal Shift Module for Efficient Video Understanding</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
-<li><a href="https://blog.csdn.net/strawqqhat/article/details/105292687" target="_blank" rel="noopener">Temporal Shift Module for Efficient Video Understanding</a></li>
 </ul>
 
         </div></article>
