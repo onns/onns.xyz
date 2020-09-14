@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - 人文大讲堂LED一键脚本</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					人文大讲堂LED一键脚本
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original" placeholder="《人文大讲堂·[讲座类别]》第[中文数字]讲
+[讲座标题]（总第[阿拉伯数字]讲）
+主讲：[姓名]-[职称]
+[介绍，整个一行，不要换行]
+主持：[姓名]-[职称]
+时间：[4位数字]年[2位数字]月[2位数字]日（[三个字星期，星期一]）[HH:MM，19:10]
+地点：[地点]"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder="js代码"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		// https://segmentfault.com/a/1190000015961859
+		function compare(p) {
+			return function (m, n) {
+				var a = parseInt(m[p].replace("讲", "").replace("总第", ""));
+				var b = parseInt(n[p].replace("讲", "").replace("总第", ""));
+				return a - b;
+			}
+		}
+		function downloadString(text, fileType, fileName) {
+			var blob = new Blob(["\uFEFF" + text], { type: fileType });
+
+			var a = document.createElement('a');
+			a.download = fileName;
+			a.href = URL.createObjectURL(blob);
+			a.dataset.downloadurl = [fileType, a.download, a.href].join(':');
+			a.style.display = "none";
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			setTimeout(function () {
+				URL.revokeObjectURL(a.href);
+			}, 1500);
+		}
+		function convert(content) {
+			var data = '';
+			var temp = content
+				.replace(/\n/g, "-enter-")
+				.replace(/\s/g, "")
+				.replace(/:/g, "：")
+				.replace(/\(/g, "（")
+				.replace(/\)/g, "）")
+				.replace(/-enter-/g, " ");
+			lectureList = temp.match(
+				/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+)-(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持：([\S]+)-(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)([\s]+)地点：([\S]+)/g
+			);
+
+			lectureData = Array(lectureList.length);
+			for (var i = 0; i < lectureList.length; i++) {
+				lectureData[i] = Array();
+				// console.log(/《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲:([\S]+)(教授|副教授|助理教授)([\s]+)([\S]+)([\s]+)主持人:([\S]+)(教授|副教授|助理教授)([\s]+)时间:([\S]+)（([\S]+)）([\S]+)-([\S]+)([\s]+)地点:([\S]+)/.exec(lectureList[i]));
+				lectureTemp = /《(人文大讲堂)·([\S]+)》([\S]+)([\s]+)([\S]+)（([\S]+)）([\s]+)主讲：([\S]+)-(助理教授|副教授|教授)([\s]+)([\S]+)([\s]+)主持：([\S]+)-(助理教授|副教授|教授)([\s]+)时间：([\S]+)（([\S]+)）([\S]+)([\s]+)地点：([\S]+)/.exec(
+					lectureList[i]
+				);
+
+				for (var j = 1; j < lectureTemp.length; j++) {
+					if (lectureTemp[j].trim() != "") {
+						lectureData[i].push(lectureTemp[j]);
+					}
+				}
+			}
+
+			lectureData.sort(compare(4));
+			console.log(lectureData);
+			data = "var lecture_data = " + JSON.stringify(lectureData) + ";";
+			data += `
+var led_index = 0;
+app.activeDocument = app.documents[led_index];
+var doc = app.activeDocument;
+for (var i = 0; i < doc.layerSets.length; i++) {
+	if (doc.layerSets[i].name == "模板") {
+		for (var j = 0; j < lecture_data.length; j++) {
+			var temp = doc.layerSets[i].duplicate();
+			temp.name = lecture_data[j][1];
+			temp.layers[0].textItem.contents = lecture_data[j][1];
+			temp.layers[1].textItem.contents = lecture_data[j][2] + "（" + lecture_data[j][4] + "）";
+			temp.layers[2].textItem.contents = lecture_data[j][3];
+			temp.layers[3].textItem.contents = "主讲："
+				+ lecture_data[j][5] + " "
+				+ lecture_data[j][6] + "\\r\\r\\r\\r主持："
+				+ lecture_data[j][8] + " "
+				+ lecture_data[j][9] + "\\r时间："
+				+ lecture_data[j][10] + "（"
+				+ lecture_data[j][11] + "） "
+				+ lecture_data[j][12] + "\\r地点："
+				+ lecture_data[j][13];
+			temp.layers[4].textItem.contents = lecture_data[j][7];
+		}
+		break;
+	}
+}`;
+			downloadString(data, "text/csv; charset=utf-8", lectureData[0][4].replace("讲", "") + "-" + lectureData[lectureData.length - 1][4].replace("总第", "") + ".js");
+			return data;
+		}
+
+
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = convert(this.value.trim());
+		});
+	</script>
+</body>
+
+</html>
