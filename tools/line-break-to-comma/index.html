@@ -1,60 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tools - Line break to comma</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//onns.xyz/css/normalize.css"
-    />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-  </head>
 
-  <body>
-    <div class="container-contact100">
-      <div class="wrap-contact100">
-        <form class="contact100-form validate-form">
-          <span class="contact100-form-title">
-            Line break to comma
-          </span>
-          <div class="wrap-input100">
-            <textarea
-              id="original"
-              class="input100"
-              name="original"
-              placeholder="Line
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - Line break to comma</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Line break to comma
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original" placeholder="Line
 break
 to
-comma"
-            ></textarea>
-            <span class="focus-input100"></span>
-          </div>
+comma"></textarea>
+					<span class="focus-input100"></span>
+				</div>
 
-          <div class="wrap-input100">
-            <textarea
-              id="current"
-              class="input100"
-              name="current"
-              placeholder="Line,break,to,comma"
-            ></textarea>
-            <span class="focus-input100"></span>
-          </div>
-        </form>
-      </div>
-    </div>
-    <script>
-      function lineBreakToComma(str) {
-        return str.replace(/\n/g, ",");
-      }
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder="Line,break,to,comma"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function lineBreakToComma(str) {
+			return str.replace(/\n/g, ",");
+		}
 
 
-      var original = document.getElementById("original");
-      var current = document.getElementById("current");
-      original.addEventListener("input", function () {
-        current.innerHTML = lineBreakToComma(this.value.trim());
-      });
-    </script>
-  </body>
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = lineBreakToComma(this.value.trim());
+		});
+	</script>
+</body>
+
 </html>
