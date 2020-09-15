@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/leetcode/"/>
+<meta name="description" content="Leetcode题解：零钱兑换"/><meta name="keywords" content="java, tips, leetcode, dynamic programming, 动态规划, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/15/solution-of-coin-change/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -179,8 +179,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>leetcode · Onns Blog
-  </title>
+    <title>Leetcode题解：零钱兑换 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,110 +252,60 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">leetcode</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Leetcode题解：零钱兑换
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-15
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/15/solution-of-coin-change/"
+             data-title="Leetcode题解：零钱兑换">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-coin-change/" class="archive-post-link">
-            Leetcode题解：零钱兑换
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#322-零钱兑换"><span class="toc-text">322. 零钱兑换</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="322-零钱兑换"><a class="header-anchor" href="#322-零钱兑换">#</a><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">322. 零钱兑换</a></h2>
+<p>给定不同面额的硬币<code>coins</code>和一个总金额<code>amount</code>。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回<code>-1</code>。</p>
+<p></p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 11 &#x3D; 5 + 5 + 1</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [2], amount &#x3D; 3</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
+<p>说明:<br>
+你可以认为每种硬币的数量是<code>无限的</code>。</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Onns</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/9/15 12:06 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Website</span> https://onns.xyz/blog/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CoinChange</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> CoinChange().<span class="keyword">new</span> Solution().test();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span>[] coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">int</span> n = coins.length;</span><br><span class="line">			<span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[amount + <span class="number">1</span>];</span><br><span class="line">			Arrays.fill(dp, amount + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// base case:</span></span><br><span class="line">			<span class="comment">// dp[0] = 0</span></span><br><span class="line">			dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// all conditions:</span></span><br><span class="line">			<span class="comment">// amount from 1 to amount</span></span><br><span class="line">			<span class="comment">// coin from 0 to coins.length - 1</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= amount; i++) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">					<span class="comment">// state transition:</span></span><br><span class="line">					<span class="comment">// f(i) = f(i-coins[i]) + 1, if f(i-coins[i]) + 1 &lt; f(i)</span></span><br><span class="line">					<span class="comment">// f(i) = f(i), otherwise</span></span><br><span class="line">					<span class="keyword">int</span> t = i - coins[j];</span><br><span class="line">					<span class="keyword">if</span> (t &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">						dp[i] = Math.min(dp[t] + <span class="number">1</span>, dp[i]);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dp[amount] == (amount + <span class="number">1</span>) ? -<span class="number">1</span> : dp[amount];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			System.out.println(coinChange(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>&#125;, <span class="number">5</span>));</span><br><span class="line">			System.out.println(coinChange(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>&#125;, <span class="number">10</span>));</span><br><span class="line">			System.out.println(coinChange(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>&#125;, <span class="number">11</span>));</span><br><span class="line">			System.out.println(coinChange(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">2</span>&#125;, <span class="number">3</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-fibonacci-number/" class="archive-post-link">
-            Leetcode题解：斐波那契数
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/" class="archive-post-link">
-            Leetcode题解：二叉树的中序遍历
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-word-search/" class="archive-post-link">
-            Leetcode题解：单词搜索
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/" class="archive-post-link">
-            Leetcode题解：无重复字符的最长子串
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-maximum-subarray/" class="archive-post-link">
-            Leetcode题解：最大子序和
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/14/solution-of-department-top-three-salaries/" class="archive-post-link">
-            Leetcode题解：部门工资前三高的所有员工
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/24/solution-of-split-array-largest-sum/" class="archive-post-link">
-            Leetcode题解：分割数组的最大值
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/24/solution-of-burst-balloons/" class="archive-post-link">
-            Leetcode题解：戳气球
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/" class="archive-post-link">
-            Leetcode题解：有序矩阵中第K小的元素
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/leetcode/">leetcode</a>
+            <a href="/blog/tags/dynamic-programming/">dynamic programming</a>
+            <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/15/solution-of-fibonacci-number/">
+        <span class="next-text nav-default">Leetcode题解：斐波那契数</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/leetcode/"/>
+<meta name="description" content="Leetcode题解：斐波那契数"/><meta name="keywords" content="java, tips, leetcode, dynamic programming, 动态规划, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/15/solution-of-fibonacci-number/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -179,8 +179,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>leetcode · Onns Blog
-  </title>
+    <title>Leetcode题解：斐波那契数 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -253,110 +252,66 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">leetcode</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Leetcode题解：斐波那契数
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-15
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/15/solution-of-fibonacci-number/"
+             data-title="Leetcode题解：斐波那契数">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-coin-change/" class="archive-post-link">
-            Leetcode题解：零钱兑换
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#509-斐波那契数"><span class="toc-text">509. 斐波那契数</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="509-斐波那契数"><a class="header-anchor" href="#509-斐波那契数">#</a><a href="https://leetcode-cn.com/problems/fibonacci-number/" target="_blank" rel="noopener">509. 斐波那契数</a></h2>
+<p>斐波那契数，通常用<code>F(n)</code>表示，形成的序列称为<strong>斐波那契数列</strong>。该数列由<code>0</code>和<code>1</code>开始，后面的每一项数字都是前面两项数字的和。也就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F(0) &#x3D; 0,   F(1) &#x3D; 1</span><br><span class="line">F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.</span><br></pre></td></tr></table></figure>
+<p>给定<code>N</code>，计算<code>F(N)</code>。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：2</span><br><span class="line">输出：1</span><br><span class="line">解释：F(2) &#x3D; F(1) + F(0) &#x3D; 1 + 0 &#x3D; 1.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：3</span><br><span class="line">输出：2</span><br><span class="line">解释：F(3) &#x3D; F(2) + F(1) &#x3D; 1 + 1 &#x3D; 2.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例 3：</span><br><span class="line"></span><br><span class="line">输入：4</span><br><span class="line">输出：3</span><br><span class="line">解释：F(4) &#x3D; F(3) + F(2) &#x3D; 2 + 1 &#x3D; 3.</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<p>0 ≤ <code>N</code> ≤ 30</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Onns</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/9/15 11:59 AM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Website</span> https://onns.xyz/blog/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FibonacciNumber</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> FibonacciNumber().<span class="keyword">new</span> Solution().test();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// base case:</span></span><br><span class="line">			<span class="comment">// f(0) = 0, f(1) = 1</span></span><br><span class="line">			<span class="keyword">int</span> pre = <span class="number">0</span>, cur = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (N == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			<span class="comment">// all conditions:</span></span><br><span class="line">			<span class="comment">// i from 2 to N</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= N; i++) &#123;</span><br><span class="line">				<span class="comment">// state transition:</span></span><br><span class="line">				<span class="comment">// f(i) = f(i-1) + f(i-2)</span></span><br><span class="line">				<span class="keyword">int</span> t = pre + cur;</span><br><span class="line">				pre = cur;</span><br><span class="line">				cur = t;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cur;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			System.out.println(fib(<span class="number">2</span>));</span><br><span class="line">			System.out.println(fib(<span class="number">3</span>));</span><br><span class="line">			System.out.println(fib(<span class="number">4</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-fibonacci-number/" class="archive-post-link">
-            Leetcode题解：斐波那契数
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/" class="archive-post-link">
-            Leetcode题解：二叉树的中序遍历
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-word-search/" class="archive-post-link">
-            Leetcode题解：单词搜索
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/" class="archive-post-link">
-            Leetcode题解：无重复字符的最长子串
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-maximum-subarray/" class="archive-post-link">
-            Leetcode题解：最大子序和
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/14/solution-of-department-top-three-salaries/" class="archive-post-link">
-            Leetcode题解：部门工资前三高的所有员工
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/24/solution-of-split-array-largest-sum/" class="archive-post-link">
-            Leetcode题解：分割数组的最大值
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/24/solution-of-burst-balloons/" class="archive-post-link">
-            Leetcode题解：戳气球
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-07-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/" class="archive-post-link">
-            Leetcode题解：有序矩阵中第K小的元素
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/java/">java</a>
+            <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/leetcode/">leetcode</a>
+            <a href="/blog/tags/dynamic-programming/">dynamic programming</a>
+            <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/09/15/solution-of-coin-change/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Leetcode题解：零钱兑换</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/">
+        <span class="next-text nav-default">Leetcode题解：二叉树的中序遍历</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
