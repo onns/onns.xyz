@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Leetcode题解：斐波那契数"/><meta name="keywords" content="java, tips, leetcode, dynamic programming, 动态规划, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2020/09/15/solution-of-fibonacci-number/"/>
+<meta name="description" content="今日的大坑：ssh密钥失效"/><meta name="keywords" content="linux, ssh, rsync, sshd, chmod, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/16/ssh-key-can-not-work/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -179,7 +179,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Leetcode题解：斐波那契数 - Onns Blog</title>
+    <title>今日的大坑：ssh密钥失效 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,18 +254,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">Leetcode题解：斐波那契数
+      <h1 class="post-title">今日的大坑：ssh密钥失效
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-09-15
+          2020-09-16
         </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
+            <a href="/blog/categories/work/">work</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/09/15/solution-of-fibonacci-number/"
-             data-title="Leetcode题解：斐波那契数">
+             data-url="/blog/2020/09/16/ssh-key-can-not-work/"
+             data-title="今日的大坑：ssh密钥失效">
           Visits 0
         </span>
         </div>
@@ -274,41 +274,70 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#509-斐波那契数"><span class="toc-text">509. 斐波那契数</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="509-斐波那契数"><a class="header-anchor" href="#509-斐波那契数">#</a><a href="https://leetcode-cn.com/problems/fibonacci-number/" target="_blank" rel="noopener">509. 斐波那契数</a></h2>
-<p>斐波那契数，通常用<code>F(n)</code>表示，形成的序列称为<strong>斐波那契数列</strong>。该数列由<code>0</code>和<code>1</code>开始，后面的每一项数字都是前面两项数字的和。也就是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F(0) &#x3D; 0,   F(1) &#x3D; 1</span><br><span class="line">F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.</span><br></pre></td></tr></table></figure>
-<p>给定<code>N</code>，计算<code>F(N)</code>。</p>
-<p>示例<code>1</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：2</span><br><span class="line">输出：1</span><br><span class="line">解释：F(2) &#x3D; F(1) + F(0) &#x3D; 1 + 0 &#x3D; 1.</span><br></pre></td></tr></table></figure>
-<p>示例<code>2</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：3</span><br><span class="line">输出：2</span><br><span class="line">解释：F(3) &#x3D; F(2) + F(1) &#x3D; 1 + 1 &#x3D; 2.</span><br></pre></td></tr></table></figure>
-<p>示例<code>3</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：4</span><br><span class="line">输出：3</span><br><span class="line">解释：F(4) &#x3D; F(3) + F(2) &#x3D; 2 + 1 &#x3D; 3.</span><br></pre></td></tr></table></figure>
-<p>提示：</p>
-<p>0 ≤<code>N</code>≤ 30</p>
+  </div><div class="post-content"><p>像往常一样，日常备份一下服务器上的备份文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common/ android@xm.onns.xyz:/home/android/</span><br></pre></td></tr></table></figure>
+<p>突然间我服务器炸了，<code>ssh</code>什么的都连不上了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android@xm.onns.xyz: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Onns</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/9/15 11:59 AM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Website</span> https://onns.xyz/blog/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FibonacciNumber</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> FibonacciNumber().<span class="keyword">new</span> Solution().test();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// base case:</span></span><br><span class="line">			<span class="comment">// f(0) = 0, f(1) = 1</span></span><br><span class="line">			<span class="keyword">int</span> pre = <span class="number">0</span>, cur = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (N == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			<span class="comment">// all conditions:</span></span><br><span class="line">			<span class="comment">// i from 2 to N</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= N; i++) &#123;</span><br><span class="line">				<span class="comment">// state transition:</span></span><br><span class="line">				<span class="comment">// f(i) = f(i-1) + f(i-2)</span></span><br><span class="line">				<span class="keyword">int</span> t = pre + cur;</span><br><span class="line">				pre = cur;</span><br><span class="line">				cur = t;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cur;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			System.out.println(fib(<span class="number">2</span>));</span><br><span class="line">			System.out.println(fib(<span class="number">3</span>));</span><br><span class="line">			System.out.println(fib(<span class="number">4</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之前从没遇到过这样的问题，正因为从来没遇到过，所以我服务器上只有一个账户，这个账户没法登录，我整个服务器就连接不上了，物理机也连接不上😭。</p>
+<p>后面重新安装了ssh之后总算可以登录了，上去排查问题。</p>
+<p>首先第一个想到的可能是，我的<code>rsync</code>目的路径是我用户的根目录，会不会发生了<code>覆盖写</code>操作，把我的<code>根目录</code>下的<code>.ssh/</code>目录删除了，导致<code>ssh</code>找不到<code>authorized_keys</code>文件。</p>
+<p>这个问题首先去看了下<code>rsync</code>的参数，我没有带<code>--delete</code>所以肯定不会有<code>删除</code>的问题，而且后面登录上去之后也确实<code>根目录</code>下的所有文件都在，此问题排除。</p>
+<p>到目前为止，根据我现有的知识，没有办法确定问题发生的原因，所以我打算重新配置一下<code>ssh</code>密钥，然后<code>再次复现</code>一下之前的操作。</p>
+<p>到这里就出现了问题，<code>ssh</code>密钥不论我怎么配置，<code>android</code>用户都无法通过<code>密钥</code>登录。</p>
+<p>查看了一下<code>/etc/ssh/sshd_config</code>，发现相关的配置都没问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PubkeyAuthentication yes</span><br><span class="line"></span><br><span class="line"><span class="comment"># The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2</span></span><br><span class="line"><span class="comment"># but this is overridden so installations will only check .ssh/authorized_keys</span></span><br><span class="line">AuthorizedKeysFile      .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p><code>PubkeyAuthentication</code>设置了<code>yes</code>，允许密钥登录，验证文件也没问题，是<code>.ssh/authorized_keys</code>。</p>
+<p>没办法解决，所以我又创建了一个新的用户，然后同样的<code>生成密钥</code>，测试登录，发现新用户没有任何问题，<code>可以使用密钥登录</code>。</p>
+<p>再次回到<code>android</code>用户的登录测试，把本地的私钥权限调成<code>777</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ssh android@192.168.1.116 -i mi</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0777 <span class="keyword">for</span> <span class="string">'mi'</span> are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">Load key <span class="string">"mi"</span>: bad permissions</span><br></pre></td></tr></table></figure>
+<p>按理来说没问题的，这已经在走密钥验证流程了，所以说，大概率还是<code>android</code>的服务器那边配置出了什么问题。</p>
+<p>找了一些<code>ssh</code>密钥登录的配置教程，在配置<code>authorized_keys</code>的时候，教程里把<code>.ssh</code>目录的权限设置为<code>700</code>，把<code>authorized_keys</code>文件的权限设置为<code>600</code>，这是我之前从来不知道的，原来服务器端这边的<code>公钥</code>也需要相关的权限。</p>
+<p>受此启发，同时我又去查了一下<code>rsync</code>的相关文档，其中一个教程有如下说明：</p>
+<blockquote>
+<p>3.源目录如果不带后缀“/”表示在目标目录下创建该目录并把源目录下文件一并同步过去，带“/”表示只是把源目录下的文件全部同步过去。</p>
+</blockquote>
+<p>所以我的<code>/home/android/</code>的权限极有可能是被修改了，导致<code>ssh</code>的文件夹信任路径没有办法走完。</p>
+<p>重新修改了一下<code>/home/android/</code>目录的权限，修改成<code>700</code>，发现<code>android</code>用户的<code>ssh</code>已经可以正常地用密钥登录了。</p>
+<p>再次复现一下问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common/ android@xm.onns.xyz:/home/android/</span><br><span class="line">sending incremental file list</span><br><span class="line">./</span><br><span class="line"></span><br><span class="line">sent 84 bytes  received 19 bytes  41.20 bytes/sec</span><br><span class="line">total size is 2,183,563  speedup is 21,199.64</span><br></pre></td></tr></table></figure>
+<p>回到服务器查看一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l</span><br><span class="line">total 8</span><br><span class="line">drwxrwxr-x. 6 android android    4096 Sep 15 18:37 android</span><br><span class="line">drwx------. 5 onns    aid_system 4096 Sep 15 18:37 onns</span><br></pre></td></tr></table></figure>
+<p>果然是这个问题。</p>
+<p>至此，花了几个小时时间，终于把问题解决了，因为同步的是数据库的备份文件，所以我当时以为服务器被黑了，赶紧把服务器从互联网上断网了，所幸，是小问题。</p>
+<h2 id="总结"><a class="header-anchor" href="#总结">#</a>总结</h2>
+<p>也算是，多了解了一些关于<code>ssh</code>的使用相关问题吧，如果未来没有相关的系统学习，那今天所做的，往好了说，就是在提前为以后<code>填坑</code>啦！</p>
+<ul>
+<li><code>ssh</code>本地的私钥权限必须保证为<code>600</code>，相关路径的权限为<code>700</code>，这个路径是从<code>/</code>开始算的所有路径，任意中间一点权限过高都不行。</li>
+<li><code>ssh</code>服务器公钥权限必须保证为<code>600</code>，相关路径的权限为<code>700</code>，这个路径是从<code>/</code>开始算的所有路径，任意中间一点权限过高都不行。</li>
+<li><code>rsync</code>或者说<code>Linux</code>下的文件拷贝复制，结尾带<code>/</code>或者不带<code>/</code>影响真的很大，这个要根据每个指令自己的相关实现，以<code>rsync</code>为例，源文件夹路径如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;</span><br><span class="line">├── home</span><br><span class="line">|	├── deploy</span><br><span class="line">|	|	├── common</span><br><span class="line">|	|	|	├── daily_backup.db</span><br><span class="line">|	|	|	├── ...</span><br><span class="line">|	|	├── ...</span><br><span class="line">|	├── ...</span><br><span class="line">├── ...</span><br></pre></td></tr></table></figure>
+<code>daily_backup.db</code>及其相关文件是我们要备份的文件，如果我们使用如下命令：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common/ android@xm.onns.xyz:/home/android/</span><br></pre></td></tr></table></figure>
+在目标文件生成的文件会如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;</span><br><span class="line">├── home</span><br><span class="line">|	├── android</span><br><span class="line">|	|	├── daily_backup.db</span><br><span class="line">|	|	├── ...</span><br><span class="line">|	├── ...</span><br><span class="line">├── ...</span><br></pre></td></tr></table></figure>
+会直接把所有文件放到根目录，所以不可避免的会修改根目录的相关权限。但假如换成如下命令：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common android@xm.onns.xyz:/home/android/</span><br></pre></td></tr></table></figure>
+在目标文件生成的文件会如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;</span><br><span class="line">├── home</span><br><span class="line">|	├── android</span><br><span class="line">|	|	├── common</span><br><span class="line">|	|	|	├── daily_backup.db</span><br><span class="line">|	|	|	├── ...</span><br><span class="line">|	|	├── ...</span><br><span class="line">|	├── ...</span><br><span class="line">├── ...</span><br></pre></td></tr></table></figure>
+一个<code>/</code>真的差别好大！</li>
+</ul>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/sunju/p/11073530.html" target="_blank" rel="noopener">关于ssh密钥配置还需要输入密码的终极解决办法</a></li>
+<li><a href="https://www.cnblogs.com/fanggege/p/10631903.html" target="_blank" rel="noopener">rsync 同步</a></li>
+</ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/java/">java</a>
-            <a href="/blog/tags/tips/">tips</a>
-            <a href="/blog/tags/leetcode/">leetcode</a>
-            <a href="/blog/tags/dynamic-programming/">dynamic programming</a>
-            <a href="/blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/ssh/">ssh</a>
+            <a href="/blog/tags/rsync/">rsync</a>
+            <a href="/blog/tags/sshd/">sshd</a>
+            <a href="/blog/tags/chmod/">chmod</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2020/09/15/solution-of-coin-change/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Leetcode题解：零钱兑换</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/">
-        <span class="next-text nav-default">Leetcode题解：二叉树的中序遍历</span>
+        <nav class="post-nav"><a class="next" href="/blog/2020/09/15/solution-of-coin-change/">
+        <span class="next-text nav-default">Leetcode题解：零钱兑换</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
