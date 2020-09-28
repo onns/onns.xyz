@@ -16,9 +16,41 @@
 	<footer style="text-align:center;width:100%;opacity:0.5;"><a href="http://www.beian.miit.gov.cn"
 			style="color:#41403E;">FUJIAN-ICP PREPARED No. 15022938-2</a></footer>
 	<script>
+		Date.prototype.format = function (formatStr) {
+			var str = formatStr;
+			var Week = ['日', '一', '二', '三', '四', '五', '六'];
+
+			str = str.replace(/yyyy|YYYY/, this.getFullYear());
+			str = str.replace(/yy|YY/, (this.getYear() % 100) > 9 ? (this.getYear() % 100).toString() : '0' + (this.getYear() % 100));
+
+			str = str.replace(/MM/, this.getMonth() > 9 ? this.getMonth().toString() : '0' + this.getMonth());
+			str = str.replace(/M/g, this.getMonth());
+
+			str = str.replace(/w|W/g, Week[this.getDay()]);
+
+			str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+			str = str.replace(/d|D/g, this.getDate());
+
+			str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+			str = str.replace(/h|H/g, this.getHours());
+			str = str.replace(/mm/, this.getMinutes() > 9 ? this.getMinutes().toString() : '0' + this.getMinutes());
+			str = str.replace(/m/g, this.getMinutes());
+
+			str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+			str = str.replace(/s|S/g, this.getSeconds());
+
+			return str;
+		}
+
+		class Debugger {
+			static log(msg, color = '') {
+				console.log('%c ' + new Date().format('yyyy-MM-dd hh:mm:ss') + ' ' + msg, color);
+			}
+		}
+
 		// 获取当前url
 		var url = window.location.href.slice(window.location.href.indexOf('/doc/'));
-		console.log(url);
+		Debugger.log(url);
 
 		document.title = "Doc - " + url.slice(6);
 
@@ -69,19 +101,19 @@
 				// 将对象保存到云端
 				docsync.save().then(function (docsync) {
 					// 成功保存之后，执行其他逻辑
-					console.log('保存成功。objectId：' + docsync.id);
+					Debugger.log('保存成功。objectId：' + docsync.id);
 					objectId = docsync.id;
 				}, function (error) {
 					// 异常处理
-					console.log(error);
+					Debugger.log(error);
 				});
 			} else {
 				var docsync = AV.Object.createWithoutData('DocSync', objectId);
 				docsync.set('content', docEle.innerHTML);
 				docsync.save().then(function (docsync) {
-					console.log('更新成功。');
+					Debugger.log('更新成功。');
 				}, function (error) {
-					console.log(error);
+					Debugger.log(error);
 				});
 			}
 		}
