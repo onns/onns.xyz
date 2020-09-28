@@ -19,12 +19,13 @@
 		// 获取当前url
 		var url = window.location.href.slice(window.location.href.indexOf('/doc/'));
 		console.log(url);
-		
+
 		document.title = "Doc - " + url.slice(6);
-		
+
 		// setInterval(function(){
 		var docEle = document.getElementById('content');
 		var content = '';
+		var contentWithoutHtml = '';
 		var objectId = '';
 		var canEdit = true;
 		// 	console.log(content);
@@ -43,6 +44,7 @@
 			// console.log(docsync);
 			if (docsync.length == 1) {
 				docEle.innerHTML = docsync[0].attributes.content;
+				contentWithoutHtml = docEle.innerText;
 				content = docsync[0].attributes.content;
 				objectId = docsync[0].id;
 				canEdit = docsync[0].attributes.canEdit;
@@ -50,6 +52,9 @@
 		});
 
 		function update() {
+			content = docEle.innerHTML;
+			contentWithoutHtml = docEle.innerText;
+
 			if (objectId == '') {
 				// 声明 class
 				var DocSync = AV.Object.extend('DocSync');
@@ -79,7 +84,14 @@
 					console.log(error);
 				});
 			}
-			content = docEle.innerHTML;
+		}
+
+		function change(doc1, doc2) {
+			if (Math.abs(doc1.length - doc2.length) > 10) {
+				// console.log(Math.abs(doc1.length - doc2.length));
+				return true;
+			}
+			return false;
 		}
 
 		setInterval(function () {
@@ -87,6 +99,12 @@
 				update();
 			}
 		}, 1000 * 10);
+
+		setInterval(function () {
+			if (change(docEle.innerText, contentWithoutHtml) && docEle.innerHTML != '' && canEdit) {
+				update();
+			}
+		}, 100);
 	</script>
 </body>
 
