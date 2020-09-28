@@ -19,6 +19,9 @@
 		// 获取当前url
 		var url = window.location.href.slice(window.location.href.indexOf('/doc/'));
 		console.log(url);
+		
+		document.title = "Doc - " + url.slice(6);
+		
 		// setInterval(function(){
 		var docEle = document.getElementById('content');
 		var content = '';
