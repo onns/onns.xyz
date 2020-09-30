@@ -70,11 +70,11 @@
 		});
 
 		var query = new AV.Query('DocSync');
-		query.equalTo('url', url);
+		query.equalTo('url', url).addAscending('createdAt');
 		query.find().then(function (docsync) {
 			// 拉取远端结果
 			// console.log(docsync);
-			if (docsync.length == 1) {
+			if (docsync.length >= 1) {
 				docEle.innerHTML = docsync[0].attributes.content;
 				contentWithoutHtml = docEle.innerText;
 				content = docsync[0].attributes.content;
