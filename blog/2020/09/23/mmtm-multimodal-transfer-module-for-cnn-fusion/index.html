@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="周报-20200918"/><meta name="keywords" content="weekly report, lab406, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2020/09/18/weekly-report-20200918/"/>
+<meta name="description" content="MMTM Multimodal Transfer Module for CNN Fusion"/><meta name="keywords" content="行为识别, action recognition, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/09/23/mmtm-multimodal-transfer-module-for-cnn-fusion/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,7 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>周报-20200918 - Onns Blog</title>
+    <title>MMTM Multimodal Transfer Module for CNN Fusion - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -255,142 +255,45 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">周报-20200918
+      <h1 class="post-title">MMTM Multimodal Transfer Module for CNN Fusion
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-09-18
+          2020-09-23
         </span><span class="post-category">
             <a href="/blog/categories/study/">study</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/09/18/weekly-report-20200918/"
-             data-title="周报-20200918">
+             data-url="/blog/2020/09/23/mmtm-multimodal-transfer-module-for-cnn-fusion/"
+             data-title="MMTM Multimodal Transfer Module for CNN Fusion">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#i-task-achieved-last-week"><span class="toc-text">I. Task achieved last week</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ii-reports"><span class="toc-text">II. Reports</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition"><span class="toc-text">Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition"><span class="toc-text">GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#group-temporal-module"><span class="toc-text">Group Temporal Module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#group-spatial-module"><span class="toc-text">Group Spatial Module</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iii-plan-for-this-week"><span class="toc-text">III. Plan for this week</span></a></li></ol>
-    </div>
-  </div><div class="post-content"><center>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">2020-09-18</th>
-<th style="text-align:center">周报#05</th>
-<th style="text-align:center">刘潘</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</center>
-<a id="more"></a>
-<h2 id="i-task-achieved-last-week"><a class="header-anchor" href="#i-task-achieved-last-week">#</a>I. Task achieved last week</h2>
-<hr>
-<ul>
-<li>《Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition》</li>
-<li>《GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION》</li>
-<li>看 PAN 的源码</li>
-</ul>
-<h2 id="ii-reports"><a class="header-anchor" href="#ii-reports">#</a>II. Reports</h2>
-<hr>
-<h3 id="late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition"><a class="header-anchor" href="#late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition">#</a>Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</h3>
-<p><code>HMDB51</code>和<code>UCF101</code>的<code>top-1</code>达到现阶段最好的水平，分别为<code>85.10%</code>和<code>98.69%</code>。</p>
-<p>时序全局平均池化阻碍了时序信息的更丰富表达。虽然感受野可能分布在整个视频切片中，但是对于不同的切片，它所能提供的信息是服从高斯分布的，简单的平均可能会损失信息。</p>
-<blockquote>
-<p>temporal global average pooling (TGAP) layer is used at the end of all 3D CNN architectures hinders the richness of final temporal information.<br>
-the receptive field might cover the whole clip, the effective receptive field has a Gaussian distribution</p>
-</blockquote>
-<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
-<ul>
-<li><a href="https://github.com/artest08/LateTemporalModeling3DCNN" target="_blank" rel="noopener">https://github.com/artest08/LateTemporalModeling3DCNN</a></li>
-</ul>
-<h3 id="gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition"><a class="header-anchor" href="#gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition">#</a>GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</h3>
-<p>为了解决现有的行为识别方法<code>计算量大</code>、<code>参数多</code>的问题，作者提出了<code>GFNet</code>。</p>
-<blockquote>
-<p>To handle these issues, we propose a lightweight neural network called Group Frame Network (GFNet).</p>
-</blockquote>
-<p>GFNet 通过帧级分解，以极小的代价提取每一帧的特征。</p>
-<blockquote>
-<p>GFNet adds frame-level decomposition to extract features of each frame at a minuscule cost.</p>
-</blockquote>
-<p>设计了两个核心组件，能够仅从<code>RGB图像</code>中提取时空信息，而不需要借助<code>光流</code>或<code>multi-scale testing</code>等。</p>
-<blockquote>
-<p>There are two core components: <code>Group Temporal Module</code> (GTM) and <code>Group Spatial Module</code> (GSM). These two modules enable GFNet to obtain temporal-spatial information only from RGB images.</p>
-</blockquote>
-<p>为了证明模型的有效性，他们没有使用预训练策略。</p>
-<blockquote>
-<p>To verify the validity of the model, no pre-training strategy is used in our experiments.</p>
-</blockquote>
-<p>网络的输入是<code>一定数量</code>的<code>视频帧</code>，对视频进行分段采样得到结果。</p>
-<blockquote>
-<p>The entire video with a variable number of frames is provided as the input of the network. Through an average sampling strategy, the video is divided into N equal-length segments and only one frame is selected from each segment. Due to the repeatability of adjacent frames, this sampling strategy can reduce inter-frame redundancy while preserving long-temporal information.</p>
-</blockquote>
-<p>K 个层同时输入网络获取时间信息。</p>
-<blockquote>
-<p>The first part is a feature extraction layer consisting of K separated branches. The sampled frames are simultaneously fed into the network to maintain the temporal information among these frames.</p>
-</blockquote>
-<p>各自的分支独立计算获得空间信息。</p>
-<blockquote>
-<p>In the feature extraction layer, each frame is learned independently using a network branch to get its spatial features.</p>
-</blockquote>
-<p>没太理解。</p>
-<blockquote>
-<p>all the sampled frames are stacked by channel-wise convolution.<br>
-It means that the input channel of GFNet is 3N when using RGB images as input.</p>
-</blockquote>
-<p>由于残差网络具有高度的泛化能力和性能，所以后续的块选择高度模块化残差单元。</p>
-<blockquote>
-<p>Owing to the impressive performance and strong generalization abil- ity of residual architecture, the block is based on the highly modularized residual unit.</p>
-</blockquote>
-<p>这句话没太理解。</p>
-<blockquote>
-<p>Considering the extraneous motion and identical texture features in sampled frames, GFNet decomposes frames and reduces the number of channels for each frame to lessen spatial redundancy. To be specific, the number of channels is equally divided among branches. It means that only a small number of channels are used per frame.</p>
-</blockquote>
-<h3 id="group-temporal-module"><a class="header-anchor" href="#group-temporal-module">#</a>Group Temporal Module</h3>
-<p>因为每个分支都是单独计算的，所以势必会降低准确率（没有提取帧间的联系），所以提出了<code>GTM</code>模块。</p>
-<blockquote>
-<p>To leverage the inter-frame information effectively and better strengthen temporal relationships, GTM is proposed to efficiently overcome the side effects brought by the separated branch.</p>
+    <div class="post-content"><blockquote>
+<p>In general, fusion can be achieved at the input level (i.e. early fusion), decision level (i.e. late fusion), or intermediately [8]. Although studies in neuroscience [9, 10] and machine learning [1, 3] suggest that mid-level feature fusion could benefit learning, late fusion is still the predominant method utilized for mulitmodal learning [11–13]. This is mostly due to practical reasons.</p>
 </blockquote>
 <blockquote>
-<p>GTM consists of a translation layer and a 3D convolution layer.</p>
+<p>Another reason for the popularity of late fusion is that the architecture of each unimodal stream is carefully designed over years to achieve state-of-the-art performance for each modality.</p>
 </blockquote>
-<blockquote>
-<p>The translation layer makes the replacement of the data dimension. It includes the channel merger and the channel separation, which achieves the conversion of the feature map from four-dimensional data to five-dimensional data.</p>
-</blockquote>
-<h3 id="group-spatial-module"><a class="header-anchor" href="#group-spatial-module">#</a>Group Spatial Module</h3>
-<p>For the convolution layer of ResNet50, the computational cost is closely related to the number of channels. Motivated by this, a novel module called GSM is designed to significantly decrease the number of parameters and computational efforts.</p>
-<p>GSM 也是通过只取纹理来最小化计算成本。</p>
-<blockquote>
-<p>Because of the similarity among frames, the texture information is repetitive. Meanwhile, irrelevant motion inside frames increases the intra-frame redundancy. Aiming at minimizing the interference of redundant information, GSM diminishes the number of channels to extract features per frame.</p>
-</blockquote>
-<h2 id="iii-plan-for-this-week"><a class="header-anchor" href="#iii-plan-for-this-week">#</a>III. Plan for this week</h2>
-<hr>
-<ul>
-<li>看论文</li>
-<li>看代码</li>
-</ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/weekly-report/">weekly report</a>
-            <a href="/blog/tags/lab406/">lab406</a>
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2020/09/23/mmtm-multimodal-transfer-module-for-cnn-fusion/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/09/28/temporal-segment-networks-for-action-recognition-in-videos/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">MMTM Multimodal Transfer Module for CNN Fusion</span>
+        <span class="prev-text nav-default">Temporal Segment Networks for Action Recognition in Videos</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/blog/2020/09/16/java-threadlocal/">
-        <span class="next-text nav-default">Java的ThreadLocal类</span>
+    <a class="next" href="/blog/2020/09/18/weekly-report-20200918/">
+        <span class="next-text nav-default">周报-20200918</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
