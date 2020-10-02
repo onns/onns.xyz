@@ -290,7 +290,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </blockquote>
 <p>这个策略的思想其实还蛮简单的，看图就懂了：</p>
 <center>
-<p><img src="../image/20201002-1.png" alt="acc_test_top1"></p>
+<p><img src="//onns.xyz/blog/image/20201002-1.png" alt="网络结构示意图"></p>
 </center>
 <p>本质上就是先把视频均分成等份，然后每一份里选取一个<code>RGB</code>、<code>Optical Flow</code>或<code>RGB Differences</code>之类的来代表这一个片段的信息，然后提取<code>这一片</code>的信息（CNN）进行信息融合。</p>
 <h3 id="融合函数"><a class="header-anchor" href="#融合函数">#</a>融合函数</h3>
