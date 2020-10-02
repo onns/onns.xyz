@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/行为识别/page/2/"/>
+<meta name="description" content="PAN Lite 训练结果"/><meta name="keywords" content="行为识别, action recognition, pan, pan lite, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/10/02/pan-lite-train-log/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>行为识别 · Onns Blog
-  </title>
+    <title>PAN Lite 训练结果 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,31 +253,87 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/" class="archive-post-link">
-            Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition
-          </a>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">PAN Lite 训练结果
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-02
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/02/pan-lite-train-log/"
+             data-title="PAN Lite 训练结果">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#准确度"><span class="toc-text">准确度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loss"><span class="toc-text">Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#学习率"><span class="toc-text">学习率</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>从 26 日 0 点跑到了 29 日 18 点，中间实验室停电耽误了几个小时的时间。</p>
+<a id="more"></a>
+<h3 id="准确度"><a class="header-anchor" href="#准确度">#</a>准确度</h3>
+<p>测试集 TOP1 准确度：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-acc_test_top1.svg" alt="acc_test_top1"></p>
+</center>
+<p>在测试集上的最高准确率为<code>48.06%</code>，第<code>42</code>个<code>epoch</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-acc_test_top1_best.svg" alt="acc_test_top1_best"></p>
+</center>
+<p>测试集 TOP5 准确度：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-acc_test_top5.svg" alt="acc_test_top5"></p>
+</center>
+<p>训练集 TOP1 准确度：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-acc_train_top1.svg" alt="acc_train_top1"></p>
+</center>
+<p>训练集 TOP5 准确度：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-acc_train_top5.svg" alt="acc_train_top5"></p>
+</center>
+<h3 id="loss"><a class="header-anchor" href="#loss">#</a>Loss</h3>
+<p>测试集<code>Loss</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-loss_test.svg" alt="loss_test"></p>
+</center>
+<p>训练集<code>Loss</code>：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-loss_train.svg" alt="loss_train"></p>
+</center>
+<h3 id="学习率"><a class="header-anchor" href="#学习率">#</a>学习率</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20201002-lr.svg" alt="lr"></p>
+</center>
+<p>论文里的<code>batch size</code>为<code>64</code>，学习率初始为<code>0.01</code>，按比例放缩。</p>
+<p>此次实验<code>batch size</code>为<code>16</code>，初始学习率为<code>0.0025</code>。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/" class="archive-post-link">
-            Spatiotemporal Fusion in 3D CNNs A Probabilistic View
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"><a class="prev" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/pan/">pan</a>
+            <a href="/blog/tags/pan-lite/">pan lite</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/10/02/weekly-report-20201002/">
+        <span class="next-text nav-default">周报-20201002</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
       </a>
-    </nav></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

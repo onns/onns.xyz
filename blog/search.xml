@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>PAN Lite 训练结果</title>
+      <link href="/blog/2020/10/02/pan-lite-train-log/"/>
+      <url>/blog/2020/10/02/pan-lite-train-log/</url>
+      
+        <content type="html"><![CDATA[<p>从 26 日 0 点跑到了 29 日 18 点，中间实验室停电耽误了几个小时的时间。</p><a id="more"></a><h3 id="准确度"><a class="header-anchor" href="#准确度">#</a>准确度</h3><p>测试集 TOP1 准确度：</p><center><p><img src="//onns.xyz/blog/image/20201002-acc_test_top1.svg" alt="acc_test_top1"></p></center><p>在测试集上的最高准确率为<code>48.06%</code>，第<code>42</code>个<code>epoch</code>：</p><center><p><img src="//onns.xyz/blog/image/20201002-acc_test_top1_best.svg" alt="acc_test_top1_best"></p></center><p>测试集 TOP5 准确度：</p><center><p><img src="//onns.xyz/blog/image/20201002-acc_test_top5.svg" alt="acc_test_top5"></p></center><p>训练集 TOP1 准确度：</p><center><p><img src="//onns.xyz/blog/image/20201002-acc_train_top1.svg" alt="acc_train_top1"></p></center><p>训练集 TOP5 准确度：</p><center><p><img src="//onns.xyz/blog/image/20201002-acc_train_top5.svg" alt="acc_train_top5"></p></center><h3 id="loss"><a class="header-anchor" href="#loss">#</a>Loss</h3><p>测试集<code>Loss</code>：</p><center><p><img src="//onns.xyz/blog/image/20201002-loss_test.svg" alt="loss_test"></p></center><p>训练集<code>Loss</code>：</p><center><p><img src="//onns.xyz/blog/image/20201002-loss_train.svg" alt="loss_train"></p></center><h3 id="学习率"><a class="header-anchor" href="#学习率">#</a>学习率</h3><center><p><img src="//onns.xyz/blog/image/20201002-lr.svg" alt="lr"></p></center><p>论文里的<code>batch size</code>为<code>64</code>，学习率初始为<code>0.01</code>，按比例放缩。</p><p>此次实验<code>batch size</code>为<code>16</code>，初始学习率为<code>0.0025</code>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+            <tag> pan </tag>
+            
+            <tag> pan lite </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>周报-20201002</title>
       <link href="/blog/2020/10/02/weekly-report-20201002/"/>
       <url>/blog/2020/10/02/weekly-report-20201002/</url>
