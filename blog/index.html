@@ -272,7 +272,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         </div>
     </header>
 
-    <div class="post-content"><p>从 26 日 0 点跑到了 29 日 18 点，中间实验室停电耽误了几个小时的时间。</p>
+    <div class="post-content"><h2 id="pan-lite-训练结果"><a class="header-anchor" href="#pan-lite-训练结果">#</a>PAN Lite 训练结果</h2>
+<p>从 26 日 0 点跑到了 29 日 18 点，中间实验室停电耽误了几个小时的时间。</p>
           <div class="read-more">
             <a href="/blog/2020/10/02/pan-lite-train-log/" class="read-more-link">Read more..</a>
           </div>
@@ -357,10 +358,33 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     </header>
 
     <div class="post-content"><h2 id="temporal-segment-networks-for-action-recognition-in-videos"><a class="header-anchor" href="#temporal-segment-networks-for-action-recognition-in-videos">#</a>Temporal Segment Networks for Action Recognition in Videos</h2>
-<p>这篇是最近研究的论文的起始论文，提出了一种<code>基于分片采样</code>的策略，传统的不论是双流法还是三维卷积法，受限于GPU资源和网络结构的限制，都只能处理一段时间内的视频帧，没有办法做到长时间的采样。</p>
+<p>这篇是最近研究的论文的起始论文，提出了一种<code>基于分片采样</code>的策略，传统的不论是双流法还是三维卷积法，受限于 GPU 资源和网络结构的限制，都只能处理一段时间内的视频帧，没有办法做到长时间的采样。</p>
 <blockquote>
 <p>As discussed in Sec. 1, long-range temporal modeling is important for action understanding in videos. The existing deep architectures such as two-stream ConvNets [1] and 3D convolutional networks [16] are designed to operate on a single frame or a stack of frames (e.g., 16 frames) with limited temporal durations. Therefore, these structures lack capacity of incorporating long-range temporal information of videos into the learning of action models.</p>
 </blockquote>
+<p>要解决这样一个问题，有两种方向，第一种是<code>stacking more consecutive frames</code>，第二种是<code>sampling more frames at a fixed rate</code>，即要么堆叠更多的帧数，要么进行局部采样。</p>
+<p>但是前者会造成计算复杂度急剧升高，后者会导致模型不能很好地表达完整的信息。</p>
+<p>与此同时，作者注意到，其实连续的多帧中其实内容变换很少，所以提出了一种<code>segment based sampling</code>的采样策略。</p>
+<blockquote>
+<p>although the frames are densely recorded in the videos, the content changes relatively slowly.</p>
+</blockquote>
+<p>这个策略的思想其实还蛮简单的，看图就懂了：</p>
+<center>
+<p><img src="../image/20201002-1.png" alt="acc_test_top1"></p>
+</center>
+<p>本质上就是先把视频均分成等份，然后每一份里选取一个<code>RGB</code>、<code>Optical Flow</code>或<code>RGB Differences</code>之类的来代表这一个片段的信息，然后提取<code>这一片</code>的信息（CNN）进行信息融合。</p>
+<h3 id="融合函数"><a class="header-anchor" href="#融合函数">#</a>融合函数</h3>
+<p>所以整个网络其实就是有三段：<code>分段特征表示</code>、<code>分段信息提取</code>和<code>多段信息融合</code>。</p>
+<p>现在往回看去，分段特征表示就是将多帧图像的信息进行转化，转化成一个可以用来计算的方法，即前面所说的<code>RGB</code>、<code>Optical Flow</code>或<code>RGB Differences</code>。</p>
+<p>分段信息提取是属于骨干网络的事情，我们也无法进行修改。</p>
+<p>故最重要的部分就是，如果将<code>多个分段</code>所提取到的信息进行融合，这个对于模型的表达能力来说，是十分重要的。</p>
+<blockquote>
+<p>As analyzed above, the consensus (aggregation) function is an important component in our temporal segment network framework.</p>
+</blockquote>
+<p>论文中给出了五种融合方法：<code>max pooling</code>、<code>average pooling</code>、<code>top-K pooling</code>、<code>weighted average</code>、<code>attention weighting</code>。</p>
+<p>前两个就不解释了，第三个相当于不取最大的，而是取最大的<code>K</code>个进行平均，<code>k=1</code>即<code>max pooling</code>，<code>k=[分片数]</code>即<code>average pooling</code>。</p>
+<p>第四个和第五个相当于在平均池化的基础上给每个分片进行了加权。</p>
+<p>（PAN 的创新之一就是提出了一种新的加权方式）</p>
 
         </div></article>
       <article class="post">
