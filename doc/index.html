@@ -8,6 +8,11 @@
 	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="css/sheets-of-paper-a4.css">
 	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"></script>
+	<style>
+		img {
+			width: 100%;
+		}
+	</style>
 </head>
 
 <body class="document">
@@ -59,7 +64,7 @@
 		var content = '';
 		var contentWithoutHtml = '';
 		var objectId = '';
-		var canEdit = true;
+		var canEdit = false;
 		// 	console.log(content);
 		// },1000);
 
@@ -80,6 +85,8 @@
 				content = docsync[0].attributes.content;
 				objectId = docsync[0].id;
 				canEdit = docsync[0].attributes.canEdit;
+			} else {
+				canEdit = true;
 			}
 		});
 
