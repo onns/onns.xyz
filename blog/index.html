@@ -297,7 +297,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         </div>
     </header>
 
-    <div class="post-content"><center onclick="javascript:document.getElementsByTagName('header')[0].remove();
+    <div class="post-content"><center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();
 document.getElementsByTagName('header')[0].remove();
 document.getElementsByTagName('footer')[0].remove();
 document.getElementsByTagName('footer')[0].remove();
@@ -391,6 +391,12 @@ document.getElementById('post-toc').remove();">
 <p>前两个就不解释了，第三个相当于不取最大的，而是取最大的<code>K</code>个进行平均，<code>k=1</code>即<code>max pooling</code>，<code>k=[分片数]</code>即<code>average pooling</code>。</p>
 <p>第四个和第五个相当于在平均池化的基础上给每个分片进行了加权。</p>
 <p>（PAN 的创新之一就是提出了一种新的加权方式）</p>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+<ul>
+<li><a href="https://blog.csdn.net/u014380165/article/details/79029309" target="_blank" rel="noopener">TSN(Temporal Segment Networks)算法笔记</a></li>
+<li><a href="https://blog.csdn.net/Hia_Hia_Hia/article/details/82979606" target="_blank" rel="noopener">Temporal Segment Networks for Action Recognition in Videos 论文阅读笔记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/61630950?utm_source=wechat_session" target="_blank" rel="noopener">Temporal Segment Networks(TSN)深度行为识别</a></li>
+</ul>
 
         </div></article>
       <article class="post">

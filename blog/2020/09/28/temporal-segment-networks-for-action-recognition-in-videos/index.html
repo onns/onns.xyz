@@ -275,7 +275,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#temporal-segment-networks-for-action-recognition-in-videos"><span class="toc-text">Temporal Segment Networks for Action Recognition in Videos</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#融合函数"><span class="toc-text">融合函数</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#temporal-segment-networks-for-action-recognition-in-videos"><span class="toc-text">Temporal Segment Networks for Action Recognition in Videos</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#融合函数"><span class="toc-text">融合函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="temporal-segment-networks-for-action-recognition-in-videos"><a class="header-anchor" href="#temporal-segment-networks-for-action-recognition-in-videos">#</a>Temporal Segment Networks for Action Recognition in Videos</h2>
 <p>这篇是最近研究的论文的起始论文，提出了一种<code>基于分片采样</code>的策略，传统的不论是双流法还是三维卷积法，受限于 GPU 资源和网络结构的限制，都只能处理一段时间内的视频帧，没有办法做到长时间的采样。</p>
@@ -305,6 +305,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>前两个就不解释了，第三个相当于不取最大的，而是取最大的<code>K</code>个进行平均，<code>k=1</code>即<code>max pooling</code>，<code>k=[分片数]</code>即<code>average pooling</code>。</p>
 <p>第四个和第五个相当于在平均池化的基础上给每个分片进行了加权。</p>
 <p>（PAN 的创新之一就是提出了一种新的加权方式）</p>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+<ul>
+<li><a href="https://blog.csdn.net/u014380165/article/details/79029309" target="_blank" rel="noopener">TSN(Temporal Segment Networks)算法笔记</a></li>
+<li><a href="https://blog.csdn.net/Hia_Hia_Hia/article/details/82979606" target="_blank" rel="noopener">Temporal Segment Networks for Action Recognition in Videos 论文阅读笔记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/61630950?utm_source=wechat_session" target="_blank" rel="noopener">Temporal Segment Networks(TSN)深度行为识别</a></li>
+</ul>
 
       </div>
       
