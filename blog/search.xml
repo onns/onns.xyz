@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>阴历生日生成脚本</title>
+      <link href="/blog/2020/10/04/lunar-birthday-generator-script/"/>
+      <url>/blog/2020/10/04/lunar-birthday-generator-script/</url>
+      
+        <content type="html"><![CDATA[<p><code>Google Calendar</code>本身没有阴历日历的功能，只能通过生成然后导入的方式添加。</p><a id="more"></a><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> sxtwl</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(len(sys.argv) != <span class="number">3</span> <span class="keyword">or</span> len(sys.argv[<span class="number">2</span>]) != <span class="number">8</span>):</span><br><span class="line">exit(<span class="string">'Usage: python lunar_brithday &lt;name&gt; &lt;birth day(YYYYMMDD)&gt;'</span>)</span><br><span class="line"></span><br><span class="line">lunar = sxtwl.Lunar()</span><br><span class="line"></span><br><span class="line">birth_year = int(sys.argv[<span class="number">2</span>][:<span class="number">4</span>])</span><br><span class="line">birth_month = int(sys.argv[<span class="number">2</span>][<span class="number">4</span>:<span class="number">6</span>])</span><br><span class="line">birth_day = int(sys.argv[<span class="number">2</span>][<span class="number">6</span>:<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">day = lunar.getDayBySolar(birth_year, birth_month, birth_day)</span><br><span class="line"></span><br><span class="line">lunar_birth_month = (day.Lmc + <span class="number">11</span>) % <span class="number">12</span></span><br><span class="line">lunar_birth_day = day.Ldi + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"Subject,Start Date,All Day Event"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">day = lunar.getDayByLunar(birth_year+i, lunar_birth_month, lunar_birth_day)</span><br><span class="line">print(sys.argv[<span class="number">1</span>] + <span class="string">'\'s lunar birthday,'</span> + str(day.m) + <span class="string">'/'</span> + str(day.d) + <span class="string">'/'</span> + str(day.y) + <span class="string">',TRUE'</span>)</span><br><span class="line"><span class="comment"># Subject,Start Date,All Day Event</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> lunar birthday </tag>
+            
+            <tag> calendar </tag>
+            
+            <tag> google calendar </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PAN Lite 训练结果</title>
       <link href="/blog/2020/10/02/pan-lite-train-log/"/>
       <url>/blog/2020/10/02/pan-lite-train-log/</url>
