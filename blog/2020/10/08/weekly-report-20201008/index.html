@@ -275,7 +275,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#i-task-achieved-last-week"><span class="toc-text">I. Task achieved last week</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ii-reports"><span class="toc-text">II. Reports</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#latex模板"><span class="toc-text">Latex模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tea-temporal-excitation-and-aggregation-for-action-recognition"><span class="toc-text">TEA: Temporal Excitation and Aggregation for Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题提出"><span class="toc-text">问题提出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bert-相关笔记（一）"><span class="toc-text">BERT 相关笔记（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iii-plan-for-this-week"><span class="toc-text">III. Plan for this week</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#i-task-achieved-last-week"><span class="toc-text">I. Task achieved last week</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ii-reports"><span class="toc-text">II. Reports</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#latex-模板"><span class="toc-text">Latex 模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tea-temporal-excitation-and-aggregation-for-action-recognition"><span class="toc-text">TEA: Temporal Excitation and Aggregation for Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题提出"><span class="toc-text">问题提出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bert-相关笔记（一）"><span class="toc-text">BERT 相关笔记（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iii-plan-for-this-week"><span class="toc-text">III. Plan for this week</span></a></li></ol>
     </div>
   </div><div class="post-content"><center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();
 document.getElementsByTagName('header')[0].remove();
@@ -299,13 +299,13 @@ document.getElementById('post-toc').remove();">
 <h1 id="i-task-achieved-last-week"><a class="header-anchor" href="#i-task-achieved-last-week">#</a>I. Task achieved last week</h1>
 <hr>
 <ul>
-<li>找到合适的Latex毕设模板，并且成功的编译，开始写论文的摘要部分。</li>
+<li>找到合适的 Latex 毕设模板，并且成功的编译，开始写论文的摘要部分。</li>
 <li>《TEA: Temporal Excitation and Aggregation for Action Recognition》</li>
 <li>修改了现有代码，等待实验结果。</li>
 </ul>
 <h1 id="ii-reports"><a class="header-anchor" href="#ii-reports">#</a>II. Reports</h1>
 <hr>
-<h2 id="latex模板"><a class="header-anchor" href="#latex模板">#</a>Latex模板</h2>
+<h2 id="latex-模板"><a class="header-anchor" href="#latex-模板">#</a>Latex 模板</h2>
 <p>找了一个比较新的<code>厦门大学研究生学位论文 LaTeX 模板</code>模板：<a href="https://github.com/zoam/xmu-thesis-grd" target="_blank" rel="noopener">https://github.com/zoam/xmu-thesis-grd</a>，自己修改了一些特性。</p>
 <h2 id="tea-temporal-excitation-and-aggregation-for-action-recognition"><a class="header-anchor" href="#tea-temporal-excitation-and-aggregation-for-action-recognition">#</a>TEA: Temporal Excitation and Aggregation for Action Recognition</h2>
 <h3 id="问题提出"><a class="header-anchor" href="#问题提出">#</a>问题提出</h3>
@@ -345,6 +345,40 @@ document.getElementById('post-toc').remove();">
 <li><a href="https://zhuanlan.zhihu.com/p/57155059" target="_blank" rel="noopener">简说 Seq2Seq 原理及实现</a></li>
 <li><a href="https://www.jianshu.com/p/b2b95f945a98" target="_blank" rel="noopener">Seq2Seq 模型概述</a></li>
 </ul>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
+<p>较现有方法提升了<code>0.8%</code>：</p>
+<center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Method</th>
+<th style="text-align:center">Backbone</th>
+<th style="text-align:center">Frame</th>
+<th style="text-align:center">FLOPs × views</th>
+<th style="text-align:center">Val Top1</th>
+<th style="text-align:center">Val Top5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">PAN Full</td>
+<td style="text-align:center">ResNet-50 + TSM</td>
+<td style="text-align:center">8+8×4</td>
+<td style="text-align:center">67.7G × 1</td>
+<td style="text-align:center">50.5</td>
+<td style="text-align:center">79.2</td>
+</tr>
+<tr>
+<td style="text-align:center">PAN Full with reverse</td>
+<td style="text-align:center">ResNet-50 + TSM</td>
+<td style="text-align:center">8+8×4×2</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><strong>51.3</strong></td>
+<td style="text-align:center"><strong>79.9</strong></td>
+</tr>
+</tbody>
+</table>
+</center>
 <h1 id="iii-plan-for-this-week"><a class="header-anchor" href="#iii-plan-for-this-week">#</a>III. Plan for this week</h1>
 <hr>
 <ul>
@@ -361,7 +395,12 @@ document.getElementById('post-toc').remove();">
             <a href="/blog/tags/lab406/">lab406</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/10/08/bert-note-1/">
+        <nav class="post-nav"><a class="prev" href="/blog/2020/10/08/latex-spine/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Latex书脊制作</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/10/08/bert-note-1/">
         <span class="next-text nav-default">BERT相关笔记（一）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
