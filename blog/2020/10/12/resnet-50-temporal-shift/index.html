@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="ResNet50 temporal shift"/><meta name="keywords" content="行为识别, action recognition, tsm, resnet, resnet50, temporal shift, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/10/12/resnet-50-temporal-shift/"/>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":false,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>ResNet50 temporal shift - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">ResNet50 temporal shift
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-12
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/12/resnet-50-temporal-shift/"
+             data-title="ResNet50 temporal shift">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>模型结构：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line">ResNet(</span><br><span class="line">  (conv1): Conv2d(3, 64, kernel_size&#x3D;(7, 7), stride&#x3D;(2, 2), padding&#x3D;(3, 3), bias&#x3D;False)</span><br><span class="line">  (bn1): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">  (relu): ReLU(inplace)</span><br><span class="line">  (maxpool): MaxPool2d(kernel_size&#x3D;3, stride&#x3D;2, padding&#x3D;1, dilation&#x3D;1, ceil_mode&#x3D;False)</span><br><span class="line">  (layer1): Sequential(</span><br><span class="line">	(0): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(64, 64, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(64, 64, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(64, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	  (downsample): Sequential(</span><br><span class="line">		(0): Conv2d(64, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">		(1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  )</span><br><span class="line">	)</span><br><span class="line">	(1): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(256, 64, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(64, 64, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(64, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(2): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(256, 64, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(64, 64, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(64, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(64, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">  )</span><br><span class="line">  (layer2): Sequential(</span><br><span class="line">	(0): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(256, 128, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(128, 128, kernel_size&#x3D;(3, 3), stride&#x3D;(2, 2), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(128, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	  (downsample): Sequential(</span><br><span class="line">		(0): Conv2d(256, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(2, 2), bias&#x3D;False)</span><br><span class="line">		(1): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  )</span><br><span class="line">	)</span><br><span class="line">	(1): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(512, 128, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(128, 128, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(128, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(2): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(512, 128, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(128, 128, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(128, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(3): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(512, 128, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(128, 128, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(128, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(128, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">  )</span><br><span class="line">  (layer3): Sequential(</span><br><span class="line">	(0): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(512, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(2, 2), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	  (downsample): Sequential(</span><br><span class="line">		(0): Conv2d(512, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(2, 2), bias&#x3D;False)</span><br><span class="line">		(1): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  )</span><br><span class="line">	)</span><br><span class="line">	(1): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(2): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(3): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(4): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(5): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 256, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(256, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(256, 1024, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(1024, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">  )</span><br><span class="line">  (layer4): Sequential(</span><br><span class="line">	(0): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(1024, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(512, 512, kernel_size&#x3D;(3, 3), stride&#x3D;(2, 2), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(512, 2048, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(2048, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	  (downsample): Sequential(</span><br><span class="line">		(0): Conv2d(1024, 2048, kernel_size&#x3D;(1, 1), stride&#x3D;(2, 2), bias&#x3D;False)</span><br><span class="line">		(1): BatchNorm2d(2048, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  )</span><br><span class="line">	)</span><br><span class="line">	(1): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(2048, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(512, 512, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(512, 2048, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(2048, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">	(2): Bottleneck(</span><br><span class="line">	  (conv1): Conv2d(2048, 512, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn1): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv2): Conv2d(512, 512, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn2): BatchNorm2d(512, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (conv3): Conv2d(512, 2048, kernel_size&#x3D;(1, 1), stride&#x3D;(1, 1), bias&#x3D;False)</span><br><span class="line">	  (bn3): BatchNorm2d(2048, eps&#x3D;1e-05, momentum&#x3D;0.1, affine&#x3D;True, track_running_stats&#x3D;True)</span><br><span class="line">	  (relu): ReLU(inplace)</span><br><span class="line">	)</span><br><span class="line">  )</span><br><span class="line">  (avgpool): AdaptiveAvgPool2d(output_size&#x3D;(1, 1))</span><br><span class="line">  (fc): Linear(in_features&#x3D;2048, out_features&#x3D;1000, bias&#x3D;True)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_temporal_shift</span><span class="params">(net, n_segment, n_div=<span class="number">8</span>, place=<span class="string">'blockres'</span>, temporal_pool=False)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> temporal_pool:</span><br><span class="line">		n_segment_list = [n_segment, n_segment // <span class="number">2</span>, n_segment // <span class="number">2</span>, n_segment // <span class="number">2</span>]</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		n_segment_list = [n_segment] * <span class="number">4</span></span><br><span class="line">	<span class="keyword">assert</span> n_segment_list[<span class="number">-1</span>] &gt; <span class="number">0</span></span><br><span class="line">	<span class="comment">#print('=&gt; n_segment per stage: &#123;&#125;'.format(n_segment_list))</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">import</span> torchvision</span><br><span class="line">	<span class="keyword">if</span> isinstance(net, torchvision.models.ResNet):</span><br><span class="line">		<span class="keyword">if</span> place == <span class="string">'block'</span>:</span><br><span class="line">			<span class="function"><span class="keyword">def</span> <span class="title">make_block_temporal</span><span class="params">(stage, this_segment)</span>:</span></span><br><span class="line">				blocks = list(stage.children())</span><br><span class="line">				<span class="comment">#print('=&gt; Processing stage with &#123;&#125; blocks'.format(len(blocks)))</span></span><br><span class="line">				<span class="keyword">for</span> i, b <span class="keyword">in</span> enumerate(blocks):</span><br><span class="line">					blocks[i] = TemporalShift(b, n_segment=this_segment, n_div=n_div)</span><br><span class="line">				<span class="keyword">return</span> nn.Sequential(*(blocks))</span><br><span class="line"></span><br><span class="line">			net.layer1 = make_block_temporal(net.layer1, n_segment_list[<span class="number">0</span>])</span><br><span class="line">			net.layer2 = make_block_temporal(net.layer2, n_segment_list[<span class="number">1</span>])</span><br><span class="line">			net.layer3 = make_block_temporal(net.layer3, n_segment_list[<span class="number">2</span>])</span><br><span class="line">			net.layer4 = make_block_temporal(net.layer4, n_segment_list[<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">		<span class="keyword">elif</span> <span class="string">'blockres'</span> <span class="keyword">in</span> place:</span><br><span class="line">			n_round = <span class="number">1</span></span><br><span class="line">			<span class="keyword">if</span> len(list(net.layer3.children())) &gt;= <span class="number">23</span>: <span class="comment"># 如果是ResNet101的话，就每两轮采一次</span></span><br><span class="line">				n_round = <span class="number">2</span></span><br><span class="line">				<span class="comment">#print('=&gt; Using n_round &#123;&#125; to insert temporal shift'.format(n_round))</span></span><br><span class="line"></span><br><span class="line">			<span class="function"><span class="keyword">def</span> <span class="title">make_block_temporal</span><span class="params">(stage, this_segment)</span>:</span></span><br><span class="line">				blocks = list(stage.children())</span><br><span class="line">				<span class="comment">#print('=&gt; Processing stage with &#123;&#125; blocks residual'.format(len(blocks)))</span></span><br><span class="line">				<span class="keyword">for</span> i, b <span class="keyword">in</span> enumerate(blocks):</span><br><span class="line">					<span class="keyword">if</span> i % n_round == <span class="number">0</span>:</span><br><span class="line">						blocks[i].conv1 = TemporalShift(b.conv1, n_segment=this_segment, n_div=n_div)</span><br><span class="line">				<span class="keyword">return</span> nn.Sequential(*blocks)</span><br><span class="line"></span><br><span class="line">			net.layer1 = make_block_temporal(net.layer1, n_segment_list[<span class="number">0</span>])</span><br><span class="line">			net.layer2 = make_block_temporal(net.layer2, n_segment_list[<span class="number">1</span>])</span><br><span class="line">			net.layer3 = make_block_temporal(net.layer3, n_segment_list[<span class="number">2</span>])</span><br><span class="line">			net.layer4 = make_block_temporal(net.layer4, n_segment_list[<span class="number">3</span>])</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">raise</span> NotImplementedError(place)</span><br></pre></td></tr></table></figure>
+<p>简单来说，就是对每一层的第一个卷积操作之前，进行<code>shift</code>操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shift</span><span class="params">(x, n_segment, fold_div=<span class="number">3</span>, inplace=False)</span>:</span></span><br><span class="line">	nt, c, h, w = x.size()</span><br><span class="line">	n_batch = nt // n_segment</span><br><span class="line">	x = x.view(n_batch, n_segment, c, h, w)</span><br><span class="line"></span><br><span class="line">	fold = c // fold_div <span class="comment"># fold_div 为 8，论文中说他们测试发现1/4的shift，即左1/8和右1/8效果最好</span></span><br><span class="line">	<span class="keyword">if</span> inplace:</span><br><span class="line">		<span class="comment"># Due to some out of order error when performing parallel computing. </span></span><br><span class="line">		<span class="comment"># May need to write a CUDA kernel.</span></span><br><span class="line">		<span class="keyword">raise</span> NotImplementedError  </span><br><span class="line">		<span class="comment"># out = InplaceShift.apply(x, fold)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		out = torch.zeros_like(x) <span class="comment"># 生成一个和x维度信息一样，但是全是0的数组</span></span><br><span class="line">		<span class="comment"># 假设原来是 [1,2,3,4,5,6,7,8]</span></span><br><span class="line">		</span><br><span class="line">		out[:, :<span class="number">-1</span>, :fold] = x[:, <span class="number">1</span>:, :fold]  <span class="comment"># shift left</span></span><br><span class="line">		<span class="comment"># 变成了 [2,3,4,5,6,7,8,0]</span></span><br><span class="line">		</span><br><span class="line">		out[:, <span class="number">1</span>:, fold: <span class="number">2</span> * fold] = x[:, :<span class="number">-1</span>, fold: <span class="number">2</span> * fold]  <span class="comment"># shift right</span></span><br><span class="line">		<span class="comment"># 变成了 [0,1,2,3,4,5,6,7]</span></span><br><span class="line">		</span><br><span class="line">		out[:, :, <span class="number">2</span> * fold:] = x[:, :, <span class="number">2</span> * fold:]  <span class="comment"># not shift</span></span><br><span class="line">		<span class="comment"># 其余的不发生变化</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> out.view(nt, c, h, w)</span><br></pre></td></tr></table></figure>
+<p>对通道进行分片，前<code>1/8</code>的通道左移，再<code>1/8</code>的通道右移，剩余的保持不变。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/tsm/">tsm</a>
+            <a href="/blog/tags/resnet/">resnet</a>
+            <a href="/blog/tags/resnet50/">resnet50</a>
+            <a href="/blog/tags/temporal-shift/">temporal shift</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/10/08/pan-results-20201008/">
+        <span class="next-text nav-default">PAN验证结果-20201008</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
