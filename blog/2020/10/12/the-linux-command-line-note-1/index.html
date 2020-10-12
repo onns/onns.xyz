@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/learn/"/>
+<meta name="description" content="《快乐的Linux命令行》笔记（一）"/><meta name="keywords" content="linux - shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/10/12/the-linux-command-line-note-1/"/>
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -180,8 +180,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>learn · Onns Blog
-  </title>
+    <title>《快乐的Linux命令行》笔记（一） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -254,114 +253,65 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title category">
-          <h2 class="archive-name">learn</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《快乐的Linux命令行》笔记（一）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2020-10-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/12/the-linux-command-line-note-1/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（一）
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/12/the-linux-command-line-note-1/"
+             data-title="《快乐的Linux命令行》笔记（一）">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
+<a id="more"></a>
+<p>如果提示符的最后一个字符是<code>#</code>, 而不是<code>$</code>, 那么这个终端会话就有超级用户权限<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<p>许多<code>Linux</code>发行版默认保存最后输入的<code>500</code>个命令（就是上下键显示的那些）。</p>
+<p>日历命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cal</span><br><span class="line">    October 2020</span><br><span class="line">Su Mo Tu We Th Fr Sa</span><br><span class="line">             1  2  3</span><br><span class="line"> 4  5  6  7  8  9 10</span><br><span class="line">11 12 13 14 15 16 17</span><br><span class="line">18 19 20 21 22 23 24</span><br><span class="line">25 26 27 28 29 30 31</span><br></pre></td></tr></table></figure>
+<p><code>cd -</code>命令可以更改到上一个工作路径。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">% <span class="built_in">cd</span> Documents/common/PAN-PyTorch</span><br><span class="line">onns@liupans-MacBook-Air PAN-PyTorch % <span class="built_in">pwd</span></span><br><span class="line">/Users/onns/Documents/common/PAN-PyTorch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">onns@liupans-MacBook-Air PAN-PyTorch % <span class="built_in">cd</span> ~/Downloads/GitHub/blog</span><br><span class="line">onns@liupans-MacBook-Air blog % <span class="built_in">pwd</span></span><br><span class="line">/Users/onns/Downloads/GitHub/blog</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">onns@liupans-MacBook-Air blog % <span class="built_in">cd</span> -</span><br><span class="line">~/Documents/common/PAN-PyTorch</span><br><span class="line">onns@liupans-MacBook-Air PAN-PyTorch % <span class="built_in">pwd</span></span><br><span class="line">/Users/onns/Documents/common/PAN-PyTorch</span><br></pre></td></tr></table></figure>
+<p>Linux 文件命名的特殊符号仅支持<code>.</code>，<code>-</code>和<code>_</code>。</p>
+<p>不要在文件名中使用空格。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>这个以前还真没注意。。。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/16/java-threadlocal/" class="archive-post-link">
-            Java的ThreadLocal类
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/16/solution-of-invert-binary-tree/" class="archive-post-link">
-            Leetcode题解：翻转二叉树
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-coin-change/" class="archive-post-link">
-            Leetcode题解：零钱兑换
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/15/solution-of-fibonacci-number/" class="archive-post-link">
-            Leetcode题解：斐波那契数
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/" class="archive-post-link">
-            Leetcode题解：二叉树的中序遍历
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/solution-of-word-search/" class="archive-post-link">
-            Leetcode题解：单词搜索
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/12/concurrent-utility-class/" class="archive-post-link">
-            concurrent工具类
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/10/jsp-1/" class="archive-post-link">
-            JSP
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/06/servlet-in-java-1/" class="archive-post-link">
-            从流中获取 properties
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"><a class="next" href="/blog/categories/learn/page/2/">
-        <span class="next-text">Next</span>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux-shell/">linux - shell</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/10/12/resnet-50-temporal-shift/">
+        <span class="next-text nav-default">ResNet50 temporal shift</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
