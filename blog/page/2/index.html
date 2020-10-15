@@ -256,6 +256,74 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/04/tea-temporal-excitation-and-aggregation-for-action-recognition/">TEA Temporal Excitation and Aggregation for Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-04
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/04/tea-temporal-excitation-and-aggregation-for-action-recognition/"
+             data-title="TEA Temporal Excitation and Aggregation for Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="tea-temporal-excitation-and-aggregation-for-action-recognition"><a class="header-anchor" href="#tea-temporal-excitation-and-aggregation-for-action-recognition">#</a>TEA: Temporal Excitation and Aggregation for Action Recognition</h2>
+<h3 id="问题提出"><a class="header-anchor" href="#问题提出">#</a>问题提出</h3>
+<p>时序建模的两个问题：<code>short-range motion encoding</code>和<code>long-range temporal aggregation</code>。</p>
+<p>前者基本依赖光流来解决，因为计算量很大，且无法满足实时的任务，所以作者提出<code>motion excitation</code>。</p>
+<p>后者现有的解决方案有两个：</p>
+<ol>
+<li>adopt 2D CNN backbones to extract frame-wise features and then utilize a simple temporal max/average pooling to obtain the whole video representation.</li>
+<li>adopt local 3D/(2+1)D convolutional operations to process local temporal window</li>
+</ol>
+<p>时空信息在网络的顶端进行融合，再反向传播回来，可能会导致优化困难。所以作者提出<code>multiple temporal aggregation</code>。</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201008-1.png" alt="结构图"></p>
+</center>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/129282832" target="_blank" rel="noopener">[CVPR 2020 ] 南京大学/腾讯 PCG 用于时序建模的轻量级行为识别模型 TEA</a></li>
+<li><a href="https://blog.csdn.net/qq_41214679/article/details/107975761" target="_blank" rel="noopener">TEA: Temporal Excitation and Aggregation for Action Recognition 阅读笔记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/130807086" target="_blank" rel="noopener">CVPR2020 南大+腾讯 TEA 轻量级视频行为识别模型</a></li>
+<li><a href="https://arxiv.org/abs/2004.01398" target="_blank" rel="noopener">TEA: Temporal Excitation and Aggregation for Action Recognition</a></li>
+<li><a href="https://github.com/Phoenix1327/tea-action-recognition" target="_blank" rel="noopener">Phoenix1327/tea-action-recognition</a></li>
+<li><a href="https://blog.csdn.net/irving512/article/details/106524982/" target="_blank" rel="noopener">论文浏览(3) TEA: Temporal Excitation and Aggregation for Action Recognition</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/04/lunar-birthday-generator-script/">阴历生日生成脚本</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-04
+        </span><span class="post-category">
+            <a href="/blog/categories/idea/">idea</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/04/lunar-birthday-generator-script/"
+             data-title="阴历生日生成脚本">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p><code>Google Calendar</code>本身没有阴历日历的功能，只能通过生成然后导入的方式添加。</p>
+          <div class="read-more">
+            <a href="/blog/2020/10/04/lunar-birthday-generator-script/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/10/02/pan-lite-train-log/">PAN Lite 训练结果</a>
         </h1>
 
@@ -519,64 +587,6 @@ document.getElementById('post-toc').remove();">
 </blockquote>
           <div class="read-more">
             <a href="/blog/2020/09/16/solution-of-invert-binary-tree/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/16/ssh-key-can-not-work/">今日的大坑：ssh密钥失效</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-16
-        </span><span class="post-category">
-            <a href="/blog/categories/work/">work</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/16/ssh-key-can-not-work/"
-             data-title="今日的大坑：ssh密钥失效">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>像往常一样，日常备份一下服务器上的备份文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common/ android@xm.onns.xyz:/home/android/</span><br></pre></td></tr></table></figure>
-<p>突然间我服务器炸了，<code>ssh</code>什么的都连不上了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android@xm.onns.xyz: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/blog/2020/09/16/ssh-key-can-not-work/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/15/solution-of-coin-change/">Leetcode题解：零钱兑换</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-15
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/15/solution-of-coin-change/"
-             data-title="Leetcode题解：零钱兑换">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="322-零钱兑换"><a class="header-anchor" href="#322-零钱兑换">#</a><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">322. 零钱兑换</a></h2>
-<p>给定不同面额的硬币<code>coins</code>和一个总金额<code>amount</code>。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回<code>-1</code>。</p>
-<p>示例<code>1</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11</span><br><span class="line">输出: 3</span><br><span class="line">解释: 11 &#x3D; 5 + 5 + 1</span><br></pre></td></tr></table></figure>
-<p>示例<code>2</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [2], amount &#x3D; 3</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
-<p>说明:<br>
-你可以认为每种硬币的数量是<code>无限的</code>。</p>
-          <div class="read-more">
-            <a href="/blog/2020/09/15/solution-of-coin-change/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/">
