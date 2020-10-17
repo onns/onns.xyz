@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Temporal Pyramid Network for Action Recognition</title>
+      <link href="/blog/2020/10/17/temporal-pyramid-network-for-action-recognition/"/>
+      <url>/blog/2020/10/17/temporal-pyramid-network-for-action-recognition/</url>
+      
+        <content type="html"><![CDATA[<h2 id="temporal-pyramid-network-for-action-recognition"><a class="header-anchor" href="#temporal-pyramid-network-for-action-recognition">#</a>Temporal Pyramid Network for Action Recognition</h2><p>近期来看没有参考价值，先把相关链接记录下，省的下次重新找。</p><h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/127366929" target="_blank" rel="noopener">Temporal Pyramid Network for Action Recognition</a></li><li><a href="https://blog.csdn.net/Amazingren/article/details/105631183" target="_blank" rel="noopener">【CVPR2020】Temporal Pyramid Network for Action Recognition</a></li><li><a href="https://blog.csdn.net/YoJayC/article/details/106989570" target="_blank" rel="noopener">Temporal Pyramid Network for Action Recognition（CVPR2020）</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+            <tag> tpn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PAN代码实现细节</title>
       <link href="/blog/2020/10/16/pan-code-details/"/>
       <url>/blog/2020/10/16/pan-code-details/</url>
