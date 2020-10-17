@@ -19,10 +19,17 @@
 <meta name="description" content="rsync实现文件同步"/><meta name="keywords" content="macos, linux, ssh, rsync, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/09/08/rsync-usage/"/>
 
-<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
-    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
   </script>
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
 
 <script id="baidu_analytics">
@@ -376,23 +383,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     distractionFreeMode: 'true'
   });
   gitalk.render('gitalk-container');
-</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
