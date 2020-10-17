@@ -329,19 +329,31 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h3 id="初始化"><a class="header-anchor" href="#初始化">#</a>初始化</h3>
 <p>取μ=0.1, θ=0.0，初始状态w<sub>1</sub>=w<sub>2</sub>=w<sub>3</sub>=0<br>
 激活函数如<code>公式1</code>所示.</p>
-<span>$$f_h(x)=
+
+$$
+f_h(x)=
 \begin{cases}
-1,&amp;{x \geq 0} \\
-0,&amp;{x &lt; 0}
+1,&{x \geq 0} \\
+0,&{x < 0}
 \end{cases}
-\tag{1}$$</span><!-- Has MathJax -->
+\tag{1}
+$$
+
 <p>输出结果如<code>公式2</code>所示。</p>
-<span>$$o = f_h(\omega_1x+\omega_2y+\omega_3z+\theta)
-\tag{2}$$</span><!-- Has MathJax -->
+
+$$
+o = f_h(\omega_1x+\omega_2y+\omega_3z+\theta)
+\tag{2}
+$$
+
 <p>权重更新规则如<code>公示3</code>所示, 其中 $input$ 为输入。</p>
-<span>$$\omega&apos; = \omega + \Delta\omega * input \\
-\theta&apos; = \theta + \Delta\omega
-\tag{3}$$</span><!-- Has MathJax -->
+
+$$
+\omega' = \omega + \Delta\omega * input \\
+\theta' = \theta + \Delta\omega
+\tag{3}
+$$
+
 <p>感知器如<code>图1</code>所示。</p>
 <center>
 <div id="graphviz-0"></div>
@@ -349,37 +361,57 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </center>
 <h3 id="第一轮循环"><a class="header-anchor" href="#第一轮循环">#</a>第一轮循环</h3>
 <p>将所有输入输入到感知器中进行计算。</p>
-<span>$$\begin{aligned}&Tab;
-&amp;o|_{(1, 0, 0)}=f_h(0+0+0+0.0)=1, &amp;正确 \\
-&amp;o|_{(0, 1, 1)}=f_h(0+0+0+0.0)=1, &amp;应该是0 \\
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}	
+&o|_{(1, 0, 0)}=f_h(0+0+0+0.0)=1, &正确 \\
+&o|_{(0, 1, 1)}=f_h(0+0+0+0.0)=1, &应该是0 \\
+\end{aligned}
+$$
+
 <p>更新权重$\Delta\omega=-0.1, \omega_1 = 0 +  -0.1 * 0 = 0.0, 同样地得到\omega_2 = -0.1, \omega_3 = -0.1, \theta = -0.1$</p>
-<span>$$\begin{aligned}&Tab;
-&amp;o|_{(1, 1, 0)}=f_h(0-0.1+0-0.1)=0, &amp;应该是1
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}	
+&o|_{(1, 1, 0)}=f_h(0-0.1+0-0.1)=0, &应该是1
+\end{aligned}
+$$
+
 <p>更新权重$\Delta\omega=0.1, \omega_1 = 0.1, \omega_2 = 0.0, \omega_3 = -0.1, \theta = -0.0$</p>
-<span>$$\begin{aligned}&Tab;
-&amp;o|_{(1, 1, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;应该是0
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}	
+&o|_{(1, 1, 1)}=f_h(0.1+0-0.1+0.0)=1, &应该是0
+\end{aligned}
+$$
+
 <p>更新权重$\Delta\omega=-0.1, \omega_1 = 0.1, \omega_2 = -0.1, \omega_3 = -0.2, \theta = -0.1$</p>
-<span>$$\begin{aligned}&Tab;
-&amp;o|_{(0, 0, 1)}=f_h(0+0-0.2-0.1)=0, &amp;正确 \\
-&amp;o|_{(1, 0, 1)}=f_h(-0.1+0-0.2-0.1)=0, &amp;应该是1 \\
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}	
+&o|_{(0, 0, 1)}=f_h(0+0-0.2-0.1)=0, &正确 \\
+&o|_{(1, 0, 1)}=f_h(-0.1+0-0.2-0.1)=0, &应该是1 \\
+\end{aligned}
+$$
+
 <p>更新权重$\Delta\omega=0.1, \omega_1 = 0.1, \omega_2 = -0.1, \omega_3 = -0.1, \theta = -0.0$</p>
 <center>
 <div id="graphviz-1"></div>
 <p>图2 一轮循环后的感知器图</p>
 </center>
 <h3 id="第二轮循环"><a class="header-anchor" href="#第二轮循环">#</a>第二轮循环</h3>
-<span>$$\begin{aligned}&Tab;
-&amp;o|_{(1, 0, 0)}=f_h(0.1+0+0+0.0)=1, &amp;正确 \\
-&amp;o|_{(0, 1, 1)}=f_h(0-0.1-0.1+0.0)=0, &amp;正确 \\
-&amp;o|_{(1, 1, 0)}=f_h(0.1-0.1+0+0.0)=1, &amp;正确 \\
-&amp;o|_{(1, 1, 1)}=f_h(0.1-0.1-0.1+0.0)=0, &amp;正确 \\
-&amp;o|_{(0, 0, 1)}=f_h(0+0-0.1+0.0)=0, &amp;正确 \\
-&amp;o|_{(1, 0, 1)}=f_h(0.1+0-0.1+0.0)=1, &amp;正确 \\
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}	
+&o|_{(1, 0, 0)}=f_h(0.1+0+0+0.0)=1, &正确 \\
+&o|_{(0, 1, 1)}=f_h(0-0.1-0.1+0.0)=0, &正确 \\
+&o|_{(1, 1, 0)}=f_h(0.1-0.1+0+0.0)=1, &正确 \\
+&o|_{(1, 1, 1)}=f_h(0.1-0.1-0.1+0.0)=0, &正确 \\
+&o|_{(0, 0, 1)}=f_h(0+0-0.1+0.0)=0, &正确 \\
+&o|_{(1, 0, 1)}=f_h(0.1+0-0.1+0.0)=1, &正确 \\
+\end{aligned}
+$$
+
 <p>至此感知器收敛，循环结束。</p>
 <center>
 <div id="graphviz-2"></div>

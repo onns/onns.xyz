@@ -294,33 +294,69 @@ searchFunc(path, 'local-search-input', 'local-search-result');
   文中提出一种多尺度协同变异的微粒群算法(MAEPSO). 该算法利用不同大小方差的高斯变异机制实现解空间的探索, 这种多个或大或小的变异机制, 能促使整个种群以尽量分散的变异尺度来对解空间进行更加详尽的探索. 同时高斯变异的范围随着适应值的变小也逐渐降低, 在算法后期有利于提高最优解的精度; 在利用不同大小变异算子提高局部精确搜索能力的同时, 该算法同样利用均匀算子维护种群多样性. 利用试验对不同评测函数进行测试均验证新算法优良的优化性能.</p>
 <h3 id="速度更新"><a class="header-anchor" href="#速度更新">#</a>速度更新</h3>
 <p>  速度更新的公式为:</p>
-<span>$$v_{id}(t+1)=w&times;v_{id}(t) + c_1&times;r_1&times;(p_{id}(t)&minus;x_{id}(t)) \\
-\ + c_2&times;r_2&times;(p_{gd}(t)&minus;x_{id}(t))
-\tag{1}$$</span><!-- Has MathJax -->
+
+$$
+v_{id}(t+1)=w×v_{id}(t) + c_1×r_1×(p_{id}(t)−x_{id}(t)) \\
+\ + c_2×r_2×(p_{gd}(t)−x_{id}(t))
+\tag{1}
+$$
+
 <h3 id="位置更新"><a class="header-anchor" href="#位置更新">#</a>位置更新</h3>
 <p>  位置更新的公式为:</p>
-<span>$$x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)
-\tag{2}$$</span><!-- Has MathJax -->
+
+$$
+x_{id}(t+1) = x_{id}(t) + v_{id}(t+1)
+\tag{2}
+$$
+
 <h3 id="多尺度高斯变异算子"><a class="header-anchor" href="#多尺度高斯变异算子">#</a>多尺度高斯变异算子</h3>
 <p>  设尺度个数为$M$, 首先初始化多尺度高斯变异算子的初始方差</p>
-<span>$$\sigma^{(0)} = (\sigma_1^{(0)},\sigma_2^{(0)},\cdots,\sigma_M^{(0)})
-\tag{3}$$</span><!-- Has MathJax -->
+
+$$
+\sigma^{(0)} = (\sigma_1^{(0)},\sigma_2^{(0)},\cdots,\sigma_M^{(0)})
+\tag{3}
+$$
+
 <p>  初始时, 方差一般设定为优化变量的取值范围, 随着迭代次数的增加, 多尺度高斯变异算子的方差会随之进行调整, 具体调整方式如下所示, 首先根据适应值的大小对种群中的微粒进行由小到大排序, 然后对其进行组合, 生成$M$个子群, 每一个子群的微粒个数为$P = N / M $, $K$是当前迭代次数, 计算每一个子群的适应度:</p>
-<span>$$FitX_m^{(K)} = \sum_{i=1}^Pf(x_i^m) / P,m = 1,2,\cdots,M
-\tag{4}$$</span><!-- Has MathJax -->
+
+$$
+FitX_m^{(K)} = \sum_{i=1}^Pf(x_i^m) / P,m = 1,2,\cdots,M
+\tag{4}
+$$
+
 <p>  其中$f$是微粒的适应值计算函数, 不同变异尺度之间相互竞争, 根据适应能力的不同而设置不同的变异能力, 因此第$m$个变异算子的标准差为:</p>
-<span>$$\sigma_m^{(K)} = \sigma_m^{(K-1)} exp(\frac{M\cdot FitX_m^{(K)} - \sum_{m=1}^MFitX_m^{(K)}}{FitX_{max} - FitX_{min}})
-\tag{5}$$</span><!-- Has MathJax -->
-<span>$$FitX_{max} = max(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
-\tag{6}$$</span><!-- Has MathJax -->
-<span>$$FitX_{min} = min(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
-\tag{7}$$</span><!-- Has MathJax -->
+
+$$
+\sigma_m^{(K)} = \sigma_m^{(K-1)} exp(\frac{M\cdot FitX_m^{(K)} - \sum_{m=1}^MFitX_m^{(K)}}{FitX_{max} - FitX_{min}})
+\tag{5}
+$$
+
+
+$$
+FitX_{max} = max(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
+\tag{6}
+$$
+
+
+$$
+FitX_{min} = min(FitX_1^{(K)},FitX_2^{(K)},\cdots,FitX_M^{(K)})
+\tag{7}
+$$
+
 <p>由于变异算子的进化是一个递归过程, 排在后面的变异算子可能很大, 因此对变异算子的标准差做如下规范: 如果$\sigma_i^{(k)} &gt;W/4$, 则</p>
-<span>$$\sigma_i^{(k)} = \vert W/4 - \sigma_i^{(k)} \vert
-\tag{8}$$</span><!-- Has MathJax -->
+
+$$
+\sigma_i^{(k)} = \vert W/4 - \sigma_i^{(k)} \vert
+\tag{8}
+$$
+
 <p>$W$为待优化变量空间的宽度, 重复使用上式, 直到满足$\sigma_i^{(k)} &lt; W/4$. 为了能最大范围的实现空间勘探$i$能力, 在进行完多尺度高斯变异后, 同时进行一次均匀变异操作, 比较后取所有变异后适应值最好的位置作为新的逃逸点, 均匀变异算子实现同<code>式(9)</code>.通过多尺度变异算子能实现整个搜索空间的覆盖, 其中大尺度有利于实现解空间的粗搜索, 可以快速定位到最优解区域, 小尺度能在进化后期实现局部精确解的搜索.</p>
-<span>$$If \quad (v_{id} &lt; T_d ) \quad then \quad v_{id} = rand &times; V_{max}
-\tag{9}$$</span><!-- Has MathJax -->
+
+$$
+If \quad (v_{id} < T_d ) \quad then \quad v_{id} = rand × V_{max}
+\tag{9}
+$$
+
 <h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>

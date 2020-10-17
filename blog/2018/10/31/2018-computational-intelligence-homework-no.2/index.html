@@ -293,12 +293,16 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>采用模拟退火算法计算旅行商问题, 模拟退火算法(Simulated Annealing Algorithm, 简称SA算法), 源于对固体退火过程的模拟, 采用Metropolis接受准则, 并用一组称为冷却表的参数控制算法进程, 使算法在多项式时间里给出一个近似最优解.</p>
 <h3 id="metropolis算法"><a class="header-anchor" href="#metropolis算法">#</a>Metropolis算法</h3>
 <p>模拟退火算法用Metropolis算法产生组合优化问题解的序列. 并由Metropolis准则对应的转移概率<code>P</code>.</p>
-<span>$$P(i=&gt;j)=
+
+$$
+P(i=>j)=
 \begin{cases}
-1,&amp;{当f(j) \leq f(i)} \\
-e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
+1,&{当f(j) \leq f(i)} \\
+e^{\frac{f(i)−f(j)}{t}},&{否则}
 \end{cases}
-\tag{1}$$</span><!-- Has MathJax -->
+\tag{1}
+$$
+
 <h3 id="冷却进度表"><a class="header-anchor" href="#冷却进度表">#</a>冷却进度表</h3>
 <p>冷却表(cooling schedule)是一组控制算法进程的参数, 用以逼近模拟退火算法的渐进收敛性态, 使算法在有限时间内执行迭代过程后返回一个近似最优解.<br>
 冷却表是影响模拟退火算法实验性能的重要因素, 其合理选取是算法应用的关键.<br>
@@ -314,8 +318,12 @@ e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
 本实验选取t<sub>0</sub>为<code>100</code>.</p>
 <h4 id="衰减函数"><a class="header-anchor" href="#衰减函数">#</a>衰减函数</h4>
 <p>在控制参数的衰减函数应使t<sub>k</sub>的衰减以小为宜.</p>
-<span>$$\alpha(t)=0.9*t
-\tag{2}$$</span><!-- Has MathJax -->
+
+$$
+\alpha(t)=0.9*t
+\tag{2}
+$$
+
 <p>本实验选取的衰减函数如<code>公式2</code>所示.</p>
 <h4 id="t的终值tf-停止准则"><a class="header-anchor" href="#t的终值tf-停止准则">#</a>t的终值t<sub>f</sub>(停止准则)</h4>
 <p>控制参数终值t<sub>f</sub>通常由停止准则决定. 合理的停止准则既要确保算法收敛于某一近似解, 又要使最终解具有一定的质量.<br>
@@ -325,10 +333,14 @@ e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
 本实验选取的Mapkob链长为<code>定长20000</code>.</p>
 <h3 id="新解的产生"><a class="header-anchor" href="#新解的产生">#</a>新解的产生</h3>
 <p>采用2变换法. 任选序号<code>u</code>和<code>v</code>(u &lt; v), 将 <code>u</code>和<code>v</code>及其之间的顺序逆转.</p>
-<span>$$\pi_{1}...\pi_{u-1}\color{red}{\pi_{u}\pi_{u+1}...\pi_{v-1}\pi_{v}}\pi_{v+1}...\pi_{n} \\
+
+$$
+\pi_{1}...\pi_{u-1}\color{red}{\pi_{u}\pi_{u+1}...\pi_{v-1}\pi_{v}}\pi_{v+1}...\pi_{n} \\
 \downarrow{} \\
 \pi_{1}...\pi_{u-1}\color{red}{\pi_{v}\pi_{v-1}...\pi_{u-1}\pi_{u}}\pi_{v+1}...\pi_{n}
-\tag{3}$$</span><!-- Has MathJax -->
+\tag{3}
+$$
+
 <h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>
@@ -343,17 +355,25 @@ e^{\frac{f(i)&minus;f(j)}{t}},&amp;{否则}
 <p>由于数据计算结果过慢, 在代码中额外增加了终止条件: <code>当温度低于0.01时程序停止</code>.<br>
 由于前两个测试数据城市数量较少, 已经得到最优解, 后续改进实验仅以<code>30</code>个城市的结果作为对比.<br>
 考虑到初始值为随机选取的, 且最终的路径为一个<code>头尾相接</code>的&quot;环&quot;, 修改新解的产生方法</p>
-<span>$$\color{red}{\pi_{1}...\pi_{u-1}}\pi_{u}\pi_{u+1}...\pi_{v-1}\pi_{v}\color{red}{\pi_{v+1}...\pi_{n}} \\
+
+$$
+\color{red}{\pi_{1}...\pi_{u-1}}\pi_{u}\pi_{u+1}...\pi_{v-1}\pi_{v}\color{red}{\pi_{v+1}...\pi_{n}} \\
 \downarrow{} \\
 \color{red}{\pi_{1}...\pi_{v+1}}\pi_{u}\pi_{u+1}...\pi_{v-1}\pi_{v}\color{red}{\pi_{u-1}...\pi_{n}}
-\tag{4}$$</span><!-- Has MathJax -->
+\tag{4}
+$$
+
 <p>代码的运行结果如下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time: 22.672s</span><br><span class="line">result: 9 -&gt; 17 -&gt; 5 -&gt; 18 -&gt; 16 -&gt; 27 -&gt; 20 -&gt; 21 -&gt; 4 -&gt; 1</span><br><span class="line"> -&gt; 12 -&gt; 15 -&gt; 8 -&gt; 3 -&gt; 13 -&gt; 25 -&gt; 2 -&gt; 29 -&gt; 14 -&gt; 10</span><br><span class="line"> -&gt; 6 -&gt; 28 -&gt; 22 -&gt; 11 -&gt; 24 -&gt; 7 -&gt; 19 -&gt; 23 -&gt; 26 -&gt; 0</span><br><span class="line">cost: 565</span><br></pre></td></tr></table></figure>
 <p>增大变换的自由度, 只交换<code>u</code>和<code>v</code>的两个序号</p>
-<span>$$\pi_{1}...\pi_{u-1}\color{red}{\pi_{u}}\pi_{u+1}...\pi_{v-1}\color{red}{\pi_{v}}\pi_{v+1}...\pi_{n} \\
+
+$$
+\pi_{1}...\pi_{u-1}\color{red}{\pi_{u}}\pi_{u+1}...\pi_{v-1}\color{red}{\pi_{v}}\pi_{v+1}...\pi_{n} \\
 \downarrow{} \\
 \pi_{1}...\pi_{u-1}\color{red}{\pi_{v}}\pi_{u+1}...\pi_{v-1}\color{red}{\pi_{u}}\pi_{v+1}...\pi_{n}
-\tag{5}$$</span><!-- Has MathJax -->
+\tag{5}
+$$
+
 <p>代码的运行结果如下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time: 11.749s</span><br><span class="line">result: 0 -&gt; 2 -&gt; 22 -&gt; 11 -&gt; 7 -&gt; 28 -&gt; 6 -&gt; 19 -&gt; 23 -&gt; 26</span><br><span class="line"> -&gt; 9 -&gt; 21 -&gt; 12 -&gt; 13 -&gt; 16 -&gt; 27 -&gt; 20 -&gt; 15 -&gt; 8 -&gt; 24</span><br><span class="line"> -&gt; 4 -&gt; 1 -&gt; 5 -&gt; 25 -&gt; 17 -&gt; 18 -&gt; 3 -&gt; 29 -&gt; 14 -&gt; 10</span><br><span class="line">cost: 475</span><br></pre></td></tr></table></figure>
 <p>观察代码运行状态, 都是温度达到<code>最小值以下</code>后退出的程序, 可能未达到<code>当前参数下</code>的最佳结果, 故将循环终止条件改为<code>只有连续两个Mapkob链路径无变化</code>.<br>

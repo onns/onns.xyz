@@ -302,28 +302,40 @@ Hopfield神经网络模型有离散型和连续性两种，离散型适用于联
 <li>求出使E取极小值的神经网络连接权重矩阵和偏置参数。</li>
 </ol>
 <h3 id="tsp的能量函数e"><a class="header-anchor" href="#tsp的能量函数e">#</a>TSP的能量函数E</h3>
-<span>$$\begin{aligned}&Tab;
-E = &amp; \frac{A}{2}\sum^n_{x=1}\sum^n_{i=1}\sum^n_{j \ne 1}v_{xi}v_{xj} + 
+
+$$
+\begin{aligned}	
+E = & \frac{A}{2}\sum^n_{x=1}\sum^n_{i=1}\sum^n_{j \ne 1}v_{xi}v_{xj} + 
 \frac{B}{2}\sum^n_{i=1}\sum^n_{x=1}\sum^n_{y \ne x}v_{xi}v_{yi} \\
-&amp; + \frac{C}{2}(\sum^n_{x=1}\sum^n_{i=1}v_{xi}-n)^2 +
+& + \frac{C}{2}(\sum^n_{x=1}\sum^n_{i=1}v_{xi}-n)^2 +
 \frac{D}{2}\sum^n_{x=1}\sum^n_{y \ne x}\sum^n_{i=1}d_{xy}d_{xi}(v_{y,i+1}+v_{y,i-1})
 \end{aligned}
-\tag{1}$$</span><!-- Has MathJax -->
+\tag{1}
+$$
+
 <p>其中参数$ABCD$称为权值，前三项是满足TSP置换矩阵的约束条件，最后一项包含优化目标函数项.</p>
 <h2 id="改进的tsp的能量函数e"><a class="header-anchor" href="#改进的tsp的能量函数e">#</a>改进的TSP的能量函数E</h2>
-<span>$$\begin{aligned}&Tab;
-E = &amp; \frac{A}{2}\sum^n_{x=1}(\sum^n_{i=1}v_{xi}-1)^2+
+
+$$
+\begin{aligned}	
+E = & \frac{A}{2}\sum^n_{x=1}(\sum^n_{i=1}v_{xi}-1)^2+
 \frac{A}{2}\sum^n_{i=1}(\sum^n_{x=1}v_{xi}-1)^2 \\
-&amp; + \frac{D}{2}\sum^n_{x=1}\sum^n_{y=1}\sum^n_{i=1}v_{xi}d_{xy}v_{y,i+1}
+& + \frac{D}{2}\sum^n_{x=1}\sum^n_{y=1}\sum^n_{i=1}v_{xi}d_{xy}v_{y,i+1}
 \end{aligned}
-\tag{2}$$</span><!-- Has MathJax -->
+\tag{2}
+$$
+
 <h3 id="hopfield神经网络动态方程"><a class="header-anchor" href="#hopfield神经网络动态方程">#</a>Hopfield神经网络动态方程</h3>
-<span>$$\begin{aligned}&Tab;
+
+$$
+\begin{aligned}	
 \frac{du_{xi}}{dt} = - \frac{\partial E}{\partial v_{xi}} =
-&amp; -A(\sum^n_{i=1}v_{xi}-1)-A(\sum^n_{y=1}v_{yi}-1) \\
-&amp; - D(\sum^n_{y=1}v_{xi}d_{xy}v_{y,i+1}
+& -A(\sum^n_{i=1}v_{xi}-1)-A(\sum^n_{y=1}v_{yi}-1) \\
+& - D(\sum^n_{y=1}v_{xi}d_{xy}v_{y,i+1}
 \end{aligned}
-\tag{3}$$</span><!-- Has MathJax -->
+\tag{3}
+$$
+
 <h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2>
 <p>程序流程如<code>图1</code>所示</p>
 <center>

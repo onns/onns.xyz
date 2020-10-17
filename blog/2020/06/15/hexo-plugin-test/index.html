@@ -332,11 +332,15 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>在 <code>_config.yml</code> 中。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">engine:</span> <span class="string">'mathjax'</span> <span class="comment"># or 'katex'</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">custom_mathjax_source</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="comment"># MathJax config</span></span><br><span class="line">  <span class="attr">katex:</span></span><br><span class="line">    <span class="attr">css:</span> <span class="string">custom_css_source</span></span><br><span class="line">    <span class="attr">js:</span> <span class="string">custom_js_source</span> <span class="comment"># not used</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="comment"># KaTeX config</span></span><br></pre></td></tr></table></figure>
 <h3 id="效果展示-4"><a class="header-anchor" href="#效果展示-4">#</a>效果展示</h3>
-<span>$$\begin{aligned}
-\dot{x} &amp; = \sigma(y-x) \\
-\dot{y} &amp; = \rho x - y - xz \\
-\dot{z} &amp; = -\beta z + xy
-\end{aligned}$$</span><!-- Has MathJax -->
+
+$$
+\begin{aligned}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
+\end{aligned}
+$$
+
 <h2 id="math-2"><a class="header-anchor" href="#math-2">#</a><a href="https://github.com/hexojs/hexo-math" target="_blank" rel="noopener">math</a></h2>
 <h3 id="安装方法-5"><a class="header-anchor" href="#安装方法-5">#</a>安装方法</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-math --save</span><br></pre></td></tr></table></figure>

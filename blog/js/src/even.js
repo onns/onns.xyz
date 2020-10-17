@@ -244,14 +244,14 @@
   };
 
   Even.prototype.renderLaTeX = function () {
-    var loopID = setInterval(function () {
-      if(window.MathJax) {
-        var jax = window.MathJax;
-        jax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] }});
-        jax.Hub.Queue(['Typeset', jax.Hub, $(document.body)[0]]);
-        clearInterval(loopID);
-      }
-    }, 500);
+    // var loopID = setInterval(function () {
+    //   if(window.MathJax) {
+    //     var jax = window.MathJax;
+    //     jax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] }});
+    //     jax.Hub.Queue(['Typeset', jax.Hub, $(document.body)[0]]);
+    //     clearInterval(loopID);
+    //   }
+    // }, 500);
   }
 
   var config = window.config;

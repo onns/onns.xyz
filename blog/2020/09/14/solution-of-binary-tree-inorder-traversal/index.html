@@ -297,11 +297,11 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p><strong>Morris 遍历算法</strong>是另一种遍历二叉树的方法，它能将非递归的中序遍历空间复杂度降为 <em>O(1)</em>。</p>
 <p><strong>Morris 遍历算法</strong>整体步骤如下（假设当前遍历到的节点为 <em>x</em>）：</p>
 <ol>
-<li>如果 <em>x</em> 无左孩子，先将 <em>x</em> 的值加入答案数组，再访问 <em>x</em> 的右孩子，即 <span>$x=x.\textit{right}$</span><!-- Has MathJax --> 。</li>
-<li>如果 <em>x</em> 有左孩子，则找到 <em>x</em> 左子树上最右的节点（<strong>即左子树中序遍历的最后一个节点，<em>x</em> 在中序遍历中的前驱节点</strong>），我们记为 <span>$\textit{predecessor}$</span><!-- Has MathJax --> 。根据 <span>$\textit{predecessor}$</span><!-- Has MathJax --> 的右孩子是否为空，进行如下操作。
+<li>如果 <em>x</em> 无左孩子，先将 <em>x</em> 的值加入答案数组，再访问 <em>x</em> 的右孩子，即 $x=x.\textit{right}$ 。</li>
+<li>如果 <em>x</em> 有左孩子，则找到 <em>x</em> 左子树上最右的节点（<strong>即左子树中序遍历的最后一个节点，<em>x</em> 在中序遍历中的前驱节点</strong>），我们记为 $\textit{predecessor}$ 。根据 $\textit{predecessor}$ 的右孩子是否为空，进行如下操作。
 <ul>
-<li>如果 <span>$\textit{predecessor}$</span><!-- Has MathJax --> 的右孩子为空，则将其右孩子指向 <em>x</em>，然后访问 <em>x</em> 的左孩子，即 <span>$x=x.\textit{left}$</span><!-- Has MathJax --> 。</li>
-<li>如果 <span>$\textit{predecessor}$</span><!-- Has MathJax --> 的右孩子不为空，则此时其右孩子指向 <em>x</em>，说明我们已经遍历完 <em>x</em> 的左子树，我们将 <span>$\textit{predecessor}$</span><!-- Has MathJax --> 的右孩子置空，将 <em>x</em> 的值加入答案数组，然后访问 <em>x</em> 的右孩子，即 <span>$x=x.\textit{right}$</span><!-- Has MathJax --> 。</li>
+<li>如果 $\textit{predecessor}$ 的右孩子为空，则将其右孩子指向 <em>x</em>，然后访问 <em>x</em> 的左孩子，即 $x=x.\textit{left}$ 。</li>
+<li>如果 $\textit{predecessor}$ 的右孩子不为空，则此时其右孩子指向 <em>x</em>，说明我们已经遍历完 <em>x</em> 的左子树，我们将 $\textit{predecessor}$ 的右孩子置空，将 <em>x</em> 的值加入答案数组，然后访问 <em>x</em> 的右孩子，即 $x=x.\textit{right}$ 。</li>
 </ul>
 </li>
 <li>重复上述操作，直至访问完整棵树。</li>

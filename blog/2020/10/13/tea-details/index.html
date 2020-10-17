@@ -335,18 +335,26 @@ we propose to adopt a <em>residual</em> connection to enhance motion information
 $$</p>
 <h3 id="multiple-temporal-aggregation-mta"><a class="header-anchor" href="#multiple-temporal-aggregation-mta">#</a>Multiple Temporal Aggregation(MTA)</h3>
 <p>这个模块的主要目的是为了增大时间维度的感受野，原理看起来很通俗易懂：</p>
-<span>$$\begin{array}{lr}
-&Tab;\mathbf{X}^o_i = \mathbf{X}_i, &amp; i=1 \\
-&Tab;\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_i), &amp; i=2 \\
-&Tab;\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_i + \mathbf{X}^o_{i-1} ) ), &amp; i=3,4 \\
-\end{array}$$</span><!-- Has MathJax -->
+
+$$
+\begin{array}{lr}
+	\mathbf{X}^o_i = \mathbf{X}_i, & i=1 \\
+	\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_i), & i=2 \\
+	\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_i + \mathbf{X}^o_{i-1} ) ), & i=3,4 \\
+\end{array}
+$$
+
 <p>即：</p>
-<span>$$\begin{array}{lr}
-&Tab;\mathbf{X}^o_1 = \mathbf{X}_1\\
-&Tab;\mathbf{X}^o_2 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_1) \\
-&Tab;\mathbf{X}^o_3 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_3 + \mathbf{X}^o_2 ) ) \\
-&Tab;\mathbf{X}^o_4 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_4 + \mathbf{X}^o_3 ) ) \\
-\end{array}$$</span><!-- Has MathJax -->
+
+$$
+\begin{array}{lr}
+	\mathbf{X}^o_1 = \mathbf{X}_1\\
+	\mathbf{X}^o_2 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_1) \\
+	\mathbf{X}^o_3 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_3 + \mathbf{X}^o_2 ) ) \\
+	\mathbf{X}^o_4 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_4 + \mathbf{X}^o_3 ) ) \\
+\end{array}
+$$
+
 <p>这个操作需要对$\mathbf{X}$进行处理，从$\left[ N,T,C,H,W\right]$变换到$\left[ NHW, C, T\right]$。</p>
 
       </div>
