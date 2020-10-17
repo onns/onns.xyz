@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>Latex支持</title>
+      <link href="/blog/2020/10/17/latex-for-hexo/"/>
+      <url>/blog/2020/10/17/latex-for-hexo/</url>
+      
+        <content type="html"><![CDATA[<p>之前网站的<code>Latex</code>公式一直不稳定，这次终于狠下心来找问题了！折腾之。</p><a id="more"></a><p>先说结论，参考<a href="https://docs.mathjax.org/en/latest/web/start.html#configuring-mathjax" target="_blank" rel="noopener">Configuring MathJax</a>，在页面里插入：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">MathJax = &#123;</span><br><span class="line">tex: &#123;</span><br><span class="line">inlineMath: [[<span class="string">'$'</span>, <span class="string">'$'</span>], [<span class="string">'\\('</span>, <span class="string">'\\)'</span>]]</span><br><span class="line">&#125;,</span><br><span class="line">svg: &#123;</span><br><span class="line">fontCache: <span class="string">'global'</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" async src="</span><span class="comment">//cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/latest?tex-mml-chtml.js"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure><p>即可，开箱即食！</p><p>问题出现的原因是我主题带了上面的这个渲染，结果我装的插件<code>hexo-math</code>也渲染了，就会造成冲突。</p><p>但是问题是我还需要依赖<code>hexo-math</code>的功能，因为纯<code>Latex</code>代码在<code>hexo</code>中会被渲染成<code>html</code>，所以最开始我想的解决方法是改写<code>hexo-math</code>的代码，只保留标签渲染部分，而不要<code>Latex</code>渲染部分，后面又想自己写插件，最后发现官方有<a href="https://hexo.io/docs/tag-plugins#Raw" target="_blank" rel="noopener">raw block</a>的实现：</p><p>直接使用即可！</p><p>问题解决。</p><p>也是顺势把自己的<code>mathjax</code>版本升级了一下。</p><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://docs.mathjax.org/en/latest/web/start.html#configuring-mathjax" target="_blank" rel="noopener">Configuring MathJax</a></li><li><a href="https://hexo.io/docs/tag-plugins#Raw" target="_blank" rel="noopener">Tag Plugins</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> hexo-theme-even </tag>
+            
+            <tag> blog </tag>
+            
+            <tag> latex </tag>
+            
+            <tag> mathjax </tag>
+            
+            <tag> hexo-math </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Temporal Pyramid Network for Action Recognition</title>
       <link href="/blog/2020/10/17/temporal-pyramid-network-for-action-recognition/"/>
       <url>/blog/2020/10/17/temporal-pyramid-network-for-action-recognition/</url>
