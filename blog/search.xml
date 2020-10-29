@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>周报-20201029</title>
+      <link href="/blog/2020/10/29/weekly-report-20201029/"/>
+      <url>/blog/2020/10/29/weekly-report-20201029/</url>
+      
+        <content type="html"><![CDATA[<center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementById('comments').remove();document.getElementById('back-to-top').remove();document.getElementById('post-toc').remove();"><table><thead><tr><th style="text-align:center">2020-10-29</th><th style="text-align:center">周报#10</th><th style="text-align:center">刘潘</th></tr></thead><tbody></tbody></table></center><a id="more"></a><h1 id="i-task-achieved-last-week"><a class="header-anchor" href="#i-task-achieved-last-week">#</a>I. Task achieved last week</h1><hr><ul><li>《TAM: Temporal Adaptive Module for Video Recognition》</li><li>验证了<code>TAM</code>，方法不具有普适性，只能在它自己的网络里运行，并且我认为他的效果来源大部分可能源自超参数的修改。</li><li>改进了<code>PAN</code>，最终准确率提高了<code>0.3%</code>，考虑到在<code>PAN Lite</code>降低了<code>0.3%</code>的情况下总体准确率仍然可以提高，我觉得算是一个改进点。</li></ul><h1 id="ii-reports"><a class="header-anchor" href="#ii-reports">#</a>II. Reports</h1><hr><h2 id="tam-temporal-adaptive-module-for-video-recognition"><a class="header-anchor" href="#tam-temporal-adaptive-module-for-video-recognition">#</a>TAM: Temporal Adaptive Module for Video Recognition</h2><ul><li><a href="https://zhuanlan.zhihu.com/p/150147794" target="_blank" rel="noopener">针对动作识别的时序自适应模块–TAM - 知乎</a></li><li><a href="https://zhuanlan.zhihu.com/p/149429010" target="_blank" rel="noopener">TAM: 针对动作识别的时序自适应模块 - 知乎</a></li><li><a href="https://zhuanlan.zhihu.com/p/147657511" target="_blank" rel="noopener">[ECCV’20] TAM - 知乎</a></li><li><a href="https://zhuanlan.zhihu.com/p/141773949" target="_blank" rel="noopener">南大+商汤 TAM 时间自适应模块 - 知乎</a></li><li><a href="https://blog.csdn.net/calvinpaean/article/details/106146813" target="_blank" rel="noopener">TAM: Temporal Adaptive Module for Video Recognition论文学习_calvinpaean的博客-CSDN博客</a></li><li><a href="https://arxiv.org/pdf/2005.06803.pdf" target="_blank" rel="noopener">2005.06803.pdf</a></li><li><a href="https://arxiv.org/pdf/2005.06803v1.pdf" target="_blank" rel="noopener">2005.06803v1.pdf</a></li><li><a href="https://blog.csdn.net/irving512/article/details/106471189/" target="_blank" rel="noopener">论文浏览(1) TAM: Temporal Adaptive Module for Video Recognition_清欢-CSDN博客</a></li><li><a href="https://github.com/liu-zhy/temporal-adaptive-module" target="_blank" rel="noopener">liu-zhy/temporal-adaptive-module: TAM: Temporal Adaptive Module for Video Recognition</a></li><li><a href="https://arxiv.org/abs/2005.06803" target="_blank" rel="noopener">[2005.06803] TAM: Temporal Adaptive Module for Video Recognition</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> weekly report </tag>
+            
+            <tag> lab406 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>周报-20201022</title>
       <link href="/blog/2020/10/22/weekly-report-20201022/"/>
       <url>/blog/2020/10/22/weekly-report-20201022/</url>
