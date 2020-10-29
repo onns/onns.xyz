@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tools - Google Bookmark to Markdown</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//onns.xyz/css/normalize.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  </head>
+
+  <body>
+    <div class="container-contact100">
+      <div class="wrap-contact100">
+        <form class="contact100-form validate-form">
+          <span class="contact100-form-title">
+            Google Bookmark to Markdown
+          </span>
+          <div class="wrap-input100">
+            <textarea
+              id="original"
+              class="input100"
+              name="original"
+              placeholder="Google Bookmark"
+            ></textarea>
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100">
+            <textarea
+              id="current"
+              class="input100"
+              name="current"
+              placeholder="[url text](url)"
+            ></textarea>
+            <span class="focus-input100"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function find(str) {
+        return str.match(/<a href="([\S ]+)" add_date="([\S ]+)" icon="([\S ]+)">([\S ]+)<\/a>/g,)
+      }
+
+      var original = document.getElementById("original");
+      var current = document.getElementById("current");
+      original.addEventListener("input", function () {
+        find(this.value).forEach(function(book){current.innerHTML += book.replace(/<a href="([\S ]+)" add_date="([\S ]+)" icon="([\S ]+)">([\S ]+)<\/a>/,"[$4]($1)\n")});
+      });
+    </script>
+  </body>
+</html>
