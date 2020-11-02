@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>工作计划-20201102</title>
+      <link href="/blog/2020/11/02/weekly-plan-20201102/"/>
+      <url>/blog/2020/11/02/weekly-plan-20201102/</url>
+      
+        <content type="html"><![CDATA[<center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementById('comments').remove();document.getElementById('back-to-top').remove();document.getElementById('post-toc').remove();"><table><thead><tr><th style="text-align:center">2020-11-02</th><th style="text-align:center">工作计划#01</th><th style="text-align:center">刘潘</th></tr></thead><tbody></tbody></table></center><a id="more"></a><ol><li>《MotionSqueeze: Neural Motion Feature Learning for Video Understanding》这篇论文，提出的结构应用到我现在的方法上有一定的提升，大概<code>0.6%</code>，之前已经精读过论文。准备花一天时间去结合论文，把它的思路，以及相关的代码理解。同时对于这个实验的相关实验数据要进行整理。<br><strong>预计所需时间</strong>：<code>1-2</code>天</li><li>《Temporal Interlacing Network》已经总体上读了一遍，实验在跑，如果效果比较好的话，需要花费时间来精读一遍文章，同时阅读代码，并且整理实验结果，如果实验不好，可能会尝试在别的思路上改进自己的网络。<br>相关的笔记还没整理，可能要抽个时间把笔记整理一下，关于这篇论文的。<br><strong>预计所需时间</strong>：<code>1</code>天</li><li>三方协议可能需要填写和寄出，相关的事宜需要半天的时间来整理。<br><strong>预计所需时间</strong>：<code>0.5</code>天</li><li>准备开始着手构建数据集，要归纳一下我们所需要的识别的几大类，以及相应的拍摄角度等，同时要撰写拍摄的规范文档，以及拍摄的顺序，尽量在最短的时间用最高效的办法拍出数据。<br><strong>预计所需时间</strong>：<code>2-3</code>天</li><li>有一个基于我目前的所有改进的网络正在训练，相关的结果也会在本周出来，需要花费时间进行整理。<br><strong>预计所需时间</strong>：<code>1</code>天</li><li>目前的所有工作都是基于数据集，没有办法进行演示，到时候真的需要应用还需要单独写一些代码。<br><strong>预计所需时间</strong>：<code>3-5</code>天</li></ol><p>以上是我最近计划进行的任务，可能一周内无法全部完成。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> lab406 </tag>
+            
+            <tag> weekly plan </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>TIN代码修改</title>
       <link href="/blog/2020/11/01/temporal-interlacing-network-code-debug/"/>
       <url>/blog/2020/11/01/temporal-interlacing-network-code-debug/</url>
