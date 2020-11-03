@@ -263,6 +263,60 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/multi-part-archive-extract-in-windows/">Windows下分卷压缩包解压</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/multi-part-archive-extract-in-windows/"
+             data-title="Windows下分卷压缩包解压">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>The video data is provided as one large TGZ archive, split into parts of 1 GB max. The total download size is 19.4 GB. The archive contains webm-files using the VP9 codec. Files are numbered from 1 to 220847.</p>
+</blockquote>
+<p>20bn-something-something-v2-00<br>
+20bn-something-something-v2-01<br>
+20bn-something-something-v2-02<br>
+20bn-something-something-v2-03<br>
+20bn-something-something-v2-04<br>
+20bn-something-something-v2-05<br>
+20bn-something-something-v2-06<br>
+20bn-something-something-v2-07<br>
+20bn-something-something-v2-08<br>
+20bn-something-something-v2-09<br>
+20bn-something-something-v2-10<br>
+20bn-something-something-v2-11<br>
+20bn-something-something-v2-12<br>
+20bn-something-something-v2-13<br>
+20bn-something-something-v2-14<br>
+20bn-something-something-v2-15<br>
+20bn-something-something-v2-16<br>
+20bn-something-something-v2-17<br>
+20bn-something-something-v2-18<br>
+20bn-something-something-v2-19</p>
+<p><code>Linux</code>下很好解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 20bn-something-something-v2-?? | tar zx</span><br></pre></td></tr></table></figure>
+<p><code>Windows</code>下需要将所有的分卷先合并：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy /b 20bn* temp.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后用解压软件打开即可。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/XX_123_1_RJ/article/details/95237636" target="_blank" rel="noopener">Windows 中解压 Linux 中产生的 tar.gz 分卷压缩包</a></li>
+<li><a href="https://20bn.com/datasets/something-something/v2#download" target="_blank" rel="noopener">The 20BN-something-something Dataset V2</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/ssh-key-in-linux/">Linux下密钥登录</a>
         </h1>
 
@@ -651,41 +705,6 @@ In summary, differences in low-level feature maps can reflect small displacement
 </blockquote>
 <p>在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/weekly-report-20200830/">周报-20200830</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-30
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/30/weekly-report-20200830/"
-             data-title="周报-20200830">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><center>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">2020-08-30</th>
-<th style="text-align:center">周报#03</th>
-<th style="text-align:center">刘潘</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/30/weekly-report-20200830/" class="read-more-link">Read more..</a>
-          </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/5/">
         <i class="iconfont icon-left"></i>

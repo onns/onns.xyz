@@ -263,6 +263,31 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/11/03/the-linux-command-line-note-2/">《快乐的Linux命令行》笔记（二）</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-11-03
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/11/03/the-linux-command-line-note-2/"
+             data-title="《快乐的Linux命令行》笔记（二）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
+<p>睡前每天看一点～打卡！</p>
+          <div class="read-more">
+            <a href="/blog/2020/11/03/the-linux-command-line-note-2/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/11/02/weekly-plan-20201102/">工作计划-20201102</a>
         </h1>
 
@@ -475,6 +500,115 @@ document.getElementById('post-toc').remove();">
 <!-- //onns.xyz/blog/image -->
 <p><img src="//onns.xyz/blog/image/20201022-2.png" alt="结构图"></p>
 </center>
+<h2 id="相关工作"><a class="header-anchor" href="#相关工作">#</a>相关工作</h2>
+<p>对于一个视频来说，动作是最显著的特征，动作模型提取得好，识别的准确率就会提高。</p>
+<p>卷积在捕获平移等变化的模型上具备有效性，但是对相对运动的物体上建模就很难让人感到满意。</p>
+<blockquote>
+<p>convolution is effective in capturing translation-equivariant patterns but not in modeling relative movement of objects</p>
+</blockquote>
+<p>论文的主要工作放在如何学习动作特征上。</p>
+<blockquote>
+<p>we focus on efficient learning of motion features.</p>
+</blockquote>
+<p>一些现有的研究方向进展：</p>
+<ol>
+<li>有一些在推理部分不需要光流输入，但是训练仍然需要的。</li>
+<li>通过计算特征的时空梯度来表征动作特征。</li>
+<li>提出了一种卷积模块，通过在外观特征之间进行空间移动和减法运算来提取运动特征。</li>
+<li>计算卷积神经网络中间层的特征层光流，虽然效果很好，但是需要很高的计算量，因为在网络中间层进行操作。</li>
+</ol>
+<p>光流估计方法：</p>
+<ol>
+<li>对特征图构建张量，并对张量进行回归。</li>
+<li>通过堆叠的特征层来进行粗略的光流估计。</li>
+</ol>
+<p>不过这些方法都需要光流图做<code>ground-truth</code>。</p>
+<p>最近的一些相关工作：</p>
+<ol>
+<li>利用连续帧的特征图之间的相关信息来代替光学图像。不过这个完整模型的大小与双流网络相当。</li>
+<li>提出<code>correspondences proposal</code>模块来学习视频间的联系。</li>
+</ol>
+<h2 id="ms模块"><a class="header-anchor" href="#ms模块">#</a>MS模块</h2>
+<p>主要分为三个步骤<code>相关性计算</code>（correlation computation）、<code>位移估计</code>（displacement estimation）和<code>特征变换</code>（feature transformation）。</p>
+<h3 id="相关性计算"><a class="header-anchor" href="#相关性计算">#</a>相关性计算</h3>
+<p>定义给定的某一个特征层的输入特征图$\mathbf{F}<sup>{(t)}$和$\mathbf{F}</sup>{(t+1)}$，$\mathbf{F}$的大小为：</p>
+<p>$$<br>
+\mathbf{F} \in \mathbb{R}^{C \times H \times W}<br>
+$$</p>
+<p>对于某一个位置$\mathbf{x}$和位移$\mathbf{p}$的相关性可以通过下列公式得到：</p>
+<p>$$<br>
+s(\mathbf{x},\mathbf{p},t)=\mathbf{F}^{(t)}<em>{\mathbf{x}} \cdot \mathbf{F}^{(t+1)}</em>{\mathbf{x}+\mathbf{p}}<br>
+$$</p>
+<p>$\cdot$代表<code>点积</code>。</p>
+<p>为了保证计算效率，同时也可以从经验中得到其实一个位置的运动相对不会很大（鉴于数据集是25帧-56帧不等，其实也还是蛮大的）<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，$\mathbf{p}$有一个范围$\mathbf{p}\in[-k,k]^2$。</p>
+<p>最终相关性结果为：</p>
+<p>$$<br>
+\mathbf{S}^{(t)} \in \mathbb{R}^{H \times W \times P^2}, P=2k+1<br>
+$$</p>
+<p>这个计算量与$P^2$个$1 \times 1$的卷积核计算量相当，整个视频的FLOPs为$T H W C P^2$。</p>
+<p>在计算相关性之前，先在前面进行一次卷积操作，目的是为了对这些特征通道进行加权，进而来学习相关的视觉联系。</p>
+<blockquote>
+<p>We apply a convolution layer before computing correlations, which learns to weight informative feature channels for learning visual correspondences.</p>
+</blockquote>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<h3 id="位移估计"><a class="header-anchor" href="#位移估计">#</a>位移估计</h3>
+<p>在前面，我们已经得到了某个点，与这个点在下一帧图像中周围点的相关性张量，然后就可以找出这里面相关性最大的点做位移估计。</p>
+<p>最简单且最有效地方法当然是直接用$\mathrm{argmax}_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)$来计算，但是这个方法是<code>不可微的</code>，所以用一个替代方法：<code>soft-argmax</code>，定义如下：</p>
+<p>$$<br>
+d(\mathbf{x},t) = \sum_{\mathbf{p}} \frac{\exp(s(\mathbf{x},\mathbf{p},t))}{\sum_{\mathbf{p}’}{\exp(s(\mathbf{x},\mathbf{p}’,t))}} \mathbf{p}.<br>
+$$</p>
+<p>但是这个方法会对周围的噪点比较敏感，因为他受所有的点的值影响，解决方法是：<code>kernel-soft-argmax</code>，思路是对非中心点进行抑制，所以得到的结果大部分会来自中心点，及周围相关的点：</p>
+<p>$$<br>
+d(\mathbf{x},t) = \sum_{\mathbf{p}} \frac{\exp(g(\mathbf{x},\mathbf{p},t)s(\mathbf{x},\mathbf{p},t) / \tau )}{\sum_{\mathbf{p}’}{\exp( g(\mathbf{x},\mathbf{p}’,t) s(\mathbf{x},\mathbf{p}’,t) / \tau )}}  \mathbf{p},<br>
+$$</p>
+<p>$$<br>
+g(\mathbf{x},\mathbf{p},t) = \frac{1}{\sqrt{2\pi}\sigma}\exp(\frac{\mathbf{p}-\mathrm{argmax}_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)}{\sigma^{2}})<br>
+$$</p>
+<p>根据经验，令$\sigma=5$。$\tau$是一个温度因子，用来调节<code>softmax</code>的分布，随着$\tau$的下降，<code>softmax</code>表现为<code>argmax</code>，令$\tau=0.01$。</p>
+<p>除此之外，使用相关置信度图作为辅助运动信息，求解方法是对每个位置点$\mathbf{x}$进行最大池化：</p>
+<p>$$<br>
+s^{*}(\mathbf{x},t) =\max_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)<br>
+$$</p>
+<p>$$<br>
+\mathbf{S}^* \in \mathbb{R}^{H \times W \times 1}<br>
+$$</p>
+<p>论文里说位移估计最后出来有两个通道，但是我目前还不知道为什么是双通道，待到看代码应该可以知道。</p>
+<p>然后把两通道和上面的单通道合并，得到位移估计张量：</p>
+<p>$$<br>
+\mathbf{D}^{(t)} \in \mathbb{R}^{H \times W \times 3}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<h3 id="特征变换"><a class="header-anchor" href="#特征变换">#</a>特征变换</h3>
+<p>用四层卷积卷，<code>depth-wise separable convolution</code>，因为上述特征都是通过两帧相减得到的，所以最后会少一个特征，论文直接令$\mathbf{M}<sup>{(T)}=\mathbf{M}</sup>{(T-1)}$，$\mathbf{M}<sup>{(T)}$是上一步的$\mathbf{D}</sup>{(T)}$卷积得到的。</p>
+<p>经过卷积操作，也恢复成了原来的尺寸：</p>
+<p>$$<br>
+\mathbf{D}^{(t)} \in \mathbb{R}^{H \times W \times C}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<p>最终的结果会加回到原来的特征图上，论文通过做实验发现这样效果最好：</p>
+<p>$$<br>
+\mathbf{F}’^{(t)} =\mathbf{F}^{(t)} + \mathbf{M}^{(t)}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-2.png" alt="网络图"></p>
+</center>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>这第二句话是我自己加的，论文里只是为了保证计算效率。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
         </div></article>
       <article class="post">
@@ -556,37 +690,6 @@ document.getElementById('post-toc').remove();">
 <li><a href="https://zhuanlan.zhihu.com/p/87035777" target="_blank" rel="noopener">行为识别之 Motion Feature Network</a></li>
 <li><a href="https://arxiv.org/pdf/1807.10037.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1807.10037.pdf</a></li>
 <li><a href="https://blog.csdn.net/weixin_41648477/article/details/106113394" target="_blank" rel="noopener">【论文阅读】Motion Feature Network: Fixed Motion Filter for Action Recognition</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/19/stm-spatiotemporal-and-motion-encoding-for-action-recognition/">STM SpatioTemporal and Motion Encoding for Action Recognition</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-10-19
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/10/19/stm-spatiotemporal-and-motion-encoding-for-action-recognition/"
-             data-title="STM SpatioTemporal and Motion Encoding for Action Recognition">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="stm-spatiotemporal-and-motion-encoding-for-action-recognition"><a class="header-anchor" href="#stm-spatiotemporal-and-motion-encoding-for-action-recognition">#</a>STM: SpatioTemporal and Motion Encoding for Action Recognition</h2>
-<p>这个是TEA的灵感来源，感觉变化不是很大，但是效果不错，而且实验做的足够多。</p>
-<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
-<ul>
-<li><a href="https://blog.csdn.net/irving512/article/details/107085867/" target="_blank" rel="noopener">论文浏览(14) STM: SpatioTemporal and Motion Encoding for Action Recognition</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/85242145" target="_blank" rel="noopener">STM: SpatioTemporal and Motion Encoding</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/87048160" target="_blank" rel="noopener">ICCV2019 行为识别新文 STM</a></li>
-<li><a href="https://mna12478.github.io/action_16/" target="_blank" rel="noopener">STM SpatioTemporal and Motion Encoding for Action Recognition (ICCV 2019)</a></li>
-<li><a href="https://arxiv.org/pdf/1908.02486.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1908.02486.pdf</a></li>
 </ul>
 
         </div></article>

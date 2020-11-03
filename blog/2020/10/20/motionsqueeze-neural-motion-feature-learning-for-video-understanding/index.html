@@ -283,7 +283,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#motionsqueeze-neural-motion-feature-learning-for-video-understanding"><span class="toc-text">MotionSqueeze: Neural Motion Feature Learning for Video Understanding</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#motionsqueeze-neural-motion-feature-learning-for-video-understanding"><span class="toc-text">MotionSqueeze: Neural Motion Feature Learning for Video Understanding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关工作"><span class="toc-text">相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ms模块"><span class="toc-text">MS模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关性计算"><span class="toc-text">相关性计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位移估计"><span class="toc-text">位移估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征变换"><span class="toc-text">特征变换</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="motionsqueeze-neural-motion-feature-learning-for-video-understanding"><a class="header-anchor" href="#motionsqueeze-neural-motion-feature-learning-for-video-understanding">#</a>MotionSqueeze: Neural Motion Feature Learning for Video Understanding</h2>
 <p>主要的创新点是<code>MS module</code>，它把这个结构插入到了<code>ResNet</code>的网络中间，具体来说在<code>layer2</code>之后，<code>layer3</code>之前。</p>
@@ -298,6 +298,115 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <!-- //onns.xyz/blog/image -->
 <p><img src="//onns.xyz/blog/image/20201022-2.png" alt="结构图"></p>
 </center>
+<h2 id="相关工作"><a class="header-anchor" href="#相关工作">#</a>相关工作</h2>
+<p>对于一个视频来说，动作是最显著的特征，动作模型提取得好，识别的准确率就会提高。</p>
+<p>卷积在捕获平移等变化的模型上具备有效性，但是对相对运动的物体上建模就很难让人感到满意。</p>
+<blockquote>
+<p>convolution is effective in capturing translation-equivariant patterns but not in modeling relative movement of objects</p>
+</blockquote>
+<p>论文的主要工作放在如何学习动作特征上。</p>
+<blockquote>
+<p>we focus on efficient learning of motion features.</p>
+</blockquote>
+<p>一些现有的研究方向进展：</p>
+<ol>
+<li>有一些在推理部分不需要光流输入，但是训练仍然需要的。</li>
+<li>通过计算特征的时空梯度来表征动作特征。</li>
+<li>提出了一种卷积模块，通过在外观特征之间进行空间移动和减法运算来提取运动特征。</li>
+<li>计算卷积神经网络中间层的特征层光流，虽然效果很好，但是需要很高的计算量，因为在网络中间层进行操作。</li>
+</ol>
+<p>光流估计方法：</p>
+<ol>
+<li>对特征图构建张量，并对张量进行回归。</li>
+<li>通过堆叠的特征层来进行粗略的光流估计。</li>
+</ol>
+<p>不过这些方法都需要光流图做<code>ground-truth</code>。</p>
+<p>最近的一些相关工作：</p>
+<ol>
+<li>利用连续帧的特征图之间的相关信息来代替光学图像。不过这个完整模型的大小与双流网络相当。</li>
+<li>提出<code>correspondences proposal</code>模块来学习视频间的联系。</li>
+</ol>
+<h2 id="ms模块"><a class="header-anchor" href="#ms模块">#</a>MS模块</h2>
+<p>主要分为三个步骤<code>相关性计算</code>（correlation computation）、<code>位移估计</code>（displacement estimation）和<code>特征变换</code>（feature transformation）。</p>
+<h3 id="相关性计算"><a class="header-anchor" href="#相关性计算">#</a>相关性计算</h3>
+<p>定义给定的某一个特征层的输入特征图$\mathbf{F}<sup>{(t)}$和$\mathbf{F}</sup>{(t+1)}$，$\mathbf{F}$的大小为：</p>
+<p>$$<br>
+\mathbf{F} \in \mathbb{R}^{C \times H \times W}<br>
+$$</p>
+<p>对于某一个位置$\mathbf{x}$和位移$\mathbf{p}$的相关性可以通过下列公式得到：</p>
+<p>$$<br>
+s(\mathbf{x},\mathbf{p},t)=\mathbf{F}^{(t)}<em>{\mathbf{x}} \cdot \mathbf{F}^{(t+1)}</em>{\mathbf{x}+\mathbf{p}}<br>
+$$</p>
+<p>$\cdot$代表<code>点积</code>。</p>
+<p>为了保证计算效率，同时也可以从经验中得到其实一个位置的运动相对不会很大（鉴于数据集是25帧-56帧不等，其实也还是蛮大的）<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，$\mathbf{p}$有一个范围$\mathbf{p}\in[-k,k]^2$。</p>
+<p>最终相关性结果为：</p>
+<p>$$<br>
+\mathbf{S}^{(t)} \in \mathbb{R}^{H \times W \times P^2}, P=2k+1<br>
+$$</p>
+<p>这个计算量与$P^2$个$1 \times 1$的卷积核计算量相当，整个视频的FLOPs为$T H W C P^2$。</p>
+<p>在计算相关性之前，先在前面进行一次卷积操作，目的是为了对这些特征通道进行加权，进而来学习相关的视觉联系。</p>
+<blockquote>
+<p>We apply a convolution layer before computing correlations, which learns to weight informative feature channels for learning visual correspondences.</p>
+</blockquote>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<h3 id="位移估计"><a class="header-anchor" href="#位移估计">#</a>位移估计</h3>
+<p>在前面，我们已经得到了某个点，与这个点在下一帧图像中周围点的相关性张量，然后就可以找出这里面相关性最大的点做位移估计。</p>
+<p>最简单且最有效地方法当然是直接用$\mathrm{argmax}_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)$来计算，但是这个方法是<code>不可微的</code>，所以用一个替代方法：<code>soft-argmax</code>，定义如下：</p>
+<p>$$<br>
+d(\mathbf{x},t) = \sum_{\mathbf{p}} \frac{\exp(s(\mathbf{x},\mathbf{p},t))}{\sum_{\mathbf{p}’}{\exp(s(\mathbf{x},\mathbf{p}’,t))}} \mathbf{p}.<br>
+$$</p>
+<p>但是这个方法会对周围的噪点比较敏感，因为他受所有的点的值影响，解决方法是：<code>kernel-soft-argmax</code>，思路是对非中心点进行抑制，所以得到的结果大部分会来自中心点，及周围相关的点：</p>
+<p>$$<br>
+d(\mathbf{x},t) = \sum_{\mathbf{p}} \frac{\exp(g(\mathbf{x},\mathbf{p},t)s(\mathbf{x},\mathbf{p},t) / \tau )}{\sum_{\mathbf{p}’}{\exp( g(\mathbf{x},\mathbf{p}’,t) s(\mathbf{x},\mathbf{p}’,t) / \tau )}}  \mathbf{p},<br>
+$$</p>
+<p>$$<br>
+g(\mathbf{x},\mathbf{p},t) = \frac{1}{\sqrt{2\pi}\sigma}\exp(\frac{\mathbf{p}-\mathrm{argmax}_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)}{\sigma^{2}})<br>
+$$</p>
+<p>根据经验，令$\sigma=5$。$\tau$是一个温度因子，用来调节<code>softmax</code>的分布，随着$\tau$的下降，<code>softmax</code>表现为<code>argmax</code>，令$\tau=0.01$。</p>
+<p>除此之外，使用相关置信度图作为辅助运动信息，求解方法是对每个位置点$\mathbf{x}$进行最大池化：</p>
+<p>$$<br>
+s^{*}(\mathbf{x},t) =\max_{\mathbf{p}}s(\mathbf{x},\mathbf{p},t)<br>
+$$</p>
+<p>$$<br>
+\mathbf{S}^* \in \mathbb{R}^{H \times W \times 1}<br>
+$$</p>
+<p>论文里说位移估计最后出来有两个通道，但是我目前还不知道为什么是双通道，待到看代码应该可以知道。</p>
+<p>然后把两通道和上面的单通道合并，得到位移估计张量：</p>
+<p>$$<br>
+\mathbf{D}^{(t)} \in \mathbb{R}^{H \times W \times 3}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<h3 id="特征变换"><a class="header-anchor" href="#特征变换">#</a>特征变换</h3>
+<p>用四层卷积卷，<code>depth-wise separable convolution</code>，因为上述特征都是通过两帧相减得到的，所以最后会少一个特征，论文直接令$\mathbf{M}<sup>{(T)}=\mathbf{M}</sup>{(T-1)}$，$\mathbf{M}<sup>{(T)}$是上一步的$\mathbf{D}</sup>{(T)}$卷积得到的。</p>
+<p>经过卷积操作，也恢复成了原来的尺寸：</p>
+<p>$$<br>
+\mathbf{D}^{(t)} \in \mathbb{R}^{H \times W \times C}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-1.png" alt="MS结构图"></p>
+</center>
+<p>最终的结果会加回到原来的特征图上，论文通过做实验发现这样效果最好：</p>
+<p>$$<br>
+\mathbf{F}’^{(t)} =\mathbf{F}^{(t)} + \mathbf{M}^{(t)}<br>
+$$</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201102-2.png" alt="网络图"></p>
+</center>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>这第二句话是我自己加的，论文里只是为了保证计算效率。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       
