@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/learn/page/2/"/>
+<meta name="description" content="《快乐的Linux命令行》笔记（三）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/11/05/the-linux-command-line-note-3/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>learn · Onns Blog
-  </title>
+    <title>《快乐的Linux命令行》笔记（三） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,115 +261,149 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/10/jsp-1/" class="archive-post-link">
-            JSP
-          </a>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《快乐的Linux命令行》笔记（三）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-11-05
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/11/05/the-linux-command-line-note-3/"
+             data-title="《快乐的Linux命令行》笔记（三）">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符"><span class="toc-text">通配符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建目录"><span class="toc-text">创建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制文件和目录"><span class="toc-text">复制文件和目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-text">示例</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
+<p>今天是晚餐后看的，看完想睡一会，困</p>
+<a id="more"></a>
+<h2 id="通配符"><a class="header-anchor" href="#通配符">#</a>通配符</h2>
+<ul>
+<li><code>*</code> 匹配任意多个字符（包括零个或一个）</li>
+<li><code>?</code> 匹配任意一个字符（不包括零个）</li>
+<li><code>[characters]</code> 匹配任意一个属于<code>字符集</code>中的字符</li>
+<li><code>[!characters]</code> 匹配任意一个不是<code>字符集</code>中的字符</li>
+<li><code>[[:class:]]</code> 匹配任意一个属于指定<code>字符类</code>中的字符</li>
+</ul>
+<p>字符类</p>
+<ul>
+<li><code>[:alnum:]</code> 匹配任意一个字母或数字</li>
+<li><code>[:alpha:]</code> 匹配任意一个字母</li>
+<li><code>[:digit:]</code> 匹配任意一个数字</li>
+<li><code>[:lower:]</code> 匹配任意一个小写字母</li>
+<li><code>[:upper:]</code> 匹配任意一个大写字母</li>
+</ul>
+<p>一些示例：</p>
+<ul>
+<li><code>*</code> 所有文件</li>
+<li><code>g*</code> 文件名以“g”开头的文件</li>
+<li><code>b*.txt</code> 以“b” 开头，中间有零个或任意多个字符，并以”.txt”结尾的文件</li>
+<li><code>Data???</code> 以<code>Data</code>开头，其后紧接着<code>3</code>个字符的文件</li>
+<li><code>[abc]*</code> 文件名以<code>a</code>、<code>b</code>或<code>c</code>开头的文件</li>
+<li><code>BACKUP.[0-9][0-9][0-9]</code> 以<code>BACKUP.</code>开头，并紧接着<code>3</code>个数字的文件</li>
+<li><code>[[:upper:]]*</code> 以<code>大写字母</code>开头的文件</li>
+<li><code>[![:digit:]]*</code> <code>不以数字</code>开头的文件</li>
+<li><code>*[[:lower:]123]</code> 文件名以<code>小写字母</code>结尾，或以<code>1</code>、<code>2</code>或<code>3</code>结尾的文件</li>
+</ul>
+<p>之前写正则时候的<code>[A-Z]</code>和<code>[a-z]</code>虽然都有效果，但是已经很老了，不一定会有期望的效果，可以弃用了。</p>
+<blockquote>
+<p>虽然它们仍然起作用，但是你必须小心地使用它们，因为它们不会产生你期望的输出结果，除非你合理地配置它们。从现在开始，你应该避免使用它们，并且用字符类来代替它们。</p>
+</blockquote>
+<h2 id="创建目录"><a class="header-anchor" href="#创建目录">#</a>创建目录</h2>
+<p>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir directory...</span><br></pre></td></tr></table></figure>
+<p>上面命令的<code>...</code>代表那个参数可以重复，即可以一次性创建多个文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir dir1 dir2 dir3</span><br></pre></td></tr></table></figure>
+<p>会创建三个目录。</p>
+<h2 id="复制文件和目录"><a class="header-anchor" href="#复制文件和目录">#</a>复制文件和目录</h2>
+<p>两种用法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp item1 item2</span><br></pre></td></tr></table></figure>
+<p>复制单个文件或目录<code>item1</code>到文件或目录<code>item2</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp item1... directory</span><br></pre></td></tr></table></figure>
+<p>复制多个项目（文件或目录）到一个目录下。</p>
+<p><code>cp</code>命令的一些参数选项：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">长选项</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-a</td>
+<td style="text-align:left">–archive</td>
+<td style="text-align:left">复制文件和目录，以及它们的属性，包括所有权和权限。通常，副本具有用户所操作文件的默认属性。</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td style="text-align:left">–interactive</td>
+<td style="text-align:left">在重写已存在文件之前，提示用户确认。如果这个选项不指定，cp 命令会默认重写文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td style="text-align:left">–recursive</td>
+<td style="text-align:left">递归地复制目录及目录中的内容。当复制目录时，需要这个选项（或者-a 选项）。</td>
+</tr>
+<tr>
+<td style="text-align:center">-u</td>
+<td style="text-align:left">–update</td>
+<td style="text-align:left">当把文件从一个目录复制到另一个目录时，仅复制目标目录中不存在的文件，或者是文件内容新于目标目录中已经存在的文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">-v</td>
+<td style="text-align:left">–verbose</td>
+<td style="text-align:left">显示详细的命令操作信息</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<ul>
+<li><code>cp file1 file2</code> 复制文件 file1 内容到文件 file2。如果 file2 已经存在，file2 的内容会被 file1 的内容重写。如果 file2 不存在，则会创建 file2。</li>
+<li><code>cp -i file1 file2</code> 这条命令和上面的命令一样，除了如果文件 file2 存在的话，在文件 file2 被重写之前，会提示用户确认信息。</li>
+<li><code>cp file1 file2 dir1</code> 复制文件 file1 和文件 file2 到目录 dir1。目录 dir1 必须存在。</li>
+<li><code>cp dir1/* dir2</code> 使用一个通配符，在目录 dir1 中的所有文件都被复制到目录 dir2 中。dir2 必须已经存在。</li>
+<li><code>cp -r dir1 dir2</code> 复制目录 dir1 中的内容到目录 dir2。如果目录 dir2 不存在，创建目录 dir2，操作完成后，目录 dir2 中的内容和 dir1 中的一样。如果目录 dir2 存在，则目录<code>dir1</code>和<code>目录中的内容</code>将会被复制到<code>dir2</code>中。</li>
+</ul>
+<p>最后一个比较难理解，做个例子自己试一下！</p>
+<h3 id="示例"><a class="header-anchor" href="#示例">#</a>示例</h3>
+<p>首先创建一下测试的环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ mkdir dir1</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ mkdir dir2</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ vi dir1/text1</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ vi dir2/text2</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ vi dir1/text3</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls dir1/ dir2/</span><br><span class="line">dir1/:</span><br><span class="line">text1  text3</span><br><span class="line"></span><br><span class="line">dir2/:</span><br><span class="line">text2</span><br></pre></td></tr></table></figure>
+<p>然后执行一下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ cp -r dir1 dir2</span><br></pre></td></tr></table></figure>
+<p>然后查看结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls dir1 dir2</span><br><span class="line">dir1:</span><br><span class="line">text1  text3</span><br><span class="line"></span><br><span class="line">dir2:</span><br><span class="line">dir1  text2</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls dir1 dir2 dir2/dir1</span><br><span class="line">dir1:</span><br><span class="line">text1  text3</span><br><span class="line"></span><br><span class="line">dir2:</span><br><span class="line">dir1  text2</span><br><span class="line"></span><br><span class="line">dir2/dir1:</span><br><span class="line">text1  text3</span><br></pre></td></tr></table></figure>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/06/servlet-in-java-1/" class="archive-post-link">
-            从流中获取 properties
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/02/maven-in-mac/" class="archive-post-link">
-            MacOS下配置maven
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-27
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/27/jvm-web-1/" class="archive-post-link">
-            深入分析Java Web技术内幕（一）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-25
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/25/jvm-note-4/" class="archive-post-link">
-            深入理解Java虚拟机（四）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/24/static-test/" class="archive-post-link">
-            Java静态加载顺序
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/24/jvm-note-3/" class="archive-post-link">
-            深入理解Java虚拟机（三）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-23
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/23/jvm-note-2/" class="archive-post-link">
-            深入理解Java虚拟机（二）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/22/jvm-note-1/" class="archive-post-link">
-            深入理解Java虚拟机（一）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/21/ip-records-top-3/" class="archive-post-link">
-            ip访问记录查询top3
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"><a class="prev" href="/blog/categories/learn/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/categories/learn/page/3/">
-        <span class="next-text">Next</span>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/11/05/weekly-report-20201105/">
+        <span class="next-text nav-default">周报-20201105</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
