@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="《快乐的Linux命令行》笔记（四）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2020/11/06/the-linux-command-line-note-4/"/>
+<meta name="description" content="《快乐的Linux命令行》笔记（五）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/11/08/the-linux-command-line-note-5/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>《快乐的Linux命令行》笔记（四） - Onns Blog</title>
+    <title>《快乐的Linux命令行》笔记（五） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -263,18 +263,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">《快乐的Linux命令行》笔记（四）
+      <h1 class="post-title">《快乐的Linux命令行》笔记（五）
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-11-06
+          2020-11-08
         </span><span class="post-category">
             <a href="/blog/categories/learn/">learn</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/11/06/the-linux-command-line-note-4/"
-             data-title="《快乐的Linux命令行》笔记（四）">
+             data-url="/blog/2020/11/08/the-linux-command-line-note-5/"
+             data-title="《快乐的Linux命令行》笔记（五）">
           Visits 0
         </span>
         </div>
@@ -283,113 +283,103 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#移动文件"><span class="toc-text">移动文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建链接"><span class="toc-text">创建链接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#type"><span class="toc-text">type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#which"><span class="toc-text">which</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-text">help</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#man"><span class="toc-text">man</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
 <a id="more"></a>
-<h2 id="移动文件"><a class="header-anchor" href="#移动文件">#</a>移动文件</h2>
-<p>感觉<code>mv</code>和<code>cp</code>是一样的，只是不同的在于，<code>mv</code>移动文件夹的时候不需要<code>-r</code>，自动完成的。</p>
-<p>两种用法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv item1 item2</span><br></pre></td></tr></table></figure>
-<p>把文件或目录<code>item1</code>移动或重命名为<code>item2</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv item1... directory</span><br></pre></td></tr></table></figure>
-<p>把一个或多个条目从一个目录移动到另一个目录中。</p>
-<p><code>mv</code>命令的一些参数选项：</p>
+<h2 id="命令"><a class="header-anchor" href="#命令">#</a>命令</h2>
+<p>四种命令的形式：</p>
+<ol>
+<li>一个可执行程序</li>
+<li>一个内建于<code>shell</code>自身的命令，内部命令</li>
+<li>一个<code>shell</code>函数</li>
+<li>一个命令别名</li>
+</ol>
+<h2 id="type"><a class="header-anchor" href="#type">#</a>type</h2>
+<p><code>type</code>命令是<code>shell</code>内部命令，它会显示命令的类别：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> <span class="built_in">command</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">type</span> <span class="built_in">type</span></span><br><span class="line"><span class="built_in">type</span> is a shell <span class="built_in">builtin</span></span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">type</span> ls</span><br><span class="line">ls is aliased to `ls --color=auto`</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">type</span> cp</span><br><span class="line">cp is /bin/cp</span><br></pre></td></tr></table></figure>
+<h2 id="which"><a class="header-anchor" href="#which">#</a>which</h2>
+<p><code>which</code>用来查找一个可执行程序的位置，因为一个程序可能有很多个版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> <span class="built_in">command</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">which</span> ls</span><br><span class="line">/bin/ls</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">which</span> win-lab406</span><br><span class="line">/mnt/d/weiyun/Code/bash/win-lab406</span><br></pre></td></tr></table></figure>
+<p><strong>这个命令只对可执行程序有效，不包括内建命令和命令别名。</strong></p>
+<p>第二个命令是我自己写的。</p>
+<p>当我企图查找内部命令的时候，根本找不到= =，什么提示都没有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">which</span> <span class="built_in">cd</span></span><br><span class="line">onns@DESKTOP-5JJP7PL:~$</span><br></pre></td></tr></table></figure>
+<h2 id="help"><a class="header-anchor" href="#help">#</a>help</h2>
+<p><code>help</code>命令大概就是用来提示你这个命令怎么用的吧…</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span> <span class="built_in">command</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ <span class="built_in">help</span> <span class="built_in">cd</span></span><br><span class="line"><span class="built_in">cd</span>: <span class="built_in">cd</span> [-L|[-P [-e]] [-@]] [dir]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>出现在命令语法说明中的方括号，表示<code>可选的</code>项目。<br>
+<code>一个竖杠字符</code>表示互斥选项。</p>
+<blockquote>
+<p>虽<code>cd</code>命令的帮助文档很简洁准确，但它决不是教程。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+</blockquote>
+<p><code>--help</code>是一个很多程序支持的选项，作用是：<strong>显示命令所支持的语法和选项说明</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ mkdir --<span class="built_in">help</span></span><br><span class="line">Usage: mkdir [OPTION]... DIRECTORY...</span><br><span class="line">Create the DIRECTORY(ies), <span class="keyword">if</span> they <span class="keyword">do</span> not already exist.</span><br><span class="line"></span><br><span class="line">Mandatory arguments to long options are mandatory <span class="keyword">for</span> short options too.</span><br><span class="line">  -m, --mode=MODE   <span class="built_in">set</span> file mode (as <span class="keyword">in</span> chmod), not a=rwx - <span class="built_in">umask</span></span><br><span class="line">  -p, --parents     no error <span class="keyword">if</span> existing, make parent directories as needed</span><br><span class="line">  -v, --verbose     <span class="built_in">print</span> a message <span class="keyword">for</span> each created directory</span><br><span class="line">  -Z                   <span class="built_in">set</span> SELinux security context of each created directory</span><br><span class="line">                         to the default <span class="built_in">type</span></span><br><span class="line">      --context[=CTX]  like -Z, or <span class="keyword">if</span> CTX is specified <span class="keyword">then</span> <span class="built_in">set</span> the SELinux</span><br><span class="line">                         or SMACK security context to CTX</span><br><span class="line">      --<span class="built_in">help</span>     display this <span class="built_in">help</span> and <span class="built_in">exit</span></span><br><span class="line">      --version  output version information and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">GNU coreutils online <span class="built_in">help</span>: &lt;http://www.gnu.org/software/coreutils/&gt;</span><br><span class="line">Report mkdir translation bugs to &lt;http://translationproject.org/team/&gt;</span><br><span class="line">Full documentation at: &lt;http://www.gnu.org/software/coreutils/mkdir&gt;</span><br><span class="line">or available locally via: info <span class="string">'(coreutils) mkdir invocation'</span></span><br></pre></td></tr></table></figure>
+<h2 id="man"><a class="header-anchor" href="#man">#</a>man</h2>
+<p><code>man</code>命令用来查看一些程序的文档手册：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man program</span><br></pre></td></tr></table></figure>
+<p>手册文档的格式有点不同，一般地包含<code>一个标题</code>、<code>命令语法的纲要</code>、<code>命令用途的说明</code>、以及<code>每个命令选项</code>的列表和说明。<strong>手册文档通常并不包含实例。</strong></p>
+<p>在大多<code>Linux</code>系统中，<code>man</code>使<code>less</code>工具来显示参考手册，所以当浏览文档时，你所熟<code>less</code>悉命令都能有效。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p>参考手册有很多不同的章节：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">选项</th>
-<th style="text-align:left">长选项</th>
-<th style="text-align:left">描述</th>
+<th style="text-align:center">章节</th>
+<th style="text-align:left">内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><code>-i</code></td>
-<td style="text-align:left"><code>--interactive</code></td>
-<td style="text-align:left">在重写一个已经存在的文件之前，提示用户确认信息。如果不指定这个选项，mv 命令会默认重写文件内容。</td>
+<td style="text-align:center">1</td>
+<td style="text-align:left">用户命令</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>-u</code></td>
-<td style="text-align:left"><code>--update</code></td>
-<td style="text-align:left">当把文件从一个目录移动另一个目录时，只是移动不存在的文件，或者文件内容新于目标目录相对应文件的内容。</td>
+<td style="text-align:center">2</td>
+<td style="text-align:left">程序接口内核系统调用</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>-v</code></td>
-<td style="text-align:left"><code>--verbose</code></td>
-<td style="text-align:left">显示详细的命令操作信息</td>
+<td style="text-align:center">3</td>
+<td style="text-align:left">C 库函数程序接口</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">特殊文件，比如说设备结点和驱动程序</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">文件格式</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">游戏娱乐，如屏幕保护程序</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">其他方面</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left">系统管理员命令</td>
 </tr>
 </tbody>
 </table>
-<p>示例：</p>
-<ul>
-<li><code>mv file1 file2</code> 移动 file1 到 file2。如果 file2 存在，它的内容会被 file1 的内容重写。如果 file2 不存在，则创建 file2。这两种情况下，file1 都不再存在。</li>
-<li><code>mv -i file1 file2</code> 除了如果 file2 存在的话，在 file2 被重写之前，用户会得到提示信息外，这个和上面的选项一样。</li>
-<li><code>mv file1 file2 dir1</code> 移动 file1 和 file2 到目录 dir1 中。dir1 必须已经存在。</li>
-<li><code>mv dir1 dir2</code> 如果目录 dir2 不存在，创建目录 dir2，并且移动目录 dir1 的内容到目录 dir2 中，同时删除目录 dir1。如果目录 dir2 存在，移动目录<code>dir1</code>及<code>它的内容</code>到目录<code>dir2</code>。</li>
-</ul>
-<h2 id="删除文件"><a class="header-anchor" href="#删除文件">#</a>删除文件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm item...</span><br></pre></td></tr></table></figure>
-<p>感觉在 linux 下第一个知道的命令大概就是<code>rm -rf /*</code>吧…</p>
-<p>一些选项：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">选项</th>
-<th style="text-align:left">长选项</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>-i</code></td>
-<td style="text-align:left"><code>--interactive</code></td>
-<td style="text-align:left">在删除已存在的文件前，提示用户确认信息。如果不指定这个选项，rm 会默默地删除文件</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-r</code></td>
-<td style="text-align:left"><code>--recursive</code></td>
-<td style="text-align:left">递归地删除文件，这意味着，如果要删除一个目录，而此目录又包含子目录，那么子目录也会被删除。要删除一个目录，必须指定这个选项。</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-f</code></td>
-<td style="text-align:left"><code>--force</code></td>
-<td style="text-align:left">忽视不存在的文件，不显示提示信息。这选项覆盖了<code>--interactive</code>选项。</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-v</code></td>
-<td style="text-align:left"><code>--verbose</code></td>
-<td style="text-align:left">显示详细的命令操作信息</td>
-</tr>
-</tbody>
-</table>
-<p><strong>类 Unix 系统，是没有复原命令的</strong></p>
-<p>当你使用带有通配符的<code>rm</code>命令时，除了仔细检查输入的内容外，先用<code>ls</code>命令来测试通配。<br>
-当你使用带有通配符的<code>rm</code>命令时，除了仔细检查输入的内容外，先用<code>ls</code>命令来测试通配。<br>
-当你使用带有通配符的<code>rm</code>命令时，除了仔细检查输入的内容外，先用<code>ls</code>命令来测试通配。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm *.html <span class="comment"># 删除所有html文件</span></span><br><span class="line">rm * .html <span class="comment"># 会删除目录中的所有文件，并提示没有“.html”文件</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建链接"><a class="header-anchor" href="#创建链接">#</a>创建链接</h2>
-<p>硬链接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln file link</span><br></pre></td></tr></table></figure>
-<p>符号链接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s item link</span><br></pre></td></tr></table></figure>
-<p><code>item</code>可以是一个文件或是一个目录。</p>
-<p><code>硬链接</code>的缺点：</p>
-<ul>
-<li>一个硬链接不能关联它所在文件系统之外的文件。这是说一个链接不能关联与链接本身不在同一个磁盘分区上的文件。</li>
-<li>一个硬链接不能关联一个目录。</li>
-</ul>
-<p>一个硬链接和文件本身没有什么区别。</p>
-<p>当一个硬链接被删除时，这个链接被删除，但是文件本身的内容仍然存在，直到所有关联这个文件的链接都删除掉。</p>
-<p>当你删除一个符号链接时，只有这个链接被删除，而不是文件自身。</p>
-<p>如果先于符号链接删除文件，这个链接<code>仍然存在</code>，但是不指向任何东西。（会被 ls 命令标红，表示<code>坏链接</code>）</p>
-<h3 id="测试"><a class="header-anchor" href="#测试">#</a>测试</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ vi fun</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ln fun fun-hard</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls</span><br><span class="line">fun  fun-hard</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun</span><br><span class="line">-rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun-hard</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -li</span><br><span class="line">total 0</span><br><span class="line">35465847065606899 -rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun</span><br><span class="line">35465847065606899 -rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun-hard</span><br></pre></td></tr></table></figure>
-<p>可以通过<code>-i</code>参数来展示文件索引节点的信息，可以看出这实际上是索引的同一个文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ln -s fun fun-sym</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun</span><br><span class="line">-rw-r--r-- 2 onns onns 19 Nov  6 14:23 fun-hard</span><br><span class="line">lrwxrwxrwx 1 onns onns  3 Nov  6 14:25 fun-sym -&gt; fun</span><br></pre></td></tr></table></figure>
-<p><code>符号链接</code>的大小是指向文件字符的大小，而不是实际大小，因为<code>fun-sym</code>指向的是<code>fun</code>，<code>fun</code>有<code>三个字符</code>，所以大小是<code>3</code>。</p>
-<p>对于符号链接，有一点值得记住，执行的大多数文件操作是针对链接的对象，而不是链接本身。</p>
-<p>而<code>rm</code>命令是个特例。当你删除链接的时候，<strong>删除链接本身</strong>，而不是链接的对象。</p>
+<p>有时候，我们需要查看参考手册的特定章节，从而找到我们需要的信息。如果我们要查找一种文件格式，而同时它也是一个命令名时, 这种情况尤其正确。没有指定章节号，我们总是得到第一个匹配项，可能在第一章节。我们这样使用<code>man</code>命令，来指定章节号：<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man section search_term</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ man 5 passwd</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$</span><br></pre></td></tr></table></figure>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>老实说，没看懂这句话啥意思。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>看到这里的时候，我大概已经忘了<code>less</code>怎么用了，不愧是我。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>没看懂这句话。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       
@@ -401,13 +391,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/shell-note/">shell note</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2020/11/08/the-linux-command-line-note-5/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">《快乐的Linux命令行》笔记（五）</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2020/11/05/the-linux-command-line-note-3/">
-        <span class="next-text nav-default">《快乐的Linux命令行》笔记（三）</span>
+        <nav class="post-nav"><a class="next" href="/blog/2020/11/06/the-linux-command-line-note-4/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（四）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
