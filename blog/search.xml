@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>《快乐的Linux命令行》笔记（六）</title>
+      <link href="/blog/2020/11/09/the-linux-command-line-note-6/"/>
+      <url>/blog/2020/11/09/the-linux-command-line-note-6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1><a id="more"></a><h2 id="alias"><a class="header-anchor" href="#alias">#</a>alias</h2><p><code>alias</code>用来创建别名，可以把多个命令放在同一行，命令之间用<code>;</code>分隔。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> name=<span class="string">'command1; command2; command3...'</span></span><br></pre></td></tr></table></figure><p>在创建别名的时候，应该用<code>type</code>来测试一下这个<code>别名</code>有没有被用过。</p><p>删除别名，使用<code>unalias</code>命令。</p><p>在命令行里定义的别名，<code>shell关闭</code>之后就会消失。</p><h2 id="标准输入、输出和错误"><a class="header-anchor" href="#标准输入、输出和错误">#</a>标准输入、输出和错误</h2><p><code>Unix</code>下万物皆文件，默认情况下，<code>标准输出</code>和<code>标准错误</code>都连接到屏幕，即<code>stdout</code>和<code>stderr</code>。<code>标准输入</code>连接到键盘上，即<code>stdin</code>。</p><h2 id="标准输出重定向"><a class="header-anchor" href="#标准输出重定向">#</a>标准输出重定向</h2><p>使用<code>&gt;</code>重定向符后接文件名将标准输出重定向到除屏幕以外的另一个文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span> &gt; filename</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /usr/bin &gt; ls-output.txt</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l ls-output.txt</span><br><span class="line">-rw-r--r-- 1 onns onns 44260 Nov  9 12:56 ls-output.txt</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr &gt; ls-output.txt</span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l ls-output.txt</span><br><span class="line">-rw-r--r-- 1 onns onns 0 Nov  9 12:59 ls-output.txt</span><br></pre></td></tr></table></figure><p><code>ls</code>程序不把它的<code>错误信息</code>输送到<code>标准输出</code>。</p><p>而且，当我们使用<code>&gt;</code>重定向符来重定向输出结果时，目标文件总是从<code>开头被重写</code>。</p><p>快速<code>清空一个文件内容</code>或者<code>创建一个新的空文件</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; ls-output.txt</span><br></pre></td></tr></table></figure><p>使用<code>&gt;&gt;</code>操作符，将导致输出结果添加到文件内容之后，即<code>追加</code>。如果文件不存在，文件会被创建。</p><h2 id="标准错误重定向"><a class="header-anchor" href="#标准错误重定向">#</a>标准错误重定向</h2><p><code>stdin</code>、<code>stdout</code>和<code>stderr</code>在<code>shell</code>内部被称为<strong>文件描述符</strong><code>0</code>、<code>1</code>和<code>2</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /bin/usr 2&gt; ls-error.txt</span><br></pre></td></tr></table></figure><p><code>2</code>和<code>&gt;</code>要紧挨着，不然会报错：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr 2 &gt; ls-error.txt</span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br><span class="line">ls: cannot access <span class="string">'2'</span>: No such file or directory</span><br></pre></td></tr></table></figure><p>如果想要把标准输出和标准错误一起重定向，有两种方法，老方法：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /bin/usr &gt; ls-output.txt 2&gt;&amp;1</span><br></pre></td></tr></table></figure><p><strong>标准错误的重定向必须总是出现在标准输出重定向之后。</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr &gt; ls-output.txt <span class="comment"># 错误还是会输出到标准输出</span></span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ cat ls-output.txt <span class="comment"># 文件里没有东西</span></span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr &gt; ls-output.txt 2&gt;&amp;1 <span class="comment"># 正确写法</span></span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ cat ls-output.txt <span class="comment"># 文件内容正常</span></span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr 2&gt;&amp;1 &gt; ls-output.txt <span class="comment"># 标准错误的重定向必须总是出现在标准输出重定向之后</span></span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ cat ls-output.txt</span><br></pre></td></tr></table></figure><p>第二种方法是<code>&amp;&gt;</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@DESKTOP-5JJP7PL:~$ cat ls-output.txt</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ ls -l /bin/usr &amp;&gt; ls-output.txt</span><br><span class="line">onns@DESKTOP-5JJP7PL:~$ cat ls-output.txt</span><br><span class="line">ls: cannot access <span class="string">'/bin/usr'</span>: No such file or directory</span><br></pre></td></tr></table></figure><p><code>/dev/null</code>文件是系统设备，叫做<code>位存储桶</code>，它可以接受输入，并且对输入不做任何处理。<br>可以把不需要的东西输出给垃圾桶：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /bin/usr 2&gt; /dev/null</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《快乐的Linux命令行》笔记（五）</title>
       <link href="/blog/2020/11/08/the-linux-command-line-note-5/"/>
       <url>/blog/2020/11/08/the-linux-command-line-note-5/</url>
