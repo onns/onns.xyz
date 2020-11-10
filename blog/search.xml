@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>《快乐的Linux命令行》笔记（7）</title>
+      <link href="/blog/2020/11/10/the-linux-command-line-note-7/"/>
+      <url>/blog/2020/11/10/the-linux-command-line-note-7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1><a id="more"></a><h2 id="cat"><a class="header-anchor" href="#cat">#</a>cat</h2><p><code>cat</code>命令读取一个或多个文件，然后复制它们到标准输出：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat [file]</span><br></pre></td></tr></table></figure><p><code>cat</code>经常被用来显示简短的文本文件。</p><p><code>cat</code>可以把多个分片的文件连在一起：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat movie.mpeg.0* &gt; movie.mpeg</span><br></pre></td></tr></table></figure><p>因为通配符总是以有序的方式展开，所以这些参数会以正确顺序安排。</p><p><code>cat</code>如果不加参数直接运行，将默认连接<code>标准输入</code>和<code>标准输出</code>。可以使用这种行为来创建简短的文本文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@liupans-MacBook-Air ~ % cat &gt; lazy_dog.txt</span><br><span class="line">The quick brown fox jumped over the lazy dog.%</span><br><span class="line">onns@liupans-MacBook-Air ~ % cat lazy_dog.txt</span><br><span class="line">The quick brown fox jumped over the lazy dog.%</span><br></pre></td></tr></table></figure><p>输入<code>Ctrl-d</code>可以告诉<code>cat</code>已经到达文件末尾<code>EOF</code>。</p><h2 id="匿名管道"><a class="header-anchor" href="#匿名管道">#</a>匿名管道</h2><p><code>|</code>可以让一个命令的标准输出通过管道送至另一个命令的标准输入。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command1 | command2</span><br></pre></td></tr></table></figure><p>心情不好，晚安。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《快乐的Linux命令行》笔记（六）</title>
       <link href="/blog/2020/11/09/the-linux-command-line-note-6/"/>
       <url>/blog/2020/11/09/the-linux-command-line-note-6/</url>
