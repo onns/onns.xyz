@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="《快乐的Linux命令行》笔记（10）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/11/17/the-linux-command-line-note-10/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>《快乐的Linux命令行》笔记（10） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《快乐的Linux命令行》笔记（10）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-11-17
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/11/17/the-linux-command-line-note-10/"
+             data-title="《快乐的Linux命令行》笔记（10）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复-alt-键功能"><span class="toc-text">恢复 alt 键功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移动光标"><span class="toc-text">移动光标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改文本"><span class="toc-text">修改文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#剪切粘贴"><span class="toc-text">剪切粘贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动补全"><span class="toc-text">自动补全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#历史命令"><span class="toc-text">历史命令</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
+<h2 id="恢复-alt-键功能"><a class="header-anchor" href="#恢复-alt-键功能">#</a>恢复 alt 键功能</h2>
+<p>在<code>MacOS</code>的<code>Terminal</code>里，用<code>alt</code>组合键总是不好使，这次查了一下，问题解决。</p>
+<p><code>Terminal</code> -&gt; <code>Preferences</code>（快捷键<code>cmd + ,</code>） -&gt; <code>Profiles</code> -&gt; <code>Keyboard</code> -&gt; <code>Use Option as Meta key</code></p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20201117-1.jpg" alt="Use Option as Meta key"></p>
+</center>
+<h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3>
+<ul>
+<li><a href="https://superuser.com/questions/496090/how-to-use-alt-commands-in-a-terminal-on-os-x" target="_blank" rel="noopener">How to use ALT commands in a terminal on OS X?</a></li>
+</ul>
+<a id="more"></a>
+<h2 id="移动光标"><a class="header-anchor" href="#移动光标">#</a>移动光标</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Ctrl-a</code></td>
+<td style="text-align:left">移动光标到行首。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-e</code></td>
+<td style="text-align:left">移动光标到行尾。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-f</code></td>
+<td style="text-align:left">光标后移一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-b</code></td>
+<td style="text-align:left">光标前移一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-f</code></td>
+<td style="text-align:left">光标后移一个字。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-b</code></td>
+<td style="text-align:left">光标前移一个字。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-l</code></td>
+<td style="text-align:left">清空屏幕，移动光标到左上角。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="修改文本"><a class="header-anchor" href="#修改文本">#</a>修改文本</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Ctrl-d</code></td>
+<td style="text-align:left">删除光标位置的字符。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-t</code></td>
+<td style="text-align:left">光标位置的字符和光标前面的字符互换位置。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-t</code></td>
+<td style="text-align:left">光标位置的字和其前面的字互换位置。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-l</code></td>
+<td style="text-align:left">把从光标位置到字尾的字符转换成小写字母。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-u</code></td>
+<td style="text-align:left">把从光标位置到字尾的字符转换成大写字母。</td>
+</tr>
+</tbody>
+</table>
+<p><code>ctrl + t</code>这个很有用，因为其实经常都是打反两个字母，比如我，经常把<code>conda activate</code>打成<code>conda acitvate</code>。但是我在<code>macOS</code>上测试的时候，确实是<strong>光标位置的字符和光标前面的字符互换位置</strong>，但是换位完之后，<strong>光标往后挪了一个位置</strong>（如果后面还有文本的话）。</p>
+<h2 id="剪切粘贴"><a class="header-anchor" href="#剪切粘贴">#</a>剪切粘贴</h2>
+<p><code>Readline</code>的文档使用术语 <code>killing</code> 和 <code>yanking</code> 来指我们平常所说的剪切和粘贴。剪切下来的本文被存储在一个叫做<code>剪切环</code>（kill-ring）的缓冲区中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Ctrl-k</code></td>
+<td style="text-align:left">剪切从光标位置到行尾的文本。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-u</code></td>
+<td style="text-align:left">剪切从光标位置到行首的文本。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-d</code></td>
+<td style="text-align:left">剪切从光标位置到词尾的文本。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-Backspace</code></td>
+<td style="text-align:left">剪切从光标位置到词头的文本。如果光标在一个单词的开头，剪切前一个单词。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-y</code></td>
+<td style="text-align:left">把剪切环中的文本粘贴到光标位置。</td>
+</tr>
+</tbody>
+</table>
+<p><code>Alt-Backspace</code>如果光标在一个单词的开头，剪切前一个单词，<strong>同时会把两个词之间的空格也一起</strong>剪切掉并且存在剪切环里。</p>
+<h2 id="自动补全"><a class="header-anchor" href="#自动补全">#</a>自动补全</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Alt-?</code></td>
+<td style="text-align:left">显示可能的自动补全列表。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-*</code></td>
+<td style="text-align:left">插入所有可能的自动补全。</td>
+</tr>
+</tbody>
+</table>
+<p><code>alt + ?</code>等效于<code>tab</code>两次。</p>
+<p>这俩命令我试不出来。。好在目前也没什么用= =！</p>
+<h2 id="历史命令"><a class="header-anchor" href="#历史命令">#</a>历史命令</h2>
+<p><code>bash</code>维护着一个已经执行过的命令的历史列表。这个命令列表被保存在你家目录下，一个叫做<code>.bash_history</code>的文件里。</p>
+<p><strong>在默认情况下，bash 会存储你所输入的最后 <code>500</code> 个命令。</strong></p>
+<p>每个历史记录都有行号，我们可以使用一种叫做<code>历史命令展开</code>的方式，来调用行号所代表的这一行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!line-number</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">history</span></span><br><span class="line">  995  uniq --<span class="built_in">help</span></span><br><span class="line">  996  uniq</span><br><span class="line">  997  ls /bin /usr/bin | sort | uniq -d | less</span><br><span class="line">  998  ssh root@xiaoxia.onns.xyz</span><br><span class="line">  999  blog</span><br><span class="line"> 1000  cpblog</span><br><span class="line"> 1001  ssh root@xiaoxia.onns.xyz</span><br><span class="line"> 1002  clear</span><br><span class="line"> 1003  ashdasda  adad</span><br><span class="line"> 1004  askdhakdjah akjsdhakjdhakjd akdjhakjdhajdk</span><br><span class="line"> 1005  hkasdhakjsdha ahdsaksjdhktttttt[</span><br><span class="line"> 1006  abcd123456abcd123456abcd12abcd123456abcd123456abcd123456 3456 ahskdasdjha</span><br><span class="line"> 1007  <span class="built_in">which</span>-command ls</span><br><span class="line"> 1008  ls D</span><br><span class="line"> 1009  <span class="built_in">history</span></span><br><span class="line"> 1010  ls /bin /usr/bin | sort | uniq -d | less</span><br><span class="line">$ !995</span><br><span class="line">uniq --<span class="built_in">help</span></span><br><span class="line">uniq: illegal option -- -</span><br><span class="line">usage: uniq [-c | -d | -u] [-i] [-f fields] [-s chars] [input [output]]</span><br></pre></td></tr></table></figure>
+<p><strong><code>bash</code>也具有增量搜索历史列表的能力。</strong><br>
+输入 <code>Ctrl-r</code> 来启动增量搜索，接着输入你要寻找的字。当你找到它以后，你可以敲入 <code>Enter</code> 来执行命令，或者输入 <code>Ctrl-j</code>，从历史列表中复制这一行到当前命令行。再次输入 <code>Ctrl-r</code>，来找到下一个匹配项(历史列表中向上移动)。输入 <code>Ctrl-g</code> 或者 <code>Ctrl-c</code>，退出搜索。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$</span><br><span class="line">bck-i-search: _</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uniq --<span class="built_in">help</span></span><br><span class="line">bck-i-search: un_</span><br></pre></td></tr></table></figure>
+<p>说实话，好麻烦，我还是喜欢用<code>grep + 管道</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Ctrl-p</code></td>
+<td style="text-align:left">移动到上一个历史条目。类似于上箭头按键。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-n</code></td>
+<td style="text-align:left">移动到下一个历史条目。类似于下箭头按键。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-&lt;</code></td>
+<td style="text-align:left">移动到历史列表开头。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-&gt;</code></td>
+<td style="text-align:left">移动到历史列表结尾，即当前命令行。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-r</code></td>
+<td style="text-align:left">反向增量搜索。从当前命令行开始，向上增量搜索。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-p</code></td>
+<td style="text-align:left">反向搜索，非增量搜索。(输入要查找的字符串，按下 Enter 来执行搜索)。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Alt-n</code></td>
+<td style="text-align:left">向前搜索，非增量。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Ctrl-o</code></td>
+<td style="text-align:left">执行历史列表中的当前项，并移到下一个。如果你想要执行 历史列表中一系列的命令，这很方便。</td>
+</tr>
+</tbody>
+</table>
+<p>历史命令展开：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>!!</code></td>
+<td style="text-align:left">重复最后一次执行的命令。可能按下上箭头按键和 enter 键 更容易些。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>!number</code></td>
+<td style="text-align:left">重复历史列表中第 number 行的命令。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>!string</code></td>
+<td style="text-align:left">重复最近历史列表中，以这个字符串开头的命令。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>!?string</code></td>
+<td style="text-align:left">重复最近历史列表中，包含这个字符串的命令。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>应该小心谨慎地使用 <code>!string</code> 和 <code>!?string</code> 格式，除非你完全确信历史列表条目的内容。</strong></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/11/16/the-linux-command-line-note-9/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（9）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
