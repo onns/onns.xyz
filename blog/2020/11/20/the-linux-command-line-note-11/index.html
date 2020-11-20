@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="TEA实现细节"/><meta name="keywords" content="行为识别, action recognition, tea, me, mta, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2020/10/13/tea-details/"/>
+<meta name="description" content="《快乐的Linux命令行》笔记（11）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/11/20/the-linux-command-line-note-11/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>TEA实现细节 - Onns Blog</title>
+    <title>《快乐的Linux命令行》笔记（11） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -263,18 +263,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">TEA实现细节
+      <h1 class="post-title">《快乐的Linux命令行》笔记（11）
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-10-13
+          2020-11-20
         </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
+            <a href="/blog/categories/learn/">learn</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/10/13/tea-details/"
-             data-title="TEA实现细节">
+             data-url="/blog/2020/11/20/the-linux-command-line-note-11/"
+             data-title="《快乐的Linux命令行》笔记（11）">
           Visits 0
         </span>
         </div>
@@ -283,98 +283,189 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tea-temporal-excitation-and-aggregation-for-action-recognition"><span class="toc-text">TEA: Temporal Excitation and Aggregation for Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#motion-excitation-me"><span class="toc-text">motion excitation(ME)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiple-temporal-aggregation-mta"><span class="toc-text">Multiple Temporal Aggregation(MTA)</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户"><span class="toc-text">用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chmod"><span class="toc-text">chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#umask"><span class="toc-text">umask</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="tea-temporal-excitation-and-aggregation-for-action-recognition"><a class="header-anchor" href="#tea-temporal-excitation-and-aggregation-for-action-recognition">#</a>TEA: Temporal Excitation and Aggregation for Action Recognition</h2>
+  </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
 <a id="more"></a>
-<h3 id="motion-excitation-me"><a class="header-anchor" href="#motion-excitation-me">#</a>motion excitation(ME)</h3>
-<p>解决的问题是：<code>short-range motion encoding</code>。</p>
-<p>之前的工作一般都是像素级的运动表现特征，比如<code>光流</code>，论文从<code>feature</code>层面上进行了运动建模。</p>
-<p>不同的通道可能会对不同的消息敏感，提供模型自身的运动敏感信息捕捉能力十分重要。</p>
+<h2 id="用户"><a class="header-anchor" href="#用户">#</a>用户</h2>
+<p>当一个用户拥有一个文件或目录时，用户对这个文件或目录的访问权限拥有控制权。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=501(onns) gid=20(staff) groups=20(staff),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),250(_analyticsusers),395(com.apple.access_ftp),398(com.apple.access_screensharing),399(com.apple.access_ssh),400(com.apple.access_remote_ae),701(com.apple.sharepoint.group.1)</span><br></pre></td></tr></table></figure>
+<p>对于文件和目录的访问权力是根据读访问、写访问和执行访问来定义的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ &gt; foo.txt</span><br><span class="line">$ ls -l foo.txt</span><br><span class="line">-rw-r--r--@ 1 onns  staff  12 Nov 20 20:36 foo.txt</span><br></pre></td></tr></table></figure>
+<p><strong>列表的前十个字符是文件的属性，第一个字符表明文件类型。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">按键</th>
+<th style="text-align:left">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>-</code></td>
+<td style="text-align:left">一个普通文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>d</code></td>
+<td style="text-align:left">一个目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>l</code></td>
+<td style="text-align:left">一个符号链接<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>c</code></td>
+<td style="text-align:left">一个字符设备文件<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>b</code></td>
+<td style="text-align:left">一个块设备文件<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></td>
+</tr>
+</tbody>
+</table>
+<p>剩下的九个字符叫做文件模式，代表着<code>文件所有者</code>、<code>文件组所有者</code>和<code>其他人</code>的<code>读</code>、<code>写</code>和<code>执行</code>权限。</p>
+<p>文件：</p>
+<ul>
+<li><code>r</code>：允许打开并读取文件内容。</li>
+<li><code>w</code>：允许写入文件内容或截断文件。但是<code>不允许</code>对文件进行<code>重命名</code>或<code>删除</code>，<strong>重命名或删除是由目录的属性决定的</strong>。</li>
+<li><code>x</code>：允许将文件作为程序来执行，使用脚本语言编写的程序必须设置为可读才能被执行。</li>
+</ul>
+<p>目录：</p>
+<ul>
+<li><code>r</code>：允许列出目录中的内容，前提是目录必须设置了<code>可执行属性(x)</code>。</li>
+<li><code>w</code>：允许在目录下新建、删除或重命名文件，前提是目录必须设置了<code>可执行属性(x)</code>。</li>
+<li><code>x</code>：允许进入目录，例如：<code>cd directory</code>。</li>
+</ul>
+<h2 id="chmod"><a class="header-anchor" href="#chmod">#</a>chmod</h2>
+<p><strong>只有文件的所有者或者超级用户才能更改文件或目录的模式。</strong></p>
+<p><code>chmod</code>命令支持两种不同的方法来改变文件模式：<code>八进制数字表示法</code>或<code>符号表示法</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">八进制</th>
+<th style="text-align:center">二进制</th>
+<th style="text-align:center">文件模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>0</code></td>
+<td style="text-align:center"><code>000</code></td>
+<td style="text-align:center"><code>---</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:center"><code>001</code></td>
+<td style="text-align:center"><code>--x</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>2</code></td>
+<td style="text-align:center"><code>010</code></td>
+<td style="text-align:center"><code>-w-</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>3</code></td>
+<td style="text-align:center"><code>011</code></td>
+<td style="text-align:center"><code>-wx</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>4</code></td>
+<td style="text-align:center"><code>100</code></td>
+<td style="text-align:center"><code>r--</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>5</code></td>
+<td style="text-align:center"><code>101</code></td>
+<td style="text-align:center"><code>r-x</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>6</code></td>
+<td style="text-align:center"><code>110</code></td>
+<td style="text-align:center"><code>rw-</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>7</code></td>
+<td style="text-align:center"><code>111</code></td>
+<td style="text-align:center"><code>rwx</code></td>
+</tr>
+</tbody>
+</table>
+<p>常用权限：<code>7 (rwx)</code>，<code>6 (rw-)</code>，<code>5 (r-x)</code>，<code>4 (r--)</code>，和 <code>0 (-–)</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>u</code></td>
+<td style="text-align:left"><code>user</code>的简写，意思是文件或目录的所有者。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>g</code></td>
+<td style="text-align:left"><code>groups</code>的简写，用户组。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>o</code></td>
+<td style="text-align:left"><code>others</code>的简写，意思是其他所有的人。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>a</code></td>
+<td style="text-align:left"><code>all</code>的简写，是<code>u</code>、<code>g</code>和<code>o</code>三者的联合。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>如果没有指定字符，则假定使用<code>all</code>。</strong></p>
+<p>权限操作：</p>
+<ul>
+<li><code>+</code>：加上一个权限。</li>
+<li><code>-</code>：删掉一个权限。</li>
+<li><code>=</code>：只有指定的权限可用，其它所有的权限被删除。</li>
+</ul>
+<p><strong>多种设定可以用逗号分开。</strong></p>
+<p><code>u+x,go=rw</code>：给文件拥有者执行权限并给组和其他人读和执行的权限。</p>
+<h2 id="umask"><a class="header-anchor" href="#umask">#</a>umask</h2>
+<p>当创建一个文件时，<code>umask</code>命令控制着文件的默认权限。<br>
+<code>umask</code>以掩码的形式来工作，和网关那里差不多，一般是<code>022</code>和<code>002</code>。</p>
+<p>比如说正常一个权限是<code>666</code>（<code>110 110 110</code>），即<code>rw-rw-rw-</code>，被<code>022</code>（<code>000 010 010</code>）的<code>umask</code>后会变成<code>110 100 100</code>，即<code>644</code>，<code>rw-r--r--</code>。</p>
 <blockquote>
-<p>The intuition of the proposed ME module is that, among all feature channels, different channels would capture distinct information.<br>
-For action recognition, it is beneficia to enable the model to discover and then enhance these motion-sensitive channels.</p>
+<p>虽然我们通常看到一个八进制的权限掩码用三位数字来表示，但是从技术层面上来讲，用四位数字来表示它更确切些。为什么呢？因为除了读取、写入和执行权限之外，还有其它较少用到的权限设置。</p>
 </blockquote>
-<p>给定输入：</p>
-<p>$$<br>
-\mathbf{X} \in \mathbb{R}^{N \times T \times C \times H \times W}<br>
-$$</p>
-<ol>
-<li>首先进行通道数降低，来减少计算量：</li>
-</ol>
-<p>$$<br>
-\mathbf{X}^r = \mathrm{conv}_\mathit{red} * \mathbf{X}, \quad \mathbf{X}^r \in \mathbb{R}^{N \times T \times C/r \times H \times W}<br>
-$$</p>
-<ol start="2">
-<li>然后根据<code>时间分片</code>进行运动特征的表征，表征就是特征层相减的差值，不过在进行转换之前先进行了卷积操作，得到的$\mathbf{M}(t)$就是$t$时刻的运动特征，然规定$\mathbf{M}(t) = 0$：</li>
-</ol>
-<p>$$<br>
-\mathbf{M}(t) = \mathrm{conv}_\mathit{trans} * \mathbf{X}^r(t+1) - \mathbf{X}^r(t), 1 \leq t \leq T-1, \mathbf{M}(t) \in \mathcal{R}^{N \times C/r \times H \times W}<br>
-$$</p>
-<ol start="3">
-<li>全局平均池化操作，把空间信息进行总结，因为这里是要对那些<code>运动敏感</code>的通道进行激活，所以空间信息并不是很重要：</li>
-</ol>
-<p>$$<br>
-\mathbf{M}^{s} = \mathrm{Pool}(\mathbf{M}), \quad \mathbf{M}^{s} \in \mathbb{R}^{N \times T \times C/r \times 1 \times 1}<br>
-$$</p>
-<ol start="4">
-<li>恢复通道数至初始，通过$Sigmoid$函数进行激活：</li>
-</ol>
-<p>$$<br>
-\mathbf{A} = 2\delta( \mathrm{conv}_\mathit{exp} * \mathbf{M}^s)-1, \quad \mathbf{A} \in \mathbb{R}^{N \times T \times C \times 1 \times 1}<br>
-$$</p>
-<ol start="5">
-<li>然后把权重$\mathbf{A}$乘到输入上，就能够对动作进行表征。但是会对一些背景信息进行抑制，所以用一种残差结构，来修正影响：</li>
-</ol>
 <blockquote>
-<p>such an approach will suppress the static background scene information, which is also beneficial for action recognition.<br>
-we propose to adopt a <em>residual</em> connection to enhance motion information meanwhile preserve scene information.</p>
+<p>其中之一是 setuid 位(八进制 4000)。当应用到一个可执行文件时，它把有效用户 ID 从真正的用户(实际运行程序的用户)设置成程序所有者的 ID。这种操作通常会应用到一些由超级用户所拥有的程序。当一个普通用户运行一个程序，这个程序由根用户 (root) 所有，并且设置了 setuid 位，这个程序运行时具有超级用户的特权，这样程序就可以访问普通用户禁止访问的文件和目录。很明显，因为这会引起安全方面的问题，所有可以设置 setuid 位的程序个数，必须控制在绝对小的范围内。</p>
 </blockquote>
-<p>$$<br>
-\mathbf{X}^{o} = \mathbf{X} + \mathbf{X} \odot \mathbf{A}, \quad \mathbf{X}^{o} \in \mathbb{R}^{N \times T \times C \times H \times W}<br>
-$$</p>
-<h3 id="multiple-temporal-aggregation-mta"><a class="header-anchor" href="#multiple-temporal-aggregation-mta">#</a>Multiple Temporal Aggregation(MTA)</h3>
-<p>这个模块的主要目的是为了增大时间维度的感受野，原理看起来很通俗易懂：</p>
-
-$$
-\begin{array}{lr}
-	\mathbf{X}^o_i = \mathbf{X}_i, & i=1 \\
-	\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_i), & i=2 \\
-	\mathbf{X}^o_i = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_i + \mathbf{X}^o_{i-1} ) ), & i=3,4 \\
-\end{array}
-$$
-
-<p>即：</p>
-
-$$
-\begin{array}{lr}
-	\mathbf{X}^o_1 = \mathbf{X}_1\\
-	\mathbf{X}^o_2 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * \mathbf{X}_1) \\
-	\mathbf{X}^o_3 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_3 + \mathbf{X}^o_2 ) ) \\
-	\mathbf{X}^o_4 = \mathrm{conv}_{\mathit{spa}}* ( \mathrm{conv}_{\mathit{temp}} * ( \mathbf{X}_4 + \mathbf{X}^o_3 ) ) \\
-\end{array}
-$$
-
-<p>这个操作需要对$\mathbf{X}$进行处理，从$\left[ N,T,C,H,W\right]$变换到$\left[ NHW, C, T\right]$。</p>
+<blockquote>
+<p>第二个是 setgid 位(八进制 2000)，这个相似于 setuid 位，把有效用户组 ID 从真正的用户组 ID 更改为文件所有者的组 ID。如果设置了一个目录的 setgid 位，则目录中新创建的文件具有这个目录用户组的所有权，而不是文件创建者所属用户组的所有权。对于共享目录来说，当一个普通用户组中的成员，需要访问共享目录中的所有文件，而不管文件所有者的主用户组时，那么设置 setgid 位很有用处。</p>
+</blockquote>
+<blockquote>
+<p>第三个是 sticky 位(八进制 1000)。这个继承于 Unix，在 Unix 中，它可能把一个可执行文件标志为“不可交换的”。在 Linux 中，会忽略文件的 sticky 位，但是如果一个目录设置了 sticky 位，那么它能阻止用户删除或重命名文件，除非用户是这个目录的所有者，或者是文件所有者，或是超级用户。这个经常用来控制访问共享目录，比方说/tmp。</p>
+</blockquote>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>注意对于符号链接文件，剩余的文件属性总是<code>rwxrwxrwx</code>，而且都是虚拟值。真正的文件属性是指符号链接<code>所指向的文件的属性</code>。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>这种文件类型是指按照字节流来处理数据的设备。比如说终端机或者调制解调器。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>这种文件类型是指按照数据块来处理数据的设备，例如一个硬盘或者 CD-ROM 盘。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
-            <a href="/blog/tags/action-recognition/">action recognition</a>
-            <a href="/blog/tags/tea/">tea</a>
-            <a href="/blog/tags/me/">me</a>
-            <a href="/blog/tags/mta/">mta</a>
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2020/10/15/weekly-report-20201015/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">周报-20201015</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2020/10/12/the-linux-command-line-note-1/">
-        <span class="next-text nav-default">《快乐的Linux命令行》笔记（1）</span>
+        <nav class="post-nav"><a class="next" href="/blog/2020/11/17/the-linux-command-line-note-10/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（10）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
