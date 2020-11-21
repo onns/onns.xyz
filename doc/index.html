@@ -54,10 +54,10 @@
 		}
 
 		// 获取当前url
-		var url = window.location.href.slice(window.location.href.indexOf('/doc/'));
+		var url = window.location.href.slice(window.location.href.indexOf('/doc/')).slice(6);
 		Debugger.log(url);
 
-		document.title = "Doc - " + url.slice(6);
+		document.title = "Doc - " + url;
 
 		// setInterval(function(){
 		var docEle = document.getElementById('content');
