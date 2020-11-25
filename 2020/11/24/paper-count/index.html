@@ -63,12 +63,12 @@
 		var dom = document.getElementById("container");
 		var myChart = echarts.init(dom);
 
-		query.ascending('createdAt');
+		query.descending('createdAt');
 		query.find().then((pc) => {
 			// console.log(pc);
-			var off = pc[0].attributes.n;
-			var zero = pc[0].attributes.n;
-			for (var i = 0; i < pc.length; i++) {
+			var off = pc[pc.length - 1].attributes.n;
+			var zero = 3826;
+			for (var i = pc.length - 1; i >= 0; i--) {
 				// off = pc[0].attributes.n;
 				// var now = new Date(pc[i].createdAt);
 				// console.log(now);
