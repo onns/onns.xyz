@@ -63,7 +63,7 @@
 		var dom = document.getElementById("container");
 		var myChart = echarts.init(dom);
 
-		query.descending('createdAt').limit(60);
+		query.descending('createdAt').limit(30);
 		query.find().then((pc) => {
 			// console.log(pc);
 			var off = pc[pc.length - 1].attributes.n;
