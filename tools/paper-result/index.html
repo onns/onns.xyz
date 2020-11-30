@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tools - Paper Result</title>
+  <link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+  <div class="container-contact100">
+    <div class="wrap-contact100">
+      <form class="contact100-form validate-form">
+        <span class="contact100-form-title">
+          Paper Result
+        </span>
+        <div class="wrap-input100">
+          <textarea id="original" class="input100" name="original"
+            placeholder="[epoch] 	 [Prec@1]	[Prec@best]"></textarea>
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100">
+          <textarea id="current" class="input100" name="current" placeholder="[Prec@1]"></textarea>
+          <span class="focus-input100"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    function getBest(str) {
+      return str.replace(/([0-9]+)([\s]+)([0-9.]+)([\s]+)([0-9.]+)/g, "$3");
+    }
+
+
+    var original = document.getElementById("original");
+    var current = document.getElementById("current");
+    original.addEventListener("input", function () {
+      current.innerHTML = getBest(this.value);
+    });
+  </script>
+</body>
+
+</html>
