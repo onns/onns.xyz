@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="TEA Temporal Excitation and Aggregation for Action Recognition"/><meta name="keywords" content="行为识别, action recognition, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="TEA Temporal Excitation and Aggregation for Action Recognition"/><meta name="keywords" content="行为识别, action recognition, tea, cvpr, cvpr2020, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/10/04/tea-temporal-excitation-and-aggregation-for-action-recognition/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -287,14 +287,14 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     </div>
   </div><div class="post-content"><h2 id="tea-temporal-excitation-and-aggregation-for-action-recognition"><a class="header-anchor" href="#tea-temporal-excitation-and-aggregation-for-action-recognition">#</a>TEA: Temporal Excitation and Aggregation for Action Recognition</h2>
 <h3 id="问题提出"><a class="header-anchor" href="#问题提出">#</a>问题提出</h3>
-<p>时序建模的两个问题：<code>short-range motion encoding</code>和<code>long-range temporal aggregation</code>。</p>
+<p>在行为识别网络的时序建模中存在着两个问题：<code>short-range motion encoding</code>和<code>long-range temporal aggregation</code>，即短时运动编码和长时的时间信息融合问题。</p>
 <p>前者基本依赖光流来解决，因为计算量很大，且无法满足实时的任务，所以作者提出<code>motion excitation</code>。</p>
 <p>后者现有的解决方案有两个：</p>
 <ol>
 <li>adopt 2D CNN backbones to extract frame-wise features and then utilize a simple temporal max/average pooling to obtain the whole video representation.</li>
 <li>adopt local 3D/(2+1)D convolutional operations to process local temporal window</li>
 </ol>
-<p>时空信息在网络的顶端进行融合，再反向传播回来，可能会导致优化困难。所以作者提出<code>multiple temporal aggregation</code>。</p>
+<p>这样所带来的问题是，时空信息在网络的顶端进行融合，再反向传播回来，可能会导致优化困难。所以作者提出<code>multiple temporal aggregation</code>。</p>
 <center>
 <!-- //onns.xyz/blog/image -->
 <p><img src="//onns.xyz/blog/image/20201008-1.png" alt="结构图"></p>
@@ -315,6 +315,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         <div class="post-tags">
             <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
             <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/tea/">tea</a>
+            <a href="/blog/tags/cvpr/">cvpr</a>
+            <a href="/blog/tags/cvpr2020/">cvpr2020</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/10/06/ubuntu-subsystem-in-windows/">

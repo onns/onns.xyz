@@ -263,6 +263,38 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/">Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/"
+             data-title="Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition"><a class="header-anchor" href="#late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition">#</a>Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</h2>
+<p><code>HMDB51</code>和<code>UCF101</code>的<code>top-1</code>达到现阶段最好的水平，分别为<code>85.10%</code>和<code>98.69%</code>。</p>
+<p>时序全局平均池化阻碍了时序信息的更丰富表达。虽然感受野可能分布在整个视频切片中，但是对于不同的切片，它所能提供的信息是服从高斯分布的，简单的平均可能会损失信息。</p>
+<blockquote>
+<p>temporal global average pooling (TGAP) layer is used at the end of all 3D CNN architectures hinders the richness of final temporal information.<br>
+the receptive field might cover the whole clip, the effective receptive field has a Gaussian distribution</p>
+</blockquote>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://github.com/artest08/LateTemporalModeling3DCNN" target="_blank" rel="noopener">https://github.com/artest08/LateTemporalModeling3DCNN</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/optical-flow/">光流法</a>
         </h1>
 
@@ -519,17 +551,18 @@ In summary, differences in low-level feature maps can reflect small displacement
         </div>
     </header>
 
-    <div class="post-content"><center>
+    <div class="post-content"><h1 id="tsm-temporal-shift-module-for-efficient-video-understanding"><a class="header-anchor" href="#tsm-temporal-shift-module-for-efficient-video-understanding">#</a>TSM: Temporal Shift Module for Efficient Video Understanding</h1>
+<center>
 <p><img src="//onns.xyz/blog/image/20200910-1.png" alt="核心思想"></p>
 </center>
-<p>实现在 2D 模型上达到 3D 模型的精度，极大的降低了计算。</p>
-<p>并不是所有的<code>shift</code>操作都可以达到效果的，虽然<code>shift</code>操作不需要额外的运算但是仍然需要数据的移动，太多的移动会带来延迟。</p>
-<p><code>shift</code>是增加时间特征的提取，太多的<code>shift</code>操作也会导致空间特征的提取受到影响。</p>
+<p>文章实现了在 2D 模型上达到 3D 模型的精度，极大的降低了计算。其核心思想是通过一种<code>shift</code>操作，将时间纬度上的不同帧之间的通道进行偏移，以达到共享时间特征的目的。</p>
+<p>然而并不是所有的<code>shift</code>操作都可以达到效果的，虽然<code>shift</code>操作不需要额外的运算但是仍然需要数据的移动，太多的移动会带来延迟。</p>
+<p>除此之外，<code>shift</code>是增加时间特征的提取，太多的<code>shift</code>操作也会导致空间特征的提取受到影响。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20200910-2.png" alt="作者思路"></p>
 </center>
-<p>改进的<code>shift</code>策略：并不是<code>shift</code>所有的<code>channels</code>，而是只选择性的<code>shift</code>其中的一部分，该策略能够有效的减少数据移动所带来的时间复杂度。</p>
-<p>TSM 并不是直接被插入到从前往后的干道中的，而是以旁路的形式进行，因此在获得了时序信息的同时不会对二维卷积的空间信息进行损害。</p>
+<p>故文章中所提出的是一种改进的<code>shift</code>策略：并不是<code>shift</code>所有的<code>channels</code>，而是只选择性的<code>shift</code>其中的一部分，该策略能够有效的减少数据移动所带来的时间复杂度。</p>
+<p>另外<code>TSM</code>并不是直接被插入到从前往后的干道中的，而是以旁路的形式进行，因此在获得了时序信息的同时不会对二维卷积的空间信息进行损害。</p>
 <p>同时作者对于一些实时的在线检测提出了相应的模型策略，不同于将第一层下移第二层上移这种：</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20200910-3.png" alt="在线模型"></p>
@@ -579,7 +612,7 @@ In summary, differences in low-level feature maps can reflect small displacement
 <center>
 <p><img src="//onns.xyz/blog/image/20200910-5.png" alt="GSM"></p>
 </center>
-<p>提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
+<p>文章提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
 <p>通过<code>GSM</code>插件，一个<code>2D-CNN</code>可以适应性地学习时间路由特性并将它们结合起来，并且几乎没有额外的附加参数和计算开销。</p>
 <center>
 <p><img src="//onns.xyz/blog/image/20200910-4.png" alt="思路对比"></p>
@@ -593,7 +626,7 @@ In summary, differences in low-level feature maps can reflect small displacement
 <blockquote>
 <p>From the experiments we conclude that adding GSM to the branch with the least number of convolution layers performs the best.</p>
 </blockquote>
-<p>在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
+<p><code>GSM</code>通过一种门移模块，来让网络自己学习<code>TSM</code>中的<code>shift</code>操作，并通过实验证明在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
 
         </div></article>
       <article class="post">
@@ -651,38 +684,6 @@ In summary, differences in low-level feature maps can reflect small displacement
     </header>
 
     <div class="post-content"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">| date | report#ID | name |</span><br><span class="line">| :--: | :-------: | :--: |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">## I. Task achieved last week</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## II. Reports</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## III. Plan for this week</span></span><br><span class="line"></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/">一种基于 2D 时空信息提取的行为识别算法</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-29
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/"
-             data-title="一种基于 2D 时空信息提取的行为识别算法">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="一种基于-2d-时空信息提取的行为识别算法"><a class="header-anchor" href="#一种基于-2d-时空信息提取的行为识别算法">#</a>一种基于 2D 时空信息提取的行为识别算法</h2>
-<p>在<code>UCF101</code>数据集上准确率<code>94.46%</code>。</p>
-<p>采用<code>DenseNet</code>做为网络的架构。</p>
-<p>从一个视频片段提取出 <code>16</code> 帧的 <code>64 × 64 × 3</code> 的有时序顺序的图像，组织成 <code>4 × 4</code> 的图像。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200829-1.png" alt="图像翻转设计"></p>
-</center>
-<center>
-<p><img src="//onns.xyz/blog/image/20200829-2.png" alt="实验结果"></p>
-</center>
-<p>文章没有具体说明执行速度，但是我觉得应该比基于视频的快很多，也相对来讲更有实践性。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/7/">

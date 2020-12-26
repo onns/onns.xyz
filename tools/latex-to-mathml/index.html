@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - LaTeX to MathML</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					LaTeX to MathML
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original"
+						placeholder="$\frac{3\times a}{2}$"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder='<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+	<mfrac>
+		<mrow>
+			<mn>3</mn>
+			<mo>&#xD7;</mo>
+			<mi>a</mi>
+		</mrow>
+		<mn>2</mn>
+	</mfrac>
+</math>'></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		MathJax = {
+			tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				displayMath: [['$$', '$$'], ["\\[", "\\]"]]
+			},
+			svg: {
+				fontCache: 'global'
+			}
+		};
+		function latexToMathml(str) {
+			let res = '';
+			// 重置
+			// MathJax.texReset();
+			// MathJax.tex2mmlPromise(str).then(function (mml) {
+			// 	// 转换结果
+			// 	console.log(mml);
+			// 	res = mml;
+			// }).catch(function (err) {
+			// 	// 发生错误时
+			// 	res = err.message;
+			// }).then(function () {
+			// 	// 完成时
+			// 	current.innerHTML =  res;
+			// });
+			// return MathJax.tex2mml(str);
+			console.log(str);
+			return str.replace(/\$([\S ][^\u4e00-\u9fa5]+)\$/g, MathJax.tex2mml("$1"));
+		}
+
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = latexToMathml(this.value.trim());
+		});
+	</script>
+	<script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+
+</html>
