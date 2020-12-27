@@ -283,7 +283,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-comprehensive-study-of-deep-video-action-recognition"><span class="toc-text">A Comprehensive Study of Deep Video Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#挑战"><span class="toc-text">挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#史诗"><span class="toc-text">史诗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#two-stream-networks"><span class="toc-text">Two-stream networks</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-comprehensive-study-of-deep-video-action-recognition"><span class="toc-text">A Comprehensive Study of Deep Video Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#挑战"><span class="toc-text">挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#史诗"><span class="toc-text">史诗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#two-stream-networks"><span class="toc-text">Two-stream networks</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于分段的方法"><span class="toc-text">基于分段的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多流网络"><span class="toc-text">多流网络</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三维卷积神经网络"><span class="toc-text">三维卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#统一二维和三维卷积神经网络"><span class="toc-text">统一二维和三维卷积神经网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升三维卷积的效率"><span class="toc-text">提升三维卷积的效率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高效视频建模"><span class="toc-text">高效视频建模</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类光流算法"><span class="toc-text">类光流算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未来研究方向"><span class="toc-text">未来研究方向</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h1 id="a-comprehensive-study-of-deep-video-action-recognition"><a class="header-anchor" href="#a-comprehensive-study-of-deep-video-action-recognition">#</a>A Comprehensive Study of Deep Video Action Recognition</h1>
 <p>2020 年 12 月的新论文，亚马逊李沐团队提出，行为识别的全面调研（2014-2020）。</p>
@@ -320,6 +320,50 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ol>
 <p>因为在一个双流网络中有两个流。将会有一个阶段，需要合并两个网络的结果，以获得最终的预测。这一阶段通常称为时空融合步骤。</p>
 <p>最简单、最直接的方法是<code>late fusion</code>。它对来自两个信息流的预测进行加权平均。尽管后期融合被广泛采用，但许多研究人员认为，这可能不是融合空间外观流和时间运动流信息的最佳方式。他们相信，在模型学习过程中，两个网络之间早期的互动可以使两个流都受益，这被称为早期融合，即<code>early fusion</code>。</p>
+<p>（20201227 更新：LSTM 我一窍不通，所以省略）</p>
+<h4 id="基于分段的方法"><a class="header-anchor" href="#基于分段的方法">#</a>基于分段的方法</h4>
+<p><code>TSN</code>在每个片段中随机选择一个视频帧，最后，分段一致性被执行以聚合来自采样视频帧的信息。<code>TSN</code>能够对长期时间结构进行建模，因为模型可以看到整个视频的内容。此外，这种稀疏采样策略降低了长视频序列的训练成本，但保留了相关信息。</p>
+<h4 id="多流网络"><a class="header-anchor" href="#多流网络">#</a>多流网络</h4>
+<p>双流网络之所以成功，是因为视频的<code>外观</code>和<code>运动信息</code>是两个最重要的属性。但还有一些其它的对行为识别有帮助的信息，比如<code>姿态</code>、<code>物体</code>、<code>声音</code>或者<code>深度信息</code>等。</p>
+<h3 id="三维卷积神经网络"><a class="header-anchor" href="#三维卷积神经网络">#</a>三维卷积神经网络</h3>
+<p><code>C3D</code>在标准基准上的性能并不令人满意，但显示出很强的泛化能力，可以作为各种视频任务的通用特征提取器。</p>
+<p>然而，3D 网络很难优化。为了更好地训练一个 3D 卷积滤波器，人们需要一个包含不同视频内容和动作类别的大规模数据集。</p>
+<p>然而，C3D 的训练需要几周的时间来收敛。尽管 C3D 很受欢迎，但大多数用户只是将其作为不同用例的特征提取器，而不是修改/微调网络。</p>
+<p><code>I3D</code>改变了这一现象，它的主要贡献点有两个：</p>
+<ol>
+<li>用成熟的图像分类体系用于 3D CNN。</li>
+<li>对于模型权值，采用【Towards Good Practices for Very Deep Two-Stream ConvNets】中初始化光流网络的方法，将 ImageNet 预先训练好的 2D 模型权值膨胀到 3D 模型中的对应模型。</li>
+</ol>
+<p>三维卷积神经网络并不会取代双流网络，它们也不是相互排斥的。</p>
+<h4 id="统一二维和三维卷积神经网络"><a class="header-anchor" href="#统一二维和三维卷积神经网络">#</a>统一二维和三维卷积神经网络</h4>
+<p><code>P3D</code>和<code>R2+1D</code> 都是把<code>3x3x3</code>的卷积核替换成了<code>3x1x1</code>和<code>1x3x3</code>的卷积核来减少计算量。</p>
+<p>除此之外还有别的方法直接将<code>2D</code>和<code>3D</code>卷积在一个网络里进行了混合。</p>
+<p>在网络的底部使用二维卷积核替代三维卷积核，发现这种头重脚轻的网络具有更高的识别精度。</p>
+<p>（<code>non-local</code>是区别于卷积核卷局部的概念而提出的，但是这个方向我没有研究，所以也略过。）</p>
+<h4 id="提升三维卷积的效率"><a class="header-anchor" href="#提升三维卷积的效率">#</a>提升三维卷积的效率</h4>
+<p>随着高效 2D 网络的发展，研究者们开始采用<code>基于信道的可分卷积</code>，并将其扩展到视频分类中。</p>
+<h3 id="高效视频建模"><a class="header-anchor" href="#高效视频建模">#</a>高效视频建模</h3>
+<p>随着数据集大小的增加和部署需求的增加，效率成为一个重要的关注点。如果我们使用基于双流网络的方法，我们需要预先计算光流并存储在本地磁盘上。以<code>Kinetics-400</code>数据集为例，存储所有光流图像需要 4.5TB 的磁盘空间。如此庞大的数据量将使 I/O 成为训练过程中最紧张的瓶颈，导致 GPU 资源的浪费和实验周期的延长。此外。预计算光流并不便宜，这意味着所有的双流网络方法都不是实时的。</p>
+<p>如果我们使用基于 3D cnn 的方法，人们仍然发现 3D cnn 训练困难，部署具有挑战性。在训练方面，使用高端 8-GPU 机器在 Kinetics400 数据集上训练一个标准的<code>Slow-Fast</code>网络需要 10 天才能完成。如此漫长的实验周期和巨大的计算成本，使得视频理解研究只能面向拥有丰富计算资源的大公司/实验室。最近有几次尝试加速深度视频模型的训练，但与大多数基于图像的计算机视觉任务相比，这些仍然是昂贵的。</p>
+<p>在部署方面，3D 卷积在不同平台上的支持不如 2D 卷积，3D cnn 需要更多的视频帧作为输入，增加了额外的 IO 成本。</p>
+<h4 id="类光流算法"><a class="header-anchor" href="#类光流算法">#</a>类光流算法</h4>
+<p>双流网络的一个主要缺点是对光流的需求。预计算光流的计算成本高，存储要求高，而且不能对视频动作识别进行端到端训练。如果我们能找到一种不用光流来编码运动信息的方法，那将是很有吸引力的。至少在推理时间。</p>
+<p><code>PAN</code>通过计算连续特征图之间的差异。</p>
+<h2 id="未来研究方向"><a class="header-anchor" href="#未来研究方向">#</a>未来研究方向</h2>
+<ol>
+<li>模型分析和可视化</li>
+<li><strong>数据增强</strong></li>
+<li>视频领域自适应（迁移学习）</li>
+<li>神经结构搜索</li>
+<li><strong>高效的模型开发</strong></li>
+<li>新数据集</li>
+<li><strong>视频对抗攻击</strong></li>
+<li><strong>零样本动作识别</strong></li>
+<li>弱监督的视频动作识别</li>
+<li>细粒度视频动作识别</li>
+<li>以自我为中心的行为识别</li>
+<li>多模态</li>
+</ol>
 
       </div>
       
