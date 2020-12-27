@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>当前工作进度报告</title>
+      <link href="/blog/2020/12/27/interim-report/"/>
+      <url>/blog/2020/12/27/interim-report/</url>
+      
+        <content type="html"><![CDATA[<center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementById('comments').remove();document.getElementById('back-to-top').remove();document.getElementById('post-toc').remove();"><table><thead><tr><th style="text-align:center">2020-12-27</th><th style="text-align:center">中期进展报告</th><th style="text-align:center">刘潘</th></tr></thead><tbody></tbody></table></center><a id="more"></a><h2 id="综述"><a class="header-anchor" href="#综述">#</a>综述</h2><p>当前行为识别的主流方向有两个，分别是双流二维卷积神经网络和三维卷积神经网络。</p><p>随着数据集大小的增加和部署需求的增加，效率成为一个重要的关注点。如果我们使用基于双流网络的方法，我们需要预先计算光流并存储在本地磁盘上。以<code>Kinetics-400</code>数据集为例，存储所有光流图像需要 <code>4.5TB</code> 的磁盘空间。如此庞大的数据量将使 <code>I/O</code> 成为训练过程中最紧张的瓶颈，导致 <code>GPU</code> 资源的浪费和实验周期的延长。此外，预计算光流并不便宜，这意味着所有的双流网络方法都不是实时的。</p><p>如果我们使用基于 3D cnn 的方法，人们仍然发现 3D cnn 训练困难，部署具有挑战性。在训练方面，使用高端 8-GPU 机器在 Kinetics400 数据集上训练一个标准的<code>Slow-Fast</code>网络需要 10 天才能完成。如此漫长的实验周期和巨大的计算成本，使得视频理解研究只能面向拥有丰富计算资源的大公司/实验室。最近有几项科研成果尝试加速深度视频模型的训练，但与大多数基于图像的计算机视觉任务相比，这些仍然是昂贵的。在部署方面，3D 卷积在不同平台上的支持不如 2D 卷积，3D cnn 需要更多的视频帧作为输入，增加了额外的 IO 成本。</p><p>上述问题的一个可行的解决方案是用一种<code>近似光流</code>的手段来代替光流，从而让模型有能够具备高效推理的潜力来应用到实时检测领域中。</p><h2 id="多尺度边缘表征双流网络"><a class="header-anchor" href="#多尺度边缘表征双流网络">#</a>多尺度边缘表征双流网络</h2><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20201227-1.png" alt="边缘"></p></center><p>图 B 是通过 EPE loss 得到的光流图像<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，图 C 是通过将光流网络和分类网络融合后训练得到的微调光流图像，后者在分类准确率上具有更好的效果。</p><p>通过可视化图 B 和图 C 之间的差距，可以看出<strong>运动的边界</strong>对于运动的表示起到了很重要的作用，故<strong>可以用图像边缘的运动</strong>来作为光流的一种替代方案。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20201227-2.png" alt="边缘计算"></p></center><p>给定相邻帧的输入，首先通过一个卷积神经网络来提取边缘特征，然后通过计算边缘的差异来表征运动信息，作为双流输入中的“光流”分支。</p><h3 id="多尺度运动边缘表征"><a class="header-anchor" href="#多尺度运动边缘表征">#</a>多尺度运动边缘表征</h3><p>在实际的运动表征中，会出现相邻两帧之间的运动幅度非常小的情况，而单纯增加采样间隔也会对那些相邻两帧之间变化大的视频造成影响，同时也难以对帧数较少的视频进行描述，故采用一种多尺度的运动边缘表征作为网络的输入。</p><h3 id="多通道信息融合"><a class="header-anchor" href="#多通道信息融合">#</a>多通道信息融合</h3><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20201227-3.png" alt="多通道信息融合"></p></center><h3 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h3><table><thead><tr><th style="text-align:center">No.</th><th style="text-align:center">Method</th><th style="text-align:center">Backbone</th><th style="text-align:center">Frame</th><th style="text-align:center">FLOPs × views</th><th style="text-align:center">Val Top1</th><th style="text-align:center">Val Top5</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:center">Baseline</td><td style="text-align:center">-</td><td style="text-align:center">8+8×4</td><td style="text-align:center">67.7G × 1</td><td style="text-align:center">50.5</td><td style="text-align:center">79.2</td></tr><tr><td style="text-align:center">2</td><td style="text-align:center">+ ms</td><td style="text-align:center">-</td><td style="text-align:center">8+8×4</td><td style="text-align:center">-</td><td style="text-align:center">50.72</td><td style="text-align:center">79.48</td></tr><tr><td style="text-align:center">3</td><td style="text-align:center">+ mc</td><td style="text-align:center">-</td><td style="text-align:center">8+8×4</td><td style="text-align:center">-</td><td style="text-align:center">51.93</td><td style="text-align:center">80.15</td></tr><tr><td style="text-align:center">4</td><td style="text-align:center"><strong>+ ms + mc</strong></td><td style="text-align:center">-</td><td style="text-align:center">8+8×4</td><td style="text-align:center">-</td><td style="text-align:center"><strong>52.44</strong></td><td style="text-align:center"><strong>80.35</strong></td></tr><tr><td style="text-align:center">5</td><td style="text-align:center">Baseline</td><td style="text-align:center">-</td><td style="text-align:center">(8+8×4)x2</td><td style="text-align:center">(46.6G+88.4G) x 2</td><td style="text-align:center">53.4</td><td style="text-align:center">81.1</td></tr><tr><td style="text-align:center">6</td><td style="text-align:center">+ ms</td><td style="text-align:center">-</td><td style="text-align:center">(8+8×4)x2</td><td style="text-align:center">-</td><td style="text-align:center">53.77</td><td style="text-align:center">81.43</td></tr><tr><td style="text-align:center">7</td><td style="text-align:center"><strong>+ ms + mc</strong></td><td style="text-align:center">-</td><td style="text-align:center">(8+8×4)x2</td><td style="text-align:center">-</td><td style="text-align:center"><strong>54.8</strong></td><td style="text-align:center"><strong>82.55</strong></td></tr></tbody></table><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p>EPE 是一种对光流预测错误率的一种评估方式。指所有像素点的 gound truth 和预测出来的光流之间差别距离（欧氏距离）的平均值。 <a href="#fnref1" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+            <tag> lab406 </tag>
+            
+            <tag> interim report </tag>
+            
+            <tag> report </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>A Comprehensive Study of Deep Video Action Recognition</title>
       <link href="/blog/2020/12/26/a-comprehensive-study-of-deep-video-action-recognition/"/>
       <url>/blog/2020/12/26/a-comprehensive-study-of-deep-video-action-recognition/</url>

@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/13/"/>
+<meta name="description" content="当前工作进度报告"/><meta name="keywords" content="行为识别, action recognition, lab406, interim report, report, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/12/27/interim-report/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>当前工作进度报告 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,261 +261,182 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/03/14/java-notes-6/">Java学习笔记（六）</a>
+      <h1 class="post-title">当前工作进度报告
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-03-14
+          2020-12-27
         </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
+            <a href="/blog/categories/study/">study</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/03/14/java-notes-6/"
-             data-title="Java学习笔记（六）">
+             data-url="/blog/2020/12/27/interim-report/"
+             data-title="当前工作进度报告">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="范型程序设计"><a class="header-anchor" href="#范型程序设计">#</a>范型程序设计</h2>
-          <div class="read-more">
-            <a href="/blog/2020/03/14/java-notes-6/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/27/Indesign-skills/">InDesign小技巧</a>
-        </h1>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#综述"><span class="toc-text">综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多尺度边缘表征双流网络"><span class="toc-text">多尺度边缘表征双流网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多尺度运动边缘表征"><span class="toc-text">多尺度运动边缘表征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多通道信息融合"><span class="toc-text">多通道信息融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实验结果"><span class="toc-text">实验结果</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();
+document.getElementsByTagName('header')[0].remove();
+document.getElementsByTagName('footer')[0].remove();
+document.getElementsByTagName('footer')[0].remove();
+document.getElementById('comments').remove();
+document.getElementById('back-to-top').remove();
+document.getElementById('post-toc').remove();">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">2020-12-27</th>
+<th style="text-align:center">中期进展报告</th>
+<th style="text-align:center">刘潘</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</center>
+<a id="more"></a>
+<h2 id="综述"><a class="header-anchor" href="#综述">#</a>综述</h2>
+<p>当前行为识别的主流方向有两个，分别是双流二维卷积神经网络和三维卷积神经网络。</p>
+<p>随着数据集大小的增加和部署需求的增加，效率成为一个重要的关注点。如果我们使用基于双流网络的方法，我们需要预先计算光流并存储在本地磁盘上。以<code>Kinetics-400</code>数据集为例，存储所有光流图像需要 <code>4.5TB</code> 的磁盘空间。如此庞大的数据量将使 <code>I/O</code> 成为训练过程中最紧张的瓶颈，导致 <code>GPU</code> 资源的浪费和实验周期的延长。此外，预计算光流并不便宜，这意味着所有的双流网络方法都不是实时的。</p>
+<p>如果我们使用基于 3D cnn 的方法，人们仍然发现 3D cnn 训练困难，部署具有挑战性。在训练方面，使用高端 8-GPU 机器在 Kinetics400 数据集上训练一个标准的<code>Slow-Fast</code>网络需要 10 天才能完成。如此漫长的实验周期和巨大的计算成本，使得视频理解研究只能面向拥有丰富计算资源的大公司/实验室。最近有几项科研成果尝试加速深度视频模型的训练，但与大多数基于图像的计算机视觉任务相比，这些仍然是昂贵的。在部署方面，3D 卷积在不同平台上的支持不如 2D 卷积，3D cnn 需要更多的视频帧作为输入，增加了额外的 IO 成本。</p>
+<p>上述问题的一个可行的解决方案是用一种<code>近似光流</code>的手段来代替光流，从而让模型有能够具备高效推理的潜力来应用到实时检测领域中。</p>
+<h2 id="多尺度边缘表征双流网络"><a class="header-anchor" href="#多尺度边缘表征双流网络">#</a>多尺度边缘表征双流网络</h2>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201227-1.png" alt="边缘"></p>
+</center>
+<p>图 B 是通过 EPE loss 得到的光流图像<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，图 C 是通过将光流网络和分类网络融合后训练得到的微调光流图像，后者在分类准确率上具有更好的效果。</p>
+<p>通过可视化图 B 和图 C 之间的差距，可以看出<strong>运动的边界</strong>对于运动的表示起到了很重要的作用，故<strong>可以用图像边缘的运动</strong>来作为光流的一种替代方案。</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201227-2.png" alt="边缘计算"></p>
+</center>
+<p>给定相邻帧的输入，首先通过一个卷积神经网络来提取边缘特征，然后通过计算边缘的差异来表征运动信息，作为双流输入中的“光流”分支。</p>
+<h3 id="多尺度运动边缘表征"><a class="header-anchor" href="#多尺度运动边缘表征">#</a>多尺度运动边缘表征</h3>
+<p>在实际的运动表征中，会出现相邻两帧之间的运动幅度非常小的情况，而单纯增加采样间隔也会对那些相邻两帧之间变化大的视频造成影响，同时也难以对帧数较少的视频进行描述，故采用一种多尺度的运动边缘表征作为网络的输入。</p>
+<h3 id="多通道信息融合"><a class="header-anchor" href="#多通道信息融合">#</a>多通道信息融合</h3>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201227-3.png" alt="多通道信息融合"></p>
+</center>
+<h3 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No.</th>
+<th style="text-align:center">Method</th>
+<th style="text-align:center">Backbone</th>
+<th style="text-align:center">Frame</th>
+<th style="text-align:center">FLOPs × views</th>
+<th style="text-align:center">Val Top1</th>
+<th style="text-align:center">Val Top5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Baseline</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">8+8×4</td>
+<td style="text-align:center">67.7G × 1</td>
+<td style="text-align:center">50.5</td>
+<td style="text-align:center">79.2</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">+ ms</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">8+8×4</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">50.72</td>
+<td style="text-align:center">79.48</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">+ mc</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">8+8×4</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">51.93</td>
+<td style="text-align:center">80.15</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center"><strong>+ ms + mc</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">8+8×4</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><strong>52.44</strong></td>
+<td style="text-align:center"><strong>80.35</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Baseline</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">(8+8×4)x2</td>
+<td style="text-align:center">(46.6G+88.4G) x 2</td>
+<td style="text-align:center">53.4</td>
+<td style="text-align:center">81.1</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">+ ms</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">(8+8×4)x2</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">53.77</td>
+<td style="text-align:center">81.43</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center"><strong>+ ms + mc</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">(8+8×4)x2</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><strong>54.8</strong></td>
+<td style="text-align:center"><strong>82.55</strong></td>
+</tr>
+</tbody>
+</table>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>EPE 是一种对光流预测错误率的一种评估方式。指所有像素点的 gound truth 和预测出来的光流之间差别距离（欧氏距离）的平均值。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-27
-        </span><span class="post-category">
-            <a href="/blog/categories/design/">design</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/27/Indesign-skills/"
-             data-title="InDesign小技巧">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>记录一些InDesign的小技巧。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/27/Indesign-skills/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/25/java-notes-5/">Java学习笔记（五）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-25
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/25/java-notes-5/"
-             data-title="Java学习笔记（五）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="异常、断言和日志"><a class="header-anchor" href="#异常、断言和日志">#</a>异常、断言和日志</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/25/java-notes-5/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/24/java-notes-4/">Java学习笔记（四）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-24
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/24/java-notes-4/"
-             data-title="Java学习笔记（四）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="接口、lambda-表达式与内部类"><a class="header-anchor" href="#接口、lambda-表达式与内部类">#</a>接口、lambda 表达式与内部类</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/24/java-notes-4/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/21/teleport-ultra-for-windows/">Windows下超好用的软件——Teleport ultra</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-21
-        </span><span class="post-category">
-            <a href="/blog/categories/windows/">windows</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/21/teleport-ultra-for-windows/"
-             data-title="Windows下超好用的软件——Teleport ultra">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><code>Teleport ultra</code> 是一个可以把整个站离线下载下来的工具，超级好用。<br>
-有很多技术文档都是在线的、静态的，用这个工具很合适～</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/21/teleport-ultra-for-windows/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/20/wechat-svg/">微信文章svg交互</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-20
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/20/wechat-svg/"
-             data-title="微信文章svg交互">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>如果不是特别想做的话，还是在文章的开头劝退一波，因为 <strong>付出 &gt;&gt; 收获</strong>，不论如何，最终的反响不是特别好。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/20/wechat-svg/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/19/find-string-in-excel/">excel字符串查找</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-19
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/19/find-string-in-excel/"
-             data-title="excel字符串查找">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>经常会有在excel查找多个字符串的需求，比如在一个大excel表里找几门课，之前一直是导出成 <code>csv</code> 然后对文本文档进行操作，这样最终还要导回 <code>excel</code>，今天花费3、4个小时学了下vb，做了一个宏，直接在excel上操作。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/19/find-string-in-excel/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/14/java-notes-3/">Java学习笔记（三）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-14
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/14/java-notes-3/"
-             data-title="Java学习笔记（三）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java 核心技术卷一基础知识第 10 版</p>
-<h2 id="继承"><a class="header-anchor" href="#继承">#</a>继承</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/14/java-notes-3/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/13/online-doc/">文档同步</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-13
-        </span><span class="post-category">
-            <a href="/blog/categories/idea/">idea</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/13/online-doc/"
-             data-title="文档同步">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>经常会有这样一种需求：我需要把一段文字从一个设备发送到另一个设备，虽然确实会有很多解决办法，比如登陆QQ、微信，然后传过去，但是这些都<code>需要繁琐的登陆步骤</code>，并且有些时候你需要发送的设备是一台<code>不可信的</code>、<code>你不愿意在上面暴露自己账号密码</code>的设备，所以想弄一个无需登陆的小Demo，花了四个小时，效果还不错。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/13/online-doc/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/11/java-notes-2/">Java学习笔记（二）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-11
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/11/java-notes-2/"
-             data-title="Java学习笔记（二）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java 核心技术卷一基础知识第 10 版</p>
-<h2 id="对象与类"><a class="header-anchor" href="#对象与类">#</a>对象与类</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/11/java-notes-2/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/12/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/page/14/">
-        <span class="next-text">Next</span>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/lab406/">lab406</a>
+            <a href="/blog/tags/interim-report/">interim report</a>
+            <a href="/blog/tags/report/">report</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2020/12/26/a-comprehensive-study-of-deep-video-action-recognition/">
+        <span class="next-text nav-default">A Comprehensive Study of Deep Video Action Recognition</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -546,6 +467,29 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
