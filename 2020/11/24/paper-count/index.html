@@ -58,6 +58,7 @@
 		var data = [];
 		var truedata = [];
 		var offsetdata = [];
+		var pagedata = [];
 		var option = null;
 		var query = new AV.Query('PaperCount');
 		var dom = document.getElementById("container");
@@ -68,6 +69,7 @@
 			// console.log(pc);
 			var off = pc[pc.length - 1].attributes.n;
 			var zero = 3826;
+			var finalPage = 90;
 			for (var i = pc.length - 1; i >= 0; i--) {
 				// off = pc[0].attributes.n;
 				// var now = new Date(pc[i].createdAt);
@@ -83,6 +85,7 @@
 				data.push([pc[i].createdAt, pc[i].attributes.n]);
 				truedata.push([pc[i].createdAt, pc[i].attributes.n - zero]);
 				offsetdata.push([pc[i].createdAt, pc[i].attributes.n - off]);
+				pagedata.push([pc[i].createdAt, finalPage - pc[i].attributes.p]);
 				off = pc[i].attributes.n;
 			}
 			// console.log(data);
@@ -98,9 +101,10 @@
 						value1 = value[0].data;
 						value2 = value[1].data;
 						value3 = value[2].data;
+						value4 = value[3].data;
 						// // console.log(params.name)
 						// var date = new Date(params.name);
-						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value1[1] + "<br/>" + new Date(value2[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value2[1] + "<br/>" + new Date(value3[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value3[1];
+						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value1[1] + "<br/>" + new Date(value2[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value2[1] + "<br/>" + new Date(value3[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value3[1] + "<br/>" + new Date(value4[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value4[1];
 					},
 					axisPointer: {
 						animation: true
@@ -163,6 +167,18 @@
 						}
 					},
 					data: offsetdata
+				}, {
+					name: 'page left',
+					type: 'line',
+					showSymbol: true,
+					hoverAnimation: true,
+					label: {
+						normal: {
+							show: true,
+							position: 'top'
+						}
+					},
+					data: pagedata
 				}]
 			};
 
