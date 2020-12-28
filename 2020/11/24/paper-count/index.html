@@ -85,7 +85,7 @@
 				data.push([pc[i].createdAt, pc[i].attributes.n]);
 				truedata.push([pc[i].createdAt, pc[i].attributes.n - zero]);
 				offsetdata.push([pc[i].createdAt, pc[i].attributes.n - off]);
-				pagedata.push([pc[i].createdAt, finalPage - pc[i].attributes.p]);
+				pagedata.push([pc[i].createdAt, pc[i].attributes.p - finalPage]);
 				off = pc[i].attributes.n;
 			}
 			// console.log(data);
@@ -97,14 +97,14 @@
 				tooltip: {
 					trigger: 'axis',
 					formatter: function (value) {
-						console.log(value);
+						// console.log(value);
 						value1 = value[0].data;
 						value2 = value[1].data;
 						value3 = value[2].data;
 						value4 = value[3].data;
 						// // console.log(params.name)
 						// var date = new Date(params.name);
-						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value1[1] + "<br/>" + new Date(value2[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value2[1] + "<br/>" + new Date(value3[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value3[1] + "<br/>" + new Date(value4[0]).format('yyyy-MM-dd hh:mm:ss') + ' : ' + value4[1];
+						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + '<br/>全部字数: ' + value1[1] + '<br/>实际字数: ' + value2[1] + '<br/>新增字数: ' + value3[1] + '<br/>缺失页数: ' + value4[1];
 					},
 					axisPointer: {
 						animation: true
