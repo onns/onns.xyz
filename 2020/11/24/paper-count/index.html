@@ -85,7 +85,7 @@
 				data.push([pc[i].createdAt, pc[i].attributes.n]);
 				truedata.push([pc[i].createdAt, pc[i].attributes.n - zero]);
 				offsetdata.push([pc[i].createdAt, pc[i].attributes.n - off]);
-				pagedata.push([pc[i].createdAt, pc[i].attributes.p - finalPage]);
+				pagedata.push([pc[i].createdAt, pc[i].attributes.p]);
 				off = pc[i].attributes.n;
 			}
 			// console.log(data);
@@ -104,7 +104,7 @@
 						value4 = value[3].data;
 						// // console.log(params.name)
 						// var date = new Date(params.name);
-						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + '<br/>全部字数: ' + value1[1] + '<br/>实际字数: ' + value2[1] + '<br/>新增字数: ' + value3[1] + '<br/>缺失页数: ' + value4[1];
+						return new Date(value1[0]).format('yyyy-MM-dd hh:mm:ss') + '<br/>全部字数: ' + value1[1] + '<br/>实际字数: ' + value2[1] + '<br/>新增字数: ' + value3[1] + '<br/>当前页数: ' + value4[1];
 					},
 					axisPointer: {
 						animation: true
@@ -136,48 +136,48 @@
 					type: 'line',
 					showSymbol: true,
 					hoverAnimation: true,
-					label: {
-						normal: {
-							show: true,
-							position: 'top'
-						}
-					},
+					// label: {
+					// 	normal: {
+					// 		show: true,
+					// 		position: 'top'
+					// 	}
+					// },
 					data: data
 				}, {
 					name: 'offset',
 					type: 'line',
 					showSymbol: true,
 					hoverAnimation: true,
-					label: {
-						normal: {
-							show: true,
-							position: 'top'
-						}
-					},
+					// label: {
+					// 	normal: {
+					// 		show: true,
+					// 		position: 'top'
+					// 	}
+					// },
 					data: truedata
 				}, {
 					name: 'current',
 					type: 'line',
 					showSymbol: true,
 					hoverAnimation: true,
-					label: {
-						normal: {
-							show: true,
-							position: 'top'
-						}
-					},
+					// label: {
+					// 	normal: {
+					// 		show: true,
+					// 		position: 'top'
+					// 	}
+					// },
 					data: offsetdata
 				}, {
 					name: 'page left',
 					type: 'line',
 					showSymbol: true,
 					hoverAnimation: true,
-					label: {
-						normal: {
-							show: true,
-							position: 'top'
-						}
-					},
+					// label: {
+					// 	normal: {
+					// 		show: true,
+					// 		position: 'top'
+					// 	}
+					// },
 					data: pagedata
 				}]
 			};
