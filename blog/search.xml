@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>On the Integration of Optical Flow and Action Recognition</title>
+      <link href="/blog/2020/12/29/on-the-integration-of-optical-flow-and-action-recognition/"/>
+      <url>/blog/2020/12/29/on-the-integration-of-optical-flow-and-action-recognition/</url>
+      
+        <content type="html"><![CDATA[<h1 id="on-the-integration-of-optical-flow-and-action-recognition"><a class="header-anchor" href="#on-the-integration-of-optical-flow-and-action-recognition">#</a>On the Integration of Optical Flow and Action Recognition</h1><p><code>PAN</code>的参考文献之一，介绍了一些研究思路，以及光流对行为识别准确率影响最大的部分是边缘信息。</p><a id="more"></a><h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2><p>文章深入研究了<code>为什么光流对行为识别是有帮助的</code>、<code>光流方法的什么因素影响到了行为识别的准确率</code>以及<code>如何做得更好</code><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p><p>论文通过<code>不同的光流算法</code>和<code>输入变换</code>来探索上述问题，得到以下结论：</p><ol><li>光流对于行为识别的帮助在于它的外观不变性，不会对颜色敏感。</li><li>光流本身的精度与行为识别分类的准确性之间没有相关性。</li><li>光流的边缘信息和小位移对行为识别的分类相关。</li><li>通过分类损失来（优化）训练光流可以提高行为识别分类准确性。</li><li>使用行为识别分类误差来训练得到的光流，与普通的光流的差异主要集中在人体的内部与边缘区域。</li></ol><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20201229-1.jpg" alt="边缘1"><br><img src="//onns.xyz/blog/image/20201229-2.jpg" alt="边缘2"><br><img src="//onns.xyz/blog/image/20201229-3.jpg" alt="边缘3"></p></center><h2 id="个人观点"><a class="header-anchor" href="#个人观点">#</a>个人观点</h2><p>论文中会引用这篇文章的对于光流的一个结论，但是这五个结论可能并不适用于现在的情况，后面有用到再来补，不然应该不会详细看了，重点全在这五个结论里，这个摘要写的感觉就很棒。</p><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://arxiv.org/abs/1712.08416" target="_blank" rel="noopener">https://arxiv.org/abs/1712.08416</a></li><li><a href="https://blog.csdn.net/qq_18644873/article/details/87805517" target="_blank" rel="noopener">论文笔记《On the Integration of Optical Flow and Action Recognition》:光流的作用</a></li><li><a href="https://zhuanlan.zhihu.com/p/32443212" target="_blank" rel="noopener">[GCPR 2018 论文笔记] 光流与行为识别的结合研究</a></li><li><a href="https://blog.csdn.net/elaine_bao/article/details/80891173" target="_blank" rel="noopener">【论文笔记】光流在视频行为识别中的作用</a></li></ul><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p>感觉第三点其实好像没怎么提。看了别人的笔记，大家觉得是优化光流。 <a href="#fnref1" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+            <tag> optical flow </tag>
+            
+            <tag> 光流 </tag>
+            
+            <tag> GCPR </tag>
+            
+            <tag> GCPR 2018 </tag>
+            
+            <tag> 2018 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>当前工作进度报告</title>
       <link href="/blog/2020/12/27/interim-report/"/>
       <url>/blog/2020/12/27/interim-report/</url>
@@ -60,43 +97,6 @@
             <tag> review </tag>
             
             <tag> survey </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>On the Integration of Optical Flow and Action Recognition</title>
-      <link href="/blog/2020/12/26/on-the-integration-of-optical-flow-and-action-recognition/"/>
-      <url>/blog/2020/12/26/on-the-integration-of-optical-flow-and-action-recognition/</url>
-      
-        <content type="html"><![CDATA[<h1 id="on-the-integration-of-optical-flow-and-action-recognition"><a class="header-anchor" href="#on-the-integration-of-optical-flow-and-action-recognition">#</a>On the Integration of Optical Flow and Action Recognition</h1><p><code>PAN</code>的参考文献之一，介绍了一些研究思路，以及光流对行为识别准确率影响最大的部分是边缘信息。</p><a id="more"></a><h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2><p>文章深入研究了<code>为什么光流对行为识别是有帮助的</code>、<code>光流方法的什么因素影响到了行为识别的准确率</code>以及<code>如何做得更好</code><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p><p>论文通过<code>不同的光流算法</code>和<code>输入变换</code>来探索上述问题，得到以下结论：</p><ol><li>光流对于行为识别的帮助在于它的外观不变性，不会对颜色敏感。</li><li>光流本身的精度与行为识别分类的准确性之间没有相关性。</li><li>光流的边缘信息和小位移对行为识别的分类相关。</li><li>通过分类损失来（优化）训练光流可以提高行为识别分类准确性。</li><li>使用行为识别分类误差来训练得到的光流，与普通的光流的差异主要集中在人体的内部与边缘区域。</li></ol><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20201229-1.jpg" alt="边缘1"><br><img src="//onns.xyz/blog/image/20201229-2.jpg" alt="边缘2"><br><img src="//onns.xyz/blog/image/20201229-3.jpg" alt="边缘3"></p></center><h2 id="个人观点"><a class="header-anchor" href="#个人观点">#</a>个人观点</h2><p>论文中会引用这篇文章的对于光流的一个结论，但是这五个结论可能并不适用于现在的情况，后面有用到再来补，不然应该不会详细看了，重点全在这五个结论里，这个摘要写的感觉就很棒。</p><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://arxiv.org/abs/1712.08416" target="_blank" rel="noopener">https://arxiv.org/abs/1712.08416</a></li><li><a href="https://blog.csdn.net/qq_18644873/article/details/87805517" target="_blank" rel="noopener">论文笔记《On the Integration of Optical Flow and Action Recognition》:光流的作用</a></li><li><a href="https://zhuanlan.zhihu.com/p/32443212" target="_blank" rel="noopener">[GCPR 2018 论文笔记] 光流与行为识别的结合研究</a></li><li><a href="https://blog.csdn.net/elaine_bao/article/details/80891173" target="_blank" rel="noopener">【论文笔记】光流在视频行为识别中的作用</a></li></ul><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p>感觉第三点其实好像没怎么提。看了别人的笔记，大家觉得是优化光流。 <a href="#fnref1" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
-      
-      
-      <categories>
-          
-          <category> study </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 行为识别 </tag>
-            
-            <tag> action recognition </tag>
-            
-            <tag> optical flow </tag>
-            
-            <tag> 光流 </tag>
-            
-            <tag> GCPR </tag>
-            
-            <tag> GCPR 2018 </tag>
-            
-            <tag> 2018 </tag>
             
         </tags>
       
