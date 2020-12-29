@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Temporal Relational Reasoning in Videos"/><meta name="keywords" content="行为识别, action recognition, ECCV, ECCV 2018, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="Temporal Relational Reasoning in Videos"/><meta name="keywords" content="行为识别, action recognition, ECCV, ECCV 2018, TRN, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/10/20/temporal-relational-reasoning-in-videos/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -283,10 +283,30 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#temporal-relational-reasoning-in-videos"><span class="toc-text">Temporal Relational Reasoning in Videos</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#temporal-relational-reasoning-in-videos"><span class="toc-text">Temporal Relational Reasoning in Videos</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#时序信息的重要性"><span class="toc-text">时序信息的重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="temporal-relational-reasoning-in-videos"><a class="header-anchor" href="#temporal-relational-reasoning-in-videos">#</a>Temporal Relational Reasoning in Videos</h2>
-<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+  </div><div class="post-content"><h1 id="temporal-relational-reasoning-in-videos"><a class="header-anchor" href="#temporal-relational-reasoning-in-videos">#</a>Temporal Relational Reasoning in Videos</h1>
+<p>论文中需要引用这边论文的一个结论，记录之。原来我之前就记录过，但是没有写笔记，导致我昨晚（20201228）突然想找这个结论的时候记不得是哪篇论文了，所幸找到了，不然几百篇参考文献我真是要翻到吐，万一里面还没有，那才是绝望。</p>
+<p>其实这篇文章的<code>TRN</code>好像也是我所研究的<code>TSN</code>发展历程上的一个点，但没有细看过，说来惭愧。不过这个的效果大多已经被后面的<code>TSM</code>和<code>TEA</code>之类的取代了。</p>
+<h2 id="时序信息的重要性"><a class="header-anchor" href="#时序信息的重要性">#</a>时序信息的重要性</h2>
+<p>论文为了验证时序信息的重要性，对比了顺序帧和乱序帧在同一网络下的识别准确率，分别在<code>UCF101</code>和<code>something-something</code>上进行测试，证明了两点：</p>
+<ol>
+<li>时序信息对于行为识别准确率十分重要。</li>
+<li><code>something-something</code>这类数据集，时序性很强，不是通过场景就能判断识别结果的。</li>
+</ol>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201229-4.png" alt="测试结果图"></p>
+</center>
+<p>进一步，作者对比了随机和顺序中识别准确率差别最大的几类，发现<code>具有单一方向的较大位移运动</code>受影响最大，比如<code>Moving something down</code>。</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201229-5.png" alt="结果对比"></p>
+</center>
+<p>不过也有可能存在一些变高的识别结果，这个原因我没太看懂= =</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
 <ul>
 <li><a href="https://blog.csdn.net/zuber123/article/details/89379297" target="_blank" rel="noopener">论文解读：Temporal Relational Reasoning in Videos</a></li>
 <li><a href="https://blog.csdn.net/elaine_bao/article/details/80753506" target="_blank" rel="noopener">【论文笔记】视频分类系列 Temporal Relational Reasoning in Videos （TRN）</a></li>
@@ -300,6 +320,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/action-recognition/">action recognition</a>
             <a href="/blog/tags/ECCV/">ECCV</a>
             <a href="/blog/tags/ECCV-2018/">ECCV 2018</a>
+            <a href="/blog/tags/TRN/">TRN</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/10/20/motionsqueeze-neural-motion-feature-learning-for-video-understanding/">

@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/行为识别/"/>
+<meta name="description" content="On the Integration of Optical Flow and Action Recognition"/><meta name="keywords" content="行为识别, action recognition, optical flow, 光流, GCPR, GCPR 2018, 2018, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/12/26/on-the-integration-of-optical-flow-and-action-recognition/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>行为识别 · Onns Blog
-  </title>
+    <title>On the Integration of Optical Flow and Action Recognition - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,310 +261,93 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">行为识别</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">On the Integration of Optical Flow and Action Recognition
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-12-26
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/12/26/on-the-integration-of-optical-flow-and-action-recognition/"
+             data-title="On the Integration of Optical Flow and Action Recognition">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-27
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/27/interim-report/" class="archive-post-link">
-            当前工作进度报告
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#on-the-integration-of-optical-flow-and-action-recognition"><span class="toc-text">On the Integration of Optical Flow and Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人观点"><span class="toc-text">个人观点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="on-the-integration-of-optical-flow-and-action-recognition"><a class="header-anchor" href="#on-the-integration-of-optical-flow-and-action-recognition">#</a>On the Integration of Optical Flow and Action Recognition</h1>
+<p><code>PAN</code>的参考文献之一，介绍了一些研究思路，以及光流对行为识别准确率影响最大的部分是边缘信息。</p>
+<a id="more"></a>
+<h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2>
+<p>文章深入研究了<code>为什么光流对行为识别是有帮助的</code>、<code>光流方法的什么因素影响到了行为识别的准确率</code>以及<code>如何做得更好</code><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<p>论文通过<code>不同的光流算法</code>和<code>输入变换</code>来探索上述问题，得到以下结论：</p>
+<ol>
+<li>光流对于行为识别的帮助在于它的外观不变性，不会对颜色敏感。</li>
+<li>光流本身的精度与行为识别分类的准确性之间没有相关性。</li>
+<li>光流的边缘信息和小位移对行为识别的分类相关。</li>
+<li>通过分类损失来（优化）训练光流可以提高行为识别分类准确性。</li>
+<li>使用行为识别分类误差来训练得到的光流，与普通的光流的差异主要集中在人体的内部与边缘区域。</li>
+</ol>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201229-1.jpg" alt="边缘1"><br>
+<img src="//onns.xyz/blog/image/20201229-2.jpg" alt="边缘2"><br>
+<img src="//onns.xyz/blog/image/20201229-3.jpg" alt="边缘3"></p>
+</center>
+<h2 id="个人观点"><a class="header-anchor" href="#个人观点">#</a>个人观点</h2>
+<p>论文中会引用这篇文章的对于光流的一个结论，但是这五个结论可能并不适用于现在的情况，后面有用到再来补，不然应该不会详细看了，重点全在这五个结论里，这个摘要写的感觉就很棒。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/1712.08416" target="_blank" rel="noopener">https://arxiv.org/abs/1712.08416</a></li>
+<li><a href="https://blog.csdn.net/qq_18644873/article/details/87805517" target="_blank" rel="noopener">论文笔记《On the Integration of Optical Flow and Action Recognition》:光流的作用</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/32443212" target="_blank" rel="noopener">[GCPR 2018 论文笔记] 光流与行为识别的结合研究</a></li>
+<li><a href="https://blog.csdn.net/elaine_bao/article/details/80891173" target="_blank" rel="noopener">【论文笔记】光流在视频行为识别中的作用</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>感觉第三点其实好像没怎么提。看了别人的笔记，大家觉得是优化光流。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-26
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/26/a-comprehensive-study-of-deep-video-action-recognition/" class="archive-post-link">
-            A Comprehensive Study of Deep Video Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-26
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/26/on-the-integration-of-optical-flow-and-action-recognition/" class="archive-post-link">
-            On the Integration of Optical Flow and Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/19/diverse-temporal-aggregation-and-depthwise-spatiotemporal-factorization-for-efficient-video-classification/" class="archive-post-link">
-            Diverse Temporal Aggregation and Depthwise Spatiotemporal Factorization for Efficient Video Classification
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/08/dt-source-code-check-trajectory/" class="archive-post-link">
-            DT算法源码阅读——轨迹筛选部分
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/20/motionsqueeze-neural-motion-feature-learning-for-video-understanding/" class="archive-post-link">
-            MotionSqueeze Neural Motion FeatureLearning for Video Understanding
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/20/temporal-relational-reasoning-in-videos/" class="archive-post-link">
-            Temporal Relational Reasoning in Videos
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/20/representation-flow-for-action-recognition/" class="archive-post-link">
-            Representation Flow for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/20/motion-feature-network-fixed-motion-filter-for-action-recognition/" class="archive-post-link">
-            Motion Feature Network Fixed Motion Filter for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/19/stm-spatiotemporal-and-motion-encoding-for-action-recognition/" class="archive-post-link">
-            STM SpatioTemporal and Motion Encoding for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/17/temporal-pyramid-network-for-action-recognition/" class="archive-post-link">
-            Temporal Pyramid Network for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/16/pan-code-details/" class="archive-post-link">
-            PAN代码实现细节
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/13/tea-details/" class="archive-post-link">
-            TEA实现细节
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/12/resnet-50-temporal-shift/" class="archive-post-link">
-            ResNet50 temporal shift
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/08/pan-results-20201008/" class="archive-post-link">
-            PAN验证结果-20201008
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/08/bert-note-1/" class="archive-post-link">
-            BERT相关笔记（一）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/06/pan-results/" class="archive-post-link">
-            PAN验证结果-20201006
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-04
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/04/tea-temporal-excitation-and-aggregation-for-action-recognition/" class="archive-post-link">
-            TEA Temporal Excitation and Aggregation for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/02/pan-lite-train-log/" class="archive-post-link">
-            PAN Lite 训练结果
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/28/temporal-segment-networks-for-action-recognition-in-videos/" class="archive-post-link">
-            Temporal Segment Networks for Action Recognition in Videos
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-23
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/23/mmtm-multimodal-transfer-module-for-cnn-fusion/" class="archive-post-link">
-            MMTM Multimodal Transfer Module for CNN Fusion
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/" class="archive-post-link">
-            Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/07/optical-flow/" class="archive-post-link">
-            光流法
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/" class="archive-post-link">
-            GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/" class="archive-post-link">
-            PAN Towards Fast Action Recognition via Learning Persistence of Appearance
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/" class="archive-post-link">
-            TSM Temporal Shift Module for Efficient Video Understanding
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/" class="archive-post-link">
-            Gate-Shift Networks for Video Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/" class="archive-post-link">
-            一种基于 2D 时空信息提取的行为识别算法
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/" class="archive-post-link">
-            Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/" class="archive-post-link">
-            Spatiotemporal Fusion in 3D CNNs A Probabilistic View
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/optical-flow/">optical flow</a>
+            <a href="/blog/tags/%E5%85%89%E6%B5%81/">光流</a>
+            <a href="/blog/tags/GCPR/">GCPR</a>
+            <a href="/blog/tags/GCPR-2018/">GCPR 2018</a>
+            <a href="/blog/tags/2018/">2018</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/12/26/a-comprehensive-study-of-deep-video-action-recognition/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">A Comprehensive Study of Deep Video Action Recognition</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/12/19/diverse-temporal-aggregation-and-depthwise-spatiotemporal-factorization-for-efficient-video-classification/">
+        <span class="next-text nav-default">Diverse Temporal Aggregation and Depthwise Spatiotemporal Factorization for Efficient Video Classification</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
