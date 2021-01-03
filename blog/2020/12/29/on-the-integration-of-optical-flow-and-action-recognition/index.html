@@ -283,7 +283,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#on-the-integration-of-optical-flow-and-action-recognition"><span class="toc-text">On the Integration of Optical Flow and Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人观点"><span class="toc-text">个人观点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#on-the-integration-of-optical-flow-and-action-recognition"><span class="toc-text">On the Integration of Optical Flow and Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#假设一：两帧之间的光流是一个很好的视频分类特征"><span class="toc-text">假设一：两帧之间的光流是一个很好的视频分类特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人观点"><span class="toc-text">个人观点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h1 id="on-the-integration-of-optical-flow-and-action-recognition"><a class="header-anchor" href="#on-the-integration-of-optical-flow-and-action-recognition">#</a>On the Integration of Optical Flow and Action Recognition</h1>
 <p><code>PAN</code>的参考文献之一，介绍了一些研究思路，以及光流对行为识别准确率影响最大的部分是边缘信息。</p>
@@ -305,6 +305,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <img src="//onns.xyz/blog/image/20201229-2.jpg" alt="边缘2"><br>
 <img src="//onns.xyz/blog/image/20201229-3.jpg" alt="边缘3"></p>
 </center>
+<h2 id="假设一：两帧之间的光流是一个很好的视频分类特征"><a class="header-anchor" href="#假设一：两帧之间的光流是一个很好的视频分类特征">#</a>假设一：两帧之间的光流是一个很好的视频分类特征</h2>
+<blockquote>
+<p>What makes motion such a useful feature for video classification?</p>
+</blockquote>
+<p>通过<code>随机打乱光流帧</code>来观察准确率发现光流的轨迹不是主要的影响因素，因为一些静态的运动信息已经编码在里面了。</p>
+<p>于是论文又做了一个实验，将计算光流的帧序也打乱，得到的结果是准确率下降的很多但仍然比没用光流来的差。</p>
+<p>在将外观信息进行改变后，光流只下降了<code>1%</code>但传统的图像下降了<code>50%</code>，得出的结论是，光流的效果来源于他的外观不变性。</p>
 <h2 id="个人观点"><a class="header-anchor" href="#个人观点">#</a>个人观点</h2>
 <p>论文中会引用这篇文章的对于光流的一个结论，但是这五个结论可能并不适用于现在的情况，后面有用到再来补，不然应该不会详细看了，重点全在这五个结论里，这个摘要写的感觉就很棒。</p>
 <h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
@@ -335,7 +342,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/2018/">2018</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2020/12/27/interim-report/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/01/03/inotify-usage/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">inotify使用</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/12/27/interim-report/">
         <span class="next-text nav-default">当前工作进度报告</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -361,7 +373,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
