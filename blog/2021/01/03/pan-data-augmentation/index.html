@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="PAN数据增强方法——GroupMultiScaleCrop"/><meta name="keywords" content="行为识别, action recognition, PAN, data augmentation, something something, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/01/03/pan-data-augmentation/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>PAN数据增强方法——GroupMultiScaleCrop - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">PAN数据增强方法——GroupMultiScaleCrop
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-01-03
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/01/03/pan-data-augmentation/"
+             data-title="PAN数据增强方法——GroupMultiScaleCrop">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p><code>PAN</code>或者说<code>TEA</code>、<code>TSM</code>、<code>TSN</code>这一系列网络所用的唯一的数据增强方法：<code>GroupMultiScaleCrop</code>。</p>
+<a id="more"></a>
+<p>以<code>something-something</code>的数据集为例，因为这是我在用的数据集，其它场景型数据集多了一个水平翻转，因为<code>something-something</code>有左右区分，所以不行。</p>
+<p><code>model.py</code>的最后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> torchvision.transforms.Compose([GroupMultiScaleCrop(self.input_size, [<span class="number">1</span>, <span class="number">.875</span>, <span class="number">.75</span>, <span class="number">.66</span>])])</span><br></pre></td></tr></table></figure>
+<p>具体调用的代码在<code>transforms.py</code>，加了些注释：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GroupMultiScaleCrop</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_size, scales=None, max_distort=<span class="number">1</span>, fix_crop=True, more_fix_crop=True)</span>:</span></span><br><span class="line">		self.scales = scales <span class="keyword">if</span> scales <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> [<span class="number">1</span>, <span class="number">.875</span>, <span class="number">.75</span>, <span class="number">.66</span>]</span><br><span class="line">		self.max_distort = max_distort</span><br><span class="line">		self.fix_crop = fix_crop</span><br><span class="line">		self.more_fix_crop = more_fix_crop</span><br><span class="line">		self.input_size = input_size <span class="keyword">if</span> <span class="keyword">not</span> isinstance(input_size, int) <span class="keyword">else</span> [input_size, input_size]</span><br><span class="line">		self.interpolation = Image.BILINEAR</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, img_group)</span>:</span></span><br><span class="line"></span><br><span class="line">		im_size = img_group[<span class="number">0</span>].size <span class="comment"># 因为一组图都是一样大的，从第一张图就能获取到大小</span></span><br><span class="line"></span><br><span class="line">		crop_w, crop_h, offset_w, offset_h = self._sample_crop_size(im_size) <span class="comment"># 随机选择一种剪切方式</span></span><br><span class="line">		crop_img_group = [img.crop((offset_w, offset_h, offset_w + crop_w, offset_h + crop_h)) <span class="keyword">for</span> img <span class="keyword">in</span> img_group] <span class="comment"># 切图</span></span><br><span class="line">		ret_img_group = [img.resize((self.input_size[<span class="number">0</span>], self.input_size[<span class="number">1</span>]), self.interpolation) <span class="comment"># 然后恢复成网络输入的大小，224*224，用双线性插值的方法</span></span><br><span class="line">						<span class="keyword">for</span> img <span class="keyword">in</span> crop_img_group]</span><br><span class="line">		<span class="keyword">return</span> ret_img_group</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">_sample_crop_size</span><span class="params">(self, im_size)</span>:</span></span><br><span class="line">		image_w, image_h = im_size[<span class="number">0</span>], im_size[<span class="number">1</span>] <span class="comment"># 获取图像大小</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># find a crop size</span></span><br><span class="line">		base_size = min(image_w, image_h)</span><br><span class="line">		crop_sizes = [int(base_size * x) <span class="keyword">for</span> x <span class="keyword">in</span> self.scales] <span class="comment"># 按照宽高比较窄的那一边，乘上多个尺度，就是要修剪的大小</span></span><br><span class="line">		crop_h = [self.input_size[<span class="number">1</span>] <span class="keyword">if</span> abs(x - self.input_size[<span class="number">1</span>]) &lt; <span class="number">3</span> <span class="keyword">else</span> x <span class="keyword">for</span> x <span class="keyword">in</span> crop_sizes] <span class="comment"># input_size是224，如果大小等于224+-3那就224，不然就是修剪之后的大小</span></span><br><span class="line">		crop_w = [self.input_size[<span class="number">0</span>] <span class="keyword">if</span> abs(x - self.input_size[<span class="number">0</span>]) &lt; <span class="number">3</span> <span class="keyword">else</span> x <span class="keyword">for</span> x <span class="keyword">in</span> crop_sizes]</span><br><span class="line"></span><br><span class="line">		pairs = []</span><br><span class="line">		<span class="keyword">for</span> i, h <span class="keyword">in</span> enumerate(crop_h):</span><br><span class="line">			<span class="keyword">for</span> j, w <span class="keyword">in</span> enumerate(crop_w):</span><br><span class="line">				<span class="keyword">if</span> abs(i - j) &lt;= self.max_distort: <span class="comment"># max_distort=1，相当于允许i和j之间差一，就[1, .875, .75, .66]之间</span></span><br><span class="line">					pairs.append((w, h))</span><br><span class="line"></span><br><span class="line">		crop_pair = random.choice(pairs) <span class="comment"># 随机选一个切法</span></span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.fix_crop:</span><br><span class="line">			w_offset = random.randint(<span class="number">0</span>, image_w - crop_pair[<span class="number">0</span>])</span><br><span class="line">			h_offset = random.randint(<span class="number">0</span>, image_h - crop_pair[<span class="number">1</span>])</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			w_offset, h_offset = self._sample_fix_offset(image_w, image_h, crop_pair[<span class="number">0</span>], crop_pair[<span class="number">1</span>]) <span class="comment"># 默认走这里</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> crop_pair[<span class="number">0</span>], crop_pair[<span class="number">1</span>], w_offset, h_offset</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">_sample_fix_offset</span><span class="params">(self, image_w, image_h, crop_w, crop_h)</span>:</span></span><br><span class="line">		offsets = self.fill_fix_offset(self.more_fix_crop, image_w, image_h, crop_w, crop_h) <span class="comment"># 传进去的是原始的图像大小和要切成的图像高和宽</span></span><br><span class="line">		<span class="keyword">return</span> random.choice(offsets) <span class="comment"># 13种偏移里选一种，而不是上面那种全选的方式</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">fill_fix_offset</span><span class="params">(more_fix_crop, image_w, image_h, crop_w, crop_h)</span>:</span></span><br><span class="line">		w_step = (image_w - crop_w) // <span class="number">4</span></span><br><span class="line">		h_step = (image_h - crop_h) // <span class="number">4</span></span><br><span class="line"></span><br><span class="line">		ret = list()</span><br><span class="line">		ret.append((<span class="number">0</span>, <span class="number">0</span>))  <span class="comment"># upper left</span></span><br><span class="line">		ret.append((<span class="number">4</span> * w_step, <span class="number">0</span>))  <span class="comment"># upper right</span></span><br><span class="line">		ret.append((<span class="number">0</span>, <span class="number">4</span> * h_step))  <span class="comment"># lower left</span></span><br><span class="line">		ret.append((<span class="number">4</span> * w_step, <span class="number">4</span> * h_step))  <span class="comment"># lower right</span></span><br><span class="line">		ret.append((<span class="number">2</span> * w_step, <span class="number">2</span> * h_step))  <span class="comment"># center</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> more_fix_crop:</span><br><span class="line">			ret.append((<span class="number">0</span>, <span class="number">2</span> * h_step))  <span class="comment"># center left</span></span><br><span class="line">			ret.append((<span class="number">4</span> * w_step, <span class="number">2</span> * h_step))  <span class="comment"># center right</span></span><br><span class="line">			ret.append((<span class="number">2</span> * w_step, <span class="number">4</span> * h_step))  <span class="comment"># lower center</span></span><br><span class="line">			ret.append((<span class="number">2</span> * w_step, <span class="number">0</span> * h_step))  <span class="comment"># upper center</span></span><br><span class="line"></span><br><span class="line">			ret.append((<span class="number">1</span> * w_step, <span class="number">1</span> * h_step))  <span class="comment"># upper left quarter</span></span><br><span class="line">			ret.append((<span class="number">3</span> * w_step, <span class="number">1</span> * h_step))  <span class="comment"># upper right quarter</span></span><br><span class="line">			ret.append((<span class="number">1</span> * w_step, <span class="number">3</span> * h_step))  <span class="comment"># lower left quarter</span></span><br><span class="line">			ret.append((<span class="number">3</span> * w_step, <span class="number">3</span> * h_step))  <span class="comment"># lower righ quarter</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>入口都是<code>__call__</code>方法，<code>Image.BILINEAR</code>双线性插值。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/">行为识别</a>
+            <a href="/blog/tags/action-recognition/">action recognition</a>
+            <a href="/blog/tags/PAN/">PAN</a>
+            <a href="/blog/tags/data-augmentation/">data augmentation</a>
+            <a href="/blog/tags/something-something/">something something</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/01/03/inotify-usage/">
+        <span class="next-text nav-default">inotify使用</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
