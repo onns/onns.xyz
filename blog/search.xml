@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>编程小记</title>
+      <link href="/blog/2021/01/06/programming-tips/"/>
+      <url>/blog/2021/01/06/programming-tips/</url>
+      
+        <content type="html"><![CDATA[<p>一些技巧，记下来，之后可能会用到，省的去百度搜了</p><a id="more"></a><h2 id="python"><a class="header-anchor" href="#python">#</a>python</h2><ol><li><p>命令行指定显卡<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>：</p><ul><li><code>CUDA_VISIBLE_DEVICES=gpu_ids</code></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=1 python -u main.py</span><br></pre></td></tr></table></figure></li></ol><h2 id="vscode"><a class="header-anchor" href="#vscode">#</a>vscode</h2><ol><li>指定<code>vscode</code>的文件换行符为<code>LF</code><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>：<ul><li>设置里搜索：<code>files:eol</code>。</li></ul></li></ol><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/166161217" target="_blank" rel="noopener">在 pytorch 中指定显卡</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p></li><li id="fn2" class="footnote-item"><p><a href="https://blog.csdn.net/sdujava2011/article/details/83827343" target="_blank" rel="noopener">IDEA 和 VS code 设置默认换行符为 LF</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
+      
+      
+      <categories>
+          
+          <category> code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tips </tag>
+            
+            <tag> programming </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PAN数据增强方法——GroupMultiScaleCrop</title>
       <link href="/blog/2021/01/03/pan-data-augmentation/"/>
       <url>/blog/2021/01/03/pan-data-augmentation/</url>
