@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+	<meta name="viewport" content="width = 630, user-scalable = no" />
+	<script type="text/javascript" src="js/jquery.min.1.7.js"></script>
+	<script type="text/javascript" src="js/modernizr.2.5.3.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"></script>
+	<style type="text/css">
+		html,
+		body {
+			background-color: #ceb889;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="flipbook">
+		<div style="background-image:url(pages/1.png)"></div>
+		<div style="background-image:url(pages/2.png)"></div>
+		<div style="background-image:url(pages/3.png)"></div>
+		<div style="background-image:url(pages/4.png)"></div>
+		<div style="background-image:url(pages/5.png)"></div>
+		<div style="background-image:url(pages/6.png)"></div>
+		<div style="background-image:url(pages/7.png)"></div>
+		<div style="background-image:url(pages/8.png)"></div>
+		<div style="background-image:url(pages/9.png)"></div>
+		<div style="background-image:url(pages/10.png)"></div>
+		<div style="background-image:url(pages/11.png)"></div>
+		<div style="background-image:url(pages/12.png)"></div>
+		<div style="background-image:url(pages/13.png)"></div>
+		<div style="background-image:url(pages/14.png)"></div>
+		<div style="background-image:url(pages/15.png)"></div>
+		<div style="background-image:url(pages/16.png)"></div>
+		<div style="background-image:url(pages/17.png)"></div>
+		<div style="background-image:url(pages/18.png)"></div>
+		<div style="background-image:url(pages/19.png)"></div>
+		<div style="background-image:url(pages/20.png)"></div>
+		<div style="background-image:url(pages/21.png)"></div>
+		<div style="background-image:url(pages/22.png)"></div>
+		<div style="background-image:url(pages/23.png)"></div>
+	</div>
+
+
+	<script type="text/javascript">
+
+		AV.init({
+			appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+			appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+			serverURLs: "https://lean.onns.xyz"
+		});
+
+		var query = new AV.Query('DocSync');
+		query.equalTo('url', 'fine').addAscending('createdAt');
+		query.find().then(function (docsync) {
+			// 拉取远端结果
+			// console.log(docsync);
+			if (docsync.length >= 1) {
+				if (docsync[0].attributes.content == '1') {
+					yepnope({
+						test: Modernizr.csstransforms,
+						yep: ['js/turn.js'],
+						nope: ['js/turn.html4.min.js'],
+						both: ['css/basic.css'],
+						complete: loadApp
+					});
+					$("body").click(function () {
+						$(".flipbook").turn("next");
+					});
+					var docsync = AV.Object.createWithoutData('DocSync', docsync[0].id);
+					docsync.set('content', '0');
+					docsync.save().then(function (docsync) {
+					}, function (error) {
+					});
+				}
+				if (docsync[0].attributes.content == '0') {
+				} else {
+					yepnope({
+						test: Modernizr.csstransforms,
+						yep: ['js/turn.js'],
+						nope: ['js/turn.html4.min.js'],
+						both: ['css/basic.css'],
+						complete: loadApp
+					});
+					$("body").click(function () {
+						$(".flipbook").turn("next");
+					});
+				}
+			} else {
+				canEdit = true;
+			}
+		});
+		function loadApp() {
+
+			// Create the flipbook
+
+			$('.flipbook').turn({
+				// Width
+
+				width: 630,
+				height: 891,
+				// Elevation
+
+				elevation: 50,
+
+				// Enable gradients
+
+				gradients: true,
+
+				// Auto center this flipbook
+
+				autoCenter: true,
+				display: "single"
+
+			});
+		}
+
+		// Load the HTML4 version if there's not CSS transform
+
+
+		// $("body").dblclick(function(){
+		//   $(".flipbook").turn("previous");
+		// });
+
+
+	</script>
+
+</body>
+
+</html>
