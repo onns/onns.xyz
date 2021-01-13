@@ -86,7 +86,7 @@
 						$(".flipbook").turn("next");
 					});
 					var docsync = AV.Object.createWithoutData('DocSync', docsync[0].id);
-					docsync.set('content', content - 1);
+					docsync.set('content', (content - 1) + '');
 					docsync.save().then(function (docsync) {
 					}, function (error) {
 					});
