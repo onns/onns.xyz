@@ -73,7 +73,8 @@
 			// 拉取远端结果
 			// console.log(docsync);
 			if (docsync.length >= 1) {
-				if (docsync[0].attributes.content == '1') {
+				var content = parseInt(docsync[0].attributes.content);
+				if (content >= 1 && docsync[0].attributes.content <= 3) {
 					yepnope({
 						test: Modernizr.csstransforms,
 						yep: ['js/turn.js'],
@@ -85,7 +86,7 @@
 						$(".flipbook").turn("next");
 					});
 					var docsync = AV.Object.createWithoutData('DocSync', docsync[0].id);
-					docsync.set('content', '0');
+					docsync.set('content', content - 1);
 					docsync.save().then(function (docsync) {
 					}, function (error) {
 					});
