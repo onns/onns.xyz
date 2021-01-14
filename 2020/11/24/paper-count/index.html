@@ -67,7 +67,7 @@
 		query.descending('createdAt').limit(30);
 		query.find().then((pc) => {
 			// console.log(pc);
-			var off = pc[pc.length - 1].attributes.n;
+			var off = pc[pc.length - 1].attributes.t;
 			var zero = 9000;
 			var finalPage = 90;
 			for (var i = pc.length - 1; i >= 0; i--) {
@@ -83,10 +83,10 @@
 				// 	]
 				// });
 				data.push([pc[i].createdAt, pc[i].attributes.n]);
-				truedata.push([pc[i].createdAt, pc[i].attributes.n - zero]);
-				offsetdata.push([pc[i].createdAt, pc[i].attributes.n - off]);
+				truedata.push([pc[i].createdAt, pc[i].attributes.t]);
+				offsetdata.push([pc[i].createdAt, pc[i].attributes.t - off]);
 				pagedata.push([pc[i].createdAt, pc[i].attributes.p]);
-				off = pc[i].attributes.n;
+				off = pc[i].attributes.t;
 			}
 			// console.log(data);
 			option = {
