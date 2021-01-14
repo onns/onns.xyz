@@ -163,7 +163,7 @@
 			if (change(docEle.innerText, contentWithoutHtml) && docEle.innerHTML != '' && canEdit) {
 				update();
 			}
-			document.title = "Doc - " + wordCount(docEle.innerText) + " - " + url;
+			document.title = wordCount(docEle.innerText) + " - " + url;
 		}, 100);
 	</script>
 </body>
