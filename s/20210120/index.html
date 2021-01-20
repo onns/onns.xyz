@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Location</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" href="//onns.xyz/css/style.css">
+</head>
+
+<body>
+</body>
+<script type="text/javascript">
+	var birthday = new Date();
+	birthday.setFullYear(2021, 1, 8);
+	birthday.setHours(0, 0, 0, 0);
+	var today = new Date();
+	if (birthday < today) {
+		window.location.href = "https://onns.xyz/s/20210208/";
+	} else {
+		document.body.innerHTML += '<h1>祝您吃的开心！</h1>';
+	}
+</script>
+
+</html>
