@@ -4,11 +4,40 @@
   
     
     <entry>
+      <title>2020-2021年春季期末总结</title>
+      <link href="/blog/2021/01/22/2021-spring-lab-summary/"/>
+      <url>/blog/2021/01/22/2021-spring-lab-summary/</url>
+      
+        <content type="html"><![CDATA[<center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('header')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementsByTagName('footer')[0].remove();document.getElementById('comments').remove();document.getElementById('back-to-top').remove();document.getElementById('post-toc').remove();"><table><thead><tr><th style="text-align:center">2021-01-22</th><th style="text-align:center">期末总结</th><th style="text-align:center">刘潘</th></tr></thead><tbody></tbody></table></center><a id="more"></a><p style="page-break-before: always"></p><h2 id="找工作"><a class="header-anchor" href="#找工作">#</a>找工作</h2><p>因为我所找的是后台开发岗位，招的最多的语言是<code>java</code>和<code>c++</code>，所以又重新捡起来了一些相关的基础知识，并且每天都会刷<code>leetcode</code>，偶尔和同学分享一些面试中遇到的题目，或者是在做题过程中遇到的十分具有代表性的问题。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20210122-1.png" alt="java"></p></center><p style="page-break-before: always"></p><h2 id="校招面试"><a class="header-anchor" href="#校招面试">#</a>校招面试</h2><p>因为都是在线笔试面试，因此无形中大家都多了很多机会（不用飞去全国各地），所以就会有非常多的面试经历和次数，对经常问到的问题和笔试中的一些问题，进行了整理和总结。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20210122-2.png" alt="面试整理"></p></center><p>虽然最后都没有用上，但是也都是相通的把。</p><p style="page-break-before: always"></p><h2 id="行为识别"><a class="header-anchor" href="#行为识别">#</a>行为识别</h2><p>研究的方向偏向于轻量化的高效行为识别，首先对大量的相关文献进行了精读、整理和总结。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20210122-3.png" alt="文献阅读"><br><img src="//onns.xyz/blog/image/20210122-4.png" alt="文献阅读"><br><img src="//onns.xyz/blog/image/20210122-5.png" alt="文献阅读"></p></center><p>选择了一种用边缘表征来对光流进行替代的行为识别方法作为基础，并在之上进行改进创新。</p><p style="page-break-before: always"></p><h2 id="做实验"><a class="header-anchor" href="#做实验">#</a>做实验</h2><p>由于行为识别工作的复杂性，哪怕是最轻量化的方法，也需要3-5天的时间来验证实验结果，所以一直在测试实验，并在实验运行的过程中思考问题原因、整理实验结果等</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20210122-6.png" alt="实验结果"></p></center><p style="page-break-before: always"></p><h2 id="写论文"><a class="header-anchor" href="#写论文">#</a>写论文</h2><p>每天按照自己的计划，撰写毕业论文。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> lab406 </tag>
+            
+            <tag> report </tag>
+            
+            <tag> final report </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>编程小记</title>
       <link href="/blog/2021/01/06/programming-tips/"/>
       <url>/blog/2021/01/06/programming-tips/</url>
       
-        <content type="html"><![CDATA[<p>一些技巧，记下来，之后可能会用到，省的去百度搜了</p><a id="more"></a><h2 id="python"><a class="header-anchor" href="#python">#</a>python</h2><ol><li><p>命令行指定显卡<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>：</p><ul><li><code>CUDA_VISIBLE_DEVICES=gpu_ids</code></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=1 python -u main.py</span><br></pre></td></tr></table></figure></li></ol><h2 id="vscode"><a class="header-anchor" href="#vscode">#</a>vscode</h2><ol><li>指定<code>vscode</code>的文件换行符为<code>LF</code><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>：<ul><li>设置里搜索：<code>files:eol</code>。</li></ul></li></ol><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/166161217" target="_blank" rel="noopener">在 pytorch 中指定显卡</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p></li><li id="fn2" class="footnote-item"><p><a href="https://blog.csdn.net/sdujava2011/article/details/83827343" target="_blank" rel="noopener">IDEA 和 VS code 设置默认换行符为 LF</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
+        <content type="html"><![CDATA[<p>一些技巧，记下来，之后可能会用到，省的去百度搜了</p><a id="more"></a><h2 id="python"><a class="header-anchor" href="#python">#</a>python</h2><ol><li><p>命令行指定显卡<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>：</p><ul><li><code>CUDA_VISIBLE_DEVICES=gpu_ids</code></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=1 python -u main.py</span><br></pre></td></tr></table></figure></li></ol><h2 id="vscode"><a class="header-anchor" href="#vscode">#</a>vscode</h2><ol><li>指定<code>vscode</code>的文件换行符为<code>LF</code><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>：<ul><li>设置里搜索：<code>files:eol</code>。</li></ul></li></ol><h2 id="chrome"><a class="header-anchor" href="#chrome">#</a>chrome</h2><ol><li><p>打印分页：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"page-break-before: always"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ol><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/166161217" target="_blank" rel="noopener">在 pytorch 中指定显卡</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p></li><li id="fn2" class="footnote-item"><p><a href="https://blog.csdn.net/sdujava2011/article/details/83827343" target="_blank" rel="noopener">IDEA 和 VS code 设置默认换行符为 LF</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
       
       
       <categories>
