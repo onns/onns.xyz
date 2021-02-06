@@ -53,11 +53,11 @@
       
         <tags>
             
-            <tag> lab406 </tag>
+            <tag> final report </tag>
             
             <tag> report </tag>
             
-            <tag> final report </tag>
+            <tag> lab406 </tag>
             
         </tags>
       
@@ -173,15 +173,15 @@
       
         <tags>
             
+            <tag> inotify </tag>
+            
             <tag> linux </tag>
-            
-            <tag> windows </tag>
-            
-            <tag> sync </tag>
             
             <tag> rsync </tag>
             
-            <tag> inotify </tag>
+            <tag> sync </tag>
+            
+            <tag> windows </tag>
             
             <tag> inotifywait </tag>
             
@@ -214,9 +214,9 @@
             
             <tag> action recognition </tag>
             
-            <tag> optical flow </tag>
-            
             <tag> 光流 </tag>
+            
+            <tag> optical flow </tag>
             
             <tag> GCPR </tag>
             
@@ -247,15 +247,15 @@
       
         <tags>
             
+            <tag> report </tag>
+            
+            <tag> lab406 </tag>
+            
             <tag> 行为识别 </tag>
             
             <tag> action recognition </tag>
             
-            <tag> lab406 </tag>
-            
             <tag> interim report </tag>
-            
-            <tag> report </tag>
             
         </tags>
       
@@ -340,9 +340,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> ngrok </tag>
+            
+            <tag> linux </tag>
             
             <tag> service </tag>
             
@@ -373,11 +373,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> intranet penetration </tag>
             
             <tag> ngrok </tag>
+            
+            <tag> linux </tag>
             
             <tag> ssh </tag>
             
@@ -817,9 +817,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -933,9 +933,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -960,9 +960,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -987,9 +987,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -1272,9 +1272,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -1460,9 +1460,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -1553,11 +1553,11 @@
       
         <tags>
             
-            <tag> ssh </tag>
+            <tag> rsync </tag>
             
             <tag> windows </tag>
             
-            <tag> rsync </tag>
+            <tag> ssh </tag>
             
             <tag> sshd </tag>
             
@@ -1590,13 +1590,13 @@
             
             <tag> action recognition </tag>
             
-            <tag> tea </tag>
-            
             <tag> CVPR </tag>
             
             <tag> CVPR 2020 </tag>
             
             <tag> 2020 </tag>
+            
+            <tag> tea </tag>
             
         </tags>
       
@@ -1683,9 +1683,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -1797,9 +1797,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -1888,9 +1888,9 @@
             
             <tag> linux </tag>
             
-            <tag> ssh </tag>
-            
             <tag> rsync </tag>
+            
+            <tag> ssh </tag>
             
             <tag> sshd </tag>
             
@@ -1925,9 +1925,9 @@
             
             <tag> leetcode </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> dynamic programming </tag>
+            
+            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -1958,9 +1958,9 @@
             
             <tag> leetcode </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> dynamic programming </tag>
+            
+            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -2162,9 +2162,9 @@
             
             <tag> leetcode </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> dynamic programming </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> segment tree </tag>
             
@@ -2302,9 +2302,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -2329,9 +2329,9 @@
       
         <tags>
             
-            <tag> blog </tag>
-            
             <tag> github </tag>
+            
+            <tag> blog </tag>
             
             <tag> onns.xyz </tag>
             
@@ -2409,9 +2409,9 @@
             
             <tag> linux </tag>
             
-            <tag> ssh </tag>
-            
             <tag> rsync </tag>
+            
+            <tag> ssh </tag>
             
         </tags>
       
@@ -2715,9 +2715,9 @@
             
             <tag> action recognition </tag>
             
-            <tag> CVPR </tag>
-            
             <tag> gsm </tag>
+            
+            <tag> CVPR </tag>
             
             <tag> CVPR 2020 </tag>
             
@@ -2746,9 +2746,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
         </tags>
       
@@ -2773,9 +2773,9 @@
       
         <tags>
             
-            <tag> weekly report </tag>
-            
             <tag> lab406 </tag>
+            
+            <tag> weekly report </tag>
             
             <tag> template </tag>
             
@@ -3145,9 +3145,9 @@
             
             <tag> tips </tag>
             
-            <tag> idea tips </tag>
-            
             <tag> udp </tag>
+            
+            <tag> idea tips </tag>
             
         </tags>
       
@@ -3296,11 +3296,11 @@
             
             <tag> hexo </tag>
             
+            <tag> toc </tag>
+            
             <tag> hexo-theme-even </tag>
             
             <tag> blog </tag>
-            
-            <tag> toc </tag>
             
             <tag> js </tag>
             
@@ -3385,9 +3385,9 @@
       
         <tags>
             
-            <tag> 微信 </tag>
-            
             <tag> wechat </tag>
+            
+            <tag> 微信 </tag>
             
             <tag> 表情包 </tag>
             
@@ -3420,6 +3420,8 @@
             
             <tag> linux </tag>
             
+            <tag> windows </tag>
+            
             <tag> log </tag>
             
             <tag> file system </tag>
@@ -3427,8 +3429,6 @@
             <tag> ext4 </tag>
             
             <tag> ssh </tag>
-            
-            <tag> windows </tag>
             
             <tag> permission </tag>
             
@@ -3488,9 +3488,9 @@
             
             <tag> leetcode </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> dynamic programming </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> binary search </tag>
             
@@ -3525,13 +3525,13 @@
             
             <tag> leetcode </tag>
             
+            <tag> dynamic programming </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 递归 </tag>
             
             <tag> 回溯 </tag>
-            
-            <tag> dynamic programming </tag>
             
             <tag> recursion </tag>
             
@@ -3562,11 +3562,11 @@
             
             <tag> hexo </tag>
             
-            <tag> search </tag>
-            
             <tag> hexo-theme-even </tag>
             
             <tag> blog </tag>
+            
+            <tag> search </tag>
             
             <tag> hexo-generator-search </tag>
             
@@ -3717,9 +3717,9 @@
       
         <tags>
             
-            <tag> interview </tag>
-            
             <tag> review </tag>
+            
+            <tag> interview </tag>
             
             <tag> tcp </tag>
             
@@ -4148,9 +4148,9 @@
             
             <tag> adobe </tag>
             
-            <tag> wechat </tag>
-            
             <tag> svg </tag>
+            
+            <tag> wechat </tag>
             
             <tag> illustrator </tag>
             
@@ -4898,7 +4898,7 @@
       <link href="/blog/2018/09/29/2018-computational-intelligence-homework-no.1/"/>
       <url>/blog/2018/09/29/2018-computational-intelligence-homework-no.1/</url>
       
-        <content type="html"><![CDATA[<h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2><p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p><a id="more"></a><h2 id="算法设计"><a class="header-anchor" href="#算法设计">#</a>算法设计</h2><h3 id="选择合适的数据结构表示问题状态"><a class="header-anchor" href="#选择合适的数据结构表示问题状态">#</a>选择合适的数据结构表示问题状态</h3><p>用向量<code>(T, S, Q)</code>表示状态, <code>E</code>表示10斤瓶中的油量, <code>S</code>表示7斤瓶中的油量, <code>Q</code>表示3斤瓶中的油量.</p><p>问题的起始状态: <font color="#FF0000">(10, 0, 0)</font></p><p>问题的目标状态: <font color="#FF0000">(5, 5, 0)</font></p><h3 id="确定智能算子，用以变化状态的规则"><a class="header-anchor" href="#确定智能算子，用以变化状态的规则">#</a>确定智能算子，用以变化状态的规则</h3><center id="rulelist">规则表</center><table><thead><tr><th style="text-align:left">规则号</th><th style="text-align:left">规则</th><th style="text-align:left">解释</th></tr></thead><tbody><tr><td style="text-align:left">1</td><td style="text-align:left">(T, S, Q) and S&lt;7 and T+S≥7 → (T+S-7, 7, Q)</td><td style="text-align:left">用10斤瓶油装满7斤瓶</td></tr><tr><td style="text-align:left">2</td><td style="text-align:left">(T, S, Q) and Q&lt;3 and T+Q≥3 → (T+Q-3, S, 3)</td><td style="text-align:left">用10斤瓶油装满3斤瓶</td></tr><tr><td style="text-align:left">3</td><td style="text-align:left">(T, S, Q) and T&lt;10 and T+S≥10 → (10, T+S-10, Q)</td><td style="text-align:left">用7斤瓶油装满10斤瓶</td></tr><tr><td style="text-align:left">4</td><td style="text-align:left">(T, S, Q) and Q&lt;3 and S+Q≥3 → (T, S+Q-3, 3)</td><td style="text-align:left">用7斤瓶油装满3斤瓶</td></tr><tr><td style="text-align:left">5</td><td style="text-align:left">(T, S, Q) and T&lt;10 and T+Q≥10 → (10, S, T+Q-10)</td><td style="text-align:left">用3斤瓶油装满10斤瓶</td></tr><tr><td style="text-align:left">6</td><td style="text-align:left">(T, S, Q) and S&lt;7 and S+Q≥7 → (T, 7, S+Q-7)</td><td style="text-align:left">用3斤瓶油装满7斤瓶</td></tr><tr><td style="text-align:left">7</td><td style="text-align:left">(T, S, Q) and T&gt;0 and T+S≤7 → (0, T+S, Q)</td><td style="text-align:left">10斤瓶油全部倒入7斤瓶</td></tr><tr><td style="text-align:left">8</td><td style="text-align:left">(T, S, Q) and T&gt;0 and T+Q≤3 → (0, S, T+Q)</td><td style="text-align:left">10斤瓶油全部倒入3斤瓶</td></tr><tr><td style="text-align:left">9</td><td style="text-align:left">(T, S, Q) and S&gt;0 and T+S≤10 → (T+S, 0, Q)</td><td style="text-align:left">7斤瓶油全部倒入10斤瓶</td></tr><tr><td style="text-align:left">10</td><td style="text-align:left">(T, S, Q) and S&gt;0 and S+Q≤3 → (T, 0, S+Q)</td><td style="text-align:left">7斤瓶油全部倒入3斤瓶</td></tr><tr><td style="text-align:left">11</td><td style="text-align:left">(T, S, Q) and Q&gt;0 and T+Q≤10 → (T+Q, S, 0)</td><td style="text-align:left">3斤瓶油全部倒入10斤瓶</td></tr><tr><td style="text-align:left">12</td><td style="text-align:left">(T, S, Q) and Q&gt;0 and S+Q≤7 → (T, S+Q, 0)</td><td style="text-align:left">3斤瓶油全部倒入7斤瓶</td></tr></tbody></table><h3 id="确定搜索方法"><a class="header-anchor" href="#确定搜索方法">#</a>确定搜索方法</h3><p>最基本的搜索方法为<code>深度优先搜索</code>和<code>广度优先搜索</code>, 考虑到本题目存在着无限深度的情况, 故选用<code>广度优先搜索</code>方法来实现.</p><h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2><p>大体的程序流程如图1所示</p><center><div id="flowchart-0" class="flow-chart"></div>图1 程序流程图</center><h2 id="核心伪代码"><a class="header-anchor" href="#核心伪代码">#</a>核心伪代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//取出当前队列的头部节点</span></span><br><span class="line">  currNode = list.shift();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//队列为空, 搜索失败</span></span><br><span class="line">  <span class="keyword">if</span>(currNode == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断是否为目标状态</span></span><br><span class="line">  <span class="keyword">if</span>(checkNode(currNode)) &#123;</span><br><span class="line">    printPath(currNode);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//将所有可能的下一步状态加入队列尾部</span></span><br><span class="line">  pour(currNode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="代码运行及测试"><a class="header-anchor" href="#代码运行及测试">#</a>代码运行及测试</h2><p>代码运行结果如图2所示, 由于并未对状态进行优化, 首次出现的目标状态在<code>第十层</code>, 有<code>190221 </code>个重复状态, 严重影响了运算速度.</p><center><p><img src="https://onns.xyz/blog/image/20180930-1.png" alt="代码运行结果图"></p><p>图2 代码运行结果图</p></center><p>改进方法是在对目标状态进行搜索的过程中, 对于那些在之前存在过的状态进行剔除, 只保留新状态, 改进后的代码运行结果如图3所示.</p><center><p><img src="https://onns.xyz/blog/image/20180930-2.png" alt="改进后代码运行结果图"></p><p>图3 改进后代码运行结果图</p></center><h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2><p>从<font color="#FF0000">(10, 0, 0)</font>到<font color="#FF0000">(5, 5, 0)</font>的分油方法为:</p><ul><li>用10斤瓶油装满7斤瓶 (10, 0, 0) -&gt; (3, 7, 0)</li><li>用7斤瓶油装满3斤瓶 (3, 7, 0) -&gt; (3, 4, 3)</li><li>3斤瓶油全部倒入10斤瓶 (3, 4, 3) -&gt; (6, 4, 0)</li><li>用7斤瓶油装满3斤瓶 (6, 4, 0) -&gt; (6, 1, 3)</li><li>3斤瓶油全部倒入10斤瓶 (6, 1, 3) -&gt; (9, 1, 0)</li><li>7斤瓶油全部倒入3斤瓶 (9, 1, 0) -&gt; (9, 0, 1)</li><li>用10斤瓶油装满7斤瓶 (9, 0, 1) -&gt; (2, 7, 1)</li><li>用7斤瓶油装满3斤瓶 (2, 7, 1) -&gt; (2, 5, 3)</li><li>3斤瓶油全部倒入10斤瓶 (2, 5, 3) -&gt; (5, 5, 0)</li></ul><p>如图4所示红色箭头即为分油方法.</p><center><div id="graphviz-0"></div><p>图4 分油方法示意图</p></center><p><a href="#rulelist">注:箭头上方数字即为规则号</a></p><script src="https://unpkg.com/viz.js@2.1.2/viz.js"></script><script src="https://unpkg.com/viz.js@2.1.2/full.render.js"></script><textarea id="graphviz-0-code" style="display: none">digraph G {  "(10,0,0)" -> "(3,7,0)"[color=red,label="1"]  "(10,0,0)" -> "(7,0,3)"[label="2"]  "(3,7,0)" -> "(0,7,3)"[label="2"]  "(3,7,0)" -> "(3,4,3)"[color=red,label="4"]  "(7,0,3)" -> "(7,3,0)"[label="12"]  "(3,4,3)" -> "(6,4,0)"[color=red,label="11"]  "(7,3,0)" -> "(4,3,3)"[label="2"]  "(6,4,0)" -> "(6,1,3)"[color=red,label="4"]  "(4,3,3)" -> "(4,6,0)"[label="12"]  "(6,1,3)" -> "(9,1,0)"[color=red,label="11"]  "(4,6,0)" -> "(1,6,3)"[label="2"]  "(9,1,0)" -> "(9,0,1)"[color=red,label="10"]  "(1,6,3)" -> "(1,7,2)"[label="6"]  "(9,0,1)" -> "(2,7,1)"[color=red,label="1"]  "(1,7,2)" -> "(8,0,2)"[label="9"]  "(2,7,1)" -> "(2,5,3)"[color=red,label="4"]  "(8,0,2)" -> "(8,2,0)"[label="12"]  "(2,5,3)" -> "(5,5,0)"[color=red,label="11"]  "(8,2,0)" -> "(5,2,3)"[label="2"]}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-0-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-0").append(element)  });</script><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列e1=>end: 未找到目标状态e2=>end: 达到目标状态(5, 5, 0)op1=>operation: 取出队列头部中的第一个状态cond1=>condition: 此状态是否为空?cond2=>condition: 是否为目标状态?op2=>operation: 将所有可能下一步状态加入队列尾部st->op1->cond1cond1(yes)->e1cond1(no)->cond2cond2(yes)->e2cond2(no)->op2op2->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>]]></content>
+        <content type="html"><![CDATA[<h2 id="问题描述"><a class="header-anchor" href="#问题描述">#</a>问题描述</h2><p>小孩分油问题：两个小孩去打油，一人带了一个一斤的空瓶，另一个带了一个七两、一个三两的空瓶。原计划各打一斤油，可是由于所带的钱不够，只好两人合打了一斤油，在回家的路上，两人想平分这一斤油，可是又没有其它工具。试仅用三个瓶子(一斤、七两、三两)精确地分出两个半斤油来。</p><a id="more"></a><h2 id="算法设计"><a class="header-anchor" href="#算法设计">#</a>算法设计</h2><h3 id="选择合适的数据结构表示问题状态"><a class="header-anchor" href="#选择合适的数据结构表示问题状态">#</a>选择合适的数据结构表示问题状态</h3><p>用向量<code>(T, S, Q)</code>表示状态, <code>E</code>表示10斤瓶中的油量, <code>S</code>表示7斤瓶中的油量, <code>Q</code>表示3斤瓶中的油量.</p><p>问题的起始状态: <font color="#FF0000">(10, 0, 0)</font></p><p>问题的目标状态: <font color="#FF0000">(5, 5, 0)</font></p><h3 id="确定智能算子，用以变化状态的规则"><a class="header-anchor" href="#确定智能算子，用以变化状态的规则">#</a>确定智能算子，用以变化状态的规则</h3><center id="rulelist">规则表</center><table><thead><tr><th style="text-align:left">规则号</th><th style="text-align:left">规则</th><th style="text-align:left">解释</th></tr></thead><tbody><tr><td style="text-align:left">1</td><td style="text-align:left">(T, S, Q) and S&lt;7 and T+S≥7 → (T+S-7, 7, Q)</td><td style="text-align:left">用10斤瓶油装满7斤瓶</td></tr><tr><td style="text-align:left">2</td><td style="text-align:left">(T, S, Q) and Q&lt;3 and T+Q≥3 → (T+Q-3, S, 3)</td><td style="text-align:left">用10斤瓶油装满3斤瓶</td></tr><tr><td style="text-align:left">3</td><td style="text-align:left">(T, S, Q) and T&lt;10 and T+S≥10 → (10, T+S-10, Q)</td><td style="text-align:left">用7斤瓶油装满10斤瓶</td></tr><tr><td style="text-align:left">4</td><td style="text-align:left">(T, S, Q) and Q&lt;3 and S+Q≥3 → (T, S+Q-3, 3)</td><td style="text-align:left">用7斤瓶油装满3斤瓶</td></tr><tr><td style="text-align:left">5</td><td style="text-align:left">(T, S, Q) and T&lt;10 and T+Q≥10 → (10, S, T+Q-10)</td><td style="text-align:left">用3斤瓶油装满10斤瓶</td></tr><tr><td style="text-align:left">6</td><td style="text-align:left">(T, S, Q) and S&lt;7 and S+Q≥7 → (T, 7, S+Q-7)</td><td style="text-align:left">用3斤瓶油装满7斤瓶</td></tr><tr><td style="text-align:left">7</td><td style="text-align:left">(T, S, Q) and T&gt;0 and T+S≤7 → (0, T+S, Q)</td><td style="text-align:left">10斤瓶油全部倒入7斤瓶</td></tr><tr><td style="text-align:left">8</td><td style="text-align:left">(T, S, Q) and T&gt;0 and T+Q≤3 → (0, S, T+Q)</td><td style="text-align:left">10斤瓶油全部倒入3斤瓶</td></tr><tr><td style="text-align:left">9</td><td style="text-align:left">(T, S, Q) and S&gt;0 and T+S≤10 → (T+S, 0, Q)</td><td style="text-align:left">7斤瓶油全部倒入10斤瓶</td></tr><tr><td style="text-align:left">10</td><td style="text-align:left">(T, S, Q) and S&gt;0 and S+Q≤3 → (T, 0, S+Q)</td><td style="text-align:left">7斤瓶油全部倒入3斤瓶</td></tr><tr><td style="text-align:left">11</td><td style="text-align:left">(T, S, Q) and Q&gt;0 and T+Q≤10 → (T+Q, S, 0)</td><td style="text-align:left">3斤瓶油全部倒入10斤瓶</td></tr><tr><td style="text-align:left">12</td><td style="text-align:left">(T, S, Q) and Q&gt;0 and S+Q≤7 → (T, S+Q, 0)</td><td style="text-align:left">3斤瓶油全部倒入7斤瓶</td></tr></tbody></table><h3 id="确定搜索方法"><a class="header-anchor" href="#确定搜索方法">#</a>确定搜索方法</h3><p>最基本的搜索方法为<code>深度优先搜索</code>和<code>广度优先搜索</code>, 考虑到本题目存在着无限深度的情况, 故选用<code>广度优先搜索</code>方法来实现.</p><h2 id="程序流程"><a class="header-anchor" href="#程序流程">#</a>程序流程</h2><p>大体的程序流程如图1所示</p><center><div id="flowchart-0" class="flow-chart"></div>图1 程序流程图</center><h2 id="核心伪代码"><a class="header-anchor" href="#核心伪代码">#</a>核心伪代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">//取出当前队列的头部节点</span></span><br><span class="line">  currNode = list.shift();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//队列为空, 搜索失败</span></span><br><span class="line">  <span class="keyword">if</span>(currNode == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//判断是否为目标状态</span></span><br><span class="line">  <span class="keyword">if</span>(checkNode(currNode)) &#123;</span><br><span class="line">    printPath(currNode);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//将所有可能的下一步状态加入队列尾部</span></span><br><span class="line">  pour(currNode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="代码运行及测试"><a class="header-anchor" href="#代码运行及测试">#</a>代码运行及测试</h2><p>代码运行结果如图2所示, 由于并未对状态进行优化, 首次出现的目标状态在<code>第十层</code>, 有<code>190221 </code>个重复状态, 严重影响了运算速度.</p><center><p><img src="https://onns.xyz/blog/image/20180930-1.png" alt="代码运行结果图"></p><p>图2 代码运行结果图</p></center><p>改进方法是在对目标状态进行搜索的过程中, 对于那些在之前存在过的状态进行剔除, 只保留新状态, 改进后的代码运行结果如图3所示.</p><center><p><img src="https://onns.xyz/blog/image/20180930-2.png" alt="改进后代码运行结果图"></p><p>图3 改进后代码运行结果图</p></center><h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2><p>从<font color="#FF0000">(10, 0, 0)</font>到<font color="#FF0000">(5, 5, 0)</font>的分油方法为:</p><ul><li>用10斤瓶油装满7斤瓶 (10, 0, 0) -&gt; (3, 7, 0)</li><li>用7斤瓶油装满3斤瓶 (3, 7, 0) -&gt; (3, 4, 3)</li><li>3斤瓶油全部倒入10斤瓶 (3, 4, 3) -&gt; (6, 4, 0)</li><li>用7斤瓶油装满3斤瓶 (6, 4, 0) -&gt; (6, 1, 3)</li><li>3斤瓶油全部倒入10斤瓶 (6, 1, 3) -&gt; (9, 1, 0)</li><li>7斤瓶油全部倒入3斤瓶 (9, 1, 0) -&gt; (9, 0, 1)</li><li>用10斤瓶油装满7斤瓶 (9, 0, 1) -&gt; (2, 7, 1)</li><li>用7斤瓶油装满3斤瓶 (2, 7, 1) -&gt; (2, 5, 3)</li><li>3斤瓶油全部倒入10斤瓶 (2, 5, 3) -&gt; (5, 5, 0)</li></ul><p>如图4所示红色箭头即为分油方法.</p><center><div id="graphviz-0"></div><p>图4 分油方法示意图</p></center><p><a href="#rulelist">注:箭头上方数字即为规则号</a></p><script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script><script src="//flowchart.js.org/flowchart-latest.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 确定初始状态(10, 0, 0), 加入队列e1=>end: 未找到目标状态e2=>end: 达到目标状态(5, 5, 0)op1=>operation: 取出队列头部中的第一个状态cond1=>condition: 此状态是否为空?cond2=>condition: 是否为目标状态?op2=>operation: 将所有可能下一步状态加入队列尾部st->op1->cond1cond1(yes)->e1cond1(no)->cond2cond2(yes)->e2cond2(no)->op2op2->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://unpkg.com/viz.js@2.1.2/viz.js"></script><script src="https://unpkg.com/viz.js@2.1.2/full.render.js"></script><textarea id="graphviz-0-code" style="display: none">digraph G {  "(10,0,0)" -> "(3,7,0)"[color=red,label="1"]  "(10,0,0)" -> "(7,0,3)"[label="2"]  "(3,7,0)" -> "(0,7,3)"[label="2"]  "(3,7,0)" -> "(3,4,3)"[color=red,label="4"]  "(7,0,3)" -> "(7,3,0)"[label="12"]  "(3,4,3)" -> "(6,4,0)"[color=red,label="11"]  "(7,3,0)" -> "(4,3,3)"[label="2"]  "(6,4,0)" -> "(6,1,3)"[color=red,label="4"]  "(4,3,3)" -> "(4,6,0)"[label="12"]  "(6,1,3)" -> "(9,1,0)"[color=red,label="11"]  "(4,6,0)" -> "(1,6,3)"[label="2"]  "(9,1,0)" -> "(9,0,1)"[color=red,label="10"]  "(1,6,3)" -> "(1,7,2)"[label="6"]  "(9,0,1)" -> "(2,7,1)"[color=red,label="1"]  "(1,7,2)" -> "(8,0,2)"[label="9"]  "(2,7,1)" -> "(2,5,3)"[color=red,label="4"]  "(8,0,2)" -> "(8,2,0)"[label="12"]  "(2,5,3)" -> "(5,5,0)"[color=red,label="11"]  "(8,2,0)" -> "(5,2,3)"[label="2"]}</textarea><script>  var viz = new Viz();  var code = document.getElementById("graphviz-0-code").value;  viz.renderSVGElement(code)  .then(function(element) {    document.getElementById("graphviz-0").append(element)  });</script>]]></content>
       
       
       <categories>
@@ -5150,33 +5150,11 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/blog/about/index.html"/>
-      <url>/blog/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>2019年总结</title>
       <link href="/blog/drafts/2019-summary.html"/>
       <url>/blog/drafts/2019-summary.html</url>
       
         <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ifc file parsing</title>
-      <link href="/blog/drafts/ifc-file-parsing.html"/>
-      <url>/blog/drafts/ifc-file-parsing.html</url>
-      
-        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
       
     </entry>
     
@@ -5205,11 +5183,22 @@
     
     
     <entry>
-      <title>home</title>
-      <link href="/blog/home/index.html"/>
-      <url>/blog/home/index.html</url>
+      <title>ifc file parsing</title>
+      <link href="/blog/drafts/ifc-file-parsing.html"/>
+      <url>/blog/drafts/ifc-file-parsing.html</url>
       
-        <content type="html"><![CDATA[<script language="javascript" type="text/javascript">window.location.href="//onns.xyz/";</script>]]></content>
+        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/blog/about/index.html"/>
+      <url>/blog/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
       
     </entry>
     
@@ -5227,11 +5216,11 @@
     
     
     <entry>
-      <title>image</title>
-      <link href="/blog/image/index.html"/>
-      <url>/blog/image/index.html</url>
+      <title>home</title>
+      <link href="/blog/home/index.html"/>
+      <url>/blog/home/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<script language="javascript" type="text/javascript">window.location.href="//onns.xyz/";</script>]]></content>
       
     </entry>
     
@@ -5241,6 +5230,17 @@
       <title>tags</title>
       <link href="/blog/tags/index.html"/>
       <url>/blog/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>image</title>
+      <link href="/blog/image/index.html"/>
+      <url>/blog/image/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
