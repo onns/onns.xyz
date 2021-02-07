@@ -323,7 +323,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>我之前用<code>ssh</code>密钥登录的时候，都是要用<code>-i</code>参数的，这次找了很久都没找到<code>git</code>如何指定密钥文件，然后发现大家的方法都是配置<code>.ssh/config</code>，哇我头一次知道原来有这么个玩意儿，🐂🍺 啊！</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.ssh/config</span><br></pre></td></tr></table></figure>
 <p>然后把下面这段加进去：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Hostname xm.onns.xyz</span><br><span class="line">	User git</span><br><span class="line">	Port 22</span><br><span class="line">	PreferredAuthentications publickey</span><br><span class="line">	IdentityFile ~/Documents/common/key/git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host xm.onns.xyz</span><br><span class="line">	Hostname xm.onns.xyz</span><br><span class="line">	User git</span><br><span class="line">	Port 22</span><br><span class="line">	PreferredAuthentications publickey</span><br><span class="line">	IdentityFile ~/Documents/common/key/git</span><br></pre></td></tr></table></figure>
 <p>然后就 ok 了。</p>
 <h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
 <p>大家的好像都是互相抄，大同小异，只列举一部分了：</p>
@@ -334,6 +334,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><a href="https://www.cnblogs.com/cidgur/p/12432280.html" target="_blank" rel="noopener">git 在 pull/push 指定密钥文件</a></li>
 <li><a href="https://thucnc.medium.com/how-to-specify-different-ssh-keys-for-git-push-for-a-given-domain-bef56639dc02" target="_blank" rel="noopener">How to specify different SSH keys for git push for a given domain</a></li>
 <li><a href="https://www.cnblogs.com/hangj/p/11506686.html" target="_blank" rel="noopener">.ssh/config 常用配置</a></li>
+<li><a href="https://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/" target="_blank" rel="noopener">OpenSSH Config File Examples</a></li>
+<li><a href="https://linuxize.com/post/using-the-ssh-config-file/" target="_blank" rel="noopener">Using the SSH Config File</a></li>
 </ul>
 <p>02:23 晚安～</p>
 
