@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>git相关文档</title>
+      <link href="/blog/2021/02/08/git-usage/"/>
+      <url>/blog/2021/02/08/git-usage/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p><a id="more"></a><p><code>git</code>添加多个远程仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --add origin git@xm.onns.xyz:/home/git/paper.git</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.cnblogs.com/morethink/p/8700003.html" target="_blank" rel="noopener">Git 同时 push 到多个远程仓库</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> doc </tag>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git私有仓库</title>
       <link href="/blog/2021/02/07/private-git-repository/"/>
       <url>/blog/2021/02/07/private-git-repository/</url>
