@@ -263,6 +263,32 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/22/nodejs-in-linux/">Linux安装Nodejs</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-22
+        </span><span class="post-category">
+            <a href="/blog/categories/work/">work</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/22/nodejs-in-linux/"
+             data-title="Linux安装Nodejs">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p><code>MacOS</code>新版本连接 SSH 后会报如下错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory</span><br></pre></td></tr></table></figure>
+<p>虽然每次百度都百度得到，但是已经第二次遇见了，后面无数次配置服务器可能还会遇见，记录下叭。</p>
+          <div class="read-more">
+            <a href="/blog/2020/08/22/nodejs-in-linux/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/08/22/jvm-note-1/">深入理解Java虚拟机（一）</a>
         </h1>
 
@@ -514,71 +540,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>过去的研究主要通过静态时间相关的测量（例如每个学生所有作业的平均开始时间）或时间模型的参数来描述学生的拖延，假设学生的活动以恒定的速率发生（例如齐次泊松模型）。</p>
           <div class="read-more">
             <a href="/blog/2020/08/12/note-20200812/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/12/sync-sofa-doc/">Sync Sofa</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-12
-        </span><span class="post-category">
-            <a href="/blog/categories/try/">try</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/12/sync-sofa-doc/"
-             data-title="Sync Sofa">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="sync-sofa-streaming-video-playback-synchronizer-extension"><a class="header-anchor" href="#sync-sofa-streaming-video-playback-synchronizer-extension">#</a>Sync Sofa (streaming video playback synchronizer extension)</h1>
-<blockquote>
-<p>This chrome extension allows multi-user sync streaming video in a fast, simple, and stable way.</p>
-</blockquote>
-<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square" alt="GitHub go.mod Go version (subfolder of monorepo)"> <a href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener"><img src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square" alt="Chrome web store users"></a> <img src="https://img.shields.io/uptimerobot/status/m785506902-abf56ee3c6b33304675185c6?label=sync-us&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m785506916-32a7dc946ed8718c859e7cdd?label=sync-cn&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m785512978-f4cf51568a716df159f1c762?label=sync-cn2&amp;style=flat-square" alt="Uptime Robot status"></p>
-<p><a href="#sync-sofa-streaming-video-playback-synchronizer-extension">English</a> | <a href="#sync-sofa-%E5%9C%A8%E7%BA%BF%E8%A7%86%E9%A2%91%E5%90%8C%E6%AD%A5%E6%92%AD%E6%94%BE%E6%8F%92%E4%BB%B6">中文</a></p>
-<p>Sync Sofa is a full-stack web extension that provides an easy-to-use and stable way to synchronize streaming playback for multiple users. It can improve the experience when users from different locations want to share a video/movie remotely. Currently, the features include:</p>
-<ul>
-<li>2 party connection: either party can be the host of a sync room and the other can join with connection code.</li>
-<li>sync pause/play: each user pause/play the video, the other side will do the same</li>
-<li>sync play process bar control: the playing time change will also affect another side user</li>
-<li>local video sync: provide two ways to sync your playing of a local video file</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2020/10/07/0a2FQP.png" alt="title pic"></p>
-<h2 id="current-version"><a class="header-anchor" href="#current-version">#</a>Current version</h2>
-<p><strong>v1.0.9 - update on 14 Aug 2020</strong></p>
-<p>⚠️⚠️⚠️ Each website has it’s <code>own controller</code> of the playback rate, so please ignore the wrong display of <code>playback rate</code>.</p>
-<p>Add:</p>
-<ol>
-<li>playback rate sync: any side user’s change to the playback rate will sync to the other side.</li>
-</ol>
-<p>Fix:</p>
-<ol>
-<li>Fix bug of no new bugs</li>
-</ol>
-<hr>
-<p><strong>v1.0.8 - update on 8 Aug 2020</strong></p>
-<p>⚠️⚠️⚠️ <strong>Do Not</strong> try to use <code>Room code</code> like <code>0000</code> or <code>1234</code>, We strongly recommend you use uncommon code so that you do not need to change it.</p>
-<p>Add:</p>
-<ol>
-<li>allow customized connection code, user can directly connect to peer simply click the start button, without reapplying a new code</li>
-<li>simple built-in chat feature (can be toggled in options page)</li>
-<li>add system notification (can be toggled in options page)</li>
-<li>add connection status budge to extension icon (red-unconnected, yellow-pending connection, green-connecting)</li>
-<li>add a notification for unknown socket disconcerting</li>
-<li>add duplicate connection code notification</li>
-</ol>
-<p>Fix:</p>
-<ol>
-<li>Fix bug of no new bugs</li>
-</ol>
-<hr>
-          <div class="read-more">
-            <a href="/blog/2020/08/12/sync-sofa-doc/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/10/">

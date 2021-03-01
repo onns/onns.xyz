@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title>定时任务相关问题</title>
+      <link href="/blog/2021/03/01/cron-usage/"/>
+      <url>/blog/2021/03/01/cron-usage/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>晚上睡不着，重构了一堆<code>shell</code>，没想到出事了，记录下。</p><a id="more"></a><h3 id="cron不识别"><a class="header-anchor" href="#cron不识别">#</a><code>cron</code>不识别<code>~</code></h3><p><code>~</code>是<code>bash</code>里的，<code>cron</code>不识别，要用<code>$HOME</code>代替。</p><h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4><ul><li><a href="https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html" target="_blank" rel="noopener">3.5.2 Tilde Expansion</a></li><li><a href="https://stackoverflow.com/questions/50296898/can-i-use-a-tilde-in-a-mysqldump-cronjob-linux-cron-is-not-running/50297010" target="_blank" rel="noopener">Can I use a tilde ( ~ ) in a mysqldump cronjob? Linux Cron is not running</a></li><li><a href="https://stackoverflow.com/questions/45401001/why-is-a-valid-path-with-a-tilde-not-expanding-in-this-cron-job" target="_blank" rel="noopener">Why is a valid path with a tilde not expanding in this cron job? [duplicate]</a></li></ul><h3 id="cron在环境变量之前"><a class="header-anchor" href="#cron在环境变量之前">#</a><code>cron</code>在环境变量之前</h3><p><code>cron</code>会在命令行加载<code>.bashrc</code>之类的文件之前，所以你写在里面的变量它读不到，解决办法是直接用<code>crontab -e</code>把环境变量写进去：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ONNS_CONFIG_DIR=/Users/onns/Documents/code/config/bash/</span><br><span class="line">ONNS_PLATFORM=macbook</span><br><span class="line">30 * * * * zsh /Users/onns/Documents/code/bash/oclear &gt;&gt;/Users/onns/cron.log 2&gt;&gt;/Users/onns/cron.log</span><br></pre></td></tr></table></figure><p>也是会识别的，亲测有效，其它的方案可能都失效了，建议别用。</p><p>下面第一个链接的那种方法<code>. $HOME/.profile</code>，<code>Ubuntu 18.04</code>亲测无效，而且如果你在<code>.profile</code>里写点<code>shell</code>命令，也会失效，我的<code>google-cloud-sdk</code>就是。</p><h4 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h4><ul><li><a href="https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables" target="_blank" rel="noopener">How can I run a cron command with existing environmental variables?</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> zsh </tag>
+            
+            <tag> tips </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>A Closer Look at Spatiotemporal Convolutions for Action Recognition</title>
       <link href="/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/"/>
       <url>/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/</url>
