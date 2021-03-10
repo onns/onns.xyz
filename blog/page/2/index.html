@@ -263,6 +263,36 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2021/01/03/inotify-usage/">inotify使用</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-01-03
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/01/03/inotify-usage/"
+             data-title="inotify使用">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>懒真的是人类进步的究极动力= =<br>
+因为代码要在无数台机器上来回切换，我最开始用的是<code>github</code>，但是频繁改的时候<code>github</code>也太难用了。<br>
+后来用微云同步助手，不过这个只能我的<code>windows</code>和<code>mac</code>之间同步，<code>linux</code>没有客户端。<br>
+再后来知道了<code>rsync</code>这么一个工具，<code>windows</code>下也有，就三端同步特别方便，写一个命令行工具这边点一下同步到云，那边点一下从云上拉下来，完美。<br>
+再后来，也就是昨天，我实在懒得点那一下了，<code>Linux</code>内核支持文件的细粒度监控，用<code>inotify</code>实现，所以一下文件修改增加什么的都可以被监控到，然后自动监控，然后传上云，配合上<code>vscode</code>之类的编辑器的自动保存，感觉解放了自己！</p>
+<p>本来想昨晚整理的，结果偷了个懒，就今天了= =！</p>
+          <div class="read-more">
+            <a href="/blog/2021/01/03/inotify-usage/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/12/29/on-the-integration-of-optical-flow-and-action-recognition/">On the Integration of Optical Flow and Action Recognition</a>
         </h1>
 
@@ -503,31 +533,6 @@ document.getElementById('post-toc').remove();">
     <div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
           <div class="read-more">
             <a href="/blog/2020/11/29/the-linux-command-line-note-13/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/11/24/the-linux-command-line-note-12/">《快乐的Linux命令行》笔记（12）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-11-24
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/11/24/the-linux-command-line-note-12/"
-             data-title="《快乐的Linux命令行》笔记（12）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
-<p>每个命令还是要给个例子，我<code>tee</code>命令虽然知道是怎么工作的，但是用的时候还是自然而然的加了一个<code>&gt;</code>，错了= =。</p>
-          <div class="read-more">
-            <a href="/blog/2020/11/24/the-linux-command-line-note-12/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/">

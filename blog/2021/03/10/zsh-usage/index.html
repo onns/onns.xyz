@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/linux/"/>
+<meta name="description" content="zsh问题记录"/><meta name="keywords" content="macos, cron, crontab, linux, shell, zsh, tips, bash, shell note, zsh note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/03/10/zsh-usage/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>linux · Onns Blog
-  </title>
+    <title>zsh问题记录 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,300 +261,86 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">linux</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">zsh问题记录
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/zsh-usage/" class="archive-post-link">
-            zsh问题记录
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/03/10/zsh-usage/"
+             data-title="zsh问题记录">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#no-matches-found"><span class="toc-text">no matches found</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-removing-leading-‘-’-from-member-names"><span class="toc-text">tar: Removing leading ‘&#x2F;’ from member names</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法-2"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p>
+<a id="more"></a>
+<h2 id="no-matches-found"><a class="header-anchor" href="#no-matches-found">#</a>no matches found</h2>
+<p>在用通配符<code>*</code>的时候，有时候如果没有文件，就会报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mv /Users/onns/Desktop/temp/* <span class="variable">$&#123;another_dir&#125;</span></span><br><span class="line">no matches found: /Users/onns/Desktop/temp/*</span><br></pre></td></tr></table></figure>
+<p>原因改天再补吧！</p>
+<h3 id="解决方法"><a class="header-anchor" href="#解决方法">#</a>解决方法</h3>
+<p>解决方法是在运行脚本之前先运行一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setopt</span> +o nomatch</span><br></pre></td></tr></table></figure>
+<p>但是必须要写在脚本文件里，我写在<code>.zshrc</code>里结果没用，我也不知道为什么，如果有人知道可以告知一下。</p>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/310540/how-to-get-rid-of-no-match-found-when-running-rm" target="_blank" rel="noopener">How to get rid of “No match found” when running “rm *”</a></li>
+</ul>
+<h2 id="tar-removing-leading-‘-’-from-member-names"><a class="header-anchor" href="#tar-removing-leading-‘-’-from-member-names">#</a>tar: Removing leading ‘/’ from member names</h2>
+<p>这个就比较好解决了，一搜就有，没想到<code>tar</code>默认是用相对地址的= =</p>
+<p>不过我比较好奇的是，为什么在压缩过程的输出是输出到<code>stderr</code>里而不是<code>stdout</code>里，也是<code>TODO</code>，改日再说。</p>
+<h3 id="解决方法-2"><a class="header-anchor" href="#解决方法-2">#</a>解决方法</h3>
+<p>添加<code>-P</code>参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvPf  - <span class="string">"<span class="variable">$&#123;imgdir&#125;</span>"</span> | openssl des3 -salt -k <span class="variable">$img_password</span> | dd of=<span class="variable">$&#123;bakdir&#125;</span>img-<span class="variable">$&#123;now_date&#125;</span>-<span class="variable">$&#123;now_time&#125;</span>.bak</span><br></pre></td></tr></table></figure>
+<h3 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h3>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/545984/how-to-overcome-tar-removing-leading-from-member-names" target="_blank" rel="noopener">How to overcome tar: Removing leading `/’ from member names [duplicate]</a></li>
+<li><a href="https://unix.stackexchange.com/questions/59243/tar-removing-leading-from-member-names/59244" target="_blank" rel="noopener">tar: Removing leading `/’ from member names</a></li>
+</ul>
+<h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
+<ul>
+<li>[ ] <code>setopt +o nomatch</code>的作用</li>
+<li>[ ] <code>tar</code>输出问题</li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/01/cron-usage/" class="archive-post-link">
-            定时任务相关问题
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-02-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/02/07/private-git-repository/" class="archive-post-link">
-            git私有仓库
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-01-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/01/10/the-linux-command-line-note-15/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（15）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-01-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/01/03/inotify-usage/" class="archive-post-link">
-            inotify使用
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/14/run-ngrok-as-a-service/" class="archive-post-link">
-            把ngrok服务配置成service
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/09/ngrok-doc/" class="archive-post-link">
-            ngrok我终于懂了
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/02/the-linux-command-line-note-14/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/29/the-linux-command-line-note-13/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/24/the-linux-command-line-note-12/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/20/the-linux-command-line-note-11/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/17/the-linux-command-line-note-10/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/16/the-linux-command-line-note-9/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/15/the-linux-command-line-note-8/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/10/the-linux-command-line-note-7/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/09/the-linux-command-line-note-6/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/08/the-linux-command-line-note-5/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/06/the-linux-command-line-note-4/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/05/the-linux-command-line-note-3/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/03/the-linux-command-line-note-2/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/12/the-linux-command-line-note-1/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（1）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/16/ssh-key-can-not-work/" class="archive-post-link">
-            今日的大坑：ssh密钥失效
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/09/nginx-proxy-websocket/" class="archive-post-link">
-            Nginx代理websocket
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/08/rsync-usage/" class="archive-post-link">
-            rsync实现文件同步
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/07/ssh-key-in-linux/" class="archive-post-link">
-            Linux下密钥登录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/22/nodejs-in-linux/" class="archive-post-link">
-            Linux安装Nodejs
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/21/ip-records-top-3/" class="archive-post-link">
-            ip访问记录查询top3
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/10/log-write-test/" class="archive-post-link">
-            Linux追加日志测试
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2019-10-23
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2019/10/23/aliyun-ddns/" class="archive-post-link">
-            阿里云动态修改域名解析
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/cron/">cron</a>
+            <a href="/blog/tags/crontab/">crontab</a>
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
+            <a href="/blog/tags/zsh-note/">zsh note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/03/01/cron-usage/">
+        <span class="next-text nav-default">定时任务相关问题</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
