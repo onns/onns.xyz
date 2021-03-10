@@ -283,7 +283,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#no-matches-found"><span class="toc-text">no matches found</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-removing-leading-‘-’-from-member-names"><span class="toc-text">tar: Removing leading ‘&#x2F;’ from member names</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法-2"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#no-matches-found"><span class="toc-text">no matches found</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-removing-leading-‘-’-from-member-names"><span class="toc-text">tar: Removing leading ‘&#x2F;’ from member names</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法-2"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prompt"><span class="toc-text">Prompt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-3"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p>
@@ -311,6 +311,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><a href="https://unix.stackexchange.com/questions/545984/how-to-overcome-tar-removing-leading-from-member-names" target="_blank" rel="noopener">How to overcome tar: Removing leading `/’ from member names [duplicate]</a></li>
 <li><a href="https://unix.stackexchange.com/questions/59243/tar-removing-leading-from-member-names/59244" target="_blank" rel="noopener">tar: Removing leading `/’ from member names</a></li>
 </ul>
+<h2 id="prompt"><a class="header-anchor" href="#prompt">#</a>Prompt</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT=<span class="string">'%F&#123;green&#125;[%*] %n@%m%f %F&#123;blue&#125;%~%f $ '</span></span><br></pre></td></tr></table></figure>
+<h3 id="相关链接-3"><a class="header-anchor" href="#相关链接-3">#</a>相关链接</h3>
+<ul>
+<li><a href="https://medium.com/dev-genius/customize-the-macos-terminal-zsh-4cb387e4f447" target="_blank" rel="noopener">Customize the MacOS Terminal</a></li>
+<li><a href="https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/" target="_blank" rel="noopener">Moving to zsh, part 6 – Customizing the zsh Prompt</a></li>
+</ul>
 <h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
 <ul>
 <li>[ ] <code>setopt +o nomatch</code>的作用</li>
@@ -333,7 +340,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/zsh-note/">zsh note</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2021/03/01/cron-usage/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/03/10/the-go-programming-language-note-1/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《Go语音圣经（中文版）》笔记（1）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/03/01/cron-usage/">
         <span class="next-text nav-default">定时任务相关问题</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
