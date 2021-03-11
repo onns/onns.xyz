@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="定时任务相关问题"/><meta name="keywords" content="linux, shell, bash, zsh, shell note, cron, crontab, tips, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/03/01/cron-usage/"/>
+<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/tags/nas/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,8 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>定时任务相关问题 - Onns Blog</title>
+    <title>nas · Onns Blog
+  </title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,78 +262,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">定时任务相关问题
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-03-01
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/03/01/cron-usage/"
-             data-title="定时任务相关问题">
-          Visits 0
-        </span>
+            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
+          <h2 class="archive-name">nas</h2>
         </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cron不识别"><span class="toc-text">cron不识别~</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cron在环境变量之前"><span class="toc-text">cron在环境变量之前</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li></ol></li></ol>
-    </div>
-  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>晚上睡不着，重构了一堆<code>shell</code>，没想到出事了，记录下。</p>
-<a id="more"></a>
-<h3 id="cron不识别"><a class="header-anchor" href="#cron不识别">#</a><code>cron</code>不识别<code>~</code></h3>
-<p><code>~</code>是<code>bash</code>里的，<code>cron</code>不识别，要用<code>$HOME</code>代替。</p>
-<h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4>
-<ul>
-<li><a href="https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html" target="_blank" rel="noopener">3.5.2 Tilde Expansion</a></li>
-<li><a href="https://stackoverflow.com/questions/50296898/can-i-use-a-tilde-in-a-mysqldump-cronjob-linux-cron-is-not-running/50297010" target="_blank" rel="noopener">Can I use a tilde ( ~ ) in a mysqldump cronjob? Linux Cron is not running</a></li>
-<li><a href="https://stackoverflow.com/questions/45401001/why-is-a-valid-path-with-a-tilde-not-expanding-in-this-cron-job" target="_blank" rel="noopener">Why is a valid path with a tilde not expanding in this cron job? [duplicate]</a></li>
-</ul>
-<h3 id="cron在环境变量之前"><a class="header-anchor" href="#cron在环境变量之前">#</a><code>cron</code>在环境变量之前</h3>
-<p><code>cron</code>会在命令行加载<code>.bashrc</code>之类的文件之前，所以你写在里面的变量它读不到，解决办法是直接用<code>crontab -e</code>把环境变量写进去：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ONNS_CONFIG_DIR=/Users/onns/Documents/code/config/bash/</span><br><span class="line">ONNS_PLATFORM=macbook</span><br><span class="line">30 * * * * zsh /Users/onns/Documents/code/bash/oclear &gt;&gt;/Users/onns/cron.log 2&gt;&gt;/Users/onns/cron.log</span><br></pre></td></tr></table></figure>
-<p>也是会识别的，亲测有效，其它的方案可能都失效了，建议别用。</p>
-<p>下面第一个链接的那种方法<code>. $HOME/.profile</code>，<code>Ubuntu 18.04</code>亲测无效，而且如果你在<code>.profile</code>里写点<code>shell</code>命令，也会失效，我的<code>google-cloud-sdk</code>就是。</p>
-<h4 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h4>
-<ul>
-<li><a href="https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables" target="_blank" rel="noopener">How can I run a cron command with existing environmental variables?</a></li>
-</ul>
-
+      <div class="archive-post">
+        <span class="archive-post-time">
+          2021-03-11
+          </span>
+        <span class="archive-post-title">
+          <a href="/blog/2021/03/11/nas/" class="archive-post-link">
+            网络附属存储
+          </a>
+        </span>
       </div>
-      
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/blog/tags/linux/">linux</a>
-            <a href="/blog/tags/shell/">shell</a>
-            <a href="/blog/tags/bash/">bash</a>
-            <a href="/blog/tags/zsh/">zsh</a>
-            <a href="/blog/tags/shell-note/">shell note</a>
-            <a href="/blog/tags/cron/">cron</a>
-            <a href="/blog/tags/crontab/">crontab</a>
-            <a href="/blog/tags/tips/">tips</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/blog/2021/03/10/zsh-usage/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">zsh问题记录</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/">
-        <span class="next-text nav-default">A Closer Look at Spatiotemporal Convolutions for Action Recognition</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
-    </div></div>
+    </section><nav class="pagination"></nav></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

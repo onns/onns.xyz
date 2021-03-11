@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="定时任务相关问题"/><meta name="keywords" content="linux, shell, bash, zsh, shell note, cron, crontab, tips, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/03/01/cron-usage/"/>
+<meta name="description" content="网络附属存储"/><meta name="keywords" content="linux, tips, macos, windows, nas, nfs, smb, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/03/11/nas/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>定时任务相关问题 - Onns Blog</title>
+    <title>网络附属存储 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -263,18 +263,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">定时任务相关问题
+      <h1 class="post-title">网络附属存储
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2021-03-01
+          2021-03-11
         </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
+            <a href="/blog/categories/try/">try</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2021/03/01/cron-usage/"
-             data-title="定时任务相关问题">
+             data-url="/blog/2021/03/11/nas/"
+             data-title="网络附属存储">
           Visits 0
         </span>
         </div>
@@ -283,50 +283,55 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cron不识别"><span class="toc-text">cron不识别~</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cron在环境变量之前"><span class="toc-text">cron在环境变量之前</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfs"><span class="toc-text">NFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在问题"><span class="toc-text">存在问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smb"><span class="toc-text">SMB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端-2"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端-2"><span class="toc-text">客户端</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>晚上睡不着，重构了一堆<code>shell</code>，没想到出事了，记录下。</p>
-<a id="more"></a>
-<h3 id="cron不识别"><a class="header-anchor" href="#cron不识别">#</a><code>cron</code>不识别<code>~</code></h3>
-<p><code>~</code>是<code>bash</code>里的，<code>cron</code>不识别，要用<code>$HOME</code>代替。</p>
-<h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4>
+<p>继<code>sftp/scp</code>传输、<code>rsync</code>同步后，<code>nas</code>终于趋近于完美地解决了我的问题！</p>
+<p>在各种服务器之间来回传输文件也是很麻烦，终极方法就是用网络文件系统。</p>
+<p>当然实现这个的方式有很多种，具体要看客户端环境。</p>
+<h2 id="nfs"><a class="header-anchor" href="#nfs">#</a>NFS</h2>
+<h3 id="服务端"><a class="header-anchor" href="#服务端">#</a>服务端</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-kernel-server</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/exports</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;mnt&#x2F;data&#x2F;onns *(rw,sync,no_root_squash)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo exportfs -a</span><br><span class="line">sudo systemctl restart nfs-kernel-server</span><br></pre></td></tr></table></figure>
+<h3 id="客户端"><a class="header-anchor" href="#客户端">#</a>客户端</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-common</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs 192.168.1.119:/mnt/data/onns/Documents ~/Documents</span><br></pre></td></tr></table></figure>
+<h3 id="存在问题"><a class="header-anchor" href="#存在问题">#</a>存在问题</h3>
+<p><code>windows</code>下用<code>nfsv4</code>就是会出问题，默认的<code>utf-8</code>编码的中文文件夹或者文件会乱码，解决方法不太友好，容易把其它的软件都搞崩，毕竟所有做<code>windows</code>软件的人应该都没有做好准备吧😂！</p>
+<blockquote>
+<p>全世界的软件都没有为windows的utf-8编码做好准备，我一个笔记软件在切换后笔记内容变成乱码，再切换回来也没有变回来，损失惨重。</p>
+</blockquote>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
 <ul>
-<li><a href="https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html" target="_blank" rel="noopener">3.5.2 Tilde Expansion</a></li>
-<li><a href="https://stackoverflow.com/questions/50296898/can-i-use-a-tilde-in-a-mysqldump-cronjob-linux-cron-is-not-running/50297010" target="_blank" rel="noopener">Can I use a tilde ( ~ ) in a mysqldump cronjob? Linux Cron is not running</a></li>
-<li><a href="https://stackoverflow.com/questions/45401001/why-is-a-valid-path-with-a-tilde-not-expanding-in-this-cron-job" target="_blank" rel="noopener">Why is a valid path with a tilde not expanding in this cron job? [duplicate]</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/46254792" target="_blank" rel="noopener">一个小设置，让Win10 NFS正常显示中文UTF-8</a></li>
 </ul>
-<h3 id="cron在环境变量之前"><a class="header-anchor" href="#cron在环境变量之前">#</a><code>cron</code>在环境变量之前</h3>
-<p><code>cron</code>会在命令行加载<code>.bashrc</code>之类的文件之前，所以你写在里面的变量它读不到，解决办法是直接用<code>crontab -e</code>把环境变量写进去：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ONNS_CONFIG_DIR=/Users/onns/Documents/code/config/bash/</span><br><span class="line">ONNS_PLATFORM=macbook</span><br><span class="line">30 * * * * zsh /Users/onns/Documents/code/bash/oclear &gt;&gt;/Users/onns/cron.log 2&gt;&gt;/Users/onns/cron.log</span><br></pre></td></tr></table></figure>
-<p>也是会识别的，亲测有效，其它的方案可能都失效了，建议别用。</p>
-<p>下面第一个链接的那种方法<code>. $HOME/.profile</code>，<code>Ubuntu 18.04</code>亲测无效，而且如果你在<code>.profile</code>里写点<code>shell</code>命令，也会失效，我的<code>google-cloud-sdk</code>就是。</p>
-<h4 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h4>
-<ul>
-<li><a href="https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables" target="_blank" rel="noopener">How can I run a cron command with existing environmental variables?</a></li>
-</ul>
+<h2 id="smb"><a class="header-anchor" href="#smb">#</a>SMB</h2>
+<h3 id="服务端-2"><a class="header-anchor" href="#服务端-2">#</a>服务端</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install samba</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[onns]</span><br><span class="line">	path &#x3D; &#x2F;mnt&#x2F;data&#x2F;onns</span><br><span class="line">	browseable &#x3D; no</span><br><span class="line">	read only &#x3D; no</span><br><span class="line">	writable &#x3D; yes</span><br><span class="line">	available &#x3D; yes</span><br><span class="line">	create mask &#x3D; 0700</span><br><span class="line">	directory mask &#x3D; 0700</span><br><span class="line">	valid users &#x3D; hs</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a hs</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart smbd</span><br></pre></td></tr></table></figure>
+<h3 id="客户端-2"><a class="header-anchor" href="#客户端-2">#</a>客户端</h3>
+<p><code>/192.168.1.119/onns</code></p>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/blog/tags/linux/">linux</a>
-            <a href="/blog/tags/shell/">shell</a>
-            <a href="/blog/tags/bash/">bash</a>
-            <a href="/blog/tags/zsh/">zsh</a>
-            <a href="/blog/tags/shell-note/">shell note</a>
-            <a href="/blog/tags/cron/">cron</a>
-            <a href="/blog/tags/crontab/">crontab</a>
             <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/windows/">windows</a>
+            <a href="/blog/tags/nas/">nas</a>
+            <a href="/blog/tags/nfs/">nfs</a>
+            <a href="/blog/tags/smb/">smb</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2021/03/10/zsh-usage/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">zsh问题记录</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/">
-        <span class="next-text nav-default">A Closer Look at Spatiotemporal Convolutions for Action Recognition</span>
+        <nav class="post-nav"><a class="next" href="/blog/2021/03/11/the-go-programming-language-note-2/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（2）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

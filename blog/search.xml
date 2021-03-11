@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>网络附属存储</title>
+      <link href="/blog/2021/03/11/nas/"/>
+      <url>/blog/2021/03/11/nas/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>继<code>sftp/scp</code>传输、<code>rsync</code>同步后，<code>nas</code>终于趋近于完美地解决了我的问题！</p><p>在各种服务器之间来回传输文件也是很麻烦，终极方法就是用网络文件系统。</p><p>当然实现这个的方式有很多种，具体要看客户端环境。</p><h2 id="nfs"><a class="header-anchor" href="#nfs">#</a>NFS</h2><h3 id="服务端"><a class="header-anchor" href="#服务端">#</a>服务端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-kernel-server</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/exports</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;mnt&#x2F;data&#x2F;onns *(rw,sync,no_root_squash)</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo exportfs -a</span><br><span class="line">sudo systemctl restart nfs-kernel-server</span><br></pre></td></tr></table></figure><h3 id="客户端"><a class="header-anchor" href="#客户端">#</a>客户端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-common</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs 192.168.1.119:/mnt/data/onns/Documents ~/Documents</span><br></pre></td></tr></table></figure><h3 id="存在问题"><a class="header-anchor" href="#存在问题">#</a>存在问题</h3><p><code>windows</code>下用<code>nfsv4</code>就是会出问题，默认的<code>utf-8</code>编码的中文文件夹或者文件会乱码，解决方法不太友好，容易把其它的软件都搞崩，毕竟所有做<code>windows</code>软件的人应该都没有做好准备吧😂！</p><blockquote><p>全世界的软件都没有为windows的utf-8编码做好准备，我一个笔记软件在切换后笔记内容变成乱码，再切换回来也没有变回来，损失惨重。</p></blockquote><h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/46254792" target="_blank" rel="noopener">一个小设置，让Win10 NFS正常显示中文UTF-8</a></li></ul><h2 id="smb"><a class="header-anchor" href="#smb">#</a>SMB</h2><h3 id="服务端-2"><a class="header-anchor" href="#服务端-2">#</a>服务端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install samba</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/samba/smb.conf</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[onns]</span><br><span class="line">path &#x3D; &#x2F;mnt&#x2F;data&#x2F;onns</span><br><span class="line">browseable &#x3D; no</span><br><span class="line">read only &#x3D; no</span><br><span class="line">writable &#x3D; yes</span><br><span class="line">available &#x3D; yes</span><br><span class="line">create mask &#x3D; 0700</span><br><span class="line">directory mask &#x3D; 0700</span><br><span class="line">valid users &#x3D; hs</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a hs</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart smbd</span><br></pre></td></tr></table></figure><h3 id="客户端-2"><a class="header-anchor" href="#客户端-2">#</a>客户端</h3><p><code>/192.168.1.119/onns</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> try </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> tips </tag>
+            
+            <tag> macos </tag>
+            
+            <tag> windows </tag>
+            
+            <tag> nas </tag>
+            
+            <tag> nfs </tag>
+            
+            <tag> smb </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《Go语音圣经（中文版）》笔记（2）</title>
       <link href="/blog/2021/03/11/the-go-programming-language-note-2/"/>
       <url>/blog/2021/03/11/the-go-programming-language-note-2/</url>
@@ -20,9 +57,9 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> linux </tag>
+            
+            <tag> macos </tag>
             
             <tag> golang </tag>
             
@@ -53,9 +90,9 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> linux </tag>
+            
+            <tag> macos </tag>
             
             <tag> golang </tag>
             
@@ -86,23 +123,23 @@
       
         <tags>
             
-            <tag> macos </tag>
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> zsh </tag>
+            
+            <tag> shell note </tag>
             
             <tag> cron </tag>
             
             <tag> crontab </tag>
             
-            <tag> linux </tag>
-            
-            <tag> shell </tag>
-            
-            <tag> zsh </tag>
-            
             <tag> tips </tag>
             
-            <tag> bash </tag>
-            
-            <tag> shell note </tag>
+            <tag> macos </tag>
             
             <tag> zsh note </tag>
             
@@ -129,21 +166,21 @@
       
         <tags>
             
-            <tag> cron </tag>
-            
-            <tag> crontab </tag>
-            
             <tag> linux </tag>
             
             <tag> shell </tag>
             
-            <tag> zsh </tag>
-            
-            <tag> tips </tag>
-            
             <tag> bash </tag>
             
+            <tag> zsh </tag>
+            
             <tag> shell note </tag>
+            
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
+            
+            <tag> tips </tag>
             
         </tags>
       
@@ -174,9 +211,9 @@
             
             <tag> CVPR </tag>
             
-            <tag> 2018 </tag>
-            
             <tag> CVPR 2018 </tag>
+            
+            <tag> 2018 </tag>
             
             <tag> R(2+1)D </tag>
             
@@ -207,6 +244,8 @@
             
             <tag> action recognition </tag>
             
+            <tag> 2018 </tag>
+            
             <tag> 光流 </tag>
             
             <tag> optical flow </tag>
@@ -214,8 +253,6 @@
             <tag> GCPR </tag>
             
             <tag> GCPR 2018 </tag>
-            
-            <tag> 2018 </tag>
             
         </tags>
       
@@ -267,13 +304,13 @@
       
         <tags>
             
-            <tag> github </tag>
-            
             <tag> linux </tag>
             
-            <tag> ssh </tag>
+            <tag> github </tag>
             
             <tag> git </tag>
+            
+            <tag> ssh </tag>
             
             <tag> private repository </tag>
             
@@ -420,9 +457,9 @@
       
         <tags>
             
-            <tag> inotify </tag>
-            
             <tag> linux </tag>
+            
+            <tag> inotify </tag>
             
             <tag> rsync </tag>
             
@@ -461,6 +498,8 @@
             
             <tag> action recognition </tag>
             
+            <tag> 2018 </tag>
+            
             <tag> 光流 </tag>
             
             <tag> optical flow </tag>
@@ -468,8 +507,6 @@
             <tag> GCPR </tag>
             
             <tag> GCPR 2018 </tag>
-            
-            <tag> 2018 </tag>
             
         </tags>
       
@@ -494,13 +531,13 @@
       
         <tags>
             
-            <tag> report </tag>
-            
-            <tag> lab406 </tag>
-            
             <tag> 行为识别 </tag>
             
             <tag> action recognition </tag>
+            
+            <tag> report </tag>
+            
+            <tag> lab406 </tag>
             
             <tag> interim report </tag>
             
@@ -587,9 +624,9 @@
       
         <tags>
             
-            <tag> ngrok </tag>
-            
             <tag> linux </tag>
+            
+            <tag> ngrok </tag>
             
             <tag> service </tag>
             
@@ -620,11 +657,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> intranet penetration </tag>
             
             <tag> ngrok </tag>
-            
-            <tag> linux </tag>
             
             <tag> ssh </tag>
             
@@ -2333,9 +2370,9 @@
             
             <tag> java </tag>
             
-            <tag> interview </tag>
-            
             <tag> tips </tag>
+            
+            <tag> interview </tag>
             
             <tag> leetcode </tag>
             
@@ -2403,9 +2440,9 @@
             
             <tag> java </tag>
             
-            <tag> interview </tag>
-            
             <tag> tips </tag>
+            
+            <tag> interview </tag>
             
             <tag> leetcode </tag>
             
@@ -2576,9 +2613,9 @@
       
         <tags>
             
-            <tag> github </tag>
-            
             <tag> blog </tag>
+            
+            <tag> github </tag>
             
             <tag> onns.xyz </tag>
             
@@ -2652,9 +2689,9 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> linux </tag>
+            
+            <tag> macos </tag>
             
             <tag> rsync </tag>
             
@@ -2799,13 +2836,13 @@
             
             <tag> java </tag>
             
+            <tag> tips </tag>
+            
             <tag> macos </tag>
             
             <tag> servlet </tag>
             
             <tag> maven </tag>
-            
-            <tag> tips </tag>
             
             <tag> idea tips </tag>
             
@@ -2865,11 +2902,11 @@
             
             <tag> java </tag>
             
+            <tag> zsh </tag>
+            
             <tag> macos </tag>
             
             <tag> maven </tag>
-            
-            <tag> zsh </tag>
             
         </tags>
       
@@ -2962,9 +2999,9 @@
             
             <tag> action recognition </tag>
             
-            <tag> gsm </tag>
-            
             <tag> CVPR </tag>
+            
+            <tag> gsm </tag>
             
             <tag> CVPR 2020 </tag>
             
@@ -3275,15 +3312,15 @@
       
         <tags>
             
-            <tag> mac </tag>
-            
             <tag> linux </tag>
+            
+            <tag> centos </tag>
+            
+            <tag> mac </tag>
             
             <tag> ssh </tag>
             
             <tag> nodejs </tag>
-            
-            <tag> centos </tag>
             
             <tag> xz </tag>
             
@@ -3388,9 +3425,9 @@
             
             <tag> java </tag>
             
-            <tag> macos </tag>
-            
             <tag> tips </tag>
+            
+            <tag> macos </tag>
             
             <tag> udp </tag>
             
@@ -3454,11 +3491,11 @@
       
         <tags>
             
+            <tag> doc </tag>
+            
             <tag> intranet penetration </tag>
             
             <tag> ngrok </tag>
-            
-            <tag> doc </tag>
             
         </tags>
       
@@ -3483,9 +3520,9 @@
       
         <tags>
             
-            <tag> mysql </tag>
-            
             <tag> tips </tag>
+            
+            <tag> mysql </tag>
             
             <tag> leetcode </tag>
             
@@ -4022,11 +4059,11 @@
       
         <tags>
             
-            <tag> macos </tag>
-            
             <tag> cron </tag>
             
             <tag> crontab </tag>
+            
+            <tag> macos </tag>
             
             <tag> Catalina </tag>
             
@@ -5390,33 +5427,11 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/blog/categories/index.html"/>
-      <url>/blog/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>2019年总结</title>
       <link href="/blog/drafts/2019-summary.html"/>
       <url>/blog/drafts/2019-summary.html</url>
       
         <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Xlibrary接口文档</title>
-      <link href="/blog/drafts/xlibrary-api-document.html"/>
-      <url>/blog/drafts/xlibrary-api-document.html</url>
-      
-        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
       
     </entry>
     
@@ -5434,6 +5449,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/blog/categories/index.html"/>
+      <url>/blog/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ifc file parsing</title>
       <link href="/blog/drafts/ifc-file-parsing.html"/>
       <url>/blog/drafts/ifc-file-parsing.html</url>
@@ -5445,22 +5471,22 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/blog/about/index.html"/>
-      <url>/blog/about/index.html</url>
+      <title>Xlibrary接口文档</title>
+      <link href="/blog/drafts/xlibrary-api-document.html"/>
+      <url>/blog/drafts/xlibrary-api-document.html</url>
       
-        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
+        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>links</title>
-      <link href="/blog/links/index.html"/>
-      <url>/blog/links/index.html</url>
+      <title>about</title>
+      <link href="/blog/about/index.html"/>
+      <url>/blog/about/index.html</url>
       
-        <content type="html"><![CDATA[<ul><li><a href="https://www.mycgx.com/" target="_blank" rel="noopener">小鱼 blog</a></li><li><a href="http://xiangyi.pro/" target="_blank" rel="noopener">Xiangyi’s Blog</a></li><li><a href="https://her-cat.com/" target="_blank" rel="noopener">她和她的猫</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>一些关于我的，有的没的，的东西。</p><ul><li>一个在线视频同步播放插件：<a href="https://onns.xyz/sync-sofa/">https://onns.xyz/sync-sofa/</a></li><li>一个因为 leetcode 刷题不想每次改名的中划线转驼峰：<a href="https://onns.xyz/tools/hyphens-to-camel-case/">https://onns.xyz/tools/hyphens-to-camel-case/</a></li><li>一个不想到处乱登录的文字同步工具：<a href="https://onns.xyz/doc/?anything">https://onns.xyz/doc/?anything</a></li></ul><p>一个简简单单的简历，<code>Adobe Indesign</code> 做的。</p><div class="row">    <embed src="//onns.xyz/blog/files/resume-20200706.pdf" width="100%" height="550" type="application/pdf"></div><p>一些学画画路上的东西：<a href="https://onns.xyz/blog/draw/">乱涂乱画</a></p><p>一些友链，如果没有，不是我没有朋友，是他们老换链接，唉 ╮(╯▽╰)╭：<a href="https://onns.xyz/blog/links/">友链</a></p>]]></content>
       
     </entry>
     
@@ -5483,6 +5509,17 @@
       <url>/blog/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>links</title>
+      <link href="/blog/links/index.html"/>
+      <url>/blog/links/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="https://www.mycgx.com/" target="_blank" rel="noopener">小鱼 blog</a></li><li><a href="http://xiangyi.pro/" target="_blank" rel="noopener">Xiangyi’s Blog</a></li><li><a href="https://her-cat.com/" target="_blank" rel="noopener">她和她的猫</a></li></ul>]]></content>
       
     </entry>
     
