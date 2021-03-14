@@ -283,21 +283,27 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfs"><span class="toc-text">NFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在问题"><span class="toc-text">存在问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smb"><span class="toc-text">SMB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端-2"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端-2"><span class="toc-text">客户端</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfs"><span class="toc-text">NFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#开机配置"><span class="toc-text">开机配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在问题"><span class="toc-text">存在问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smb"><span class="toc-text">SMB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端-2"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端-2"><span class="toc-text">客户端</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>继<code>sftp/scp</code>传输、<code>rsync</code>同步后，<code>nas</code>终于趋近于完美地解决了我的问题！</p>
 <p>在各种服务器之间来回传输文件也是很麻烦，终极方法就是用网络文件系统。</p>
 <p>当然实现这个的方式有很多种，具体要看客户端环境。</p>
+<a id="more"></a>
 <h2 id="nfs"><a class="header-anchor" href="#nfs">#</a>NFS</h2>
 <h3 id="服务端"><a class="header-anchor" href="#服务端">#</a>服务端</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-kernel-server</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-kernel-server -y</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/exports</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;mnt&#x2F;data&#x2F;onns *(rw,sync,no_root_squash)</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo exportfs -a</span><br><span class="line">sudo systemctl restart nfs-kernel-server</span><br></pre></td></tr></table></figure>
 <h3 id="客户端"><a class="header-anchor" href="#客户端">#</a>客户端</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-common</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nfs-common -y</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs 192.168.1.119:/mnt/data/onns/Documents ~/Documents</span><br></pre></td></tr></table></figure>
+<h4 id="开机配置"><a class="header-anchor" href="#开机配置">#</a>开机配置</h4>
+<ul>
+<li><a href="https://blog.csdn.net/youmatterhsp/article/details/83933158" target="_blank" rel="noopener">/etc/fstab文件的详解</a></li>
+<li><a href="https://blog.csdn.net/weixin_34235371/article/details/92323317" target="_blank" rel="noopener">NFS环境搭建测试 保证挂载重启后不丢失</a></li>
+</ul>
 <h3 id="存在问题"><a class="header-anchor" href="#存在问题">#</a>存在问题</h3>
 <p><code>windows</code>下用<code>nfsv4</code>就是会出问题，默认的<code>utf-8</code>编码的中文文件夹或者文件会乱码，解决方法不太友好，容易把其它的软件都搞崩，毕竟所有做<code>windows</code>软件的人应该都没有做好准备吧😂！</p>
 <blockquote>
@@ -309,7 +315,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ul>
 <h2 id="smb"><a class="header-anchor" href="#smb">#</a>SMB</h2>
 <h3 id="服务端-2"><a class="header-anchor" href="#服务端-2">#</a>服务端</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install samba</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install samba -y</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[onns]</span><br><span class="line">	path &#x3D; &#x2F;mnt&#x2F;data&#x2F;onns</span><br><span class="line">	browseable &#x3D; no</span><br><span class="line">	read only &#x3D; no</span><br><span class="line">	writable &#x3D; yes</span><br><span class="line">	available &#x3D; yes</span><br><span class="line">	create mask &#x3D; 0700</span><br><span class="line">	directory mask &#x3D; 0700</span><br><span class="line">	valid users &#x3D; hs</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a hs</span><br></pre></td></tr></table></figure>
@@ -330,7 +336,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/smb/">smb</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2021/03/11/the-go-programming-language-note-2/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/03/14/the-go-programming-language-note-3/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《Go语音圣经（中文版）》笔记（3）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/03/11/the-go-programming-language-note-2/">
         <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（2）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
