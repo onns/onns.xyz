@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Weiyun Subtitle Tool
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Onns Weiyun Subtitle Tool
 // @updateURL    https://onns.xyz/js/weiyun-sub.user.js
 // @author       Onns
@@ -76,7 +76,7 @@
         data = parser.fromSrt(sub, true);
         currentTime = currentTime * 1000;
         for (var i in data) {
-            if (data[i]['startTime'] > currentTime - 3000) {
+            if (data[i]['startTime'] <= currentTime && data[i]['endTime'] >= currentTime) {
                 return data[i]['text'];
             }
         }
@@ -88,11 +88,11 @@
         videoEle = document.getElementById("vjs_video_3_html5_api");
         if (videoEle != null) {
             clearInterval(timer);
+            document.getElementsByClassName('vjs-text-track-display')[0].innerHTML += '<div id="onns-sub" style="text-align:center; width:100%; position: absolute; bottom: 0; font-size: 300%;text-shadow: black 0.1em 0.1em 0.2em;"> </div>';
             videoEle.ontimeupdate = function () {
                 // console.log(this.currentTime);
-                document.getElementsByClassName('video-title')[0].className = 'video-title show';
-                document.getElementsByClassName('video-title')[0].style.textAlign = 'center';
-                document.getElementsByClassName('video-title')[0].children[0].innerText = timeToString(document.getElementsByClassName('video-name')[0].innerText, this.currentTime);
+                document.getElementById('onns-sub').innerText = timeToString(document.getElementsByClassName('video-name')[0].innerText, this.currentTime);
+                document.getElementById('onns-sub').innerHTML += '<br/>';
             };
         }
     }, 100);
