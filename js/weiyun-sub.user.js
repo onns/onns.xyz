@@ -85,7 +85,9 @@
         return '';
     }
     var timer = null;
-    var videoEle = null
+    var videoEle = null;
+    document.getElementsByClassName('btn-wrap')[0].innerHTML = '<a class="btn btn-l" href="https://onns.xyz/doc/?' + document.getElementsByClassName('video-name')[0].innerText + '" target="_blank"><span class="btn-txt">添加srt字幕</span></a>' + document.getElementsByClassName('btn-wrap')[0].innerHTML;
+
     timer = setInterval(function () {
         videoEle = document.getElementById("vjs_video_3_html5_api");
         if (videoEle != null) {
