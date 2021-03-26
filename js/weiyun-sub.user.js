@@ -64,6 +64,9 @@
         if (docsync.length >= 1) {
             tempDiv.innerHTML = docsync[0].attributes.content;
             sub = tempDiv.innerText;
+            if (sub != '') {
+                data = parser.fromSrt(sub, true);
+            }
         }
     });
 
@@ -73,7 +76,6 @@
         if (sub == '') {
             return '';
         }
-        data = parser.fromSrt(sub, true);
         currentTime = currentTime * 1000;
         for (var i in data) {
             if (data[i]['startTime'] <= currentTime && data[i]['endTime'] >= currentTime) {
@@ -88,11 +90,15 @@
         videoEle = document.getElementById("vjs_video_3_html5_api");
         if (videoEle != null) {
             clearInterval(timer);
-            document.getElementsByClassName('vjs-text-track-display')[0].innerHTML += '<div id="onns-sub" style="text-align:center; width:100%; position: absolute; bottom: 0; font-size: 300%;text-shadow: black 0.1em 0.1em 0.2em;"> </div>';
             videoEle.ontimeupdate = function () {
                 // console.log(this.currentTime);
-                document.getElementById('onns-sub').innerText = timeToString(document.getElementsByClassName('video-name')[0].innerText, this.currentTime);
-                document.getElementById('onns-sub').innerHTML += '<br/>';
+                var onnsSubDiv = document.getElementById('onns-sub');
+                if (onnsSubDiv == null) {
+                    document.getElementsByClassName('vjs-text-track-display')[0].innerHTML += '<div id="onns-sub" style="text-align:center; width:100%; position: absolute; bottom: 0; font-size: 300%;text-shadow: black 0.1em 0.1em 0.2em;"> </div>';
+                    onnsSubDiv = document.getElementById('onns-sub');
+                }
+                onnsSubDiv.innerText = timeToString(document.getElementsByClassName('video-name')[0].innerText, this.currentTime);
+                onnsSubDiv.innerHTML += '<br/><br/>';
             };
         }
     }, 100);
