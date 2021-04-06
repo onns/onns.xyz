@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/shell-note/"/>
+<meta name="description" content="《Go语音圣经（中文版）》笔记（4）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/03/17/the-go-programming-language-note-4/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>shell note · Onns Blog
-  </title>
+    <title>《Go语音圣经（中文版）》笔记（4） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,190 +261,78 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">shell note</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（4）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-03-17
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/03/17/the-go-programming-language-note-4/"
+             data-title="《Go语音圣经（中文版）》笔记（4）">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/06/the-linux-command-line-note-all/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（汇总）
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#程序结构"><span class="toc-text">程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针"><span class="toc-text">指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#赋值"><span class="toc-text">赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类型"><span class="toc-text">类型</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h1 id="程序结构"><a class="header-anchor" href="#程序结构">#</a>程序结构</h1>
+<h2 id="指针"><a class="header-anchor" href="#指针">#</a>指针</h2>
+<p>任何类型的指针的零值都是<code>nil</code>。</p>
+<p>如果<code>p</code>指向某个有效变量，那么<code>p != nil</code>测试为真。</p>
+<p>指针之间也是可以进行相等测试的，只有当它们指向同一个变量或全部是<code>nil</code>时才相等。</p>
+<p>另一个创建变量的方法是调用用内建的<code>new</code>函数。表达式<code>new(T)</code>将创建一个<code>T</code>类型的匿名变量，初始化为<code>T</code>类型的零值，<strong>然后返回变量地址</strong>，返回的指针类型为<code>*T</code>。</p>
+<p>对于在包一级声明的变量来说，它们的生命周期和整个程序的运行周期是一致的。</p>
+<p>局部变量的声明周期则是动态的：每次从创建一个新变量的声明语句开始，直到该变量不再被引用为止，然后变量的存储空间可能被回收。</p>
+<p>函数的右小括弧也可以另起一行缩进，同时为了防止编译器在行尾自动插入分号而导致的编译错误，可以在末尾的参数变量后面显式插入逗号。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> t := <span class="number">0.0</span>; t &lt; cycles*<span class="number">2</span>*math.Pi; t += res &#123;</span><br><span class="line">	x := math.Sin(t)</span><br><span class="line">	y := math.Sin(t*freq + phase)</span><br><span class="line">	img.SetColorIndex(size+<span class="keyword">int</span>(x*size+<span class="number">0.5</span>), size+<span class="keyword">int</span>(y*size+<span class="number">0.5</span>),</span><br><span class="line">		blackIndex)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> t := <span class="number">0.0</span>; t &lt; cycles*<span class="number">2</span>*math.Pi; t += res &#123;</span><br><span class="line">	x := math.Sin(t)</span><br><span class="line">	y := math.Sin(t*freq + phase) </span><br><span class="line">	img.SetColorIndex(</span><br><span class="line">		size+<span class="keyword">int</span>(x*size+<span class="number">0.5</span>), size+<span class="keyword">int</span>(y*size+<span class="number">0.5</span>),</span><br><span class="line">		blackIndex,	<span class="comment">// 最后插入的逗号不会导致编译错误，这是Go编译器的一个特性 </span></span><br><span class="line">	) 				<span class="comment">// 小括弧另起一行缩进，和大括弧的风格保存一致</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器会自动选择在栈上还是在堆上分配局部变量的存储空间。</p>
+<h2 id="赋值"><a class="header-anchor" href="#赋值">#</a>赋值</h2>
+<p>自增和自减是语句，而不是表达式，因此<code>x = i++</code>之类的表达式是错误的。</p>
+<h2 id="类型"><a class="header-anchor" href="#类型">#</a>类型</h2>
+<p>一个类型声明语句创建了一个新的类型名称，和现有类型具有相同的底层结构。新命名的类型提供了一个方法，用来分隔不同概念的类型，这样即使它们底层类型相同也是不兼容的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> 类型名字 底层类型</span><br><span class="line"><span class="keyword">type</span> Celsius <span class="keyword">float64</span></span><br></pre></td></tr></table></figure>
+<p>类型声明语句一般出现在包一级，因此如果新创建的类型名字的首字符大写，则在外部包也可以使用。</p>
+<p>对于每一个类型<code>T</code>，都有一个对应的类型转换操作<code>T(x)</code>，用于将<code>x</code>转为<code>T</code>类型，如果<code>T</code>是指针类型，可能会需要用小括弧包装<code>T</code>，比如<code>(*int)(0)</code>。</p>
+<p>在任何情况下，运行时不会发生转换失败的错误，错误只会发生在编译阶段。</p>
+<p>底层数据类型决定了内部结构和表达方式，也决定是否可以像底层类型一样对内置运算符的支持。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/zsh-usage/" class="archive-post-link">
-            zsh问题记录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/01/cron-usage/" class="archive-post-link">
-            定时任务相关问题
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-01-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/01/10/the-linux-command-line-note-15/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（15）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-12-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/12/02/the-linux-command-line-note-14/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-29
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/29/the-linux-command-line-note-13/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-24
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/24/the-linux-command-line-note-12/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/20/the-linux-command-line-note-11/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/17/the-linux-command-line-note-10/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/16/the-linux-command-line-note-9/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/15/the-linux-command-line-note-8/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/10/the-linux-command-line-note-7/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/09/the-linux-command-line-note-6/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/08/the-linux-command-line-note-5/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/06/the-linux-command-line-note-4/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/05/the-linux-command-line-note-3/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-11-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/11/03/the-linux-command-line-note-2/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/12/the-linux-command-line-note-1/" class="archive-post-link">
-            《快乐的Linux命令行》笔记（1）
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2021/04/06/video-classification-with-finecoarse-networks/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Video Classification with FineCoarse Networks</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/03/14/the-go-programming-language-note-3/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（3）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
