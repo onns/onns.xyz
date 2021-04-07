@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>《快乐的Linux命令行》笔记（16）</title>
+      <link href="/blog/2021/04/06/the-linux-command-line-note-16/"/>
+      <url>/blog/2021/04/06/the-linux-command-line-note-16/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使得 shell 的历史记录功能忽略一个命令，如果相同的命令已被记录。</span></span><br><span class="line"><span class="built_in">export</span> HISTCONTROL=ignoredups</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加命令历史的大小，从默认的 500 行扩大到 1000 行。</span></span><br><span class="line"><span class="built_in">export</span> HISTSIZE=1000</span><br></pre></td></tr></table></figure><p>不过<code>MacOS</code>的<code>zsh</code>默认历史大小是<code>2000</code>，所以第二个不用改了。第一个好像也没用，改了一晚上都没啥效果。。。。</p><h2 id="vi"><a class="header-anchor" href="#vi">#</a>vi</h2><table><thead><tr><th style="text-align:left">按键</th><th style="text-align:left">移动光标</th></tr></thead><tbody><tr><td style="text-align:left"><code>l</code> or <code>右箭头</code></td><td style="text-align:left">向右移动一个字符</td></tr><tr><td style="text-align:left"><code>h</code> or <code>左箭头</code></td><td style="text-align:left">向左移动一个字符</td></tr><tr><td style="text-align:left"><code>j</code> or <code>下箭头</code></td><td style="text-align:left">向下移动一行</td></tr><tr><td style="text-align:left"><code>k</code> or <code>上箭头</code></td><td style="text-align:left">向上移动一行</td></tr><tr><td style="text-align:left"><code>0</code> (零按键)</td><td style="text-align:left">移动到当前行的行首</td></tr><tr><td style="text-align:left"><code>^</code></td><td style="text-align:left">移动到当前行的第一个非空字符</td></tr><tr><td style="text-align:left"><code>$</code></td><td style="text-align:left">移动到当前行的末尾</td></tr><tr><td style="text-align:left"><code>w</code></td><td style="text-align:left">移动到下一个单词或标点符号的开头</td></tr><tr><td style="text-align:left"><code>W</code></td><td style="text-align:left">移动到下一个单词的开头，忽略标点符号</td></tr><tr><td style="text-align:left"><code>b</code></td><td style="text-align:left">移动到上一个单词或标点符号的开头</td></tr><tr><td style="text-align:left"><code>B</code></td><td style="text-align:left">移动到上一个单词的开头，忽略标点符号</td></tr><tr><td style="text-align:left"><code>Ctrl-f</code> or <code>Page Down</code></td><td style="text-align:left">向下翻一页</td></tr><tr><td style="text-align:left"><code>Ctrl-b</code> or <code>Page Up</code></td><td style="text-align:left">向上翻一页</td></tr><tr><td style="text-align:left"><code>numberG</code></td><td style="text-align:left">移动到第 <code>number</code> 行</td></tr><tr><td style="text-align:left"><code>G</code></td><td style="text-align:left">移动到文件末尾</td></tr></tbody></table><p><code>a</code>命令：<code>vi</code>提供的追加文本的命令，如果把光标移动到行尾，输入<code>a</code>, 光标就会越过行尾，同时<code>vi</code>会进入插入模式。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p><p><code>A</code>命令：光标移动到行尾，同时<code>vi</code>进入输入模式。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p><table><thead><tr><th style="text-align:left">命令</th><th style="text-align:left">效果</th></tr></thead><tbody><tr><td style="text-align:left"><code>o</code></td><td style="text-align:left">当前行的下方打开一行</td></tr><tr><td style="text-align:left"><code>O</code></td><td style="text-align:left">当前行的上方打开一行</td></tr></tbody></table><p><code>u</code>命令：当在命令模式下，<code>vi</code>将会撤销最后一次修改。</p><table><thead><tr><th style="text-align:left">命令</th><th style="text-align:left">删除的文本</th></tr></thead><tbody><tr><td style="text-align:left"><code>x</code></td><td style="text-align:left">当前字符</td></tr><tr><td style="text-align:left"><code>3x</code></td><td style="text-align:left">当前字符及其后的两个字符</td></tr><tr><td style="text-align:left"><code>dd</code></td><td style="text-align:left">当前行</td></tr><tr><td style="text-align:left"><code>5dd</code></td><td style="text-align:left">当前行及随后的四行文本</td></tr><tr><td style="text-align:left"><code>dW</code></td><td style="text-align:left">从光标位置开始到下一个单词的开头</td></tr><tr><td style="text-align:left"><code>d$</code></td><td style="text-align:left">从光标位置开始到当前行的行尾</td></tr><tr><td style="text-align:left"><code>d0</code></td><td style="text-align:left">从光标位置开始到当前行的行首</td></tr><tr><td style="text-align:left"><code>d^</code></td><td style="text-align:left">从光标位置开始到文本行的第一个非空字符</td></tr><tr><td style="text-align:left"><code>dG</code></td><td style="text-align:left">从当前行到文件的末尾</td></tr><tr><td style="text-align:left"><code>d20G</code></td><td style="text-align:left">从当前行到文件的第 <code>20</code> 行</td></tr></tbody></table><p>真正的<code>vi</code>只是支持单层面的<code>undo</code>命令。<code>vim</code>则支持多个层面的。</p><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://blog.csdn.net/testcs_dn/article/details/79970635" target="_blank" rel="noopener">mac 中 history 命令使用与配置</a></li><li><a href="http://zsh.sourceforge.net/Doc/Release/Options.html" target="_blank" rel="noopener">Zsh Options</a></li><li><a href="https://stackoverflow.com/questions/842338/how-do-i-tell-zsh-to-write-the-current-shells-history-to-my-history-file/842366" target="_blank" rel="noopener">How do I tell Zsh to write the current shell’s history to my history file?</a></li><li><a href="https://www.reddit.com/r/zsh/comments/2aoy2i/history_deduplication/" target="_blank" rel="noopener">History deduplication?</a></li><li><a href="http://zsh.sourceforge.net/Guide/zshguide02.html#l18" target="_blank" rel="noopener">History options</a></li><li><a href="https://unix.stackexchange.com/questions/6094/is-there-any-way-to-keep-a-command-from-being-added-to-your-history" target="_blank" rel="noopener">Is there any way to keep a command from being added to your history?</a></li><li><a href="https://unix.stackexchange.com/questions/103398/how-to-view-datetime-stamp-for-history-command-in-zsh-shell" target="_blank" rel="noopener">How to view datetime stamp for history command in Zsh shell</a></li><li><a href="https://superuser.com/questions/735660/whats-the-zsh-equivalent-of-bashs-prompt-command" target="_blank" rel="noopener">What’s the ZSH equivalent of BASH’s $PROMPT_COMMAND?</a></li><li><a href="https://unix.stackexchange.com/questions/121802/zsh-how-to-check-if-an-option-is-enabled" target="_blank" rel="noopener">zsh: How to check if an option is enabled</a></li></ul><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p>然而好像没啥用，<code>i</code>编辑模式下向右移动一个字符就可以追加了。 <a href="#fnref1" class="footnote-backref">↩︎</a></p></li><li id="fn2" class="footnote-item"><p>这个就比较方便了，可以记住，挺好用的快捷键。 <a href="#fnref2" class="footnote-backref">↩︎</a></p></li></ol></section>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《快乐的Linux命令行》笔记（汇总）</title>
       <link href="/blog/2021/04/06/the-linux-command-line-note-all/"/>
       <url>/blog/2021/04/06/the-linux-command-line-note-all/</url>
