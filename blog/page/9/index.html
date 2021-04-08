@@ -263,6 +263,37 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/">Leetcode题解：无重复字符的最长子串</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-13
+        </span><span class="post-category">
+            <a href="/blog/categories/jobs/">jobs</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/"
+             data-title="Leetcode题解：无重复字符的最长子串">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="3-无重复字符的最长子串"><a class="header-anchor" href="#3-无重复字符的最长子串">#</a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></h2>
+<p>给定一个字符串，请你找出其中不含有重复字符的<code>最长子串</code>的长度。</p>
+<p>示例<code>1</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;abcabcbb&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+<p>示例<code>2</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+<p>示例<code>3</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/blog/2020/09/13/solution-of-longest-substring-without-repeating-characters/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/13/add-file-header-in-idea/">在IntelliJ IDEA中添加自动注释</a>
         </h1>
 
@@ -502,60 +533,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div class="read-more">
             <a href="/blog/2020/09/08/rsync-usage/" class="read-more-link">Read more..</a>
           </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/multi-part-archive-extract-in-windows/">Windows下分卷压缩包解压</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-07
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/07/multi-part-archive-extract-in-windows/"
-             data-title="Windows下分卷压缩包解压">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><blockquote>
-<p>The video data is provided as one large TGZ archive, split into parts of 1 GB max. The total download size is 19.4 GB. The archive contains webm-files using the VP9 codec. Files are numbered from 1 to 220847.</p>
-</blockquote>
-<p>20bn-something-something-v2-00<br>
-20bn-something-something-v2-01<br>
-20bn-something-something-v2-02<br>
-20bn-something-something-v2-03<br>
-20bn-something-something-v2-04<br>
-20bn-something-something-v2-05<br>
-20bn-something-something-v2-06<br>
-20bn-something-something-v2-07<br>
-20bn-something-something-v2-08<br>
-20bn-something-something-v2-09<br>
-20bn-something-something-v2-10<br>
-20bn-something-something-v2-11<br>
-20bn-something-something-v2-12<br>
-20bn-something-something-v2-13<br>
-20bn-something-something-v2-14<br>
-20bn-something-something-v2-15<br>
-20bn-something-something-v2-16<br>
-20bn-something-something-v2-17<br>
-20bn-something-something-v2-18<br>
-20bn-something-something-v2-19</p>
-<p><code>Linux</code>下很好解压：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 20bn-something-something-v2-?? | tar zx</span><br></pre></td></tr></table></figure>
-<p><code>Windows</code>下需要将所有的分卷先合并：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy /b 20bn* temp.tar.gz</span><br></pre></td></tr></table></figure>
-<p>然后用解压软件打开即可。</p>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://blog.csdn.net/XX_123_1_RJ/article/details/95237636" target="_blank" rel="noopener">Windows 中解压 Linux 中产生的 tar.gz 分卷压缩包</a></li>
-<li><a href="https://20bn.com/datasets/something-something/v2#download" target="_blank" rel="noopener">The 20BN-something-something Dataset V2</a></li>
-</ul>
-
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/8/">
         <i class="iconfont icon-left"></i>
