@@ -508,7 +508,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="built_in">exec</span> rm <span class="string">'&#123;&#125;'</span> <span class="string">';'</span></span><br></pre></td></tr></table></figure>
 <p>通过使用<code>-ok</code>行为来代替<code>-exec</code>，在执行每个指定的命令之前，会提示用户。</p>
 <p>通过把末尾的分号改为加号，就激活了<code>find</code>命令的一个功能，把搜索结果结合为一个参数列表，然后用于所期望的命令的一次执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find Documents/ -<span class="built_in">type</span> f -name <span class="string">'*.bak'</span> -<span class="built_in">exec</span> ls -l <span class="string">'&#123;&#125;'</span> <span class="string">';'</span></span><br><span class="line"><span class="comment"># 替换为</span></span><br><span class="line">find Documents/ -<span class="built_in">type</span> f -name <span class="string">'*.bak'</span> -<span class="built_in">exec</span> ls -l <span class="string">'&#123;&#125;'</span> +</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find Documents/ -<span class="built_in">type</span> f -name <span class="string">'*.bak'</span> -<span class="built_in">exec</span> ls -l <span class="string">'&#123;&#125;'</span> <span class="string">';'</span></span><br><span class="line"><span class="comment"># 替换为</span></span><br><span class="line">find Documents/ -<span class="built_in">type</span> f -name <span class="string">'*.bak'</span> -<span class="built_in">exec</span> ls -l <span class="string">'&#123;&#125;'</span> <span class="string">'+'</span></span><br></pre></td></tr></table></figure>
 <h3 id="测试"><a class="header-anchor" href="#测试">#</a>测试</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p playground/dir-&#123;00&#123;1..9&#125;,0&#123;10..99&#125;,100&#125;</span><br><span class="line">touch playground/dir-&#123;00&#123;1..9&#125;,0&#123;10..99&#125;,100&#125;/file-&#123;A..Z&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find playground -<span class="built_in">type</span> f -name <span class="string">'file-A'</span></span><br></pre></td></tr></table></figure>
@@ -542,7 +542,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/shell-note/">shell note</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2021/04/06/the-linux-command-line-note-16/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/04/09/the-linux-command-line-note-18/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《快乐的Linux命令行》笔记（18）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/04/06/the-linux-command-line-note-16/">
         <span class="next-text nav-default">《快乐的Linux命令行》笔记（16）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>

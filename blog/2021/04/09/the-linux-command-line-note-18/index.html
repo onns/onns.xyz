@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/2/"/>
+<meta name="description" content="《快乐的Linux命令行》笔记（18）"/><meta name="keywords" content="linux, shell, bash, shell note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/09/the-linux-command-line-note-18/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>《快乐的Linux命令行》笔记（18） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,279 +261,64 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/03/10/zsh-usage/">zsh问题记录</a>
+      <h1 class="post-title">《快乐的Linux命令行》笔记（18）
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2021-03-10
+          2021-04-09
         </span><span class="post-category">
             <a href="/blog/categories/learn/">learn</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2021/03/10/zsh-usage/"
-             data-title="zsh问题记录">
+             data-url="/blog/2021/04/09/the-linux-command-line-note-18/"
+             data-title="《快乐的Linux命令行》笔记（18）">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p>
-          <div class="read-more">
-            <a href="/blog/2021/03/10/zsh-usage/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/03/01/cron-usage/">定时任务相关问题</a>
-        </h1>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《快乐的-linux-命令行》"><span class="toc-text">《快乐的 Linux 命令行》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tar"><span class="toc-text">tar</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
+<a id="more"></a>
+<h2 id="tar"><a class="header-anchor" href="#tar">#</a>tar</h2>
+<p>因为我现在用的命令都是<code>tar</code>，在归档的时候会自动调用<code>gzip</code>或者<code>bzip2</code>，所以我就不看这俩命令了。</p>
+<p>除非你是超级用户，要不然从归档文件中抽取的文件和目录的所有权<strong>由执行此复原操作的用户所拥有</strong>，而不属于原始所有者。</p>
+<p><code>tar</code>命令默认情况下，路径名是相对的，而不是绝对路径。</p>
+<p>通过给命令添加末尾的路径名，<code>tar</code>命令就只会恢复指定的文件。可以指定多个路径名。注意路径名必须是完全的，精准的相对路径名，就如存储在归档文件中的一样。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xf archive.tar pathname</span><br></pre></td></tr></table></figure>
+<p><code>tar</code>命令经常结合<code>find</code>命令一起来制作归档文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find playground -name <span class="string">'file-A'</span> -<span class="built_in">exec</span> tar rf playground.tar <span class="string">'&#123;&#125;'</span> <span class="string">'+'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find playground -name <span class="string">'file-A'</span> | tar cf - --files-from=- | gzip &gt; playground.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">find playground -name <span class="string">'file-A'</span> | tar czf playground.tgz -T -</span><br></pre></td></tr></table></figure>
+<p>如果指定了文件名<code>-</code>，则其被看作是标准输入或输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh onns@remote-sys <span class="string">'tar cf - Documents'</span> | tar xf -</span><br></pre></td></tr></table></figure>
+<p><code>ssh</code>允许我们在远程联网的计算机上执行程序，并且在本地系统中看到执行结果。</p>
+<p>本书过半，（250/505）</p>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2021-03-01
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/03/01/cron-usage/"
-             data-title="定时任务相关问题">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>晚上睡不着，重构了一堆<code>shell</code>，没想到出事了，记录下。</p>
-          <div class="read-more">
-            <a href="/blog/2021/03/01/cron-usage/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/">A Closer Look at Spatiotemporal Convolutions for Action Recognition</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-02-10
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/02/10/a-closer-look-at-spatiotemporal-convolutions-for-action-recognition/"
-             data-title="A Closer Look at Spatiotemporal Convolutions for Action Recognition">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="a-closer-look-at-spatiotemporal-convolutions-for-action-recognition"><a class="header-anchor" href="#a-closer-look-at-spatiotemporal-convolutions-for-action-recognition">#</a>A Closer Look at Spatiotemporal Convolutions for Action Recognition</h1>
-<h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2>
-<ul>
-<li>证明了3D卷积比2D卷积更有效果。</li>
-<li>将3D卷积分解成空间卷积和时间卷积能够获得准确率上的提升。</li>
-</ul>
-<h2 id=""><a class="header-anchor" href="#">#</a></h2>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/02/09/learning-spatiotemporal-features-with-3d-convolutional-networks/">Learning Spatiotemporal Features with 3D Convolutional Networks</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-02-09
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/02/09/learning-spatiotemporal-features-with-3d-convolutional-networks/"
-             data-title="Learning Spatiotemporal Features with 3D Convolutional Networks">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="learning-spatiotemporal-features-with-3d-convolutional-networks"><a class="header-anchor" href="#learning-spatiotemporal-features-with-3d-convolutional-networks">#</a>Learning Spatiotemporal Features with 3D Convolutional Networks</h1>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/02/08/git-usage/">git相关文档</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-02-08
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/02/08/git-usage/"
-             data-title="git相关文档">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p>
-          <div class="read-more">
-            <a href="/blog/2021/02/08/git-usage/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/02/07/private-git-repository/">git私有仓库</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-02-07
-        </span><span class="post-category">
-            <a href="/blog/categories/try/">try</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/02/07/private-git-repository/"
-             data-title="git私有仓库">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>好久没写笔记了，最近一直在忙毕业论文，今天趁着装<code>Tex Live 2020</code>的功夫忙里偷闲，折腾点东西。</p>
-<p>因为自己日常用的东西里有一堆自己写的代码什么的，感觉需要用<code>git</code>进行版本控制，但是感觉传到<code>github</code>上又不太好，虽然虽然可以设置成私密的，但是总感觉不安全，自己弄个私有仓库吧。</p>
-          <div class="read-more">
-            <a href="/blog/2021/02/07/private-git-repository/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/01/22/2021-spring-lab-summary/">2020-2021年春季期末总结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-01-22
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/01/22/2021-spring-lab-summary/"
-             data-title="2020-2021年春季期末总结">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><center ondblclick="javascript:document.getElementsByTagName('header')[0].remove();
-document.getElementsByTagName('header')[0].remove();
-document.getElementsByTagName('footer')[0].remove();
-document.getElementsByTagName('footer')[0].remove();
-document.getElementById('comments').remove();
-document.getElementById('back-to-top').remove();
-document.getElementById('post-toc').remove();">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">2021-01-22</th>
-<th style="text-align:center">期末总结</th>
-<th style="text-align:center">刘潘</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</center>
-          <div class="read-more">
-            <a href="/blog/2021/01/22/2021-spring-lab-summary/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/01/10/the-linux-command-line-note-15/">《快乐的Linux命令行》笔记（15）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-01-10
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/01/10/the-linux-command-line-note-15/"
-             data-title="《快乐的Linux命令行》笔记（15）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
-          <div class="read-more">
-            <a href="/blog/2021/01/10/the-linux-command-line-note-15/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/01/06/programming-tips/">编程小记</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-01-06
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/01/06/programming-tips/"
-             data-title="编程小记">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>一些技巧，记下来，之后可能会用到，省的去百度搜了</p>
-          <div class="read-more">
-            <a href="/blog/2021/01/06/programming-tips/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/01/03/pan-data-augmentation/">PAN数据增强方法——GroupMultiScaleCrop</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-01-03
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/01/03/pan-data-augmentation/"
-             data-title="PAN数据增强方法——GroupMultiScaleCrop">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><code>PAN</code>或者说<code>TEA</code>、<code>TSM</code>、<code>TSN</code>这一系列网络所用的唯一的数据增强方法：<code>GroupMultiScaleCrop</code>。</p>
-          <div class="read-more">
-            <a href="/blog/2021/01/03/pan-data-augmentation/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/page/3/">
-        <span class="next-text">Next</span>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell-note/">shell note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/08/the-linux-command-line-note-17/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（17）</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -564,6 +349,29 @@ document.getElementById('post-toc').remove();">
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
