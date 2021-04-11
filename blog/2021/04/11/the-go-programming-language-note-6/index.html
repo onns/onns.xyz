@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="《Go语音圣经（中文版）》笔记（6）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/11/the-go-programming-language-note-6/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>《Go语音圣经（中文版）》笔记（6） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（6）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-04-11
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/04/11/the-go-programming-language-note-6/"
+             data-title="《Go语音圣经（中文版）》笔记（6）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础数据类型"><span class="toc-text">基础数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整型"><span class="toc-text">整型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浮点数"><span class="toc-text">浮点数</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h1 id="基础数据类型"><a class="header-anchor" href="#基础数据类型">#</a>基础数据类型</h1>
+<p><code>Go</code>语言将数据类型分为四类：<strong>基础类型</strong>、<strong>复合类型</strong>、<strong>引用类型</strong>和<strong>接口类型</strong>。</p>
+<h2 id="整型"><a class="header-anchor" href="#整型">#</a>整型</h2>
+<p>有<code>int8</code>、<code>int16</code>、<code>int32</code>和<code>int64</code>四种不同大小的有符号整数类型，分别对应<code>8</code>、<code>16</code>、<code>32</code>、<code>64</code>bit 大小的有符号整数，与此对应的是<code>uint8</code>、<code>uint16</code>、<code>uint32</code>和<code>uint64</code>四种无符号整数类型。</p>
+<p>还有两种一般对应特定 CPU 平台机器字大小的有符号和无符号整数<code>int</code>和<code>uint</code>。其中<code>int</code>是应用最广泛的数值类型。这两种类型都有同样的大小，<code>32</code>或<code>64</code>bit，但是我们不能对此做任何的假设，因为<strong>不同的编译器即使在相同的硬件平台上可能产生不同的大小</strong>。</p>
+<p>Unicode 字符<code>rune</code>类型是和<code>int32</code>等价的类型，通常用于表示一个 Unicode 码点。这两个名称可以互换使用。同样<code>byte</code>也是<code>uint8</code>类型的等价类型，<code>byte</code>类型一般用于强调数值是一个原始的数据而不是一个小的整数。</p>
+<p>还有一种无符号的整数类型<code>uintptr</code>，没有指定具体的 bit 大小但是足以容纳指针。<code>uintptr</code>类型只有在底层编程时才需要，特别是<code>Go</code>语言和<code>C</code>语言函数库或操作系统接口相交互的地 方。</p>
+<p>二元运算符及优先级：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*	/	%	&lt;&lt;	&gt;&gt;	&amp;	&amp;^</span><br><span class="line">+	-	|	^</span><br><span class="line">==	!=	&lt;	&lt;=	&gt;	&gt;=</span><br><span class="line">&amp;&amp;</span><br><span class="line">||</span><br></pre></td></tr></table></figure>
+<p>二元运算符有五种优先级。在同一个优先级，使用左优先结合规则，但是使用括号可以明确优先顺序，使用括号也可以用于提升优先级。</p>
+<p>在<code>Go</code>语言中，<code>%</code>取模运算符的符号和被取模数的符号总是一致的，因此<code>-5%3</code>和<code>-5%-3</code>结果都是<code>-2</code>。</p>
+<p>整数除法会向着<code>0</code>方向截断余数。</p>
+<p><code>布尔型</code>、<code>数字类型</code>和<code>字符串</code>等基本类型都是可比较的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;	位运算 AND</span><br><span class="line">|	位运算 OR</span><br><span class="line">^	位运算 XOR</span><br><span class="line">&amp;^	位清空 (AND NOT)</span><br><span class="line">&lt;&lt;	左移</span><br><span class="line">&gt;&gt;	右移</span><br></pre></td></tr></table></figure>
+<p>前面四个操作运算符并不区分是有符号还是无符号数。</p>
+<p>位操作运算符<code>&amp;^</code>用于按位置零：如果对应<code>y</code>中<code>bit</code>位为<code>1</code>的话，表达式<code>z = x &amp;^ y</code>结果<code>z</code>的对应的<code>bit</code>位为<code>0</code>，否则<code>z</code>对应的<code>bit</code>位等于<code>x</code>相应的<code>bit</code>位的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">uint8</span> = <span class="number">1</span>&lt;&lt;<span class="number">1</span> | <span class="number">1</span>&lt;&lt;<span class="number">5</span></span><br><span class="line">	<span class="keyword">var</span> y <span class="keyword">uint8</span> = <span class="number">1</span>&lt;&lt;<span class="number">1</span> | <span class="number">1</span>&lt;&lt;<span class="number">2</span></span><br><span class="line">	<span class="keyword">var</span> z <span class="keyword">int8</span> = <span class="number">1</span>&lt;&lt;<span class="number">1</span> | <span class="number">1</span>&lt;&lt;<span class="number">5</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(x, y, z)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, y)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, z)</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x&amp;y)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x|y)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x^y)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x&amp;^y)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">uint</span>(<span class="number">0</span>); i &lt; <span class="number">8</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">if</span> x&amp;(<span class="number">1</span>&lt;&lt;i) != <span class="number">0</span> &#123;</span><br><span class="line">			fmt.Println(i)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x&lt;&lt;<span class="number">1</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%08b\n"</span>, x&gt;&gt;<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">34 6 34</span><br><span class="line">00100010</span><br><span class="line">00000110</span><br><span class="line">00100010</span><br><span class="line">00000010</span><br><span class="line">00100110</span><br><span class="line">00100100</span><br><span class="line">00100000</span><br><span class="line">1</span><br><span class="line">5</span><br><span class="line">01000100</span><br><span class="line">00010001</span><br></pre></td></tr></table></figure>
+<p>左移运算用零填充右边空缺的 bit 位，无符号数的右移运算也是用 0 填充左边空缺的 bit 位，但是有符号数的右移运算会用符号位的值填充左边空缺的 bit 位。</p>
+<p>浮点数到整数的转换将丢失任何小数部分，然后向<strong>数轴零方向</strong>截断。</p>
+<p>通常<code>Printf</code>格式化字符串包含多个<code>%</code>参数时将会包含对应相同数量的额外操作数，但是<code>%</code>之后的<code>[1]</code>副词告诉<code>Printf</code>函数再次使用第一个操作数。<code>%</code>后<br>
+的<code>#</code>副词告诉<code>Printf</code>在用<code>%o</code>、<code>%x</code>或<code>%X</code>输出时生成<code>0</code>、<code>0x</code>或<code>0X</code>前缀。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">o := <span class="number">0666</span></span><br><span class="line">fmt.Printf(<span class="string">"%d %[1]o %#[1]o\n"</span>, o)</span><br><span class="line">x := <span class="keyword">int64</span>(<span class="number">0xdeadbeef</span>)</span><br><span class="line">fmt.Printf(<span class="string">"%d %[1]x %#[1]x %#[1]X\n"</span>, x)</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">438 666 0666</span><br><span class="line">3735928559 deadbeef 0xdeadbeef 0XDEADBEEF</span><br></pre></td></tr></table></figure>
+<p>字符使用<code>%c</code>参数打印，或者是用<code>%q</code>参数打印带单引号的字符：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ascii := <span class="string">'a'</span></span><br><span class="line">	unicode := <span class="string">'国'</span></span><br><span class="line">	newline := <span class="string">'\n'</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d %[1]c %[1]q\n"</span>, ascii)   <span class="comment">// "97 a 'a'"</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d %[1]c %[1]q\n"</span>, unicode) <span class="comment">// "22269 国 '国'"</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d %[1]q\n"</span>, newline)       <span class="comment">// "10 '\n'"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">97 a <span class="string">'a'</span></span><br><span class="line">22269 国 <span class="string">'国'</span></span><br><span class="line">10 <span class="string">'\n'</span></span><br></pre></td></tr></table></figure>
+<h2 id="浮点数"><a class="header-anchor" href="#浮点数">#</a>浮点数</h2>
+<p>一个<code>float32</code>类型的浮点数可以提供大约<code>6</code>个十进制数的精度，而<code>float64</code>则可以提供约<code>15</code>个十进制数的精度。</p>
+<p>小数点前面或后面的数字都可能被省略，例如<code>.707</code>或<code>1.</code>。很小或很大的数最好用科学计数法书写，通过<code>e</code>或<code>E</code>来指定指数部分：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Avogadro = <span class="number">6.02214129e23</span>	<span class="comment">// 阿伏伽德罗常数</span></span><br><span class="line"><span class="keyword">const</span> Planck = <span class="number">6.62606957e-34</span>	<span class="comment">// 普朗克常数</span></span><br></pre></td></tr></table></figure>
+<p>用<code>Printf</code>函数的<code>%g</code>参数打印浮点数，将采用更紧凑的表示形式打印，并提供足够的精度，但是对应表格的数据，使用<code>%e</code>（带指数）或<code>%f</code>的形式打印可能更合适。所有的这三个打印形式都可以指定打印的宽度和控制打印精度。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> x := <span class="number">0</span>; x &lt; <span class="number">8</span>; x++ &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"x = %d e^x = %8.3f %8.3[2]e\n"</span>, x, math.Exp(<span class="keyword">float64</span>(x)))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印精度是小数点后三个小数精度和<code>8</code>个字符宽度：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = 0 e^x =    1.000 1.000e+00</span><br><span class="line">x = 1 e^x =    2.718 2.718e+00</span><br><span class="line">x = 2 e^x =    7.389 7.389e+00</span><br><span class="line">x = 3 e^x =   20.086 2.009e+01</span><br><span class="line">x = 4 e^x =   54.598 5.460e+01</span><br><span class="line">x = 5 e^x =  148.413 1.484e+02</span><br><span class="line">x = 6 e^x =  403.429 4.034e+02</span><br><span class="line">x = 7 e^x = 1096.633 1.097e+03</span><br></pre></td></tr></table></figure>
+<p><code>正无穷大</code>：表示太大溢出的数字。<br>
+<code>负无穷大</code>：表示除零的结果。<br>
+<code>NAN</code>：非数，一般用于表示无效的除法操作结果<code>0/0</code>或<code>Sqrt(-1)</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> z <span class="keyword">float64</span></span><br><span class="line">	fmt.Println(z, -z, <span class="number">1</span>/z, <span class="number">-1</span>/z, z/z)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 -0 +Inf -Inf NaN</span><br></pre></td></tr></table></figure>
+<p>函数<code>math.IsNaN</code>用于测试一个数是否是非数<code>NaN</code>。</p>
+<p>测试一个结果是否是非数<code>NaN</code>则是充满风险的，因为<code>NaN</code>和任何数都是不相等的。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>如果一个函数返回的浮点数结果可能失败，最好的做法是用单独的标志报告失败，像这样：<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compute</span><span class="params">()</span> <span class="params">(value <span class="keyword">float64</span>, ok <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> failed &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> result, <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Copyright © 2016 Alan A. A. Donovan &amp; Brian W. Kernighan.</span></span><br><span class="line"><span class="comment">// License: https://creativecommons.org/licenses/by-nc-sa/4.0/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// See page 58.</span></span><br><span class="line"><span class="comment">//!+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Surface computes an SVG rendering of a 3-D surface function.</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	width, height = <span class="number">600</span>, <span class="number">320</span>            <span class="comment">// canvas size in pixels</span></span><br><span class="line">	cells         = <span class="number">100</span>                 <span class="comment">// number of grid cells</span></span><br><span class="line">	xyrange       = <span class="number">30.0</span>                <span class="comment">// axis ranges (-xyrange..+xyrange)</span></span><br><span class="line">	xyscale       = width / <span class="number">2</span> / xyrange <span class="comment">// pixels per x or y unit</span></span><br><span class="line">	zscale        = height * <span class="number">0.4</span>        <span class="comment">// pixels per z unit</span></span><br><span class="line">	angle         = math.Pi / <span class="number">6</span>         <span class="comment">// angle of x, y axes (=30°)</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sin30, cos30 = math.Sin(angle), math.Cos(angle) <span class="comment">// sin(30°), cos(30°)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"&lt;svg xmlns='http://www.w3.org/2000/svg' "</span>+</span><br><span class="line">		<span class="string">"style='stroke: grey; fill: white; stroke-width: 0.7' "</span>+</span><br><span class="line">		<span class="string">"width='%d' height='%d'&gt;"</span>, width, height)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; cells; i++ &#123;</span><br><span class="line">		<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; cells; j++ &#123;</span><br><span class="line">			ax, ay := corner(i+<span class="number">1</span>, j)</span><br><span class="line">			bx, by := corner(i, j)</span><br><span class="line">			cx, cy := corner(i, j+<span class="number">1</span>)</span><br><span class="line">			dx, dy := corner(i+<span class="number">1</span>, j+<span class="number">1</span>)</span><br><span class="line">			fmt.Printf(<span class="string">"&lt;polygon points='%g,%g %g,%g %g,%g %g,%g'/&gt;\n"</span>,</span><br><span class="line">				ax, ay, bx, by, cx, cy, dx, dy)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"&lt;/svg&gt;"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">corner</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">float64</span>, <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Find point (x,y) at corner of cell (i,j).</span></span><br><span class="line">	x := xyrange * (<span class="keyword">float64</span>(i)/cells - <span class="number">0.5</span>)</span><br><span class="line">	y := xyrange * (<span class="keyword">float64</span>(j)/cells - <span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Compute surface height z.</span></span><br><span class="line">	z := f(x, y)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Project (x,y,z) isometrically onto 2-D SVG canvas (sx,sy).</span></span><br><span class="line">	sx := width/<span class="number">2</span> + (x-y)*cos30*xyscale</span><br><span class="line">	sy := height/<span class="number">2</span> + (x+y)*sin30*xyscale - z*zscale</span><br><span class="line">	<span class="keyword">return</span> sx, sy</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(x, y <span class="keyword">float64</span>)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	r := math.Hypot(x, y) <span class="comment">// distance from (0,0)</span></span><br><span class="line">	<span class="keyword">return</span> math.Sin(r) / r</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//!-</span></span><br></pre></td></tr></table></figure>
+<center>
+<p><img src="//onns.xyz/blog/image/20210411-3.6.svg" alt="渲染结果图"></p>
+</center>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>在浮点数中，<code>NaN</code>、正无穷大和负无穷大都不是唯一 的，每个都有非常多种的<code>bit</code>模式表示。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>似懂非懂，有机会再补这个的例子吧！ <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/11/the-linux-command-line-note-19/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（19）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

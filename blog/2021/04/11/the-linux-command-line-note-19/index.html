@@ -380,7 +380,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>生成电话号码文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125;; <span class="keyword">do</span> <span class="built_in">echo</span> <span class="string">"(<span class="variable">$&#123;RANDOM:0:3&#125;</span>) <span class="variable">$&#123;RANDOM:0:3&#125;</span>-<span class="variable">$&#123;RANDOM:0:4&#125;</span>"</span> &gt;&gt; phonelist.txt; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <p>查找有问题的项：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ cat phonelist.txt </span><br><span class="line">(156) 891-573</span><br><span class="line">(551) 310-2301</span><br><span class="line">(197) 501-1688</span><br><span class="line">(108) 737-3818</span><br><span class="line">(822) 225-1332</span><br><span class="line">(13) 200-1923</span><br><span class="line">(137) 105-1455</span><br><span class="line">(391) 180-2722</span><br><span class="line">(317) 546-2211</span><br><span class="line">(172) 279-9606</span><br><span class="line">$ grep -Ev <span class="string">'^\([0-9]&#123;3&#125;\) [0-9]&#123;3&#125;-[0-9]&#123;4&#125;$'</span> phonelist.txt</span><br><span class="line">(156) 891-573</span><br><span class="line">(13) 200-1923</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ cat phonelist.txt</span><br><span class="line">(156) 891-573</span><br><span class="line">(551) 310-2301</span><br><span class="line">(197) 501-1688</span><br><span class="line">(108) 737-3818</span><br><span class="line">(822) 225-1332</span><br><span class="line">(13) 200-1923</span><br><span class="line">(137) 105-1455</span><br><span class="line">(391) 180-2722</span><br><span class="line">(317) 546-2211</span><br><span class="line">(172) 279-9606</span><br><span class="line">$ grep -Ev <span class="string">'^\([0-9]&#123;3&#125;\) [0-9]&#123;3&#125;-[0-9]&#123;4&#125;$'</span> phonelist.txt</span><br><span class="line">(156) 891-573</span><br><span class="line">(13) 200-1923</span><br></pre></td></tr></table></figure>
+<p>273/505</p>
+
       </div>
       
       <footer class="post-footer">
@@ -391,7 +393,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/shell-note/">shell note</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2021/04/09/the-go-programming-language-note-5/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/04/11/the-go-programming-language-note-6/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《Go语音圣经（中文版）》笔记（6）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/04/09/the-go-programming-language-note-5/">
         <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（5）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
