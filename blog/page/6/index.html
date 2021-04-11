@@ -263,6 +263,80 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/20/temporal-relational-reasoning-in-videos/">Temporal Relational Reasoning in Videos</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-20
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/20/temporal-relational-reasoning-in-videos/"
+             data-title="Temporal Relational Reasoning in Videos">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="temporal-relational-reasoning-in-videos"><a class="header-anchor" href="#temporal-relational-reasoning-in-videos">#</a>Temporal Relational Reasoning in Videos</h1>
+<p>论文中需要引用这边论文的一个结论，记录之。原来我之前就记录过，但是没有写笔记，导致我昨晚（20201228）突然想找这个结论的时候记不得是哪篇论文了，所幸找到了，不然几百篇参考文献我真是要翻到吐，万一里面还没有，那才是绝望。</p>
+<p>其实这篇文章的<code>TRN</code>好像也是我所研究的<code>TSN</code>发展历程上的一个点，但没有细看过，说来惭愧。不过这个的效果大多已经被后面的<code>TSM</code>和<code>TEA</code>之类的取代了。</p>
+<h2 id="时序信息的重要性"><a class="header-anchor" href="#时序信息的重要性">#</a>时序信息的重要性</h2>
+<p>论文为了验证时序信息的重要性，对比了顺序帧和乱序帧在同一网络下的识别准确率，分别在<code>UCF101</code>和<code>something-something</code>上进行测试，证明了两点：</p>
+<ol>
+<li>时序信息对于行为识别准确率十分重要。</li>
+<li><code>something-something</code>这类数据集，时序性很强，不是通过场景就能判断识别结果的。</li>
+</ol>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201229-4.png" alt="测试结果图"></p>
+</center>
+<p>进一步，作者对比了随机和顺序中识别准确率差别最大的几类，发现<code>具有单一方向的较大位移运动</code>受影响最大，比如<code>Moving something down</code>。</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20201229-5.png" alt="结果对比"></p>
+</center>
+<p>不过也有可能存在一些变高的识别结果，这个原因我没太看懂= =</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/zuber123/article/details/89379297" target="_blank" rel="noopener">论文解读：Temporal Relational Reasoning in Videos</a></li>
+<li><a href="https://blog.csdn.net/elaine_bao/article/details/80753506" target="_blank" rel="noopener">【论文笔记】视频分类系列 Temporal Relational Reasoning in Videos （TRN）</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/20/representation-flow-for-action-recognition/">Representation Flow for Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-10-20
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/10/20/representation-flow-for-action-recognition/"
+             data-title="Representation Flow for Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="representation-flow-for-action-recognition"><a class="header-anchor" href="#representation-flow-for-action-recognition">#</a>Representation Flow for Action Recognition</h2>
+<h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
+<ul>
+<li><a href="https://blog.csdn.net/qq_41590635/article/details/102670079" target="_blank" rel="noopener">Representation Flow for Action Recognition 论文解读</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/68222768" target="_blank" rel="noopener">[CVPR19]Representation Flow for Action Recognition</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/10/20/motion-feature-network-fixed-motion-filter-for-action-recognition/">Motion Feature Network Fixed Motion Filter for Action Recognition</a>
         </h1>
 
@@ -484,54 +558,6 @@ document.getElementById('post-toc').remove();">
     <div class="post-content"><h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1>
           <div class="read-more">
             <a href="/blog/2020/10/12/the-linux-command-line-note-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/12/resnet-50-temporal-shift/">ResNet50 temporal shift</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-10-12
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/10/12/resnet-50-temporal-shift/"
-             data-title="ResNet50 temporal shift">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>模型结构：</p>
-          <div class="read-more">
-            <a href="/blog/2020/10/12/resnet-50-temporal-shift/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/10/08/pan-results-20201008/">PAN验证结果-20201008</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-10-08
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/10/08/pan-results-20201008/"
-             data-title="PAN验证结果-20201008">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>测试结果：</p>
-          <div class="read-more">
-            <a href="/blog/2020/10/08/pan-results-20201008/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/5/">
