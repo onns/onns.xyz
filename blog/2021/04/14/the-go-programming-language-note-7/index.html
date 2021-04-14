@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="《Go语音圣经（中文版）》笔记（6）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/14/the-go-programming-language-note-7/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>《Go语音圣经（中文版）》笔记（6） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（6）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-04-14
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/04/14/the-go-programming-language-note-7/"
+             data-title="《Go语音圣经（中文版）》笔记（6）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础数据类型"><span class="toc-text">基础数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#复数"><span class="toc-text">复数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔型"><span class="toc-text">布尔型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串和数字的转换"><span class="toc-text">字符串和数字的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量"><span class="toc-text">常量</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h1 id="基础数据类型"><a class="header-anchor" href="#基础数据类型">#</a>基础数据类型</h1>
+<h2 id="复数"><a class="header-anchor" href="#复数">#</a>复数</h2>
+<p><code>Go</code>语言提供了两种精度的复数类型：<code>complex64</code>和<code>complex128</code>，分别对应<code>float32</code>和<code>float64</code>两种浮点数精度。</p>
+<p>内置的<code>complex</code>函数用于构建复数，内建的<code>real</code>和<code>imag</code>函数分别返回复数的实部和虚部：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math/cmplx"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">complex128</span> = <span class="built_in">complex</span>(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 等价于： x := 1 + 2i</span></span><br><span class="line">	<span class="keyword">var</span> y <span class="keyword">complex128</span> = <span class="built_in">complex</span>(<span class="number">3</span>, <span class="number">4</span>) <span class="comment">// 等价于： y := 3 + 4i</span></span><br><span class="line">	fmt.Println(x * y)</span><br><span class="line">	fmt.Println(<span class="built_in">real</span>(x * y))</span><br><span class="line">	fmt.Println(<span class="built_in">imag</span>(x * y))</span><br><span class="line">	fmt.Println(<span class="number">1i</span> * <span class="number">1i</span>)</span><br><span class="line">	fmt.Println(cmplx.Sqrt(<span class="number">-1</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[12:26:47] onns@Onns ~/Documents/code/go/go-bible/ch3 $ go run 3.7.go</span><br><span class="line">(-5+10i)</span><br><span class="line">-5</span><br><span class="line">10</span><br><span class="line">(-1+0i)</span><br><span class="line">(0+1i)</span><br></pre></td></tr></table></figure>
+<p>复数也可以用<code>==</code>和<code>!=</code>进行相等比较，只有两个复数的实部和虚部都相等的时候它们才是相等的。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p><code>math/cmplx</code>包提供了复数处理的许多函数，例如求复数的平方根函数和求幂函数。</p>
+<h2 id="布尔型"><a class="header-anchor" href="#布尔型">#</a>布尔型</h2>
+<p>布尔值并不会隐式转换为数字值<code>0</code>或<code>1</code>，必须使用一个显式的<code>if</code>语句辅助转换。</p>
+<h2 id="字符串"><a class="header-anchor" href="#字符串">#</a>字符串</h2>
+<p>一个字符串是一个不可改变的字节序列。字符串可以包含任意的数据，包括<code>byte</code>值<code>0</code>，但是通常是用来包含人类可读的文本。</p>
+<p>文本字符串通常被解释为采用<code>UTF8</code>编码的<code>Unicode</code>码点（<code>rune</code>）序列。</p>
+<p>内置的<code>len</code>函数可以返回一个字符串中的字节数目，索引操作<code>s[i]</code>返回第<code>i</code>个字节的字节值。</p>
+<p>字符串可以用<code>==</code>和<code>&lt;</code>进行比较，比较通过逐个字节比较完成的，因此比较的结果是<strong>字符串自然编码</strong>的顺序。</p>
+<p>不变性意味如果两个字符串共享相同的底层数据的话也是安全的，这使得复制任何长度的字符串代价是低廉的。一个字符串<code>s</code>和对应的子字符串切片<code>s[7:]</code>的操作也可以安全地共享相同的内存，因此字符串切片操作代价也是低廉的。</p>
+<p>一个原生的字符串面值形式是`…`，使用反引号代替双引号。</p>
+<p><code>Unicode</code>码点对应<code>Go</code>语言中的<code>rune</code>整数类型（<code>rune</code>是<code>int32</code>等价类型）。</p>
+<p><code>UTF8</code>编码使用<code>1</code>到<code>4</code>个字节来表示每个<code>Unicode</code>码点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0xxxxxxx</span><br><span class="line">110xxxxx 10xxxxxx</span><br><span class="line">1110xxxx 10xxxxxx 10xxxxxx</span><br><span class="line">11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"unicode/utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"Hello, 世界"</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(s))</span><br><span class="line">	fmt.Println(utf8.RuneCountInString(s))</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(s); &#123;</span><br><span class="line">		r, size := utf8.DecodeRuneInString(s[i:])</span><br><span class="line">		fmt.Printf(<span class="string">"%d\t%c\n"</span>, i, r)</span><br><span class="line">		i += size</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i, r := <span class="keyword">range</span> <span class="string">"Hello, 世界"</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d\t%q\t%d\n"</span>, i, r, r)</span><br><span class="line">	&#125;</span><br><span class="line">	n := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, _ = <span class="keyword">range</span> s &#123;</span><br><span class="line">		n++</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(n)</span><br><span class="line">	n = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> <span class="keyword">range</span> s &#123;</span><br><span class="line">		n++</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(n)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ go run 3.8.go</span><br><span class="line">13</span><br><span class="line">9</span><br><span class="line">0	H</span><br><span class="line">1	e</span><br><span class="line">2	l</span><br><span class="line">3	l</span><br><span class="line">4	o</span><br><span class="line">5	,</span><br><span class="line">6</span><br><span class="line">7	世</span><br><span class="line">10	界</span><br><span class="line">0	<span class="string">'H'</span>	72</span><br><span class="line">1	<span class="string">'e'</span>	101</span><br><span class="line">2	<span class="string">'l'</span>	108</span><br><span class="line">3	<span class="string">'l'</span>	108</span><br><span class="line">4	<span class="string">'o'</span>	111</span><br><span class="line">5	<span class="string">','</span>	44</span><br><span class="line">6	<span class="string">' '</span>	32</span><br><span class="line">7	<span class="string">'世'</span>	19990</span><br><span class="line">10	<span class="string">'界'</span>	30028</span><br><span class="line">9</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+<p><code>\uhhhh</code>对应<code>16bit</code>的码点值，<code>\Uhhhhhhhh</code>对应<code>32bit</code>的码点值，其中<code>h</code>是一个十六进制数字。</p>
+<p><code>Go</code>语言的<code>range</code>循环在处理字符串的时候，会自动隐式解码<code>UTF8</code>字符串。</p>
+<p><code>UTF8</code>字符解码如果遇到一个错误的<code>UTF8</code>编码输入，将生成一个特别的<code>Unicode</code>字符<code>\uFFFD</code>。</p>
+<p><code>UTF8</code>字符串作为交换格式是非常方便的，但是在程序内部采用<code>rune</code>序列可能更方便，因为<code>rune</code>大小一致，支持数组索引和方便切割。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 3.9.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-14 15:24:14</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-14 15:24:18</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">"プログラム"</span></span><br><span class="line">	fmt.Printf(<span class="string">"% x\n"</span>, s)</span><br><span class="line">	r := []<span class="keyword">rune</span>(s)</span><br><span class="line">	fmt.Printf(<span class="string">"%x\n"</span>, r)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(r))</span><br><span class="line"></span><br><span class="line">	s = <span class="string">"program プログラム"</span></span><br><span class="line">	fmt.Printf(<span class="string">"% x\n"</span>, s)</span><br><span class="line">	r = []<span class="keyword">rune</span>(s)</span><br><span class="line">	fmt.Printf(<span class="string">"%x\n"</span>, r)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(r))</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(<span class="number">65</span>))</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(<span class="number">0x4eac</span>))</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(<span class="number">1234567</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ go run 3.9.go</span><br><span class="line">e3 83 97 e3 83 ad e3 82 b0 e3 83 a9 e3 83 a0</span><br><span class="line">[30d7 30ed 30b0 30e9 30e0]</span><br><span class="line">プログラム</span><br><span class="line">70 72 6f 67 72 61 6d 20 e3 83 97 e3 83 ad e3 82 b0 e3 83 a9 e3 83 a0</span><br><span class="line">[70 72 6f 67 72 61 6d 20 30d7 30ed 30b0 30e9 30e0]</span><br><span class="line">program プログラム</span><br><span class="line">A</span><br><span class="line">京</span><br><span class="line">�</span><br></pre></td></tr></table></figure>
+<p><code>% x</code>参数用于在每个十六进制数字前插入一个空格。</p>
+<p>将一个整数转型为字符串意思是生成以只包含对应<code>Unicode</code>码点字符的<code>UTF8</code>字符串，如果对应码点的字符是无效的，则用<code>\uFFFD</code>无效字符作为替换。</p>
+<h3 id="字符串和数字的转换"><a class="header-anchor" href="#字符串和数字的转换">#</a>字符串和数字的转换</h3>
+<ol>
+<li>用<code>fmt.Sprintf</code>返回一个格式化的字符串。</li>
+<li>用<code>strconv.Itoa()</code>将数字转为字符串。</li>
+</ol>
+<p><code>fmt.Printf</code>函数的<code>%b</code>、<code>%d</code>、<code>%o</code>和<code>%x</code>等参数提供功能往往比<code>strconv</code>包的<code>Format</code>函数方便很多，特别是在需要包含附加额外信息的时候。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 3.10.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-14 15:40:40</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-14 15:48:43</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">123</span></span><br><span class="line">	y := fmt.Sprintf(<span class="string">"%d"</span>, x)</span><br><span class="line">	z := strconv.Itoa(x)</span><br><span class="line">	fmt.Println(y, z)</span><br><span class="line"></span><br><span class="line">	fmt.Println(strconv.FormatInt(<span class="keyword">int64</span>(x), <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">	a, _ := strconv.Atoi(<span class="string">"123"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"a type: %T\n"</span>, a)</span><br><span class="line">	b, _ := strconv.ParseInt(<span class="string">"123"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"b type: %T\n"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ go run 3.10.go</span><br><span class="line">123 123</span><br><span class="line">1111011</span><br><span class="line">a <span class="built_in">type</span>: int</span><br><span class="line">b <span class="built_in">type</span>: int64</span><br></pre></td></tr></table></figure>
+<p><code>ParseInt</code>函数的第三个参数是用于指定整型数的大小，例如<code>16</code>表示<code>int16</code>，<code>0</code>则表示<code>int</code>。在任何情况下，返回的结果总是<code>int64</code>类型，可以通过强制类型转换将它转为更小的整数类型。</p>
+<h2 id="常量"><a class="header-anchor" href="#常量">#</a>常量</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pi = <span class="number">3.14159</span></span><br><span class="line"><span class="comment">// 可以批量声明多个常量</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	e = <span class="number">2.71828182845904523536028747135266249775724709369995957496696763</span></span><br><span class="line">	pi = <span class="number">3.14159265358979323846264338327950288419716939937510582097494459</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>所有常量的运算都可以在编译期完成。</p>
+<p>如果是批量声明的常量，除了第一个外其它的常量右边的初始化表达式都可以省略，如果省略初始化表达式则表示使用前面常量的初始化表达式写法，对应的常量类型也一样的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 3.11.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-14 15:56:50</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-14 15:57:37</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		a = <span class="number">1</span></span><br><span class="line">		b</span><br><span class="line">		c = <span class="number">2</span></span><br><span class="line">		d</span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a, b, c, d)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run 3.11.go</span><br><span class="line">1 1 2 2</span><br></pre></td></tr></table></figure>
+<p>常量声明可以使用<code>iota</code>常量生成器初始化，在一个<code>const</code>声明语句中，在第一个声明的常量所在的行，<code>iota</code>将会被置为<code>0</code>，然后在每一个有常量声明的行加一。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 3.12.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-14 16:00:53</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-14 16:01:55</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">type</span> Weekday <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		Sunday Weekday = <span class="literal">iota</span></span><br><span class="line">		Monday</span><br><span class="line">		Tuesday</span><br><span class="line">		Wednesday</span><br><span class="line">		Thursday</span><br><span class="line">		Friday</span><br><span class="line">		Saturday</span><br><span class="line">	)</span><br><span class="line">	fmt.Println(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run 3.12.go</span><br><span class="line">0 1 2 3 4 5 6</span><br></pre></td></tr></table></figure>
+<p>有六种未明确类型的常量类型，分别是无类型的布尔型、无类型的整数、无类型的字符、无类型的浮点数、无类型的复数、无类型的字符串。</p>
+<p>编译器为这些没有明确的基础类型的数字常量提供比基础类型更高精度的算术运算，可以认为至少有<code>256bit</code>的运算精度。</p>
+<p>通过延迟明确常量的具体类型，无类型的常量不仅可以提供更高的运算精度，而且可以直接用于更多的表达式而不需要显式的类型转换。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p>只有常量可以是无类型的。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>浮点数的相等比较是危险的，需要特别小心处理精度问题。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>这里我是懵逼的，有机会再看看。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/13/the-linux-command-line-note-21/">
+        <span class="next-text nav-default">《快乐的Linux命令行》笔记（21）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
