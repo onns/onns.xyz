@@ -263,6 +263,30 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/16/java-threadlocal/">Java的ThreadLocal类</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-16
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/16/java-threadlocal/"
+             data-title="Java的ThreadLocal类">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.onns.juc;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> Onns</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/9/16 9:06 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Website</span> https://onns.xyz/blog/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;String&gt; stringThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Thread thread = Thread.currentThread();</span><br><span class="line">		<span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">			System.out.println(Thread.currentThread().getName() + <span class="string">": "</span>);</span><br><span class="line">			stringThreadLocal.set(<span class="string">"This is a"</span>);</span><br><span class="line">			System.out.println(stringThreadLocal.get());</span><br><span class="line">			stringThreadLocal.remove();</span><br><span class="line">			System.out.println(stringThreadLocal.get());</span><br><span class="line">		&#125;, <span class="string">"A"</span>).start();</span><br><span class="line">		<span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">			System.out.println(Thread.currentThread().getName() + <span class="string">": "</span>);</span><br><span class="line">			stringThreadLocal.set(<span class="string">"This is b"</span>);</span><br><span class="line">			System.out.println(stringThreadLocal.get());</span><br><span class="line">			stringThreadLocal.remove();</span><br><span class="line">			System.out.println(stringThreadLocal.get());</span><br><span class="line">		&#125;, <span class="string">"B"</span>).start();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/blog/2020/09/16/java-threadlocal/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/16/solution-of-invert-binary-tree/">Leetcode题解：翻转二叉树</a>
         </h1>
 
@@ -528,34 +552,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-content"><p>每次都要给文档添加日期等注释太繁琐，设置个自动添加注释。</p>
           <div class="read-more">
             <a href="/blog/2020/09/13/add-file-header-in-idea/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/13/solution-of-maximum-subarray/">Leetcode题解：最大子序和</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-13
-        </span><span class="post-category">
-            <a href="/blog/categories/jobs/">jobs</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/13/solution-of-maximum-subarray/"
-             data-title="Leetcode题解：最大子序和">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="53-最大子序和"><a class="header-anchor" href="#53-最大子序和">#</a><a href="https://leetcode-cn.com/problems/maximum-subarray/" target="_blank" rel="noopener">53. 最大子序和</a></h2>
-<p>给定一个整数数组<code>nums</code>，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</span><br><span class="line">进阶:</span><br></pre></td></tr></table></figure>
-<p>如果你已经实现复杂度为<code>O(n)</code>的解法，尝试使用更为精妙的分治法求解。</p>
-          <div class="read-more">
-            <a href="/blog/2020/09/13/solution-of-maximum-subarray/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/8/">

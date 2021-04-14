@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/"/>
+<meta name="description" content="Vim文件头部模板"/><meta name="keywords" content="linux, macos, vim, vi, header template, autocommand, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/14/vim-header-template/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Categories - Onns Blog</title>
+    <title>Vim文件头部模板 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,14 +261,87 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="categories">
-    <div class="categories-title">
-      19 Categories In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Vim文件头部模板
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-04-14
+        </span><span class="post-category">
+            <a href="/blog/categories/try/">try</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/04/14/vim-header-template/"
+             data-title="Vim文件头部模板">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#头文件模板"><span class="toc-text">头文件模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vimrc"><span class="toc-text">~&#x2F;.vimrc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">38</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/jobs/">jobs<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/learn/">learn<span class="category-count">49</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">9</span></a> <a class="category-link" href="/blog/categories/study/">study<span class="category-count">53</span></a> <a class="category-link" href="/blog/categories/system/">system<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/try/">try<span class="category-count">6</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">6</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">3</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>在看书的时候，会写一些例子的代码，然后配上运行结果，不过<code>markdown</code>格式的<code>code</code>块没有文件名什么的，不好和命令行结果对应，每个都手动加不优雅，于是找了一些<code>vim</code>的文档，配置了一下，记录如下。</p>
+<a id="more"></a>
+<h2 id="头文件模板"><a class="header-anchor" href="#头文件模板">#</a>头文件模板</h2>
+<p>以<code>go</code>语言的为例，我自己的模板如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; -------------------------------------------</span><br><span class="line">&#x2F;&#x2F; Created By : Onns onns@onns.xyz</span><br><span class="line">&#x2F;&#x2F; File Name :</span><br><span class="line">&#x2F;&#x2F; Purpose :</span><br><span class="line">&#x2F;&#x2F; Creation Date :</span><br><span class="line">&#x2F;&#x2F; Last Modified :</span><br><span class="line">&#x2F;&#x2F; -------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>保存为<code>/Users/onns/Documents/code/config/vim/header_template</code>。</p>
+<h2 id="vimrc"><a class="header-anchor" href="#vimrc">#</a>~/.vimrc</h2>
+<p>就像<code>bash</code>运行时会加载<code>~/.bashrc</code>文件一样，<code>vim</code>在运行的时候会加载<code>~/.vimrc</code>文件，没有的话直接创建即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.vimrc</span><br><span class="line">autocmd bufnewfile *.go 0r /Users/onns/Documents/code/config/vim/header_template</span><br><span class="line">autocmd bufnewfile *.go exe <span class="string">"1,"</span> . 7 . <span class="string">"g/File Name :.*/s//File Name : "</span> .expand(<span class="string">"%"</span>)</span><br><span class="line">autocmd bufnewfile *.go exe <span class="string">"1,"</span> . 7 . <span class="string">"g/Creation Date :.*/s//Creation Date : "</span> .strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">autocmd Bufwritepre,filewritepre *.go execute <span class="string">"normal ma"</span></span><br><span class="line">autocmd Bufwritepre,filewritepre *.go exe <span class="string">"1,"</span> . 7 . <span class="string">"g/Last Modified :.*/s/Last Modified :.*/Last Modified : "</span> .strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">autocmd bufwritepost,filewritepost *.go execute <span class="string">"normal `a"</span></span><br></pre></td></tr></table></figure>
+<p>第一行就是加载模板文件的意思，对<code>*.go</code>的文件都会应用这个规则，<code>0r</code>代表从新建文件的第一行开始读入。原教程里<code>0r</code>的位置是<code>so</code>我也不知道什么意思，一直报错，找了别的教程改成<code>0r</code>才过的，有机会再看看这个地方是什么意思吧！<br>
+第二行就是把模板里的文件名填入。<br>
+第三行就是把模板的创建时间填入。<br>
+第四行记录当前的光标位置。<br>
+第五行修改修改时间。<br>
+第六行还原光标位置。</p>
+<h2 id="效果"><a class="header-anchor" href="#效果">#</a>效果</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 3.10.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-14 15:40:40</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-14 15:48:43</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">123</span></span><br><span class="line">	y := fmt.Sprintf(<span class="string">"%d"</span>, x)</span><br><span class="line">	z := strconv.Itoa(x)</span><br><span class="line">	fmt.Println(y, z)</span><br><span class="line"></span><br><span class="line">	fmt.Println(strconv.FormatInt(<span class="keyword">int64</span>(x), <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">	a, _ := strconv.Atoi(<span class="string">"123"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"a type: %T\n"</span>, a)</span><br><span class="line">	b, _ := strconv.ParseInt(<span class="string">"123"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"b type: %T\n"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前前后后还是花了一个多小时的，但是记录下来确实没多少东西，还有另一种函数式的写法感觉更通用，毕竟这个写法，换一个后缀都要重新弄= =，有机会再来补。参考链接后面几个就是函数式的写法，可以参考一下。</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://elias.rhi.hi.is/vim/cmdline.html" target="_blank" rel="noopener">Vim documentation: cmdline</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/12/vi-and-vim-autocommand-3-steps-to-add-custom-header-to-your-file/" target="_blank" rel="noopener">Vi and Vim Autocommand: 3 Steps to Add Custom Header To Your File Automatically</a></li>
+<li><a href="https://stackoverflow.com/questions/13279520/automatically-inserting-a-header-in-vim" target="_blank" rel="noopener">Automatically inserting a header in vim</a></li>
+<li><a href="https://vimawesome.com/plugin/vim-header-hard-things" target="_blank" rel="noopener">VIM-HEADER</a></li>
+<li><a href="https://github.com/TJRoger/header.vim" target="_blank" rel="noopener">https://github.com/TJRoger/header.vim</a></li>
+<li><a href="https://sauravomar01.medium.com/configure-custom-header-template-in-vim-editor-6d578e440da3" target="_blank" rel="noopener">Configure Custom Header Template in Vim editor:</a></li>
+<li><a href="https://blog.csdn.net/qq_42103512/article/details/108587533" target="_blank" rel="noopener">shell 脚本批量在指定的后缀文件头部中插入内容</a></li>
+<li><a href="https://www.cnblogs.com/betterquan/p/11747830.html" target="_blank" rel="noopener">自动添加 shell 脚本头部信息</a></li>
+<li><a href="https://blog.csdn.net/luzhenrong45/article/details/53021748/" target="_blank" rel="noopener">vim 创建程序文件自动添加头部注释</a></li>
+<li><a href="https://www.cnblogs.com/black-mamba/p/9280316.html" target="_blank" rel="noopener">vim 创建文件自动生成头部注释</a></li>
+</ul>
+<h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
+<ul>
+<li><code>so</code>的意思。</li>
+<li>通用的函数式写法。</li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/vim/">vim</a>
+            <a href="/blog/tags/vi/">vi</a>
+            <a href="/blog/tags/header-template/">header template</a>
+            <a href="/blog/tags/autocommand/">autocommand</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/14/the-go-programming-language-note-7/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（6）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
