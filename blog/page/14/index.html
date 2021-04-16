@@ -263,6 +263,71 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/12/sync-sofa-doc/">Sync Sofa</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-12
+        </span><span class="post-category">
+            <a href="/blog/categories/try/">try</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/12/sync-sofa-doc/"
+             data-title="Sync Sofa">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="sync-sofa-streaming-video-playback-synchronizer-extension"><a class="header-anchor" href="#sync-sofa-streaming-video-playback-synchronizer-extension">#</a>Sync Sofa (streaming video playback synchronizer extension)</h1>
+<blockquote>
+<p>This chrome extension allows multi-user sync streaming video in a fast, simple, and stable way.</p>
+</blockquote>
+<p><img src="https://img.shields.io/github/go-mod/go-version/LouisYLWang/Sync-Sofa?filename=server%2Fgo.mod&amp;style=flat-square" alt="GitHub go.mod Go version (subfolder of monorepo)"> <a href="https://chrome.google.com/webstore/detail/sync-sofa-beta-online-vid/kgpnhgmpijhpkefpddoehhminpfiddmg" target="_blank" rel="noopener"><img src="https://img.shields.io/chrome-web-store/users/kgpnhgmpijhpkefpddoehhminpfiddmg?style=flat-square" alt="Chrome web store users"></a> <img src="https://img.shields.io/uptimerobot/status/m785506902-abf56ee3c6b33304675185c6?label=sync-us&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m787861126-8d48fa150c9a82edd7e1315c?label=sync-us2&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m785506916-32a7dc946ed8718c859e7cdd?label=sync-cn&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m785512978-f4cf51568a716df159f1c762?label=sync-cn2&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m787861121-335727572de1d1ea7378ebf0?label=sync-cn3&amp;style=flat-square" alt="Uptime Robot status"> <img src="https://img.shields.io/uptimerobot/status/m787861123-ea67c98024d33c70b4366305?label=sync-cn4&amp;style=flat-square" alt="Uptime Robot status"></p>
+<p><a href="#sync-sofa-streaming-video-playback-synchronizer-extension">English</a> | <a href="#sync-sofa-%E5%9C%A8%E7%BA%BF%E8%A7%86%E9%A2%91%E5%90%8C%E6%AD%A5%E6%92%AD%E6%94%BE%E6%8F%92%E4%BB%B6">中文</a></p>
+<p>Sync Sofa is a full-stack web extension that provides an easy-to-use and stable way to synchronize streaming playback for multiple users. It can improve the experience when users from different locations want to share a video/movie remotely. Currently, the features include:</p>
+<ul>
+<li>2 party connection: either party can be the host of a sync room and the other can join with connection code.</li>
+<li>sync pause/play: each user pause/play the video, the other side will do the same</li>
+<li>sync play process bar control: the playing time change will also affect another side user</li>
+<li>local video sync: provide two ways to sync your playing of a local video file</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/10/07/0a2FQP.png" alt="title pic"></p>
+<h2 id="current-version"><a class="header-anchor" href="#current-version">#</a>Current version</h2>
+<p><strong>v1.0.9 - update on 14 Aug 2020</strong></p>
+<p>⚠️⚠️⚠️ Each website has it’s <code>own controller</code> of the playback rate, so please ignore the wrong display of <code>playback rate</code>.</p>
+<p>Add:</p>
+<ol>
+<li>playback rate sync: any side user’s change to the playback rate will sync to the other side.</li>
+</ol>
+<p>Fix:</p>
+<ol>
+<li>Fix bug of no new bugs</li>
+</ol>
+<hr>
+<p><strong>v1.0.8 - update on 8 Aug 2020</strong></p>
+<p>⚠️⚠️⚠️ <strong>Do Not</strong> try to use <code>Room code</code> like <code>0000</code> or <code>1234</code>, We strongly recommend you use uncommon code so that you do not need to change it.</p>
+<p>Add:</p>
+<ol>
+<li>allow customized connection code, user can directly connect to peer simply click the start button, without reapplying a new code</li>
+<li>simple built-in chat feature (can be toggled in options page)</li>
+<li>add system notification (can be toggled in options page)</li>
+<li>add connection status budge to extension icon (red-unconnected, yellow-pending connection, green-connecting)</li>
+<li>add a notification for unknown socket disconcerting</li>
+<li>add duplicate connection code notification</li>
+</ol>
+<p>Fix:</p>
+<ol>
+<li>Fix bug of no new bugs</li>
+</ol>
+<hr>
+          <div class="read-more">
+            <a href="/blog/2020/08/12/sync-sofa-doc/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/08/10/wechat-sticker/">微信表情包</a>
         </h1>
 
@@ -499,36 +564,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-content"><p>讲道理，复习面试是真的复习吐了。。。实在是复习不下去了，摸会鱼，看看<code>HashMap</code>的源码吧😭😭😭。</p>
           <div class="read-more">
             <a href="/blog/2020/07/07/hashmap-source-code/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/">Leetcode题解：有序矩阵中第K小的元素</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-07-02
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/"
-             data-title="Leetcode题解：有序矩阵中第K小的元素">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="378-有序矩阵中第k小的元素"><a class="header-anchor" href="#378-有序矩阵中第k小的元素">#</a><a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/" target="_blank" rel="noopener">378. 有序矩阵中第K小的元素</a></h2>
-<p>给定一个 <code>n * n</code> 矩阵，其中每行和每列元素均按升序排序，找到矩阵中第 <code>k</code> 小的元素。<br>
-请注意，它是排序后的第 <code>k</code> 小元素，而不是第 <code>k</code> 个不同的元素。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">matrix &#x3D; [</span><br><span class="line">	[ 1,  5,  9],</span><br><span class="line">	[10, 11, 13],</span><br><span class="line">	[12, 13, 15]</span><br><span class="line">],</span><br><span class="line">k &#x3D; 8,</span><br><span class="line"></span><br><span class="line">返回 13。</span><br></pre></td></tr></table></figure>
-<p>提示：<br>
-你可以假设 k 的值永远是有效的，<code>1 ≤ k ≤ n^2</code> 。</p>
-          <div class="read-more">
-            <a href="/blog/2020/07/02/solution-of-kth-smallest-element-in-a-sorted-matrix/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/13/">

@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/macos/"/>
+<meta name="description" content="《Go语音圣经（中文版）》笔记（9）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/16/the-go-programming-language-note-9/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>macos · Onns Blog
-  </title>
+    <title>《Go语音圣经（中文版）》笔记（9） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,240 +261,73 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">macos</h2>
-        </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（9）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
           2021-04-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/16/the-go-programming-language-note-9/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（9）
-          </a>
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/04/16/the-go-programming-language-note-9/"
+             data-title="《Go语音圣经（中文版）》笔记（9）">
+          Visits 0
         </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#复合数据类型"><span class="toc-text">复合数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h1 id="复合数据类型"><a class="header-anchor" href="#复合数据类型">#</a>复合数据类型</h1>
+<h2 id="slice"><a class="header-anchor" href="#slice">#</a>slice</h2>
+<p><code>slice</code>代表变长的序列，序列中每个元素都有相同的类型。</p>
+<p><code>slice</code>的底层确实引用一个数组对象。</p>
+<p>一个<code>slice</code>由三个部分构成：指针、长度和容量。指针指向第一个<code>slice</code>元素对应的底层数组元素的地址<a href="%60slice%60%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%B9%B6%E4%B8%8D%E4%B8%80%E5%AE%9A%E5%B0%B1%E6%98%AF%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E3%80%82">20210416-1</a>，长度对应<code>slice</code>中元素的数目，长度不能超过容量，容量一般是从<code>slice</code>的开始位置到底层数据的结尾位置，内置的<code>len</code>和<code>cap</code>函数分别返回<code>slice</code>的长度和容量。</p>
+<p>多个<code>slice</code>之间可以共享底层的数据，并且引用的数组部分区间可能重叠。</p>
+<p>如果切片操作超出<code>cap(s)</code>的上限将导致一个<code>panic</code>异常，但是超出<code>len(s)</code>则是意味着扩展了<code>slice</code>，因为新<code>slice</code>的长度会变大。</p>
+<p>因为<code>slice</code>值包含指向第一个<code>slice</code>元素的指针，因此向函数传递<code>slice</code>将允许在函数内部修改底层数组的元素。复制一个<code>slice</code>只是对底层的数组创建了一个新的<code>slice</code>别名。</p>
+<p><code>slice</code>之间不能比较，不能使用<code>==</code>操作符来判断两个<code>slice</code>是否含有全部相等元素。</p>
+<p>一个<code>slice</code>的元素是间接引用的，一个<code>slice</code>甚至可以包含自身。一个固定的<code>slice</code>值在不同的时刻可能包含不同的元素，因为底层数组的元素可能会被修改。</p>
+<p><code>slice</code>唯一合法的比较操作是和<code>nil</code>比较，一个零值的<code>slice</code>等于<code>nil</code>。一个<code>nil</code>值的<code>slice</code>并没有底层数组。一个<code>nil</code>值的<code>slice</code>的长度和容量都是<code>0</code>，但是也有<code>非nil</code>值的<code>slice</code>的长度和容量也是<code>0</code>的。</p>
+<p><code>len(s) == 0</code>用来测试一个<code>slice</code>是否为空。</p>
+<p>除了文档已经明确说明的地方，所有的<code>Go</code>语言函数应该以相同的方式对待<code>nil</code>值的<code>slice</code>和<code>0</code>长度的<code>slice</code>。<a href="%E8%BF%99%E5%8F%A5%E8%AF%9D%E5%AE%8C%E5%85%A8%E6%B2%A1%E7%90%86%E8%A7%A3%EF%BC%8C%E8%BF%99%E6%98%AF%E5%B9%B2%E5%95%A5%E7%9A%84%EF%BC%9F">20210416-2</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 4.2.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-16 13:39:25</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-16 13:45:08</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d %t\n"</span>, <span class="built_in">len</span>(s), s == <span class="literal">nil</span>)</span><br><span class="line">	s = <span class="literal">nil</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d %t\n"</span>, <span class="built_in">len</span>(s), s == <span class="literal">nil</span>)</span><br><span class="line">	s = []<span class="keyword">int</span>(<span class="literal">nil</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%d %t\n"</span>, <span class="built_in">len</span>(s), s == <span class="literal">nil</span>)</span><br><span class="line">	s = []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"%d %t\n"</span>, <span class="built_in">len</span>(s), s == <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ go run 4.2.go</span><br><span class="line">0 <span class="literal">true</span></span><br><span class="line">0 <span class="literal">true</span></span><br><span class="line">0 <span class="literal">true</span></span><br><span class="line">0 <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>内置的<code>make</code>函数创建一个指定元素类型、长度和容量的<code>slice</code>，容量部分可以省略，在这种情况下，容量将等于长度。</p>
+<p>在底层，<code>make</code>创建了一个匿名的数组变量，然后返回一个<code>slice</code>。只有通过返回的<code>slice</code>才能引用底层匿名的数组变量。</p>
+<p>内置的<code>append</code>函数用于向<code>slice</code>追加元素。</p>
+<p>要正确地使用<code>slice</code>，需要记住尽管底层数组的元素是间接访问的，但是<code>slice</code>对应结构体本身的指针、长度和容量部分是直接访问的。</p>
+<p><code>copy</code>函数的第一个参数是要复制的目标<code>slice</code>，第二个参数是源<code>slice</code>，目标和源的位置顺序和<code>dst = src</code>赋值语句是一致的。<a href="%E5%92%8C%E5%85%B6%E5%AE%83%E8%AF%AD%E8%A8%80%E7%9A%84%60copy(from,to)%60%E4%B8%8D%E5%A4%AA%E4%B8%80%E6%A0%B7%E3%80%82">20210416-3</a></p>
+<p>134/483</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/15/the-go-programming-language-note-8/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/vim-header-template/" class="archive-post-link">
-            Vim文件头部模板
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/the-go-programming-language-note-7/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/11/the-go-programming-language-note-6/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/09/the-go-programming-language-note-5/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/17/the-go-programming-language-note-4/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/14/the-go-programming-language-note-3/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/nas/" class="archive-post-link">
-            网络附属存储
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/the-go-programming-language-note-2/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/the-go-programming-language-note-1/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（1）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/zsh-usage/" class="archive-post-link">
-            zsh问题记录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-10-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/10/02/disable-auto-update-in-acrobat/" class="archive-post-link">
-            禁用Acrobat的自动更新
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/13/screen-record-with-internal-audio-on-quicktime-player/" class="archive-post-link">
-            使用MacOS自带的Quicktime Player录制系统声音
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/10/jsp-1/" class="archive-post-link">
-            JSP
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/08/rsync-usage/" class="archive-post-link">
-            rsync实现文件同步
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/06/servlet-in-java-1/" class="archive-post-link">
-            从流中获取 properties
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/02/maven-in-mac/" class="archive-post-link">
-            MacOS下配置maven
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/19/udp-in-java/" class="archive-post-link">
-            用Java实现UDP通信
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-06-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/06/10/fix-crontab-operation-not-permitted-on-mac/" class="archive-post-link">
-            修复MacOS上crontab的Operation not permitted问题
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-06-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/06/02/ftp-server-on-mac/" class="archive-post-link">
-            在MacOS上部署ftp服务器
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-06-01
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/06/01/install-homebrew-on-mac/" class="archive-post-link">
-            在MacOS上安装Homebrew
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2019-09-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2019/09/08/software-for-mac/" class="archive-post-link">
-            MacOS下超好用的软件
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/15/the-go-programming-language-note-8/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（8）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
