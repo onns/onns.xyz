@@ -551,6 +551,12 @@ h6 {
     .post .post-header .post-meta .post-time {
       font-size: 15px;
       color: #8a8a8a; }
+    .post .post-header .post-meta .post-author {
+      display: inline;
+      font-size: 15px;
+      color: #8a8a8a; }
+      .post .post-header .post-meta .post-author::before {
+        content: '·'; }
     .post .post-header .post-meta .post-category {
       display: inline;
       font-size: 14px;
