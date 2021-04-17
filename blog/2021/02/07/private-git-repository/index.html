@@ -269,7 +269,10 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="post-meta">
         <span class="post-time">
           2021-02-07 01:54:26
-        </span><span class="post-category">
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
             <a href="/blog/categories/try/">try</a>
             </span>
         <span class="post-visits"
@@ -283,7 +286,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-git-用户"><span class="toc-text">创建 git 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切换到-git-用户"><span class="toc-text">切换到 git 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成-ssh-密钥"><span class="toc-text">生成 ssh 密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建仓库"><span class="toc-text">创建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多说一句"><span class="toc-text">多说一句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-git-环境"><span class="toc-text">创建 git 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置远端地址"><span class="toc-text">设置远端地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推送代码"><span class="toc-text">推送代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在问题"><span class="toc-text">存在问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-配置"><span class="toc-text">ssh 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-git-用户"><span class="toc-text">创建 git 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切换到-git-用户"><span class="toc-text">切换到 git 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成-ssh-密钥"><span class="toc-text">生成 ssh 密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#禁止-ssh-登录"><span class="toc-text">禁止 SSH 登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建仓库"><span class="toc-text">创建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多说一句"><span class="toc-text">多说一句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-git-环境"><span class="toc-text">创建 git 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置远端地址"><span class="toc-text">设置远端地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推送代码"><span class="toc-text">推送代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在问题"><span class="toc-text">存在问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-配置"><span class="toc-text">ssh 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>好久没写笔记了，最近一直在忙毕业论文，今天趁着装<code>Tex Live 2020</code>的功夫忙里偷闲，折腾点东西。</p>
@@ -300,6 +303,10 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h3 id="生成-ssh-密钥"><a class="header-anchor" href="#生成-ssh-密钥">#</a>生成 ssh 密钥</h3>
 <p>不会的看这里：<a href="https://onns.xyz/blog/2020/09/07/ssh-key-in-linux/">Linux 下密钥登录</a></p>
 <p>然后把<code>私钥</code>发给自己即可。</p>
+<h3 id="禁止-ssh-登录"><a class="header-anchor" href="#禁止-ssh-登录">#</a>禁止 SSH 登录</h3>
+<p>为了保证安全：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先退出git用户</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">sudo vi /etc/passwd</span><br></pre></td></tr></table></figure>
+<p>把<code>git:x:1001:1001:,,,:/home/git:/bin/bash</code>之类的改成<code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code>。<a href="%E8%BF%99%E4%B8%AA%60/usr/bin/git-shell%60%E5%85%B6%E5%AE%9E%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%B2%A1%E6%9C%89%E8%BF%99%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BD%86%E6%98%AF%E7%A1%AE%E5%AE%9E%E5%8F%AF%E4%BB%A5%E5%B7%A5%E4%BD%9C%EF%BC%8C%E6%9C%89%E7%A9%BA%E5%86%8D%E6%9F%A5%E6%9F%A5%E3%80%82">20210417-1</a></p>
 <h3 id="创建仓库"><a class="header-anchor" href="#创建仓库">#</a>创建仓库</h3>
 <p>来到自己的根目录：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span></span><br></pre></td></tr></table></figure>

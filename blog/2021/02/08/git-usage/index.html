@@ -269,7 +269,10 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="post-meta">
         <span class="post-time">
           2021-02-08 15:04:54
-        </span><span class="post-category">
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
             <a href="/blog/categories/study/">study</a>
             </span>
         <span class="post-visits"
@@ -283,7 +286,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#push-和-pull-链接不同"><span class="toc-text">push 和 pull 链接不同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接-2"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p>
@@ -293,6 +296,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
 <ul>
 <li><a href="https://www.cnblogs.com/morethink/p/8700003.html" target="_blank" rel="noopener">Git 同时 push 到多个远程仓库</a></li>
+</ul>
+<h2 id="push-和-pull-链接不同"><a class="header-anchor" href="#push-和-pull-链接不同">#</a>push 和 pull 链接不同</h2>
+<p>你想从别人的分支克隆代码，但是你没有修改权限，你有另一个分支的修改权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br></pre></td></tr></table></figure>
+<p>然后你的<code>.git/config</code>长这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = <span class="literal">true</span></span><br><span class="line">	bare = <span class="literal">false</span></span><br><span class="line">	logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">	url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">	fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">	remote = origin</span><br><span class="line">	merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+<p>然后可以用下面的命令增加<code>push</code>的仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --push origin git@git119:/home/git/vfos.git</span><br></pre></td></tr></table></figure>
+<p>再次查看<code>.git/config</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = <span class="literal">true</span></span><br><span class="line">	bare = <span class="literal">false</span></span><br><span class="line">	logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">	url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">	fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">	pushurl = git@git119:/home/git/vfos.git</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">	remote = origin</span><br><span class="line">	merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+<p>所以其实你手动添加一项<code>pushurl</code>也是可以的！</p>
+<h3 id="参考链接-2"><a class="header-anchor" href="#参考链接-2">#</a>参考链接</h3>
+<ul>
+<li><a href="https://stackoverflow.com/questions/2916845/different-default-remote-tracking-branch-for-git-pull-and-git-push" target="_blank" rel="noopener">Different default remote (tracking branch) for git pull and git push</a></li>
 </ul>
 
       </div>
