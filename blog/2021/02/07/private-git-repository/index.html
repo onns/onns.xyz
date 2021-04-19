@@ -306,7 +306,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h3 id="禁止-ssh-登录"><a class="header-anchor" href="#禁止-ssh-登录">#</a>禁止 SSH 登录</h3>
 <p>为了保证安全：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先退出git用户</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">sudo vi /etc/passwd</span><br></pre></td></tr></table></figure>
-<p>把<code>git:x:1001:1001:,,,:/home/git:/bin/bash</code>之类的改成<code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code>。<a href="%E8%BF%99%E4%B8%AA%60/usr/bin/git-shell%60%E5%85%B6%E5%AE%9E%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%B2%A1%E6%9C%89%E8%BF%99%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BD%86%E6%98%AF%E7%A1%AE%E5%AE%9E%E5%8F%AF%E4%BB%A5%E5%B7%A5%E4%BD%9C%EF%BC%8C%E6%9C%89%E7%A9%BA%E5%86%8D%E6%9F%A5%E6%9F%A5%E3%80%82">20210417-1</a></p>
+<p>把<code>git:x:1001:1001:,,,:/home/git:/bin/bash</code>之类的改成<code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code>。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <h3 id="创建仓库"><a class="header-anchor" href="#创建仓库">#</a>创建仓库</h3>
 <p>来到自己的根目录：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span></span><br></pre></td></tr></table></figure>
@@ -345,6 +345,13 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><a href="https://linuxize.com/post/using-the-ssh-config-file/" target="_blank" rel="noopener">Using the SSH Config File</a></li>
 </ul>
 <p>02:23 晚安～</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>这个<code>/usr/bin/git-shell</code>其实目录下没有这个文件，但是确实可以工作，有空再查查。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="《Go语音圣经（中文版）》笔记（10）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/04/18/the-go-programming-language-note-10/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>《Go语音圣经（中文版）》笔记（10） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（10）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-04-18 14:32:12
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/04/18/the-go-programming-language-note-10/"
+             data-title="《Go语音圣经（中文版）》笔记（10）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#复合数据类型"><span class="toc-text">复合数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#map"><span class="toc-text">Map</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h1 id="复合数据类型"><a class="header-anchor" href="#复合数据类型">#</a>复合数据类型</h1>
+<h2 id="map"><a class="header-anchor" href="#map">#</a>Map</h2>
+<p>哈希表是一个无序的<code>key/value</code>对的集合，其中所有的<code>key</code>都是不同的，然后通过给定的<code>key</code>可以在常数时间复杂度内检索、更新或删除对应的<code>value</code>。</p>
+<p>在<code>Go</code>语言中，一个<code>map</code>就是一个哈希表的引用，<code>map</code>类型可以写为<code>map[K]V</code>，其中<code>K</code>和<code>V</code>分别对应<code>key</code>和<code>value</code>，<code>map</code>中所有的<code>key</code>都有相同的类型，所有的<code>value</code>也有着相同的类型，但是<code>key</code>和<code>value</code>之间可以是不同的数据类型。其中<code>K</code>对应的<code>key</code>必须是支持<code>==</code>比较运算符的数据类型，所以<code>map</code>可以通过测试<code>key</code>是否相等来判断是否已经存在。</p>
+<p>内置的<code>make</code>函数可以创建一个<code>map</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br></pre></td></tr></table></figure>
+<p>也可以用<code>map</code>字面值的语法创建<code>map</code>，同时还可以指定一些最初的<code>key/value</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ages := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;</span><br><span class="line">	<span class="string">"alice"</span>:   <span class="number">31</span>,</span><br><span class="line">	<span class="string">"charlie"</span>: <span class="number">34</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 4.3.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-19 10:35:06</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-19 10:36:39</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ages := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">	ages[<span class="string">"alice"</span>] = <span class="number">31</span></span><br><span class="line">	ages[<span class="string">"charlie"</span>] = <span class="number">34</span></span><br><span class="line">	fmt.Println(ages[<span class="string">"alice"</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>map[string]int{}</code>可以用来创建空的<code>map</code>的表达式。</p>
+<p>使用内置的<code>delete</code>函数可以删除元素：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">delete</span>(ages, <span class="string">"alice"</span>)</span><br></pre></td></tr></table></figure>
+<p>如果一个查找失败将返回<code>value</code>类型对应的零值。</p>
+<p><code>x += y</code>和<code>x++</code>等简短赋值语法也可以用在<code>map</code>上。</p>
+<p><code>map</code>中的元素并不是一个变量，因此我们不能对<code>map</code>的元素进行取址操作，原因是<code>map</code>可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。</p>
+<p><code>map</code>的迭代顺序是不确定的，并且不同的哈希函数实现可能导致不同的遍历顺序。</p>
+<p><code>map</code>类型的零值是<code>nil</code>，也就是没有引用任何哈希表。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ages <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span></span><br><span class="line">fmt.Println(ages == <span class="literal">nil</span>)    <span class="comment">// "true"</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(ages) == <span class="number">0</span>) <span class="comment">// "true"</span></span><br></pre></td></tr></table></figure>
+<p><code>map</code>上的大部分操作，包括查找、删除、<code>len</code>和<code>range</code>循环都可以安全工作在<code>nil</code>值的<code>map</code>上，它们的行为和一个空的<code>map</code>类似。但是向一个<code>nil</code>值的<code>map</code>存入元素将导致一个<code>panic</code>异常：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ages[<span class="string">"carol"</span>] = <span class="number">21</span> <span class="comment">// panic: assignment to entry in nil map</span></span><br></pre></td></tr></table></figure>
+<p>在向<code>map</code>存数据前必须先创建<code>map</code>。</p>
+<p>通过<code>key</code>作为索引下标来访问<code>map</code>将产生一个<code>value</code>。如果<code>key</code>在<code>map</code>中是存在的，那么将得到与<code>key</code>对应的<code>value</code>；如果<code>key</code>不存在，那么将得到<code>value</code>对应类型的零值。</p>
+<p>第二个返回值用来确定对应的元素是否真的是在<code>map</code>之中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">age, ok := ages[<span class="string">"bob"</span>]</span><br><span class="line"><span class="keyword">if</span> !ok &#123; <span class="comment">/* "bob" is not a key in this map; age == 0. */</span> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> age, ok := ages[<span class="string">"bob"</span>]; !ok &#123; <span class="comment">/* ... */</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>在这种场景下，<code>map</code>的下标语法将产生两个值，第二个是一个布尔值，用于报告元素是否真的存在。布尔变量一般命名为<code>ok</code>，特别适合马上用于<code>if</code>条件判断部分。</p>
+<p><code>map</code>之间不能进行相等比较，唯一的例外是和<code>nil</code>进行比较。</p>
+<p>有时候我们需要一个<code>map</code>或<code>set</code>的<code>key</code>是<code>slice</code>类型，但是<code>map</code>的<code>key</code>必须是可比较的类型，但是<code>slice</code>并不满足这个条件。不过，我们可以通过两个步骤绕过这个限制。第一步，定义一个辅助函数<code>k</code>，将<code>slice</code>转为<code>map</code>对应的<code>string</code>类型的<code>key</code>，确保只有<code>x</code>和<code>y</code>相等时<code>k(x) == k(y)</code>才成立。然后创建一个<code>key</code>为<code>string</code>类型的<code>map</code>，在每次对<code>map</code>操作时先用<code>k</code>辅助函数将<code>slice</code>转化为<code>string</code>类型。</p>
+<p><code>map</code>的<code>value</code>类型也可以是一个聚合类型，比如是一个<code>map</code>或<code>slice</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"><span class="comment">// Created By : Onns onns@onns.xyz</span></span><br><span class="line"><span class="comment">// File Name : 4.4.go</span></span><br><span class="line"><span class="comment">// Purpose :</span></span><br><span class="line"><span class="comment">// Creation Date : 2021-04-19 10:59:57</span></span><br><span class="line"><span class="comment">// Last Modified : 2021-04-19 11:05:49</span></span><br><span class="line"><span class="comment">// -------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> graph = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">bool</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addEdge</span><span class="params">(from <span class="keyword">string</span>, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	edges := graph[from]</span><br><span class="line">	<span class="keyword">if</span> edges == <span class="literal">nil</span> &#123;</span><br><span class="line">		edges = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">bool</span>)</span><br><span class="line">		graph[from] = edges</span><br><span class="line">	&#125;</span><br><span class="line">	edges[to] = <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hasEdge</span><span class="params">(from, to <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> graph[from][to]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	addEdge(<span class="string">"a"</span>, <span class="string">"b"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"a -&gt; b"</span>)</span><br><span class="line">	addEdge(<span class="string">"c"</span>, <span class="string">"d"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"c -&gt; d"</span>)</span><br><span class="line">	addEdge(<span class="string">"a"</span>, <span class="string">"d"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"a -&gt; d"</span>)</span><br><span class="line">	addEdge(<span class="string">"d"</span>, <span class="string">"a"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"d -&gt; a"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"a b "</span>, hasEdge(<span class="string">"a"</span>, <span class="string">"b"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"c d "</span>, hasEdge(<span class="string">"c"</span>, <span class="string">"d"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"a d "</span>, hasEdge(<span class="string">"a"</span>, <span class="string">"d"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"d a "</span>, hasEdge(<span class="string">"d"</span>, <span class="string">"a"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"x b "</span>, hasEdge(<span class="string">"x"</span>, <span class="string">"b"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"c d "</span>, hasEdge(<span class="string">"c"</span>, <span class="string">"d"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"x d "</span>, hasEdge(<span class="string">"x"</span>, <span class="string">"d"</span>))</span><br><span class="line">	fmt.Println(<span class="string">"d x "</span>, hasEdge(<span class="string">"d"</span>, <span class="string">"x"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[11:05:51] onns@Onns ~/Documents/code/go/go-bible/ch4 $ go run 4.4.go</span><br><span class="line">a -&gt; b</span><br><span class="line">c -&gt; d</span><br><span class="line">a -&gt; d</span><br><span class="line">d -&gt; a</span><br><span class="line">a b  <span class="literal">true</span></span><br><span class="line">c d  <span class="literal">true</span></span><br><span class="line">a d  <span class="literal">true</span></span><br><span class="line">d a  <span class="literal">true</span></span><br><span class="line">x b  <span class="literal">false</span></span><br><span class="line">c d  <span class="literal">true</span></span><br><span class="line">x d  <span class="literal">false</span></span><br><span class="line">d x  <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/04/16/the-go-programming-language-note-9/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（9）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
