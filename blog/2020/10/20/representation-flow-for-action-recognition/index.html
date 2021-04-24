@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Representation Flow for Action Recognition"/><meta name="keywords" content="行为识别, action recognition, CVPR, CVPR 2019, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="Representation Flow for Action Recognition"/><meta name="keywords" content="行为识别, action recognition, CVPR, CVPR 2019, 2019, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2020/10/20/representation-flow-for-action-recognition/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -269,7 +269,10 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="post-meta">
         <span class="post-time">
           2020-10-20 12:52:32
-        </span><span class="post-category">
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
             <a href="/blog/categories/study/">study</a>
             </span>
         <span class="post-visits"
@@ -283,13 +286,19 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#representation-flow-for-action-recognition"><span class="toc-text">Representation Flow for Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#representation-flow-for-action-recognition"><span class="toc-text">Representation Flow for Action Recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flow-of-flow"><span class="toc-text">Flow of Flow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="representation-flow-for-action-recognition"><a class="header-anchor" href="#representation-flow-for-action-recognition">#</a>Representation Flow for Action Recognition</h2>
+  </div><div class="post-content"><h1 id="representation-flow-for-action-recognition"><a class="header-anchor" href="#representation-flow-for-action-recognition">#</a>Representation Flow for Action Recognition</h1>
+<h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2>
+<p>在本文中，我们提出了一个受光流算法启发的卷积层来学习运动表示。我们的表示流层是完全可微的层，设计用于捕获卷积神经网络内任何表示通道的流，用于动作识别。其迭代流优化参数与其他<code>CNN</code>模型参数以端到端的方式学习，最大限度地提高动作识别性能。此外，我们通过堆叠多个表示流池，引入了流表示学习流的概念。我们进行了广泛的实验评估，证实了其在计算速度和性能上优于以往使用传统光流的识别模型。该代码是公开的。</p>
+<h2 id="flow-of-flow"><a class="header-anchor" href="#flow-of-flow">#</a>Flow of Flow</h2>
+<p>表示流中再计算一次流。。。结果是下降的，这就和我<code>PAN</code>里的实验结论一致。</p>
 <h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3>
 <ul>
 <li><a href="https://blog.csdn.net/qq_41590635/article/details/102670079" target="_blank" rel="noopener">Representation Flow for Action Recognition 论文解读</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/68222768" target="_blank" rel="noopener">[CVPR19]Representation Flow for Action Recognition</a></li>
+<li><a href="https://blog.csdn.net/xwmwanjy666/article/details/103353912" target="_blank" rel="noopener">Representation Flow for Action Recognition</a></li>
+<li><a href="https://github.com/piergiaj/representation-flow-cvpr19" target="_blank" rel="noopener">https://github.com/piergiaj/representation-flow-cvpr19</a></li>
 </ul>
 
       </div>
@@ -300,6 +309,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/action-recognition/">action recognition</a>
             <a href="/blog/tags/CVPR/">CVPR</a>
             <a href="/blog/tags/CVPR-2019/">CVPR 2019</a>
+            <a href="/blog/tags/2019/">2019</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2020/10/20/temporal-relational-reasoning-in-videos/">
