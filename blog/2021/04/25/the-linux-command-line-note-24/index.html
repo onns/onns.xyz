@@ -349,7 +349,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </tr>
 <tr>
 <td style="text-align:left"><code>-k file</code></td>
-<td style="text-align:left"><code>file</code>存在并且设置了它的<code>sticky bit</code></td>
+<td style="text-align:left"><code>file</code>存在并且设置了它的<code>sticky bit</code><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-L file</code></td>
@@ -395,7 +395,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </table>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># test-file: Evaluate the status of a file</span></span><br><span class="line">FILE=~/.bashrc</span><br><span class="line"><span class="keyword">if</span> [ -e <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">if</span> [ -f <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> is a regular file."</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> is a directory."</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> is readable."</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">if</span> [ -w <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> is writable."</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">if</span> [ -x <span class="string">"<span class="variable">$FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> is executable/searchable."</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$FILE</span> does not exist"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x <span class="built_in">test</span>-file.sh</span><br><span class="line">$ ./<span class="built_in">test</span>-file.sh</span><br><span class="line">/home/hs/.bashrc is a regular file.</span><br><span class="line">/home/hs/.bashrc is readable.</span><br><span class="line">/home/hs/.bashrc is writable.</span><br></pre></td></tr></table></figure>
-<p>引号并不是必需的，但这是为了防范空参数。如果<code>$FILE</code>的参数展开是一个空值，就会导致一个错误（操作符将会被解释为非空的字符串而不是操作符）。用引号把参数引起来就确保了操作符之后总是跟随着一个字符串，即使字符串为空。</p>
+<p>引号并不是必需的，但这是为了防范空参数。如果<code>$FILE</code>的参数展开是一个空值，就会导致一个错误（操作符将会被解释为非空的字符串而不是操作符）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。用引号把参数引起来就确保了操作符之后总是跟随着一个字符串，即使字符串为空。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>有机会查一下这是啥东西。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>这里也不知道是什么意思。。。虽然我一直是这样做的。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>好的知道了，我去提问了= =，传送门：<a href="https://unix.stackexchange.com/a/646716/458529" target="_blank" rel="noopener">What’s the difference between using quotation with parameters and not using in a shell script</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       </div>
       
@@ -407,7 +418,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/shell-note/">shell note</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2021/04/24/the-linux-command-line-note-23/">
+        <nav class="post-nav"><a class="prev" href="/blog/2021/04/26/the-linux-command-line-note-25/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《快乐的Linux命令行》笔记（25）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/04/24/the-linux-command-line-note-23/">
         <span class="next-text nav-default">《快乐的Linux命令行》笔记（23）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
