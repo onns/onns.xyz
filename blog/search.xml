@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>TDN Temporal Difference Networks for Efficient Action Recognition</title>
+      <link href="/blog/2021/04/28/tdn-temporal-difference-networks-for-efficient-action-recognition/"/>
+      <url>/blog/2021/04/28/tdn-temporal-difference-networks-for-efficient-action-recognition/</url>
+      
+        <content type="html"><![CDATA[<h1 id="tdn-temporal-difference-networks-for-efficient-action-recognition"><a class="header-anchor" href="#tdn-temporal-difference-networks-for-efficient-action-recognition">#</a>TDN: Temporal Difference Networks for Efficient Action Recognition</h1><h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2><p>提出了一种<code>Motion Band-pass Module</code>模块。</p><p>时间建模仍然是视频动作识别的难点。为了解决这一问题，本文提出了一种新的视频体系结构，即时域差分网络(TDN)，其核心是通过明确地利用时域差分算子来设计一个有效的时域模块(TDM)，从而实现对多尺度时域信息的高效动作识别。并系统评估其对短期和长期运动建模的影响。为了充分捕获整个视频的时间信息，我们的 TDN 采用了两级差分建模范式。在局部运动建模中，利用连续帧间的时域差分为二维 cnn 提供更精细的运动模式;在全局运动建模中，利用分段间的时域差分捕获长距离结构，激发运动特征。TDN 提供了一个简单的、有原则的时间建模框架，可以用现有的 cnn 实例化，并且只需要少量额外的计算成本。我们 TDN 提出了一种新的先进的事情 VI 和 V2 数据集,并与动力学- 400 数据集的最佳性能,我们进行深入消融研究和 TDN plor 可视化结果,希望提供有见地的分析建模时间差异。我们在https://github.com/MCG-NJU/TDN上发布了代码。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 行为识别 </tag>
+            
+            <tag> action recognition </tag>
+            
+            <tag> 2021 - CVPR - CVPR 2021 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《快乐的Linux命令行》笔记（26）</title>
       <link href="/blog/2021/04/26/the-linux-command-line-note-26/"/>
       <url>/blog/2021/04/26/the-linux-command-line-note-26/</url>
