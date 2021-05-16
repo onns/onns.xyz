@@ -4,11 +4,42 @@
   
     
     <entry>
+      <title>《快乐的Linux命令行》笔记（27）</title>
+      <link href="/blog/2021/05/02/the-linux-command-line-note-27/"/>
+      <url>/blog/2021/05/02/the-linux-command-line-note-27/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《快乐的-linux-命令行》"><a class="header-anchor" href="#《快乐的-linux-命令行》">#</a>《快乐的 Linux 命令行》</h1><a id="more"></a><h2 id="for"><a class="header-anchor" href="#for">#</a>for</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> variable [<span class="keyword">in</span> words]; <span class="keyword">do</span></span><br><span class="line">commands</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>最新版本的<code>bash</code>已经添加了第二种格式的<code>for</code>命令语法：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (( expression1; expression2; expression3 )); <span class="keyword">do</span></span><br><span class="line">commands</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>下述命令用来设置默认值：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;parameter:-word&#125;</span></span><br></pre></td></tr></table></figure><p>下述命令用来设置默认值，并且将<code>word</code>的值赋值给<code>parameter</code>（位置参数或其它的特殊参数不能以这种方式赋值）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;parameter:=word&#125;</span></span><br></pre></td></tr></table></figure><p>若<code>parameter</code>没有设置或为空，这种展开导致脚本带有错误退出，并且<code>word</code>的内容会发送到标准错误：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;parameter:?word&#125;</span></span><br></pre></td></tr></table></figure><p>若<code>parameter</code>没有设置或为空，展开结果为空。若<code>parameter</code>不为空，展开结果是<code>word</code>的值，<code>parameter</code>的值不会改变：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;parameter:+word&#125;</span></span><br></pre></td></tr></table></figure><p>返回以<code>prefix</code>开头的已有变量名的展开：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两者等效</span></span><br><span class="line"><span class="variable">$&#123;!prefix*&#125;</span></span><br><span class="line"><span class="variable">$&#123;!prefix@&#125;</span></span><br></pre></td></tr></table></figure><p><code>${#parameter}</code>展开成<code>parameter</code>所包含的字符串的长度。<br>如果<code>parameter</code>是<code>@</code>或者是<code>*</code>，展开结果是位置参数的个数。</p><p><code>${parameter:offset}</code> <code>${parameter:offset:length}</code>展开<code>parameter</code>第<code>offset</code>个字符（从字符串开头算起）直到字符串的末尾，除非指定提取的长度。<br>若<code>offset</code>的值为负数，则认为<code>offset</code>值是从字符串的末尾开始算起。负数前面必须有一个空格，为防止与<code>${parameter:-word}</code>展开形式混淆。<code>length</code>若出现，则必须不能小于零。<br>如果<code>parameter</code>是<code>@</code>，展开结果是<code>length</code>个位置参数，从第<code>offset</code>个位置参数开始。</p><p><code>${parameter#pattern}</code> <code>${parameter##pattern}</code>从<code>paramter</code>所包含的字符串<strong>开头</strong>中清除<code>pattern</code>匹配的字符串。<code>#</code>形式清除最短的匹配结果，<code>##</code>模式清除最长的匹配结果。</p><p><code>${parameter%pattern}</code> <code>${parameter%%pattern}</code>从<code>paramter</code>所包含的字符串<strong>结尾</strong>中清除<code>pattern</code>匹配的字符串。</p><p><code>${parameter/pattern/string}</code> <code>${parameter//pattern/string}</code> <code>${parameter/#pattern/string}</code> <code>${parameter/%pattern/string}</code>对<code>parameter</code>的内容执行查找和替换操作。<br>在正常形式下，只有第一个匹配项会被替换掉。<br><code>//</code>形式下，所有的匹配项都会被替换掉。<br><code>/#</code>要求匹配项出现在字符串的<strong>开头</strong>。<br><code>/#</code>要求匹配项出现在字符串的<strong>结尾</strong>。<br><code>/string</code>可能会省略掉，这样会导致删除匹配的文本。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ foo=JPG.JPG</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo/JPG/jpg&#125;</span></span><br><span class="line">jpg.JPG</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo//JPG/jpg&#125;</span></span><br><span class="line">jpg.jpg</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo/#JPG/jpg&#125;</span></span><br><span class="line">jpg.JPG</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo/%JPG/jpg&#125;</span></span><br><span class="line">JPG.jpg</span><br></pre></td></tr></table></figure><p><code>${parameter,,}</code>把<code>parameter</code>的值全部展开成小写字母。<br><code>${parameter,}</code>把<code>parameter</code>的第一个字符展开成小写字母。<br><code>${parameter^^}</code>把<code>parameter</code>的值全部转换成大写字母。<br><code>${parameter^}</code>把<code>parameter</code>的第一个字符转换成大写字母（首字母大写）。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ul-param - demonstrate case conversion via parameter expansion</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$1</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;1,,&#125;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;1,&#125;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;1^^&#125;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;1^&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vi ul-param</span><br><span class="line">$ chmod +x ul-param</span><br><span class="line">$ ./ul-param aBc</span><br><span class="line">abc</span><br><span class="line">aBc</span><br><span class="line">ABC</span><br><span class="line">ABc</span><br></pre></td></tr></table></figure><p>在算术表达式中，以<code>0</code>开头的数字被认为是八进制数，<code>0x</code>代表十六进制，<code>base#number</code>指定任意进制。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(base) hs@hs-Z390-AORUS-PRO:&#x2F;mnt&#x2F;data&#x2F;onns&#x2F;Desktop$ echo $((0xff))</span><br><span class="line">255</span><br><span class="line">(base) hs@hs-Z390-AORUS-PRO:&#x2F;mnt&#x2F;data&#x2F;onns&#x2F;Desktop$ echo $((2#11111111))</span><br><span class="line">255</span><br></pre></td></tr></table></figure><h2 id="数组"><a class="header-anchor" href="#数组">#</a>数组</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单个赋值</span></span><br><span class="line">name[subscript]=value</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个赋值</span></span><br><span class="line">name=(value1 value2 ...)</span><br></pre></td></tr></table></figure><p>下标<code>*</code>和<code>@</code>可以被用来访问数组中的每一个元素。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>TDN Temporal Difference Networks for Efficient Action Recognition</title>
       <link href="/blog/2021/04/28/tdn-temporal-difference-networks-for-efficient-action-recognition/"/>
       <url>/blog/2021/04/28/tdn-temporal-difference-networks-for-efficient-action-recognition/</url>
       
-        <content type="html"><![CDATA[<h1 id="tdn-temporal-difference-networks-for-efficient-action-recognition"><a class="header-anchor" href="#tdn-temporal-difference-networks-for-efficient-action-recognition">#</a>TDN: Temporal Difference Networks for Efficient Action Recognition</h1><h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2><p>提出了一种<code>Motion Band-pass Module</code>模块。</p><p>时间建模仍然是视频动作识别的难点。为了解决这一问题，本文提出了一种新的视频体系结构，即时域差分网络(TDN)，其核心是通过明确地利用时域差分算子来设计一个有效的时域模块(TDM)，从而实现对多尺度时域信息的高效动作识别。并系统评估其对短期和长期运动建模的影响。为了充分捕获整个视频的时间信息，我们的 TDN 采用了两级差分建模范式。在局部运动建模中，利用连续帧间的时域差分为二维 cnn 提供更精细的运动模式;在全局运动建模中，利用分段间的时域差分捕获长距离结构，激发运动特征。TDN 提供了一个简单的、有原则的时间建模框架，可以用现有的 cnn 实例化，并且只需要少量额外的计算成本。我们 TDN 提出了一种新的先进的事情 VI 和 V2 数据集,并与动力学- 400 数据集的最佳性能,我们进行深入消融研究和 TDN plor 可视化结果,希望提供有见地的分析建模时间差异。我们在https://github.com/MCG-NJU/TDN上发布了代码。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="tdn-temporal-difference-networks-for-efficient-action-recognition"><a class="header-anchor" href="#tdn-temporal-difference-networks-for-efficient-action-recognition">#</a>TDN: Temporal Difference Networks for Efficient Action Recognition</h1><h2 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h2><p>提出了一种<code>Motion Band-pass Module</code>模块。</p><p>时间建模仍然是视频动作识别的难点。为了解决这一问题，本文提出了一种新的视频体系结构，即时域差分网络(TDN)，其核心是通过明确地利用时域差分算子来设计一个有效的时域模块(TDM)，从而实现对多尺度时域信息的高效动作识别。并系统评估其对短期和长期运动建模的影响。为了充分捕获整个视频的时间信息，我们的 TDN 采用了两级差分建模范式。在局部运动建模中，利用连续帧间的时域差分为二维 cnn 提供更精细的运动模式;在全局运动建模中，利用分段间的时域差分捕获长距离结构，激发运动特征。TDN 提供了一个简单的、有原则的时间建模框架，可以用现有的 cnn 实例化，并且只需要少量额外的计算成本。我们 TDN 提出了一种新的先进的事情 VI 和 V2 数据集,并与动力学- 400 数据集的最佳性能,我们进行深入消融研究和 TDN plor 可视化结果,希望提供有见地的分析建模时间差异。我们在https://github.com/MCG-NJU/TDN上发布了代码。</p><h2 id="相关工作"><a class="header-anchor" href="#相关工作">#</a>相关工作</h2><h3 id="时序差分表征"><a class="header-anchor" href="#时序差分表征">#</a>时序差分表征</h3><p>主要有两种方式，<code>RGB差分</code>和<code>特征差分</code>。</p><p>作者说这些方法只是简单地进行了差分，相比<code>3D卷积</code>而言，获得的研究关注更少。</p><blockquote><p>simply used a simple difference operator for single-level motion extraction and received less research attention than 3D convolutions.</p></blockquote>]]></content>
       
       
       <categories>
@@ -24,9 +55,9 @@
             
             <tag> action recognition </tag>
             
-            <tag> CVPR </tag>
-            
             <tag> 2021 </tag>
+            
+            <tag> CVPR </tag>
             
             <tag> CVPR 2021 </tag>
             
@@ -930,9 +961,9 @@
             
             <tag> bash </tag>
             
-            <tag> zsh </tag>
-            
             <tag> shell note </tag>
+            
+            <tag> zsh </tag>
             
             <tag> cron </tag>
             
@@ -973,9 +1004,9 @@
             
             <tag> bash </tag>
             
-            <tag> zsh </tag>
-            
             <tag> shell note </tag>
+            
+            <tag> zsh </tag>
             
             <tag> cron </tag>
             
@@ -1105,11 +1136,11 @@
       
         <tags>
             
+            <tag> git </tag>
+            
             <tag> linux </tag>
             
             <tag> github </tag>
-            
-            <tag> git </tag>
             
             <tag> ssh </tag>
             
@@ -1367,13 +1398,13 @@
       
         <tags>
             
-            <tag> report </tag>
-            
-            <tag> lab406 </tag>
-            
             <tag> 行为识别 </tag>
             
             <tag> action recognition </tag>
+            
+            <tag> report </tag>
+            
+            <tag> lab406 </tag>
             
             <tag> interim report </tag>
             
@@ -4257,9 +4288,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> linux </tag>
+            
+            <tag> python </tag>
             
             <tag> sort </tag>
             
@@ -4579,9 +4610,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> linux </tag>
+            
+            <tag> python </tag>
             
             <tag> windows </tag>
             
@@ -5637,13 +5668,13 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> ddns </tag>
             
             <tag> aliyun </tag>
             
             <tag> python </tag>
-            
-            <tag> linux </tag>
             
             <tag> centos </tag>
             
@@ -6328,22 +6359,22 @@
     
     
     <entry>
-      <title>2019年总结</title>
-      <link href="/blog/drafts/2019-summary.html"/>
-      <url>/blog/drafts/2019-summary.html</url>
+      <title>ifc file parsing</title>
+      <link href="/blog/drafts/ifc-file-parsing.html"/>
+      <url>/blog/drafts/ifc-file-parsing.html</url>
       
-        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
+        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>ifc file parsing</title>
-      <link href="/blog/drafts/ifc-file-parsing.html"/>
-      <url>/blog/drafts/ifc-file-parsing.html</url>
+      <title>2019年总结</title>
+      <link href="/blog/drafts/2019-summary.html"/>
+      <url>/blog/drafts/2019-summary.html</url>
       
-        <content type="html"><![CDATA[<p>ISO-10303-21;<br>HEADER;<br>FILE_DESCRIPTION ((’’), ‘2;1’);<br>FILE_NAME (’’, ‘2018-10-16T13:20:31’, (’’), (’’), ‘Xbim File Processor version 4.0.0.0’, ‘Xbim version 4.0.0.0’, ‘’);<br>FILE_SCHEMA ((‘IFC4’));<br>ENDSEC;<br>DATA;<br>#1=IFCPROJECT(‘2GZ2lqVtL4RhhgjFpmQj7s’,#2,‘HelloWall’,$,$,$,$,(#20,#23),#8);<br>#2=IFCOWNERHISTORY(#5,#6,$,.ADDED.,$,$,$,0);<br>#3=IFCPERSON($,‘Team’,‘xBIM’,$,$,$,$,$);<br>#4=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#5=IFCPERSONANDORGANIZATION(#3,#4,$);<br>#7=IFCORGANIZATION($,‘xBimTeam’,$,$,$);<br>#6=IFCAPPLICATION(#7,‘1.0’,‘Hello Wall Application’,‘HelloWall.exe’);<br>#8=IFCUNITASSIGNMENT((#9,#10,#11,#12,#13,#14,#15,#16,#17));<br>#9=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#10=IFCSIUNIT(</em>,.AREAUNIT.,$,.SQUARE_METRE.);<br>#11=IFCSIUNIT(<em>,.VOLUMEUNIT.,$,.CUBIC_METRE.);<br>#12=IFCSIUNIT(</em>,.SOLIDANGLEUNIT.,$,.STERADIAN.);<br>#13=IFCSIUNIT(<em>,.PLANEANGLEUNIT.,$,.RADIAN.);<br>#14=IFCSIUNIT(</em>,.MASSUNIT.,$,.GRAM.);<br>#15=IFCSIUNIT(<em>,.TIMEUNIT.,$,.SECOND.);<br>#16=IFCSIUNIT(</em>,.THERMODYNAMICTEMPERATUREUNIT.,$,.DEGREE_CELSIUS.);<br>#17=IFCSIUNIT(<em>,.LUMINOUSINTENSITYUNIT.,$,.LUMEN.);<br>#18=IFCCARTESIANPOINT((0.,0.,0.));<br>#19=IFCAXIS2PLACEMENT3D(#18,$,$);<br>#20=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Model’,‘Model’,3,1.E-05,#19,$);<br>#21=IFCCARTESIANPOINT((0.,0.));<br>#22=IFCAXIS2PLACEMENT2D(#21,$);<br>#23=IFCGEOMETRICREPRESENTATIONCONTEXT(‘Building Plan View’,‘Plan’,2,1.E-05,#22,$);<br>#24=IFCBUILDING(‘0ClVgjZh5FhBAip2_5_wLe’,#2,‘Default Building’,$,$,#25,$,$,.ELEMENT.,$,$,$);<br>#25=IFCLOCALPLACEMENT($,#26);<br>#26=IFCAXIS2PLACEMENT3D(#27,$,$);<br>#27=IFCCARTESIANPOINT((0.,0.,0.));<br>#28=IFCRELAGGREGATES(‘30n8zf84X9W8Dm9so0gVfb’,#2,$,$,#1,(#24));<br>#29=IFCWALLSTANDARDCASE(‘0m0peqs9P7veKstlE2d0il’,#2,‘A Standard rectangular wall’,$,$,#39,#38,$,$);<br>#30=IFCRECTANGLEPROFILEDEF(.AREA.,$,#32,300.,4000.);<br>#31=IFCCARTESIANPOINT((0.,400.));<br>#32=IFCAXIS2PLACEMENT2D(#31,$);<br>#33=IFCEXTRUDEDAREASOLID(#30,#36,#34,2400.);<br>#34=IFCDIRECTION((0.,0.,1.));<br>#35=IFCCARTESIANPOINT((0.,0.,0.));<br>#36=IFCAXIS2PLACEMENT3D(#35,$,$);<br>#37=IFCSHAPEREPRESENTATION(#20,‘Body’,‘SweptSolid’,(#33));<br>#38=IFCPRODUCTDEFINITIONSHAPE($,$,(#37,#52));<br>#39=IFCLOCALPLACEMENT($,#40);<br>#40=IFCAXIS2PLACEMENT3D(#35,#42,#41);<br>#41=IFCDIRECTION((0.,1.,0.));<br>#42=IFCDIRECTION((0.,0.,1.));<br>#43=IFCMATERIALLAYERSETUSAGE(#44,.AXIS2.,.NEGATIVE.,150.,$);<br>#44=IFCMATERIALLAYERSET((#45),$,$);<br>#45=IFCMATERIALLAYER($,10.,$,$,$,$,$);<br>#46=IFCMATERIAL(‘some material’,$,$);<br>#47=IFCRELASSOCIATESMATERIAL(‘1tSNZgCKP6TOgKn7Pgi4Ni’,#2,$,$,(#29),#43);<br>#48=IFCPRESENTATIONLAYERASSIGNMENT(‘some ifcPresentationLayerAssignment’,$,(#37),$);<br>#49=IFCPOLYLINE((#50,#51));<br>#50=IFCCARTESIANPOINT((0.,0.));<br>#51=IFCCARTESIANPOINT((4000.,0.));<br>#52=IFCSHAPEREPRESENTATION(#20,‘Axis’,‘Curve2D’,(#49));<br>#54=IFCSIUNIT(</em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#53=IFCQUANTITYLENGTH(‘IfcQuantityArea:Area’,’’,#54,100.,$);<br>#56=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#55=IFCCONTEXTDEPENDENTUNIT(#56,.LENGTHUNIT.,‘Elephants’);<br>#57=IFCQUANTITYCOUNT(‘IfcQuantityCount:Elephant’,$,#55,12.,$);<br>#60=IFCSIUNIT(<em>,.LENGTHUNIT.,.MILLI.,.METRE.);<br>#59=IFCMEASUREWITHUNIT(IFCRATIOMEASURE(25.4),#60);<br>#61=IFCDIMENSIONALEXPONENTS(1,0,0,0,0,0,0);<br>#58=IFCCONVERSIONBASEDUNIT(#61,.LENGTHUNIT.,‘Inch’,#59);<br>#62=IFCQUANTITYLENGTH(‘IfcQuantityLength:Length’,’’,#58,24.,$);<br>#63=IFCELEMENTQUANTITY(‘2eT$$_utH4BR61Fw6jnbaT’,#2,‘Test:IfcElementQuantity’,‘Measurement quantity’,$,(#53,#57,#62));<br>#64=IFCRELDEFINESBYPROPERTIES(‘10Kc9Br0D13961GThfQc7s’,#2,‘Area Association’,‘IfcElementQuantity associated to wall’,(#29),#63);<br>#66=IFCSIUNIT(</em>,.TIMEUNIT.,$,.SECOND.);<br>#65=IFCPROPERTYSINGLEVALUE(‘IfcPropertySingleValue:Time’,’’,IFCTIMEMEASURE(150.),#66);<br>#68=IFCPROPERTYENUMERATION(‘Notes’,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’),IFCLABEL(‘Fa’),IFCLABEL(‘So’),IFCLABEL(‘La’),IFCLABEL(‘Ti’)),$);<br>#67=IFCPROPERTYENUMERATEDVALUE(‘IfcPropertyEnumeratedValue:Music’,$,(IFCLABEL(‘Do’),IFCLABEL(‘Re’),IFCLABEL(‘Mi’)),#68);<br>#70=IFCSIUNIT(*,.MASSUNIT.,.KILO.,.GRAM.);<br>#69=IFCPROPERTYBOUNDEDVALUE(‘IfcPropertyBoundedValue:Mass’,’’,IFCMASSMEASURE(5000.),IFCMASSMEASURE(1000.),#70,$);<br>#73=IFCDIMENSIONALEXPONENTS(0,0,0,0,0,0,0);<br>#72=IFCCONTEXTDEPENDENTUNIT(#73,.FREQUENCYUNIT.,‘dB’);<br>#71=IFCPROPERTYTABLEVALUE(‘IfcPropertyTableValue:Sound’,$,(IFCREAL(100.),IFCREAL(200.),IFCREAL(400.),IFCREAL(800.),IFCREAL(1600.),IFCREAL(3200.)),(IFCREAL(20.),IFCREAL(42.),IFCREAL(46.),IFCREAL(56.),IFCREAL(60.),IFCREAL(65.)),$,$,#72,$);<br>#74=IFCPROPERTYLISTVALUE(‘IfcPropertyListValue:Colours’,$,(IFCLABEL(‘Red’),IFCLABEL(‘Green’),IFCLABEL(‘Blue’),IFCLABEL(‘Pink’),IFCLABEL(‘White’),IFCLABEL(‘Black’)),$);<br>#75=IFCMATERIAL(‘Brick’,$,$);<br>#76=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Material’,$,$,#75);<br>#78=IFCMATERIAL(‘Cavity’,$,$);<br>#79=IFCMATERIAL(‘Block’,$,$);<br>#77=IFCMATERIALLIST((#75,#78,#79));<br>#80=IFCMATERIALLAYER(#75,100.,$,$,$,$,$);<br>#81=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:MaterialLayer’,$,$,#80);<br>#82=IFCDOCUMENTREFERENCE(‘c://Documents//TheDoc.Txt’,$,‘Document’,$,$);<br>#83=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Document’,$,$,#82);<br>#84=IFCREGULARTIMESERIES(‘Regular Time Series’,‘Time series of events’,‘2015-02-14T12:01:01’,‘2015-05-15T12:01:01’,.CONTINUOUS.,.MEASURED.,$,$,604800.,());<br>#85=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:TimeSeries’,$,$,#84);<br>#86=IFCPOSTALADDRESS($,$,$,‘Room 101’,(‘12 New road’,‘DoxField’),$,‘Sunderland’,$,‘DL01 6SX’,$);<br>#87=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Address’,$,$,#86);<br>#88=IFCTELECOMADDRESS($,$,$,(‘01325 6589965’),$,$,(‘bob@bobsworks.com’),$,$);<br>#89=IFCPROPERTYREFERENCEVALUE(‘IfcPropertyReferenceValue:Telecom’,$,$,#88);<br>#90=IFCPROPERTYSET(‘1qDdK625XDLvD1ADI2cU4Q’,#2,‘Test:IfcPropertySet’,‘Property Set’,(#65,#67,#69,#71,#74,#76,#81,#83,#85,#87,#89));<br>#91=IFCRELDEFINESBYPROPERTIES(‘2oFbfaFWT6SAQkNtJ7W$sB’,#2,‘Property Association’,‘IfcPropertySet associated to wall’,(#29),#90);<br>#92=IFCRELCONTAINEDINSPATIALSTRUCTURE(‘2BRDC5_vD1XfhW_$wVxuAt’,#2,$,$,(#29),#24);<br>ENDSEC;<br>END-ISO-10303-21;</p>]]></content>
+        <content type="html"><![CDATA[<p>荒唐事三四</p>]]></content>
       
     </entry>
     
