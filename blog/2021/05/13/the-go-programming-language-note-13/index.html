@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="《Go语音圣经（中文版）》笔记（13）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/05/13/the-go-programming-language-note-13/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>《Go语音圣经（中文版）》笔记（13） - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（13）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-05-13 10:49:23
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/05/13/the-go-programming-language-note-13/"
+             data-title="《Go语音圣经（中文版）》笔记（13）">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文本和html模板"><span class="toc-text">文本和HTML模板</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<p>编组（marshaling）函数会返回一个编码后的字节<code>slice</code>，包含很长的字符串，并且没有空白缩进。</p>
+<p><code>json.MarshalIndent</code>函数产生整齐缩进的输出，该函数有两个额外的字符串参数用于表示每一行输出的前缀和每一个层级的缩进。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>一个结构体成员<code>Tag</code>是和在编译阶段关联到该成员的元信息字符串。</p>
+<p><code>omitempty</code>选项表示当<code>Go</code>语言结构体成员为空或零值时不生成该<code>JSON</code>对象（这里<code>false</code>为零值）。</p>
+<h2 id="文本和html模板"><a class="header-anchor" href="#文本和html模板">#</a>文本和HTML模板</h2>
+<p>生成模板的输出需要两个处理步骤。第一步是要分析模板并转为内部表示，然后基于指定的输入执行模板。<br>
+分析模板部分一般只需要执行一次。</p>
+<ol>
+<li>template.New先创建并返回一个模板。</li>
+<li>Funcs方法将daysAgo等自定义函数注册到模板中，并返回模板。</li>
+<li>调用Parse函数分析模板。</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 19:43</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : 4.10.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Movie <span class="keyword">struct</span> &#123;</span><br><span class="line">	Title  <span class="keyword">string</span></span><br><span class="line">	Year   <span class="keyword">int</span>  <span class="string">`json:"relased"`</span></span><br><span class="line">	Color  <span class="keyword">bool</span> <span class="string">`json:"color,omitempty"`</span></span><br><span class="line">	Actors []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> movies = []Movie&#123;</span><br><span class="line">		&#123;Title: <span class="string">"Casablanca"</span>, Year: <span class="number">1942</span>, Color: <span class="literal">false</span>,</span><br><span class="line">			Actors: []<span class="keyword">string</span>&#123;<span class="string">"Humphrey Bogart"</span>, <span class="string">"Ingrid Bergman"</span>&#125;&#125;,</span><br><span class="line">		&#123;Title: <span class="string">"Cool Hand Luke"</span>, Year: <span class="number">1967</span>, Color: <span class="literal">true</span>,</span><br><span class="line">			Actors: []<span class="keyword">string</span>&#123;<span class="string">"Paul Newman"</span>&#125;&#125;,</span><br><span class="line">		&#123;Title: <span class="string">"Bullitt"</span>, Year: <span class="number">1968</span>, Color: <span class="literal">true</span>,</span><br><span class="line">			Actors: []<span class="keyword">string</span>&#123;<span class="string">"Steve McQueen"</span>, <span class="string">"Jacqueline Bisset"</span>&#125;&#125;,</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">	data, err := json.Marshal(movies)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">"JSON marshaling failed: %s"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"%s\n"</span>, data)</span><br><span class="line"></span><br><span class="line">	data2, err := json.MarshalIndent(movies, <span class="string">""</span>, <span class="string">"    "</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">"JSON marshaling failed: %s"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"%s\n"</span>, data2)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> titles []<span class="keyword">struct</span> &#123;</span><br><span class="line">		Title <span class="keyword">string</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err = json.Unmarshal(data2, &amp;titles); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">"JSON unmarshaling failed: %s"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(titles)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[19:40:54] onns@Onns ~/Onns/code/go/go-bible/ch4 $ go run 4.10.go </span><br><span class="line">[&#123;<span class="string">"Title"</span>:<span class="string">"Casablanca"</span>,<span class="string">"relased"</span>:1942,<span class="string">"Actors"</span>:[<span class="string">"Humphrey Bogart"</span>,<span class="string">"Ingrid Bergman"</span>]&#125;,&#123;<span class="string">"Title"</span>:<span class="string">"Cool Hand Luke"</span>,<span class="string">"relased"</span>:1967,<span class="string">"color"</span>:<span class="literal">true</span>,<span class="string">"Actors"</span>:[<span class="string">"Paul Newman"</span>]&#125;,&#123;<span class="string">"Title"</span>:<span class="string">"Bullitt"</span>,<span class="string">"relased"</span>:1968,<span class="string">"color"</span>:<span class="literal">true</span>,<span class="string">"Actors"</span>:[<span class="string">"Steve McQueen"</span>,<span class="string">"Jacqueline Bisset"</span>]&#125;]</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Title"</span>: <span class="string">"Casablanca"</span>,</span><br><span class="line">        <span class="string">"relased"</span>: 1942,</span><br><span class="line">        <span class="string">"Actors"</span>: [</span><br><span class="line">            <span class="string">"Humphrey Bogart"</span>,</span><br><span class="line">            <span class="string">"Ingrid Bergman"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Title"</span>: <span class="string">"Cool Hand Luke"</span>,</span><br><span class="line">        <span class="string">"relased"</span>: 1967,</span><br><span class="line">        <span class="string">"color"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"Actors"</span>: [</span><br><span class="line">            <span class="string">"Paul Newman"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Title"</span>: <span class="string">"Bullitt"</span>,</span><br><span class="line">        <span class="string">"relased"</span>: 1968,</span><br><span class="line">        <span class="string">"color"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"Actors"</span>: [</span><br><span class="line">            <span class="string">"Steve McQueen"</span>,</span><br><span class="line">            <span class="string">"Jacqueline Bisset"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">[&#123;Casablanca&#125; &#123;Cool Hand Luke&#125; &#123;Bullitt&#125;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> github</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 19:46</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : ch4/github/github.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> IssuesURL = <span class="string">"https://api.github.com/search/issues"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IssuesSearchResult <span class="keyword">struct</span> &#123;</span><br><span class="line">	TotalCount <span class="keyword">int</span> <span class="string">`json:"total_count"`</span></span><br><span class="line">	Items      []*Issue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Issue <span class="keyword">struct</span> &#123;</span><br><span class="line">	Number   <span class="keyword">int</span></span><br><span class="line">	HTMLURL  <span class="keyword">string</span> <span class="string">`json:"html_url"`</span></span><br><span class="line">	Title    <span class="keyword">string</span></span><br><span class="line">	State    <span class="keyword">string</span></span><br><span class="line">	User     *User</span><br><span class="line">	CreateAt time.Time <span class="string">`json:"create_at"`</span></span><br><span class="line">	Body     <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Login   <span class="keyword">string</span></span><br><span class="line">	HTMLURL <span class="keyword">string</span> <span class="string">`json:"html_url"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> github</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 19:46</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : ch4/github/search.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	<span class="string">"net/url"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SearchIssues</span><span class="params">(terms []<span class="keyword">string</span>)</span> <span class="params">(*IssuesSearchResult, error)</span></span> &#123;</span><br><span class="line">	q := url.QueryEscape(strings.Join(terms, <span class="string">" "</span>))</span><br><span class="line">	resp, err := http.Get(IssuesURL + <span class="string">"?q="</span> + q)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> resp.StatusCode != http.StatusOK &#123;</span><br><span class="line">		resp.Body.Close()</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"search query failed: %s"</span>, resp.Status)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> result IssuesSearchResult</span><br><span class="line">	<span class="keyword">if</span> err := json.NewDecoder(resp.Body).Decode(&amp;result); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		resp.Body.Close()</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	resp.Body.Close()</span><br><span class="line">	<span class="keyword">return</span> &amp;result, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 19:49</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : ch4/4.11.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"./github"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	result, err := github.SearchIssues(os.Args[<span class="number">1</span>:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"%d issues:\n"</span>, result.TotalCount)</span><br><span class="line">	<span class="keyword">for</span> _, item := <span class="keyword">range</span> result.Items &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"#%-5d %9.9s %.55s\n"</span>,</span><br><span class="line">			item.Number, item.User.Login, item.Title)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[19:48:17] onns@Onns ~/Onns/code/go/go-bible/ch4 $ go build 4.11.go </span><br><span class="line">[19:50:55] onns@Onns ~/Onns/code/go/go-bible/ch4 $ ./4.11 repo:golang/go is:open json decoder</span><br><span class="line">60 issues:</span><br><span class="line"><span class="comment">#33416   bserdar encoding/json: This CL adds Decoder.InternKeys</span></span><br><span class="line"><span class="comment">#45628 pgundlach encoding/xml: add Decoder.InputPos</span></span><br><span class="line"><span class="comment">#43716 ggaaooppe encoding/json: increment byte counter when using decode</span></span><br><span class="line"><span class="comment">#42571     dsnet encoding/json: clarify Decoder.InputOffset semantics</span></span><br><span class="line"><span class="comment">#32779       rsc encoding/json: memoize strings during decode</span></span><br><span class="line"><span class="comment">#11046     kurin encoding/json: Decoder internally buffers full input</span></span><br><span class="line"><span class="comment">#5901        rsc encoding/json: allow per-Encoder/per-Decoder registrati</span></span><br><span class="line"><span class="comment">#34543  maxatome encoding/json: Unmarshal &amp; json.(*Decoder).Token report</span></span><br><span class="line"><span class="comment">#36225     dsnet encoding/json: the Decoder.Decode API lends itself to m</span></span><br><span class="line"><span class="comment">#14750 cyberphon encoding/json: parser ignores the case of member names</span></span><br><span class="line"><span class="comment">#43401  opennota proposal: encoding/csv: add Reader.InputOffset method</span></span><br><span class="line"><span class="comment">#29035    jaswdr proposal: encoding/json: add error var to compare  the </span></span><br><span class="line"><span class="comment">#31701    lr1980 encoding/json: second decode after error impossible</span></span><br><span class="line"><span class="comment">#40128  rogpeppe proposal: encoding/json: garbage-free reading of tokens</span></span><br><span class="line"><span class="comment">#40127  rogpeppe encoding/json: add Encoder.EncodeToken method</span></span><br><span class="line"><span class="comment">#45512 colin-sit encoding/json: cannot unmarshal custom interface value</span></span><br><span class="line"><span class="comment">#40982   Segflow encoding/json: use different error type for unknown fie</span></span><br><span class="line"><span class="comment">#40983   Segflow encoding/json: return a different error type for unknow</span></span><br><span class="line"><span class="comment">#28923     mvdan encoding/json: speed up the decoding scanner</span></span><br><span class="line"><span class="comment">#43513 Alexander encoding/json: add line number to SyntaxError</span></span><br><span class="line"><span class="comment">#41144 alvaroale encoding/json: Unmarshaler breaks DisallowUnknownFields</span></span><br><span class="line"><span class="comment">#16212 josharian encoding/json: do all reflect work before decoding</span></span><br><span class="line"><span class="comment">#6647    btracey x/tools/cmd/godoc: display type kind of each named type</span></span><br><span class="line"><span class="comment">#29750  jacoelho cmd/vet: stdmethods check gets confused if run on a pac</span></span><br><span class="line"><span class="comment">#34564  mdempsky go/internal/gcimporter: single source of truth for deco</span></span><br><span class="line"><span class="comment">#33835     Qhesz encoding/json: unmarshalling null into non-nullable gol</span></span><br><span class="line"><span class="comment">#33854     Qhesz encoding/json: unmarshal option to treat omitted fields</span></span><br><span class="line"><span class="comment">#30301     zelch encoding/xml: option to treat unknown fields as an erro</span></span><br><span class="line"><span class="comment">#26946    deuill encoding/json: clarify what happens when unmarshaling i</span></span><br><span class="line"><span class="comment">#22752  buyology proposal: encoding/json: add access to the underlying d</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 19:53</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : ch4/4.12.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"./github"</span></span><br><span class="line">	<span class="comment">// "fmt"</span></span><br><span class="line">	<span class="string">"html/template"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> templ = <span class="string">`&#123;&#123;.TotalCount&#125;&#125; issues:</span></span><br><span class="line"><span class="string">&#123;&#123;range .Items&#125;&#125;----------------------------------------</span></span><br><span class="line"><span class="string">Number: &#123;&#123;.Number&#125;&#125;</span></span><br><span class="line"><span class="string">User:   &#123;&#123;.User.Login&#125;&#125;</span></span><br><span class="line"><span class="string">Title:  &#123;&#123;.Title | printf "%.64s"&#125;&#125;</span></span><br><span class="line"><span class="string">Age:    &#123;&#123;.CreatedAt | daysAgo&#125;&#125; days</span></span><br><span class="line"><span class="string">&#123;&#123;end&#125;&#125;`</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daysAgo</span><span class="params">(t time.Time)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">int</span>(time.Since(t).Hours() / <span class="number">24</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	report, err := template.New(<span class="string">"report"</span>).</span><br><span class="line">		Funcs(template.FuncMap&#123;<span class="string">"daysAgo"</span>: daysAgo&#125;).</span><br><span class="line">		Parse(templ)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	result, err := github.SearchIssues(os.Args[<span class="number">1</span>:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := report.Execute(os.Stdout, result); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[19:51:47] onns@Onns ~/Onns/code/go/go-bible/ch4 $ go build 4.12.go                          </span><br><span class="line">[19:53:52] onns@Onns ~/Onns/code/go/go-bible/ch4 $ ./4.12 repo:golang/go is:open json decoder</span><br><span class="line">60 issues:</span><br><span class="line">----------------------------------------</span><br><span class="line">Number: 33416</span><br><span class="line">User:   bserdar</span><br><span class="line">Title:  encoding/json: This CL adds Decoder.InternKeys</span><br><span class="line">Age:    2021/05/20 19:54:35 template: report:6:10: executing <span class="string">"report"</span> at &lt;.CreatedAt&gt;: can<span class="string">'t evaluate field CreatedAt in type *github.Issue</span></span><br></pre></td></tr></table></figure><hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>在最后一个成员或元素后面并没有逗号分隔符。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2021/05/14/the-go-programming-language-note-14/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《Go语音圣经（中文版）》笔记（14）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/05/12/the-go-programming-language-note-12/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（12）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

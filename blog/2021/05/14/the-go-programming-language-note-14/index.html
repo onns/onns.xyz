@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/golang-note/"/>
+<meta name="description" content="《Go语音圣经（中文版）》笔记（14）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/05/14/the-go-programming-language-note-14/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>golang note · Onns Blog
-  </title>
+    <title>《Go语音圣经（中文版）》笔记（14） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,160 +261,83 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">golang note</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（14）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-05-14 09:38:51
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/05/14/the-go-programming-language-note-14/"
+             data-title="《Go语音圣经（中文版）》笔记（14）">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/20/the-go-programming-language-note-15/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数声明"><span class="toc-text">函数声明</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<h2 id="函数声明"><a class="header-anchor" href="#函数声明">#</a>函数声明</h2>
+<p>函数声明包括函数名、形式参数列表、返回值列表（可省略）以及函数体。</p>
+<p>如果一个函数声明不包括返回值列表，那么函数体执行完毕后，不会返回任何值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">name</span><span class="params">(parameter-list)</span> <span class="params">(result-list)</span></span> &#123;</span><br><span class="line">	body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回值也可以像形式参数一样被命名。在这种情况下，每个返回值被声明成一个局部变量，并根据该返回值的类型，将其初始化为该类型的零值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">int</span></span>   &#123;<span class="keyword">return</span> x + y&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sub</span><span class="params">(x, y <span class="keyword">int</span>)</span> <span class="params">(z <span class="keyword">int</span>)</span></span>   &#123; z = x - y; <span class="keyword">return</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">first</span><span class="params">(x <span class="keyword">int</span>, _ <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> x &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">zero</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span> <span class="title">int</span></span>      &#123; <span class="keyword">return</span> <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, add)   <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, sub)   <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, first) <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, zero)  <span class="comment">// "func(int, int) int"</span></span><br></pre></td></tr></table></figure>
+<p><code>_</code>可以强调某个参数未被使用。</p>
+<p>如果一组形参或返回值有相同的类型，不必为每个形参都写出参数类型：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(i, j, k <span class="keyword">int</span>, s, t <span class="keyword">string</span>)</span></span>                 &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(i <span class="keyword">int</span>, j <span class="keyword">int</span>, k <span class="keyword">int</span>,  s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span></span> &#123; <span class="comment">/* ... */</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>**函数的类型被称为函数的签名。**如果两个函数形式参数列表和返回值列表中的变量类型一一对应，那么这两个函数被认为有相同的类型或签名。</p>
+<p>形参和返回值的变量名不影响函数签名，也不影响它们是否可以以省略参数类型的形式表示。<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>每一次函数调用都必须按照声明顺序为所有参数提供实参（参数值）。</p>
+<p>在函数调用时，<code>Go</code>语言<strong>没有默认参数值</strong>，也<strong>没有任何方法可以通过参数名指定形参</strong>，因此形参和返回值的变量名对于函数调用者而言没有意义。</p>
+<p>在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为函数最外层的局部变量，被存储在相同的词法块中。</p>
+<p>如果没有函数体的函数声明，这表示该函数不是以<code>Go</code>实现的。这样的声明定义了函数签名：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> math</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sin</span><span class="params">(x <span class="keyword">float64</span>)</span> <span class="title">float</span> // <span class="title">implemented</span> <span class="title">in</span> <span class="title">assembly</span> <span class="title">language</span></span></span><br></pre></td></tr></table></figure>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>后面这半句我没懂是什么意思？ <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/14/the-go-programming-language-note-14/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/13/the-go-programming-language-note-13/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/12/the-go-programming-language-note-12/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/19/the-go-programming-language-note-11/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/18/the-go-programming-language-note-10/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/16/the-go-programming-language-note-9/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/15/the-go-programming-language-note-8/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/the-go-programming-language-note-7/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/11/the-go-programming-language-note-6/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/09/the-go-programming-language-note-5/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/17/the-go-programming-language-note-4/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/14/the-go-programming-language-note-3/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/the-go-programming-language-note-2/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/the-go-programming-language-note-1/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（1）
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2021/05/20/the-go-programming-language-note-15/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">《Go语音圣经（中文版）》笔记（12）</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2021/05/13/the-go-programming-language-note-13/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（13）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

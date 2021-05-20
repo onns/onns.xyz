@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/golang-note/"/>
+<meta name="description" content="《Go语音圣经（中文版）》笔记（12）"/><meta name="keywords" content="linux, macos, golang, go, golang note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/05/20/the-go-programming-language-note-15/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>golang note · Onns Blog
-  </title>
+    <title>《Go语音圣经（中文版）》笔记（12） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,160 +261,81 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">golang note</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">《Go语音圣经（中文版）》笔记（12）
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-05-20 18:00:55
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/05/20/the-go-programming-language-note-15/"
+             data-title="《Go语音圣经（中文版）》笔记（12）">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/20/the-go-programming-language-note-15/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《go-语音圣经（中文版）》"><span class="toc-text">《Go 语音圣经（中文版）》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数值"><span class="toc-text">函数值</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1>
+<a id="more"></a>
+<p>虽然<code>Go</code>的垃圾回收机制会回收不被使用的内存，但是这不包括操作系统层面的资源，比如打开的文件、网络连接。因此我们必须显式的释放这些资源。</p>
+<p>如果一个函数所有的返回值都有显式的变量名，那么该函数的<code>return</code>语句可以省略操作数。</p>
+<p>不宜过度使用<code>bare return</code>。</p>
+<p><code>error</code>类型可能是<code>nil</code>或者<code>non-nil</code>。<code>nil</code>意味着函数运行成功，<code>non-nil</code>表示失败。</p>
+<p>对于<code>non-nil</code>的<code>error</code>类型，我们可以通过调用<code>error</code>的<code>Error</code>函数或者输出函数获得字符串类型的错误信息。</p>
+<blockquote>
+<p>通常，当函数返回 non-nil 的 error 时，其他的返回值是未定义的（undefined），这些未定义的返回值应该被忽略。然而，有少部分函数在发生错误时，仍然会返回一些有用的返回值。比如，当读取文件发生错误时，Read 函数会返回可以读取的字节数以及错误信息。对于这种情况，正确的处理方式应该是先处理这些不完整的数据，再处理错误。因此对函数的返回值要有清晰的说明，以便于其他人使用。</p>
+</blockquote>
+<p>四种错误处理方式：</p>
+<ol>
+<li><strong>传播错误</strong>。这意味着函数中某个子程序的失败，会变成该函数的失败。</li>
+<li><strong>重试</strong>。如果错误的发生是偶然性的，或由不可预知的问题导致的。一个明智的选择是重新尝试失败的操作。在重试时，我们需要限制重试的时间间隔或重试的次数，防止无限制的重试。</li>
+<li><strong>输出错误信息并结束程序</strong>。如果错误发生后，程序无法继续运行，我们就可以采用第三种策略：输出错误信息并结束程序。需要注意的是，这种策略只应在 main 中执行。对库函数而言，应仅向上传播错误，除非该错误意味着程序内部包含不一致性，即遇到了 bug，才能在库函数中结束程序。</li>
+<li><strong>输出错误信息</strong>。程序继续运行。</li>
+<li><strong>忽略错误</strong>。</li>
+</ol>
+<p><code>log</code>中的所有函数，都默认会在错误信息之前输出时间信息。</p>
+<p>在<code>Go</code>中，错误处理有一套独特的编码风格。检查某个子函数是否失败后，我们通常将处理失败的逻辑代码放在处理成功的代码之前。如果某个错误会导致函数返回，那么成功时的逻辑代码不应放在<code>else</code>语句块中，而应直接放在函数体中。<code>Go</code>中大部分函数的代码结构几乎相同，首先是一系列的初始检查，防止错误发生，之后是函数的实际逻辑。</p>
+<h2 id="函数值"><a class="header-anchor" href="#函数值">#</a>函数值</h2>
+<p>函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/5/20 20:29</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : ch5/5.1.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">square</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span>     &#123; <span class="keyword">return</span> n * n &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">negative</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span>   &#123; <span class="keyword">return</span> -n &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">product</span><span class="params">(m, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> m * n &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	f := square</span><br><span class="line">	fmt.Println(f(<span class="number">3</span>)) <span class="comment">// "9"</span></span><br><span class="line"></span><br><span class="line">	f = negative</span><br><span class="line">	fmt.Println(f(<span class="number">3</span>))     <span class="comment">// "-3"</span></span><br><span class="line">	fmt.Printf(<span class="string">"%T\n"</span>, f) <span class="comment">// "func(int) int"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// f = product // compile error: can't assign func(int, int) int to func(int) int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[20:30:24] onns@Onns ~/Onns/code/go/go-bible/ch5 $ go run 5.1.go</span><br><span class="line">9</span><br><span class="line">-3</span><br><span class="line">func(int) int</span><br></pre></td></tr></table></figure>
+<p>函数类型的零值是<code>nil</code>。调用值为<code>nil</code>的函数值会引起<code>panic</code>错误。</p>
+<p>函数值可以与<code>nil</code>比较：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="keyword">if</span> f != <span class="literal">nil</span> &#123;</span><br><span class="line">	f(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是函数值之间是不可比较的，也不能用函数值作为<code>map</code>的<code>key</code>。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/14/the-go-programming-language-note-14/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/13/the-go-programming-language-note-13/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/12/the-go-programming-language-note-12/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/19/the-go-programming-language-note-11/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/18/the-go-programming-language-note-10/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/16/the-go-programming-language-note-9/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/15/the-go-programming-language-note-8/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/the-go-programming-language-note-7/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/11/the-go-programming-language-note-6/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/09/the-go-programming-language-note-5/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/17/the-go-programming-language-note-4/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/14/the-go-programming-language-note-3/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/the-go-programming-language-note-2/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/the-go-programming-language-note-1/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（1）
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang-note/">golang note</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/05/14/the-go-programming-language-note-14/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（14）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
