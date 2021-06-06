@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="学习笔记-20200812"/><meta name="keywords" content="procrastination, 拖延症, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2020/08/12/note-20200812/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>学习笔记-20200812 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">学习笔记-20200812
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-12 14:13:24
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/12/note-20200812/"
+             data-title="学习笔记-20200812">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分析学生在慕课中的拖延：多变量霍克斯方法"><span class="toc-text">分析学生在慕课中的拖延：多变量霍克斯方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于作业开始时间的在线学习拖延指数"><span class="toc-text">基于作业开始时间的在线学习拖延指数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作定义"><span class="toc-text">操作定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义拖延"><span class="toc-text">定义拖延</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#讨论与结论"><span class="toc-text">讨论与结论</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="分析学生在慕课中的拖延：多变量霍克斯方法"><a class="header-anchor" href="#分析学生在慕课中的拖延：多变量霍克斯方法">#</a>分析学生在慕课中的拖延：多变量霍克斯方法</h2>
+<p>过去的研究主要通过静态时间相关的测量（例如每个学生所有作业的平均开始时间）或时间模型的参数来描述学生的拖延，假设学生的活动以恒定的速率发生（例如齐次泊松模型）。</p>
+<a id="more"></a>
+<p>学生与一种学习材料的互动独立于与另一种材料的互动</p>
+<p>在这项工作中，我们建议考虑学生的时间活动之间的相互依赖性，同时在一个连续的时间尺度上模拟他们的序列。</p>
+<p>为此，我们建议将每个学生和每个课程模块，即每个模块学生对之间的交互序列建模为多维霍克斯过程，它不仅捕捉到学生的学习活动与其外生刺激（如作业截止日期）之间的关系，同时也能捕捉到学习材料类型内部和之间的内源性反应。我们的实验表明，当涉及不同类型的学习材料时，不仅学生的历史活动与未来活动之间存在依赖关系，而且这种依赖性也对学生的拖延行为提供了有意义的解释。此外，我们的研究结果显示，除了与延迟相关外，多维 Hawkes 过程学习的参数提供了更多与拖延相关的信息，并且可以改善我们对学生成绩的解释。</p>
+<p>以往的历史多基于学生的自我调查报告或者与学生拖延行为相关的时间相关特征。</p>
+<p>考虑到自我报告数据的噪音，在最近的研究中，更多的关注集中在拖延的行为方面，提出了与时间相关的测量方法，并将其作为学生拖延的表征。</p>
+<p>这些指标缺乏描述学生在一段时间内持续行为的能力。与这种方法类似的是，在不完全了解分布的情况下，使用样本平均值来描述整个分布。为了解决这一局限性，最近，重点是通过随机模型从学生的学习轨迹数据中提取学生活动的时间点（例如，学生历史行为的日志或点击流）。</p>
+<p>然而，据我们所知，过去的研究没有考虑到学生与不同学习材料类型的互动之间可能存在的时间依赖性。</p>
+<p>例如，在作业的第一次尝试之前更集中地观看视频讲课，可能表明学生更喜欢在尝试作业之前先学习材料。另一方面，在作业的第一次尝试之后，主要观看课堂视频，这可能意味着学生更喜欢先尝试作业，然后在遇到任何问题时再看视频讲座。</p>
+<p>过去的研究试图用静态的时间度量来描述拖延，或者从更复杂的时间模型中总结出来的度量，基于学生与一个或多个学习材料的交互作用。然而，学生行为的两个重要因素及其与拖延的关系还没有得到充分的研究：（1）在每种学习材料类型中，学生过去和将来的互动之间的依赖性（例如，知道一个学生在某个时间看过幻灯片，他们将如何以及何时进行下一项活动？）以及（2）学生与不同类型学习材料的互动之间的依赖性（例如，观看视频讲座后通常会提交作业吗？）在这项工作中，我们的目标是通过回答以下问题来解决这两个因素：在每个学习模块中，即提供学习材料的课程单元，（Q1）过去的活动是否独立于未来的活动？或者某些活动可以触发其他活动在短时间内到达（即活动之间的时间依赖性）？以及（问题 2），学生与一种类型的学习材料（如视频讲座）的互动是否独立于另一种类型（如论坛）？此外，（问题 3）如果这种依赖性存在，它们与学生拖延症有什么关系？（即学生过去和未来活动之间的依赖关系，以及学生与一种学习材料与另一种学习材料之间的相互依赖关系。）</p>
+<p>因此，我们的目标是在不同类型的在线学习材料中找到学生拖延和学生活动之间的缺失环节。为了达到这一目标，我们建议使用多维 Hawkes 过程作为一个强有力的工具来解决学生拖延分析中的上述问题。特别地，我们将一类学习材料上的所有活动表示为多维 Hawkes 模型中的一维。我们表明，与基准时间过程相比，该模型更适合我们的数据。同时，为了回答问题 1 和问题 2，我们证明了它既能捕捉到学生对截止日期的反应，作为来自外部的行动触发因素（即外生刺激），也能捕捉到学生对之前与不同类型学习材料（如视频讲座、作业）互动的反应，和讨论（即自我兴奋）。这样，我们可以从随机过程的角度来理解学生的拖延行为，主要有两个刺激因素：（1）学生的一些活动可以看作是对外部刺激的反应，比如作业的截止日期（2）其他一些学生活动可以看作是学生以前与相同或其他学习材料类型互动的结果。在模型参数的基础上，为了回答问题 3，我们还提出了一个不仅能描述学生拖延而且能更好地解释学生表现的测量方法。</p>
+<h2 id="基于作业开始时间的在线学习拖延指数"><a class="header-anchor" href="#基于作业开始时间的在线学习拖延指数">#</a>基于作业开始时间的在线学习拖延指数</h2>
+<h3 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h3>
+<p>这项工作的结果是一个简单而可靠的拖延指数，它可以概括多个学科，考虑到作业的个体特点，是学习成绩的一个强有力的预测因子，并提供了一个早期信号，使教育工作者能够为高危学生设计适当的干预措施。</p>
+<h3 id="介绍"><a class="header-anchor" href="#介绍">#</a>介绍</h3>
+<p>所有基于主观填写的拖延症分析都具有缺陷。本文采用了一种基于作业开始时间的度量拖延的方式。</p>
+<h3 id="方法"><a class="header-anchor" href="#方法">#</a>方法</h3>
+<p>采用了<code>Connect</code>在线学习平台的关于作业的开始时间、截止时间以及学生提交时间的数据，并只选择美国机构的，以消除相关参数影响。</p>
+<h3 id="操作定义"><a class="header-anchor" href="#操作定义">#</a>操作定义</h3>
+<h4 id="定义拖延"><a class="header-anchor" href="#定义拖延">#</a>定义拖延</h4>
+<p>首先根据作业提交时间和最终成绩进行统计，到了60%，分数低于家庭作业的平均成绩。在75%附近，分数下降到比平均值低10%，而且下降速度加快。</p>
+<p>所以探性地将作业的阈值时间<code>τt</code>设为75%，即75%的学生开始作业的时间。在这之前的拖延指数为0，否则为1。</p>
+<p>学习者拖延指数（PI）（Learner Procrastination Index）：即总拖延指数除以总作业次数。</p>
+<h3 id="讨论与结论"><a class="header-anchor" href="#讨论与结论">#</a>讨论与结论</h3>
+<p>尽管在过去的几十年里已经有了大量的关于拖延的工作，但大部分工作都着眼于自我报告的措施或提交时间。在本文中，我们考虑学生开始作业的时间，相对于其他学生在同一作业上的作业，这可以跨上下文工作，并且可以跨课程聚合。我们的集合，称为拖延指数，不仅与Connect平台内的分数相关，而且与课程的整体分数相关，并且可以预测学生的成绩，实现先前自我报告措施中学生成绩的两到三倍相关性。</p>
+<p>可以提出一些干预措施来减少拖延。</p>
+<ul>
+<li>让学生提供自己的截止日期</li>
+<li>设想一个系统，使学生能够提出最后期限或提出额外的最后期限（例如，完成一半作业的目标），以帮助他们分解任务并减少拖延。</li>
+</ul>
+<p>在以可扩展的方式减少拖延和改善结果方面，哪些干预措施最有效，还有待观察。与寻求帮助等其他领域一样，拖延与结果之间的关系可能不是完全因果关系，并且可能在不改善结果的情况下减少拖延。找到正确的干预措施来改善结果不仅有助于改善结果，而且有助于理解拖延是否以及如何对学习产生因果影响。更一般地说，对拖延的更全面的理解可能有助于我们更好地减轻拖延的影响。学生拖延是一种习惯，还是在估计他们的时间需求时一直存在错误？无聊和缺乏参与扮演什么角色？更好地理解这些问题的答案可能最终导致重新设计课程和/或作业，以更好地让学生在整个学期内以稳定的方式参与学习。</p>
+<p>我们计划利用这项研究来改进我们的产品——针对那些经常拖延改进的内容——并开发一些方法来促使学生更有效地工作并更早地完成他们的任务。如果我们作为一个领域，停止在这个重要问题上拖延，对我们学生的影响可能是深远的。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/procrastination/">procrastination</a>
+            <a href="/blog/tags/%E6%8B%96%E5%BB%B6%E7%97%87/">拖延症</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2020/08/12/blog-toc-fix/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">博客修复超长目录的显示</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2020/08/12/sync-sofa-doc/">
+        <span class="next-text nav-default">Sync Sofa</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
