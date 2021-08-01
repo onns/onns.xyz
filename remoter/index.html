@@ -15,6 +15,7 @@
 	<section>
 		<button class='lined thin show' onclick="prev()" id="prev">Prev State ⬆️</button>
 		<button class='lined thin show' onclick="play()" id="prev">Play / Pause ⏸️</button>
+		<button class='lined thin show' onclick="fullscreen()" id="prev">Fullscreen 😄</button>
 		<button class='lined thin show' onclick="next()" id="next">Next State ⬇️</button>
 	</section>
 	<footer class="show" style="position:absolute;bottom:10px;text-align:center;width:100%;opacity:0.5;"><a
@@ -45,6 +46,9 @@
 		}
 		function play() {
 			socketSend('{"cmd": "play"}');
+		}
+		function fullscreen() {
+			socketSend('{"cmd": "full"}');
 		}
 		window.onload = function () {
 			ws = new WebSocket("wss://" + server + "/ws/?id=" + id);
