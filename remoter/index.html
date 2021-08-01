@@ -13,10 +13,11 @@
 <body>
 	<h2 class="show">遥控器</h2>
 	<section>
-		<button class='lined thin show' onclick="prev()" id="prev">退10s</button>
-		<button class='lined thin show' onclick="play()" id="prev">播放/暂停</button>
-		<button class='lined thin show' onclick="fullscreen()" id="prev">全屏</button>
-		<button class='lined thin show' onclick="next()" id="next">进10s</button>
+		<button class='lined thin show' onclick="prev()">退10s</button>
+		<button class='lined thin show' onclick="next()">进10s</button>
+		<button class='lined thin show' onclick="play()">播放/暂停</button>
+		<button class='lined thin show' onclick="fullscreen()">全屏</button>
+		<button class='lined thin show' onclick="screenshot()">截图</button>
 	</section>
 	<footer class="show" style="position:absolute;bottom:10px;text-align:center;width:100%;opacity:0.5;"><a
 			href="http://www.beian.miit.gov.cn" style="color:#41403E;">FUJIAN-ICP PREPARED No. 15022938-2</a></footer>
@@ -33,8 +34,8 @@
 		var server = getQueryVariable('site');
 		var id = getQueryVariable('id');
 		var ws = null;
-		var prevBtn = document.getElementById('prev');
-		var nextBtn = document.getElementById('next');
+		// var prevBtn = document.getElementById('prev');
+		// var nextBtn = document.getElementById('next');
 		function socketSend(s) {
 			ws.send(s);
 		}
@@ -50,14 +51,17 @@
 		function fullscreen() {
 			socketSend('{"cmd": "full"}');
 		}
+		function screenshot() {
+			socketSend('{"cmd": "shot"}');
+		}
 		window.onload = function () {
 			ws = new WebSocket("wss://" + server + "/ws/?id=" + id);
 
 			ws.onclose = function () {
-				prevBtn.setAttribute('disabled', 'disabled');
-				prevBtn.style.color = "red";
-				nextBtn.setAttribute('disabled', 'disabled');
-				nextBtn.style.color = "red";
+				// prevBtn.setAttribute('disabled', 'disabled');
+				// prevBtn.style.color = "red";
+				// nextBtn.setAttribute('disabled', 'disabled');
+				// nextBtn.style.color = "red";
 				alert("连接已关闭，如果异常请重新刷新页面");
 			};
 		}
