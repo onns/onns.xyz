@@ -201,7 +201,7 @@
 					"ack": true,
 					"timestamp": (new Date()).getTime()
 				});
-			}, 5000);
+			}, 10000);
 
 			ws.onmessage = function (message) {
 				receive(message.data);
