@@ -182,16 +182,6 @@
 					"timestamp": (new Date()).getTime()
 				});
 			}, 500);
-			setInterval(function () {
-				socketSend({
-					"isPlay": isPlay,
-					"currentTime": 0,
-					"rate": rate,
-					"ack": true,
-					"timestamp": (new Date()).getTime()
-				});
-			}, 10000);
-
 			ws.onmessage = function (message) {
 				receive(message.data);
 			}
