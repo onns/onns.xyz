@@ -184,7 +184,7 @@
 
 		window.onload = function () {
 			ws = new WebSocket(`wss://${server}/${version}/ws/?id=${id}&name=${name}&password=${password}`);
-			setTimeout(function () {
+			setInterval(function () {
 				socketSend({
 					"isPlay": isPlay,
 					"currentTime": currentTime,
@@ -192,7 +192,7 @@
 					"ack": true,
 					"timestamp": (new Date()).getTime()
 				});
-			}, 500);
+			}, 1000);
 
 			ws.onmessage = function (message) {
 				receive(message.data);
