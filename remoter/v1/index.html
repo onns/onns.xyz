@@ -98,12 +98,7 @@
 			});
 		}
 		function up() {
-			for (var i = 0; i < rateList.length; i++) {
-				if (rateList[i] == rate && i != rateList.length - 1) {
-					rate = rateList[i + 1];
-					break;
-				}
-			}
+			rate += 0.25;
 			socketSend({
 				"isPlay": isPlay,
 				"currentTime": currentTime,
@@ -113,12 +108,7 @@
 			});
 		}
 		function down() {
-			for (var i = rateList.length - 1; i >= 0; i--) {
-				if (rateList[i] == rate && i != 0) {
-					rate = rateList[i - 1];
-					break;
-				}
-			}
+			rate -= 0.25;
 			socketSend({
 				"isPlay": isPlay,
 				"currentTime": currentTime,
@@ -149,7 +139,6 @@
 		var timer = null;
 		var currentTime = 0;
 		var rate = 1;
-		var rateList = [0.25, 0.5, 0.75, 1, 2, 4, 8];
 		var isPlay = false;
 		function receive(message) {
 			message = JSON.parse(message);
@@ -163,7 +152,7 @@
 					currentTime = content.currentTime;
 					document.getElementById("time").innerText = "当前时间：" + new Date(currentTime * 1000 + new Date().getTimezoneOffset() * 60000).format('hh:mm:ss');
 					rate = content.rate;
-					document.getElementById("rate").innerText = "当前速率：" + rate;
+					document.getElementById("rate").innerText = "当前速率：" + rate.toFixed(2);
 					clearInterval(timer);
 					isPlay = content.isPlay;
 					if (content.isPlay) {
