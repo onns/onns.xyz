@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/go/"/>
+<meta name="description" content="安装Elasticsearch"/><meta name="keywords" content="linux, macos, java - shasum, openjdk, elastic, elastic search, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/06/14/install-elasticsearch/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,8 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>go · Onns Blog
-  </title>
+    <title>安装Elasticsearch - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,210 +261,88 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">go</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">安装Elasticsearch
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-06-14 19:52:11
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/try/">try</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/06/14/install-elasticsearch/"
+             data-title="安装Elasticsearch">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/12/the-go-programming-language-note-20/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（20）
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装openjdk"><span class="toc-text">安装OpenJDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装elasticsearch"><span class="toc-text">安装Elasticsearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>博客的搜索有点难用，经常找不到东西，因为现在还是基于字符串匹配的，也没有办法进行模糊搜索，所以折腾一下，顺便学习一下<code>Elasticsearch</code>，记录之。</p>
+<a id="more"></a>
+<h2 id="安装openjdk"><a class="header-anchor" href="#安装openjdk">#</a>安装OpenJDK</h2>
+<blockquote>
+<p>Elasticsearch is built using Java, and includes a bundled version of OpenJDK from the JDK maintainers (GPLv2+CE) within each distribution. The bundled JVM is the recommended JVM and is located within the jdk directory of the Elasticsearch home directory.</p>
+</blockquote>
+<p>官网的描述如上，所以跟着官网去 <a href="https://jdk.java.net/" target="_blank" rel="noopener">https://jdk.java.net/</a> 下了<code>OpenJDK</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">wget https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz.sha256</span><br></pre></td></tr></table></figure>
+<p>本来还想皮一下，结果发现验证不了。。。。只能手动验证了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ shasum -a 256 openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">b1198ffffb7d26a3fdedc0fa599f60a0d12aa60da1714b56c1defbce95d8b235  openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">onns@onns:~$ cat openjdk-16.0.1_linux-x64_bin.tar.gz.sha256 </span><br><span class="line">b1198ffffb7d26a3fdedc0fa599f60a0d12aa60da1714b56c1defbce95d8b235</span><br></pre></td></tr></table></figure>
+<p>然后解压安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xvf openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">vi .bashrc</span><br><span class="line"><span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
+<p>添加的内容是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/home/onns/jdk-16.0.1</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
+<p>测试一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ javac -version</span><br><span class="line">javac 16.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="安装elasticsearch"><a class="header-anchor" href="#安装elasticsearch">#</a>安装Elasticsearch</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.13.1-linux-x86_64.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.13.1-linux-x86_64.tar.gz.sha512</span><br></pre></td></tr></table></figure>
+<p>这个就能验证成功 😂 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ shasum -a 512 -c elasticsearch-7.13.1-linux-x86_64.tar.gz.sha512</span><br><span class="line">elasticsearch-7.13.1-linux-x86_64.tar.gz: OK</span><br></pre></td></tr></table></figure>
+<p>然后正常解压即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf elasticsearch-7.13.1-linux-x86_64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> elasticsearch-7.13.1/</span><br></pre></td></tr></table></figure>
+<p>然后运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure>
+<p>尴尬，我的云服务器居然内存不够开启这个服务。。。换了个服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(base) hs@hs-Z390-AORUS-PRO:~$ curl localhost:9200</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span> : <span class="string">"hs-Z390-AORUS-PRO"</span>,</span><br><span class="line">  <span class="string">"cluster_name"</span> : <span class="string">"elasticsearch"</span>,</span><br><span class="line">  <span class="string">"cluster_uuid"</span> : <span class="string">"b6FAZNuyRxG1dVoY6Gbtog"</span>,</span><br><span class="line">  <span class="string">"version"</span> : &#123;</span><br><span class="line">    <span class="string">"number"</span> : <span class="string">"7.13.1"</span>,</span><br><span class="line">    <span class="string">"build_flavor"</span> : <span class="string">"default"</span>,</span><br><span class="line">    <span class="string">"build_type"</span> : <span class="string">"tar"</span>,</span><br><span class="line">    <span class="string">"build_hash"</span> : <span class="string">"9a7758028e4ea59bcab41c12004603c5a7dd84a9"</span>,</span><br><span class="line">    <span class="string">"build_date"</span> : <span class="string">"2021-05-28T17:40:59.346932922Z"</span>,</span><br><span class="line">    <span class="string">"build_snapshot"</span> : <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"lucene_version"</span> : <span class="string">"8.8.2"</span>,</span><br><span class="line">    <span class="string">"minimum_wire_compatibility_version"</span> : <span class="string">"6.8.0"</span>,</span><br><span class="line">    <span class="string">"minimum_index_compatibility_version"</span> : <span class="string">"6.0.0-beta1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"tagline"</span> : <span class="string">"You Know, for Search"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还是我太天真了，这个东西啥也不干就<code>2G</code>内存没了，害。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html" target="_blank" rel="noopener">Set up Elasticsearch</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html" target="_blank" rel="noopener">Install Elasticsearch from archive on Linux or MacOS</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" target="_blank" rel="noopener">全文搜索引擎 Elasticsearch 入门教程</a></li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/10/the-go-programming-language-note-19/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（19）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/06/the-go-programming-language-note-18/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（18）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/05/the-go-programming-language-note-17/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（17）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/02/the-go-programming-language-note-16/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（16）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/20/the-go-programming-language-note-15/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（15）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/14/the-go-programming-language-note-14/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/13/the-go-programming-language-note-13/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/12/the-go-programming-language-note-12/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/19/the-go-programming-language-note-11/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/18/the-go-programming-language-note-10/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/16/the-go-programming-language-note-9/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/15/the-go-programming-language-note-8/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/the-go-programming-language-note-7/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/11/the-go-programming-language-note-6/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/09/the-go-programming-language-note-5/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/17/the-go-programming-language-note-4/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/14/the-go-programming-language-note-3/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/the-go-programming-language-note-2/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/the-go-programming-language-note-1/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（1）
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/java-shasum/">java - shasum</a>
+            <a href="/blog/tags/openjdk/">openjdk</a>
+            <a href="/blog/tags/elastic/">elastic</a>
+            <a href="/blog/tags/elastic-search/">elastic search</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/06/12/the-go-programming-language-note-20/">
+        <span class="next-text nav-default">《Go语音圣经（中文版）》笔记（20）</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

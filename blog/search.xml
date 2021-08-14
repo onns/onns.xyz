@@ -4,6 +4,74 @@
   
     
     <entry>
+      <title>安装Elasticsearch</title>
+      <link href="/blog/2021/06/14/install-elasticsearch/"/>
+      <url>/blog/2021/06/14/install-elasticsearch/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>博客的搜索有点难用，经常找不到东西，因为现在还是基于字符串匹配的，也没有办法进行模糊搜索，所以折腾一下，顺便学习一下<code>Elasticsearch</code>，记录之。</p><a id="more"></a><h2 id="安装openjdk"><a class="header-anchor" href="#安装openjdk">#</a>安装OpenJDK</h2><blockquote><p>Elasticsearch is built using Java, and includes a bundled version of OpenJDK from the JDK maintainers (GPLv2+CE) within each distribution. The bundled JVM is the recommended JVM and is located within the jdk directory of the Elasticsearch home directory.</p></blockquote><p>官网的描述如上，所以跟着官网去 <a href="https://jdk.java.net/" target="_blank" rel="noopener">https://jdk.java.net/</a> 下了<code>OpenJDK</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">wget https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz.sha256</span><br></pre></td></tr></table></figure><p>本来还想皮一下，结果发现验证不了。。。。只能手动验证了：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ shasum -a 256 openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">b1198ffffb7d26a3fdedc0fa599f60a0d12aa60da1714b56c1defbce95d8b235  openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">onns@onns:~$ cat openjdk-16.0.1_linux-x64_bin.tar.gz.sha256 </span><br><span class="line">b1198ffffb7d26a3fdedc0fa599f60a0d12aa60da1714b56c1defbce95d8b235</span><br></pre></td></tr></table></figure><p>然后解压安装：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xvf openjdk-16.0.1_linux-x64_bin.tar.gz</span><br><span class="line">vi .bashrc</span><br><span class="line"><span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure><p>添加的内容是：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/home/onns/jdk-16.0.1</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure><p>测试一下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ javac -version</span><br><span class="line">javac 16.0.1</span><br></pre></td></tr></table></figure><h2 id="安装elasticsearch"><a class="header-anchor" href="#安装elasticsearch">#</a>安装Elasticsearch</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.13.1-linux-x86_64.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.13.1-linux-x86_64.tar.gz.sha512</span><br></pre></td></tr></table></figure><p>这个就能验证成功 😂 ：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onns@onns:~$ shasum -a 512 -c elasticsearch-7.13.1-linux-x86_64.tar.gz.sha512</span><br><span class="line">elasticsearch-7.13.1-linux-x86_64.tar.gz: OK</span><br></pre></td></tr></table></figure><p>然后正常解压即可：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf elasticsearch-7.13.1-linux-x86_64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> elasticsearch-7.13.1/</span><br></pre></td></tr></table></figure><p>然后运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure><p>尴尬，我的云服务器居然内存不够开启这个服务。。。换了个服务器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(base) hs@hs-Z390-AORUS-PRO:~$ curl localhost:9200</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span> : <span class="string">"hs-Z390-AORUS-PRO"</span>,</span><br><span class="line">  <span class="string">"cluster_name"</span> : <span class="string">"elasticsearch"</span>,</span><br><span class="line">  <span class="string">"cluster_uuid"</span> : <span class="string">"b6FAZNuyRxG1dVoY6Gbtog"</span>,</span><br><span class="line">  <span class="string">"version"</span> : &#123;</span><br><span class="line">    <span class="string">"number"</span> : <span class="string">"7.13.1"</span>,</span><br><span class="line">    <span class="string">"build_flavor"</span> : <span class="string">"default"</span>,</span><br><span class="line">    <span class="string">"build_type"</span> : <span class="string">"tar"</span>,</span><br><span class="line">    <span class="string">"build_hash"</span> : <span class="string">"9a7758028e4ea59bcab41c12004603c5a7dd84a9"</span>,</span><br><span class="line">    <span class="string">"build_date"</span> : <span class="string">"2021-05-28T17:40:59.346932922Z"</span>,</span><br><span class="line">    <span class="string">"build_snapshot"</span> : <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"lucene_version"</span> : <span class="string">"8.8.2"</span>,</span><br><span class="line">    <span class="string">"minimum_wire_compatibility_version"</span> : <span class="string">"6.8.0"</span>,</span><br><span class="line">    <span class="string">"minimum_index_compatibility_version"</span> : <span class="string">"6.0.0-beta1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"tagline"</span> : <span class="string">"You Know, for Search"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>还是我太天真了，这个东西啥也不干就<code>2G</code>内存没了，害。</p><h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2><ul><li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html" target="_blank" rel="noopener">Set up Elasticsearch</a></li><li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html" target="_blank" rel="noopener">Install Elasticsearch from archive on Linux or MacOS</a></li><li><a href="https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" target="_blank" rel="noopener">全文搜索引擎 Elasticsearch 入门教程</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> try </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> macos </tag>
+            
+            <tag> java - shasum </tag>
+            
+            <tag> openjdk </tag>
+            
+            <tag> elastic </tag>
+            
+            <tag> elastic search </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《Go语音圣经（中文版）》笔记（20）</title>
+      <link href="/blog/2021/06/12/the-go-programming-language-note-20/"/>
+      <url>/blog/2021/06/12/the-go-programming-language-note-20/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《go-语音圣经（中文版）》"><a class="header-anchor" href="#《go-语音圣经（中文版）》">#</a>《Go 语音圣经（中文版）》</h1><a id="more"></a><h1 id="接口"><a class="header-anchor" href="#接口">#</a>接口</h1><p>接口类型是一种抽象的类型。</p><p>空接口类型对实现它的类型没有要求，所以可以将任意一个值赋给空接口类型。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> any <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">any = <span class="literal">true</span></span><br><span class="line">any = <span class="number">12.34</span></span><br><span class="line">any = <span class="string">"hello"</span></span><br><span class="line">any = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;<span class="string">"one"</span>: <span class="number">1</span>&#125;</span><br><span class="line">any = <span class="built_in">new</span>(bytes.Buffer)</span><br></pre></td></tr></table></figure><p>因为接口与实现只依赖于判断两个类型的方法，所以没有必要定义一个具体类型和它实现的接口之间的关系。</p><hr><p>感觉现在看书学习效率好低，这本书暂时先告一段落吧！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> macos </tag>
+            
+            <tag> golang </tag>
+            
+            <tag> go </tag>
+            
+            <tag> golang note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《Go语音圣经（中文版）》笔记（19）</title>
       <link href="/blog/2021/06/10/the-go-programming-language-note-19/"/>
       <url>/blog/2021/06/10/the-go-programming-language-note-19/</url>
