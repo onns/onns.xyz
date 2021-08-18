@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>csv乱码问题解决</title>
+      <link href="/blog/2021/08/18/csv-gibberish/"/>
+      <url>/blog/2021/08/18/csv-gibberish/</url>
+      
+        <content type="html"><![CDATA[<h1 id="csv-乱码问题解决"><a class="header-anchor" href="#csv-乱码问题解决">#</a>csv 乱码问题解决</h1><p>csv 是比较好整理数据的语言，经常就用字符串直接拼接了，然后用 Excel 做后续处理，但是中文会乱码。</p><h2 id="解决方案"><a class="header-anchor" href="#解决方案">#</a>解决方案</h2><p>加一个 bom 头即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">f = open(<span class="string">"reply.csv"</span>, <span class="string">"r"</span>)</span><br><span class="line">data = f.read()</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line">f = open(<span class="string">"reply.csv"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8-sig"</span>)</span><br><span class="line">f.write(data)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> tips </tag>
+            
+            <tag> macos </tag>
+            
+            <tag> excel </tag>
+            
+            <tag> csv </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>安装Elasticsearch</title>
       <link href="/blog/2021/06/14/install-elasticsearch/"/>
       <url>/blog/2021/06/14/install-elasticsearch/</url>
