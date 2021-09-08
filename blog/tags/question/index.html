@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="csv乱码问题解决"/><meta name="keywords" content="python, linux, tips, macos, excel, csv, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/08/18/csv-gibberish/"/>
+<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/tags/question/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,8 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>csv乱码问题解决 - Onns Blog</title>
+    <title>question · Onns Blog
+  </title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,65 +262,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">csv乱码问题解决
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-08-18 23:36:10
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/08/18/csv-gibberish/"
-             data-title="csv乱码问题解决">
-          Visits 0
-        </span>
+            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
+          <h2 class="archive-name">question</h2>
         </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#csv-乱码问题解决"><span class="toc-text">csv 乱码问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-text">解决方案</span></a></li></ol></li></ol>
-    </div>
-  </div><div class="post-content"><h1 id="csv-乱码问题解决"><a class="header-anchor" href="#csv-乱码问题解决">#</a>csv 乱码问题解决</h1>
-<p>csv 是比较好整理数据的语言，经常就用字符串直接拼接了，然后用 Excel 做后续处理，但是中文会乱码。</p>
-<h2 id="解决方案"><a class="header-anchor" href="#解决方案">#</a>解决方案</h2>
-<p>加一个 bom 头即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">f = open(<span class="string">"reply.csv"</span>, <span class="string">"r"</span>)</span><br><span class="line">data = f.read()</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line">f = open(<span class="string">"reply.csv"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8-sig"</span>)</span><br><span class="line">f.write(data)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
+      <div class="archive-post">
+        <span class="archive-post-time">
+          2021-08-21
+          </span>
+        <span class="archive-post-title">
+          <a href="/blog/2021/08/21/bash-variables-reload/" class="archive-post-link">
+            bash环境变了重载问题
+          </a>
+        </span>
       </div>
-      
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/blog/tags/python/">python</a>
-            <a href="/blog/tags/linux/">linux</a>
-            <a href="/blog/tags/tips/">tips</a>
-            <a href="/blog/tags/macos/">macos</a>
-            <a href="/blog/tags/excel/">excel</a>
-            <a href="/blog/tags/csv/">csv</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/blog/2021/08/21/bash-variables-reload/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">bash环境变了重载问题</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/06/14/install-elasticsearch/">
-        <span class="next-text nav-default">安装Elasticsearch</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
-    </div></div>
+    </section><nav class="pagination"></nav></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
