@@ -283,11 +283,18 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端配置"><span class="toc-text">客户端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#20211006-更新"><span class="toc-text">20211006 更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20210107-更新"><span class="toc-text">20210107 更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端配置"><span class="toc-text">客户端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>20210107更新：</p>
-<p>与<code>TCP</code>协议不同的是，ngrok的HTTP/HTTPS协议的端口无法通过<code>remote_port</code>参数在客户端指定，而是在服务端预先已经指定好的：<code>-httpAddr=&quot;:82&quot; -httpsAddr=&quot;:83&quot;</code>。</p>
-<p>ngrok的http协议通过不同的子域名来区别服务类型，所以配置方法是：</p>
+  </div><div class="post-content"><h2 id="20211006-更新"><a class="header-anchor" href="#20211006-更新">#</a>20211006 更新</h2>
+<p>如果在很高的 golang 版本下编译会有问题，解决方案是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go env -w GO111MODULE=off</span><br></pre></td></tr></table></figure>
+<h3 id="参考文档"><a class="header-anchor" href="#参考文档">#</a>参考文档</h3>
+<ul>
+<li><a href="https://www.jianshu.com/p/fc74f99ba9e2" target="_blank" rel="noopener">ngrok 编译遇到的小坑</a></li>
+</ul>
+<h2 id="20210107-更新"><a class="header-anchor" href="#20210107-更新">#</a>20210107 更新</h2>
+<p>与<code>TCP</code>协议不同的是，ngrok 的 HTTP/HTTPS 协议的端口无法通过<code>remote_port</code>参数在客户端指定，而是在服务端预先已经指定好的：<code>-httpAddr=&quot;:82&quot; -httpsAddr=&quot;:83&quot;</code>。</p>
+<p>ngrok 的 http 协议通过不同的子域名来区别服务类型，所以配置方法是：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nginx:</span></span><br><span class="line">  <span class="attr">subdomain:</span> <span class="string">"io"</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">    <span class="attr">http:</span> <span class="string">"192.168.1.119:80"</span></span><br></pre></td></tr></table></figure>
 <h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>之前配<code>ngrok</code>的时候都是看着教程，xjb 配，因为一般都是<code>http</code>，所以也没那么麻烦，这次终于一次性把所有的坑都踩完了。之后应该不会有任何问题了！<s>（不是</s></p>
