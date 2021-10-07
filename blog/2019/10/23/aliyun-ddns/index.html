@@ -283,9 +283,16 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#20210215更新"><span class="toc-text">20210215更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装环境"><span class="toc-text">安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pip"><span class="toc-text">pip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gcc"><span class="toc-text">gcc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aliyun-sdk"><span class="toc-text">aliyun-sdk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行"><span class="toc-text">执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#20211007-更新"><span class="toc-text">20211007 更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20210215-更新"><span class="toc-text">20210215 更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装环境"><span class="toc-text">安装环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pip"><span class="toc-text">pip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gcc"><span class="toc-text">gcc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aliyun-sdk"><span class="toc-text">aliyun-sdk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行"><span class="toc-text">执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="20210215更新"><a class="header-anchor" href="#20210215更新">#</a>20210215更新</h2>
+  </div><div class="post-content"><h2 id="20211007-更新"><a class="header-anchor" href="#20211007-更新">#</a>20211007 更新</h2>
+<p>python2 版本太古老了，又弄了一个 golang 版本的，移植性更强：<a href="https://github.com/onns/ddns" target="_blank" rel="noopener">https://github.com/onns/ddns</a></p>
+<p>主要用到两个 api：</p>
+<ul>
+<li><a href="https://next.api.aliyun.com/api/Alidns/2015-01-09/UpdateDomainRecord?params=%7B%7D" target="_blank" rel="noopener">https://next.api.aliyun.com/api/Alidns/2015-01-09/UpdateDomainRecord?params={}</a></li>
+<li><a href="https://next.api.aliyun.com/api/Alidns/2015-01-09/DescribeDomainRecords?params=%7B%7D" target="_blank" rel="noopener">https://next.api.aliyun.com/api/Alidns/2015-01-09/DescribeDomainRecords?params={}</a></li>
+</ul>
+<h2 id="20210215-更新"><a class="header-anchor" href="#20210215-更新">#</a>20210215 更新</h2>
 <p>大概写这个脚本的人也不知道原来会有一个个人用户的域名解析记录会有几十个，导致代码找不到解析记录…<br>
 修改了脚本，使得每次获取的记录数更多，如果还是找不到，自己去看一下翻页的方法吧，阿里云的文档压根儿没有，我也是醉了。</p>
 <h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
