@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>git相关使用</title>
+      <link href="/blog/2021/10/07/git-doc/"/>
+      <url>/blog/2021/10/07/git-doc/</url>
+      
+        <content type="html"><![CDATA[<p>记录问题</p><a id="more"></a><h2 id="修改默认分支名为-main"><a class="header-anchor" href="#修改默认分支名为-main">#</a>修改默认分支名为 main</h2><p>= = 历史原因</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> doc </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Golang一些问题记录</title>
       <link href="/blog/2021/10/07/golang-doc/"/>
       <url>/blog/2021/10/07/golang-doc/</url>
