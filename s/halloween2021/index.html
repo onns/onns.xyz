@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>没有标题</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<style type="text/css">
+		body {
+			font-family: sans-serif;
+			font-size: 100%;
+			background: #f0f0f0;
+		}
+
+		h1 {
+			font-size: 2em;
+			text-align: center;
+		}
+
+		p {
+			line-height: 2em;
+			margin: 0 0 20px;
+			text-align: center;
+		}
+
+		.type-wrap {
+			padding: 20px;
+		}
+
+		.typed-cursor {
+			opacity: 1;
+			font-weight: 100;
+			-webkit-animation: blink 0.7s infinite;
+			-moz-animation: blink 0.7s infinite;
+			-ms-animation: blink 0.7s infinite;
+			-o-animation: blink 0.7s infinite;
+			animation: blink 0.7s infinite;
+		}
+
+		@-keyframes blink {
+			0% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@-webkit-keyframes blink {
+			0% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@-moz-keyframes blink {
+			0% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@-ms-keyframes blink {
+			0% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@-o-keyframes blink {
+			0% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.typed-fade-out {
+			opacity: 0;
+			animation: 0;
+			transition: opacity .25s;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<h1></h1>
+		<div class="type-wrap">
+			<div id="typed-strings">
+				<p>
+					哈哈哈哈哈有没有很懵逼
+					只是今天碰巧是万圣节，所以就用了万圣节主题的色调咯
+					其实这是我的一个传统吧算是！那就是送的东西里都会带一张自己做的贺卡（可能不能叫贺卡，要叫它奇奇怪怪的东西）。
+				</p>
+				<p>
+					这批次的香肠我还是试吃了一下下的，毕竟送出去的东西还是要检验一下的，超级好吃的！作为一个假四川人，我以前蒸香肠都蒸小十多分钟的（我妈说啥就是啥），这次的感觉它个头好大，所以我去百度了一下，好家伙最少的都是三十分钟的，甚至还有一个小时的😂，莫非我之前吃的都是半生不熟的！
+					不过你应该吃过超多次了，大概也不用我教了= =！不过因为是新做的，切的时候小心碎掉！
+					那么，祝它合您的胃口，哈哈哈哈哈哈！
+				</p>
+				<p>
+					另外两个就当是副赠品吧！我是感觉阿B的抱枕手感和舒适度都是挺不错的～保护好自己的腰啊年轻人，毕竟还年轻不是。
+				</p>
+				<p>
+					最后的最后，这张贺卡才是这些礼物里面最贵的！别弄丢了！
+					然后是，我的另一个传统是，送出去贺卡的附赠内容，也就是上面这段文字是阅后即焚的，毕竟如果后面被翻出来了，多尴尬呀哈哈哈哈哈哈
+				</p>
+				<p>
+					那么，祝您万圣节🎃🎃🎃快乐！天天开心！
+
+					Onns
+
+					2021,10,31
+				</p>
+			</div>
+			<span id="typed" style="white-space:pre;"></span>
+		</div>
+	</div>
+	<script src="//onns.xyz/js/typed.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function () {
+			Typed.new("#typed", {
+				stringsElement: document.getElementById('typed-strings'),
+				typeSpeed: 100,
+				backDelay: 500,
+				loop: false,
+				contentType: 'html',
+				loopCount: null
+			});
+		});
+	</script>
+</body>
+
+</html>
