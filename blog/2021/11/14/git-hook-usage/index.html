@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="git hook删除项目配置"/><meta name="keywords" content="zsh, macos, git, git hook, sed, grep, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/11/14/git-hook-usage/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://lean.onns.xyz"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://lean.onns.xyz"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                var str = '<section class=\"posts\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>git hook删除项目配置 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">git hook删除项目配置
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-11-14 11:14:31
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/try/">try</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2021/11/14/git-hook-usage/"
+             data-title="git hook删除项目配置">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#事发原因"><span class="toc-text">事发原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-text">思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hook-流程"><span class="toc-text">hook 流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件筛选"><span class="toc-text">文件筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本替换"><span class="toc-text">文本替换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打包"><span class="toc-text">打包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>昨晚犯了一个蠢事，不小心把一个权限很大的 key 传上 GitHub 了，记录一下问题以及解决方案。</p>
+<h2 id="事发原因"><a class="header-anchor" href="#事发原因">#</a>事发原因</h2>
+<p>我有一个动态解析域名的代码：<a href="https://github.com/onns/ddns" target="_blank" rel="noopener">https://github.com/onns/ddns</a>，因为最近需要一个将内网 ip 映射到域名的功能所以修改了一部分代码，但是不小心<strong>将我的阿里云 accesskey 和 secret 传上去了</strong>，它能获取我在阿里云的全部权限= =，所以还是蛮可怕的，为了下次不发生类似的问题，找寻解决方案并以我为戒。</p>
+<p>不得不说阿里云这方便做的还是蛮好的，我传上去的一瞬间就收到了告警短信。</p>
+<blockquote>
+<p>【阿里云】尊敬的onns@onns.xyz：阿里云云安全中心检测到您账号的 AccessKey：LTAIMwxO3zIjXWiQ 被公开在 Github 代码库中，建议您立即登录云安全中心，AK&amp;帐密泄露检测查看详情，建议核实后，尽快禁用。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="思考"><a class="header-anchor" href="#思考">#</a>思考</h2>
+<p>对于此类问题，其实一个最好的解决方案是<strong>将配置与主代码分离</strong>，将配置放到配置文件里，或者是<strong>通过参数手动写入</strong>。</p>
+<p>但我的应用场景是，很多台机器跑定时任务更新 ip，如果走配置文件的话换起来成本并不会降低，而且到时候还要考虑文件依赖的问题，所以最好的写法是将配置直接硬编码在代码里，单文件到处可用。</p>
+<p>所以问题的解决方案就变成了：<strong>如何不把配置信息传上 GitHub</strong>。</p>
+<p>那问题的解答就变得清晰了起来：<code>git hook</code>，<code>git hook</code>可以保证帮我在代码提交前删除对应的配置文件代码。</p>
+<h2 id="解决"><a class="header-anchor" href="#解决">#</a>解决</h2>
+<p><code>git hook</code>本身已经集成在<code>git</code>上了，无需再安装任何插件即可使用。</p>
+<h3 id="hook-流程"><a class="header-anchor" href="#hook-流程">#</a>hook 流程</h3>
+<ol>
+<li>找到所有的变更文件</li>
+<li>筛选符合要求的文件</li>
+<li>对敏感信息进行文本替换</li>
+</ol>
+<h3 id="文件筛选"><a class="header-anchor" href="#文件筛选">#</a>文件筛选</h3>
+<p>所幸 Google 下很多，不过有一些有问题，大家直接抄作业即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go_files=($(git diff --cached --name-only | grep <span class="string">".go$"</span>))</span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;go_files&#125;</span>"</span> = <span class="string">""</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>这里有个问题是网上的版本都是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go_files=$(git diff --cached --name-only | grep <span class="string">".go$"</span>) <span class="comment"># 没有最外层的括号，相比于上面的代码</span></span><br></pre></td></tr></table></figure>
+<p>但是这个得到的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.go</span><br><span class="line">b.go</span><br></pre></td></tr></table></figure>
+<p>是一个带换行的字符串变量，不是一个数组，这个可能是 zsh 的问题，我用的是<code> macOS</code>，大家到时候可以先自己在命令行试一下这个<code>go_files</code>是否可迭代。</p>
+<h3 id="文本替换"><a class="header-anchor" href="#文本替换">#</a>文本替换</h3>
+<p>以前写正则的时候这个匹配 10s 内解决，但是在 shell 下真的花了半个小时。</p>
+<p>先说结论：</p>
+<ol>
+<li>sed 的正则模式没有<code>\S</code>这种写法。</li>
+<li>macOS 下开启正则需要<code>-E</code>参数。</li>
+<li>macOS 下在原文件上变更需要<code>-i</code>参数后加一个<code>''</code>空。</li>
+<li>大多数教程上说<code>()</code>这两个括号也要转义，但是我没转义才成功的，不知道为什么，感觉被误导了好久= =。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = "[_A-Za-z0-9]+"/var AccessKeyId = ""/g'</span> main.go</span><br><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = "([\S]+)"/var AccessKeyId = ""/g'</span> main.go</span><br><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = ".*"/var AccessKeyId = ""/g'</span> main.go</span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = "LTAIMwxO3zIjXWiQ"/var AccessKeyId = ""/g'</span> main.go</span><br></pre></td></tr></table></figure>
+<p>真的试了半小时，感兴趣的可以自己去试试，这里直接上结论：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = "[_A-Za-z0-9]+"/var AccessKeyId = ""/g'</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeySecret = "[_A-Za-z0-9]+"/var AccessKeySecret = ""/g'</span> <span class="variable">$&#123;file&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码可以替换：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> AccessKeyId = <span class="string">"LTAIMwxO3zIjXWiQ"</span></span><br><span class="line"><span class="keyword">var</span> AccessKeySecret = <span class="string">"sPvzjjMMA66RaOT0OGiDSkUcAmys5W"</span></span><br></pre></td></tr></table></figure>
+<h3 id="打包"><a class="header-anchor" href="#打包">#</a>打包</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/zsh</span></span><br><span class="line"></span><br><span class="line">go_files=($(git diff --cached --name-only | grep <span class="string">".go$"</span>))</span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;go_files&#125;</span>"</span> = <span class="string">""</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$&#123;go_files&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># tmpdate=$(date +%Y%m%d-%H%M%S%N) macOS 没有毫秒</span></span><br><span class="line">  tmpdate=$(perl -MTime::HiRes -e <span class="string">'printf("%.0f",Time::HiRes::time()*1000)'</span>)</span><br><span class="line">  cp <span class="variable">$&#123;file&#125;</span> /tmp/git-temp-<span class="variable">$&#123;tmpdate&#125;</span></span><br><span class="line">  sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeyId = "[_A-Za-z0-9]+"/var AccessKeyId = ""/g'</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line">  sed -E -i <span class="string">''</span> <span class="string">'s/var AccessKeySecret = "[_A-Za-z0-9]+"/var AccessKeySecret = ""/g'</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line">  git add <span class="variable">$&#123;file&#125;</span></span><br><span class="line">  mv /tmp/git-temp-<span class="variable">$&#123;tmpdate&#125;</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"clear access key successfully.\n"</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+<p>最后的代码添加了保存配置的功能，这样不会每次都重新把配置加回去。</p>
+<p>需要注意的问题是：</p>
+<ul>
+<li>需要赋予这个<code>pre-commit</code>文件可执行权限。</li>
+</ul>
+<center>
+<p><img src="//onns.xyz/blog/image/20211114-1.png" alt="图1"></p>
+</center>
+<ul>
+<li>修改的时候要加<code>git add ${file}</code>，不然你会发现你变更了但是 commit 的记录里没有= =。</li>
+</ul>
+<h2 id="测试"><a class="header-anchor" href="#测试">#</a>测试</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> t</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@Time : 2021/11/14 11:59</span></span><br><span class="line"><span class="comment">@Author : onns</span></span><br><span class="line"><span class="comment">@File : t/t.go</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AccessKeyId = <span class="string">"LTAIMwxO3zIjXWiQ"</span></span><br><span class="line"><span class="keyword">var</span> AccessKeySecret = <span class="string">"sPvzjjMMA66RaOT0OGiDSkUcAmys5W"</span></span><br></pre></td></tr></table></figure>
+<p>在子目录下创建了一个测试文件。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20211114-2.png" alt="测试图"></p>
+</center>
+<p>有效，完工！</p>
+<h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
+<ul>
+<li>~~我测试的时候不论我在<strong>当前项目</strong>的哪个子目录下执行，变更的文件列表都是从根目录下算起的，不知道到时候的文件名会不会有问题，待测试。~~测试通过，没问题。</li>
+</ul>
+<center>
+<p><img src="//onns.xyz/blog/image/20211114-3.png" alt="测试子目录"></p>
+</center>
+<ul>
+<li>更优雅的方案，毕竟当前的方案可能会误伤，不过大概率没问题。这里不得不说，golang 的强制格式化 nb！</li>
+</ul>
+<h2 id="参考资料"><a class="header-anchor" href="#参考资料">#</a>参考资料</h2>
+<ul>
+<li><a href="https://medium.com/@radlinskii/writing-the-pre-commit-git-hook-for-go-files-810f8d5f1c6f" target="_blank" rel="noopener">Writing a pre-commit git hook for Go files.</a></li>
+<li><a href="https://superuser.com/questions/599072/how-to-get-bash-execution-time-in-milliseconds-under-mac-os-x" target="_blank" rel="noopener">How to get Bash execution time in milliseconds under Mac OS X?</a></li>
+<li><a href="https://githooks.com/" target="_blank" rel="noopener">https://githooks.com/</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks" target="_blank" rel="noopener">8.3 Customizing Git - Git Hooks</a></li>
+<li><a href="https://support.gitkraken.com/working-with-repositories/githooksexample/" target="_blank" rel="noopener">Git Hooks Example</a></li>
+</ul>
+<h2 id="总结"><a class="header-anchor" href="#总结">#</a>总结</h2>
+<ul>
+<li>好多时间都花在了 sed 的文档查询上，结果最后还是我自己试出来的。</li>
+<li>没记错的话 git 好像也是 Linux 的作者写的？</li>
+</ul>
+<p>如有不规范之处，欢迎批评指正，望大家以我为戒。</p>
+<p>2021.11.14 13:23:22</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/git/">git</a>
+            <a href="/blog/tags/git-hook/">git hook</a>
+            <a href="/blog/tags/sed/">sed</a>
+            <a href="/blog/tags/grep/">grep</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/10/07/git-doc/">
+        <span class="next-text nav-default">git相关使用</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
