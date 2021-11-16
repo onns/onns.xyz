@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>postman配置预处理脚本等</title>
+      <link href="/blog/2021/11/16/postman-script/"/>
+      <url>/blog/2021/11/16/postman-script/</url>
+      
+        <content type="html"><![CDATA[<p>记录 postman 相关用法。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> city_id = pm.request.url.query.get(<span class="string">"cityId"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(city_id);</span><br><span class="line"><span class="keyword">var</span> ts = <span class="built_in">parseInt</span>(<span class="built_in">Date</span>.now() / <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(ts);</span><br><span class="line"><span class="keyword">var</span> hash = CryptoJS.MD5(password + ts + city_id).toString();</span><br><span class="line">pm.globals.set(<span class="string">"moji_key"</span>, hash);</span><br><span class="line">pm.globals.set(<span class="string">"ts"</span>, ts);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> try </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> postman </tag>
+            
+            <tag> work </tag>
+            
+            <tag> curl </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git hook删除项目配置</title>
       <link href="/blog/2021/11/14/git-hook-usage/"/>
       <url>/blog/2021/11/14/git-hook-usage/</url>
