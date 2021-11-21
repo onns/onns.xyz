@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="cron脚本相关的记录"/><meta name="keywords" content="shell, zsh, cron, crontab, macos, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/11/21/cron-tips/"/>
+<meta name="description" content="从零开始制作分支管理工具（第一版）"/><meta name="keywords" content="shell, zsh, macos, git, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/11/21/git-merge-tool-start-from-scratch-1/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>cron脚本相关的记录 - Onns Blog</title>
+    <title>从零开始制作分支管理工具（第一版） - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -263,12 +263,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">cron脚本相关的记录
+      <h1 class="post-title">从零开始制作分支管理工具（第一版）
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2021-11-21 16:42:01
+          2021-11-21 17:05:20
         </span><span class="post-author">
           Onns
         </span>
@@ -276,8 +276,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/categories/try/">try</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2021/11/21/cron-tips/"
-             data-title="cron脚本相关的记录">
+             data-url="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/"
+             data-title="从零开始制作分支管理工具（第一版）">
           Visits 0
         </span>
         </div>
@@ -286,34 +286,14 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cron-日志按日期划分"><span class="toc-text">cron 日志按日期划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cron-使用变量"><span class="toc-text">cron 使用变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tips"><span class="toc-text">tips</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>为了让之后的人少走弯路</p>
+  </div><div class="post-content"><p>第一版～</p>
 <a id="more"></a>
-<h2 id="cron-日志按日期划分"><a class="header-anchor" href="#cron-日志按日期划分">#</a>cron 日志按日期划分</h2>
-<p>先说结果的例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line">ONNS_CONFIG_DIR=/Users/onns/Onns/code/config/bash</span><br><span class="line">ONNS_PLATFORM=macmini</span><br><span class="line">cron_log_dir=/Users/onns/Onns/code/<span class="built_in">log</span>/cron</span><br><span class="line">30 * * * * zsh /Users/onns/Onns/code/bash/oclear &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">0 22 * * * zsh /Users/onns/Onns/code/bash/obackup &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">*/10 * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
-<p>日期很好拿，通过<code>date +%Y%m</code>就拿到了，但是想要写在文件名里需要注意几点：</p>
-<ol>
-<li>
-<p>不能写在变量里，不知道是不是我写的有问题，我试过如下的写法都失败了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_date=$(date +%Y%m)</span><br><span class="line">log_date=`date +%Y%m`</span><br><span class="line">log_date=`date <span class="string">"+\%Y\%m"</span>`</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>%</code>需要转义（下面这种写法我试过也不行）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/zsh</span></span><br><span class="line"></span><br><span class="line">temp_git_dir=project-dir</span><br><span class="line">branchs=(<span class="string">"project-name/branch1"</span> <span class="string">"project-name/branch2"</span> <span class="string">"project-name/branch3"</span> <span class="string">"project-name/branch4"</span> <span class="string">"project-name/branch5"</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;temp_git_dir&#125;</span></span><br><span class="line">current_date=$(date +%Y%m%d-%H%M%S)</span><br><span class="line">current_week=$(date +%U)</span><br><span class="line">current_branch=$(git branch --show-current)</span><br><span class="line">merge_to=project-name/uat-week<span class="variable">$&#123;current_week&#125;</span></span><br><span class="line"></span><br><span class="line">git stash -m <span class="string">"auto stash by sh date <span class="variable">$&#123;current_date&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;current_branch&#125;</span> != <span class="string">"master"</span> ]]; <span class="keyword">then</span></span><br><span class="line">    git checkout master</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> branch <span class="keyword">in</span> <span class="variable">$&#123;branchs&#125;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"git pull branch <span class="variable">$&#123;branch&#125;</span>"</span></span><br><span class="line">    git checkout <span class="variable">$&#123;branch&#125;</span> &amp;&amp; git pull</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">exists=$(git show-ref refs/heads/<span class="string">"<span class="variable">$&#123;merge_to&#125;</span>"</span>)</span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$exists</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;merge_to&#125;</span> branch exists!"</span></span><br><span class="line">    git checkout <span class="string">"<span class="variable">$&#123;merge_to&#125;</span>"</span></span><br><span class="line">    git merge master</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    git checkout -b <span class="string">"<span class="variable">$&#123;merge_to&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"create new branch <span class="variable">$&#123;merge_to&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> branch <span class="keyword">in</span> <span class="variable">$&#123;branchs&#125;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"merge branch <span class="variable">$&#123;branch&#125;</span> into <span class="variable">$&#123;merge_to&#125;</span>"</span></span><br><span class="line">    git merge <span class="variable">$&#123;branch&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
 <ul>
-<li>总感觉有通过变量的方式定义时间日期的方法，不然现在这种太呆了。</li>
-</ul>
-<h2 id="cron-使用变量"><a class="header-anchor" href="#cron-使用变量">#</a>cron 使用变量</h2>
-<p>很奇怪，不能定义多级变量，不然会索引不到。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这样可以</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样就不行</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=<span class="variable">$ONNS_HOME</span>/Onns</span><br></pre></td></tr></table></figure>
-<h2 id="tips"><a class="header-anchor" href="#tips">#</a>tips</h2>
-<ul>
-<li><code>cron</code>是通过<code>sh</code>来运行脚本的，在一切环境变量之前，如果你在<code>.zshrc</code>或者<code>.bashrc</code>中定义了一些自己的东西，那么恭喜你，用不了。</li>
+<li>判断上一次 merge 状态，下次一次从失败处重新开始</li>
 </ul>
 
       </div>
@@ -322,18 +302,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         <div class="post-tags">
             <a href="/blog/tags/shell/">shell</a>
             <a href="/blog/tags/zsh/">zsh</a>
-            <a href="/blog/tags/cron/">cron</a>
-            <a href="/blog/tags/crontab/">crontab</a>
             <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/git/">git</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">从零开始制作分支管理工具（第一版）</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/11/16/postman-script/">
-        <span class="next-text nav-default">postman配置预处理脚本等</span>
+        <nav class="post-nav"><a class="next" href="/blog/2021/11/21/cron-tips/">
+        <span class="next-text nav-default">cron脚本相关的记录</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
