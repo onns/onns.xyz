@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>cron脚本相关的记录</title>
+      <link href="/blog/2021/11/21/cron-tips/"/>
+      <url>/blog/2021/11/21/cron-tips/</url>
+      
+        <content type="html"><![CDATA[<p>为了让之后的人少走弯路</p><a id="more"></a><h2 id="cron-日志按日期划分"><a class="header-anchor" href="#cron-日志按日期划分">#</a>cron 日志按日期划分</h2><p>先说结果的例子：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line">ONNS_CONFIG_DIR=/Users/onns/Onns/code/config/bash</span><br><span class="line">ONNS_PLATFORM=macmini</span><br><span class="line">cron_log_dir=/Users/onns/Onns/code/<span class="built_in">log</span>/cron</span><br><span class="line">30 * * * * zsh /Users/onns/Onns/code/bash/oclear &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">0 22 * * * zsh /Users/onns/Onns/code/bash/obackup &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">*/10 * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure><p>日期很好拿，通过<code>date +%Y%m</code>就拿到了，但是想要写在文件名里需要注意几点：</p><ol><li><p>不能写在变量里，不知道是不是我写的有问题，我试过如下的写法都失败了：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_date=$(date +%Y%m)</span><br><span class="line">log_date=`date +%Y%m`</span><br><span class="line">log_date=`date <span class="string">"+\%Y\%m"</span>`</span><br></pre></td></tr></table></figure></li><li><p><code>%</code>需要转义（下面这种写法我试过也不行）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></li></ol><h3 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h3><ul><li>总感觉有通过变量的方式定义时间日期的方法，不然现在这种太呆了。</li></ul><h2 id="cron-使用变量"><a class="header-anchor" href="#cron-使用变量">#</a>cron 使用变量</h2><p>很奇怪，不能定义多级变量，不然会索引不到。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这样可以</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样就不行</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=<span class="variable">$ONNS_HOME</span>/Onns</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> try </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> shell </tag>
+            
+            <tag> zsh </tag>
+            
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
+            
+            <tag> macos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>postman配置预处理脚本等</title>
       <link href="/blog/2021/11/16/postman-script/"/>
       <url>/blog/2021/11/16/postman-script/</url>

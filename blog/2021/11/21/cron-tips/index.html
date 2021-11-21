@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/19/"/>
+<meta name="description" content="cron脚本相关的记录"/><meta name="keywords" content="shell, zsh, cron, crontab, macos, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/11/21/cron-tips/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>cron脚本相关的记录 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,261 +261,76 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/04/11/pcl-vs2017-in-windows10/">Windows10下安装PCL1.9.1</a>
+      <h1 class="post-title">cron脚本相关的记录
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-04-11 20:55:47
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
+          2021-11-21 16:42:01
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/try/">try</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/04/11/pcl-vs2017-in-windows10/"
-             data-title="Windows10下安装PCL1.9.1">
+             data-url="/blog/2021/11/21/cron-tips/"
+             data-title="cron脚本相关的记录">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>PCL的库配置是真的繁琐，配置了好多次才成功。<br>
-Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
-          <div class="read-more">
-            <a href="/blog/2020/04/11/pcl-vs2017-in-windows10/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/04/01/stop-gif-for-screenshot/">网页截图之停止GIF</a>
-        </h1>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cron-日志按日期划分"><span class="toc-text">cron 日志按日期划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cron-使用变量"><span class="toc-text">cron 使用变量</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>为了让之后的人少走弯路</p>
+<a id="more"></a>
+<h2 id="cron-日志按日期划分"><a class="header-anchor" href="#cron-日志按日期划分">#</a>cron 日志按日期划分</h2>
+<p>先说结果的例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line">ONNS_CONFIG_DIR=/Users/onns/Onns/code/config/bash</span><br><span class="line">ONNS_PLATFORM=macmini</span><br><span class="line">cron_log_dir=/Users/onns/Onns/code/<span class="built_in">log</span>/cron</span><br><span class="line">30 * * * * zsh /Users/onns/Onns/code/bash/oclear &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">0 22 * * * zsh /Users/onns/Onns/code/bash/obackup &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br><span class="line">*/10 * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date <span class="string">"+\%Y\%m"</span>`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<p>日期很好拿，通过<code>date +%Y%m</code>就拿到了，但是想要写在文件名里需要注意几点：</p>
+<ol>
+<li>
+<p>不能写在变量里，不知道是不是我写的有问题，我试过如下的写法都失败了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_date=$(date +%Y%m)</span><br><span class="line">log_date=`date +%Y%m`</span><br><span class="line">log_date=`date <span class="string">"+\%Y\%m"</span>`</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>%</code>需要转义（下面这种写法我试过也不行）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * /Users/onns/Downloads/github/ddns/ddns &gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/out-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span> 2&gt;&gt;<span class="variable">$&#123;cron_log_dir&#125;</span>/err-<span class="variable">$&#123;ONNS_PLATFORM&#125;</span>-`date +%Y%m`.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h3>
+<ul>
+<li>总感觉有通过变量的方式定义时间日期的方法，不然现在这种太呆了。</li>
+</ul>
+<h2 id="cron-使用变量"><a class="header-anchor" href="#cron-使用变量">#</a>cron 使用变量</h2>
+<p>很奇怪，不能定义多级变量，不然会索引不到。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这样可以</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=/Users/onns/Onns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样就不行</span></span><br><span class="line">ONNS_HOME=/Users/onns</span><br><span class="line">ONNS_ROOT=<span class="variable">$ONNS_HOME</span>/Onns</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2020-04-01 18:37:51
-        </span><span class="post-category">
-            <a href="/blog/categories/work/">work</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/04/01/stop-gif-for-screenshot/"
-             data-title="网页截图之停止GIF">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>经常会有用到网页截取的时候，截取方法很简单，但是如果页面里GIF图很多的话，会出现截断，即GIF上下画面不一致（因为本质上全屏截图也都是先截屏幕再拼接的）。花点功夫找了下，记录之。</p>
-          <div class="read-more">
-            <a href="/blog/2020/04/01/stop-gif-for-screenshot/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/03/16/java-notes-7/">Java学习笔记（七）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-03-16 10:36:43
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/03/16/java-notes-7/"
-             data-title="Java学习笔记（七）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h2>
-          <div class="read-more">
-            <a href="/blog/2020/03/16/java-notes-7/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/03/14/java-notes-6/">Java学习笔记（六）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-03-14 12:17:50
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/03/14/java-notes-6/"
-             data-title="Java学习笔记（六）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="范型程序设计"><a class="header-anchor" href="#范型程序设计">#</a>范型程序设计</h2>
-          <div class="read-more">
-            <a href="/blog/2020/03/14/java-notes-6/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/27/Indesign-skills/">InDesign小技巧</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-27 02:09:48
-        </span><span class="post-category">
-            <a href="/blog/categories/design/">design</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/27/Indesign-skills/"
-             data-title="InDesign小技巧">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>记录一些InDesign的小技巧。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/27/Indesign-skills/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/25/java-notes-5/">Java学习笔记（五）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-25 13:03:58
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/25/java-notes-5/"
-             data-title="Java学习笔记（五）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="异常、断言和日志"><a class="header-anchor" href="#异常、断言和日志">#</a>异常、断言和日志</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/25/java-notes-5/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/24/java-notes-4/">Java学习笔记（四）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-24 16:33:20
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/24/java-notes-4/"
-             data-title="Java学习笔记（四）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="接口、lambda-表达式与内部类"><a class="header-anchor" href="#接口、lambda-表达式与内部类">#</a>接口、lambda 表达式与内部类</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/24/java-notes-4/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/21/teleport-ultra-for-windows/">Windows下超好用的软件——Teleport ultra</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-21 17:59:53
-        </span><span class="post-category">
-            <a href="/blog/categories/windows/">windows</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/21/teleport-ultra-for-windows/"
-             data-title="Windows下超好用的软件——Teleport ultra">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><code>Teleport ultra</code> 是一个可以把整个站离线下载下来的工具，超级好用。<br>
-有很多技术文档都是在线的、静态的，用这个工具很合适～</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/21/teleport-ultra-for-windows/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/20/wechat-svg/">微信文章svg交互</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-20 12:19:08
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/20/wechat-svg/"
-             data-title="微信文章svg交互">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>如果不是特别想做的话，还是在文章的开头劝退一波，因为 <strong>付出 &gt;&gt; 收获</strong>，不论如何，最终的反响不是特别好。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/20/wechat-svg/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/19/find-string-in-excel/">excel字符串查找</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-19 14:09:16
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/19/find-string-in-excel/"
-             data-title="excel字符串查找">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>经常会有在excel查找多个字符串的需求，比如在一个大excel表里找几门课，之前一直是导出成 <code>csv</code> 然后对文本文档进行操作，这样最终还要导回 <code>excel</code>，今天花费3、4个小时学了下vb，做了一个宏，直接在excel上操作。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/19/find-string-in-excel/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/18/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/page/20/">
-        <span class="next-text">Next</span>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/cron/">cron</a>
+            <a href="/blog/tags/crontab/">crontab</a>
+            <a href="/blog/tags/macos/">macos</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2021/11/16/postman-script/">
+        <span class="next-text nav-default">postman配置预处理脚本等</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -546,6 +361,29 @@ Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
