@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="MySQL问题查阅"/><meta name="keywords" content="mysql, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/09/11/mysql-doc/"/>
+<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/tags/ffmpeg/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,8 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>MySQL问题查阅 - Onns Blog</title>
+    <title>ffmpeg · Onns Blog
+  </title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,71 +262,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">MySQL问题查阅
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-09-11 16:33:15
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/doc/">doc</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/09/11/mysql-doc/"
-             data-title="MySQL问题查阅">
-          Visits 0
-        </span>
+            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
+          <h2 class="archive-name">ffmpeg</h2>
         </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql-的count-和count-1-有什么区别"><span class="toc-text">Mysql 的COUNT(*)和COUNT(1)有什么区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#count-和-limit"><span class="toc-text">Count(*) 和 limit</span></a></li></ol>
-    </div>
-  </div><div class="post-content"><p>记录问题</p>
-<a id="more"></a>
-<h2 id="mysql-的count-和count-1-有什么区别"><a class="header-anchor" href="#mysql-的count-和count-1-有什么区别">#</a>Mysql 的<code>COUNT(*)</code>和<code>COUNT(1)</code>有什么区别</h2>
-<p>5.6 的官方文档中介绍如下：</p>
-<blockquote>
-<p><code>InnoDB</code> handles SELECT <code>COUNT(*)</code> and SELECT <code>COUNT(1)</code> operations in the same way. There is no performance difference.</p>
-</blockquote>
-<p>所以答案是没区别。<code>COUNT(name)</code>会算非空的个数。</p>
-<ul>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/aggregate-functions.html#function_count" target="_blank" rel="noopener">12.19.1 Aggregate Function Descriptions</a></li>
-</ul>
-<h2 id="count-和-limit"><a class="header-anchor" href="#count-和-limit">#</a>Count(*) 和 limit</h2>
-<p>属于是我自己智障了，测试了一下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> bbot_chat_intent_message <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<p>是能拿到数据的，但是：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> bbot_chat_intent_message <span class="keyword">limit</span> <span class="number">100</span>,<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<p>就不行了，感觉有些地方的分页有问题，到时候要修复一下。</p>
-
+      <div class="archive-post">
+        <span class="archive-post-time">
+          2021-12-11
+          </span>
+        <span class="archive-post-title">
+          <a href="/blog/2021/12/11/ffmpeg-doc/" class="archive-post-link">
+            ffmpeg整理文档
+          </a>
+        </span>
       </div>
-      
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/blog/tags/mysql/">mysql</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/blog/2021/10/07/golang-doc/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Golang一些问题记录</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/09/08/golang-utf8-chinese/">
-        <span class="next-text nav-default">Golang中文显示问题</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
-    </div></div>
+    </section><nav class="pagination"></nav></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

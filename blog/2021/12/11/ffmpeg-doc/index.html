@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="MySQL问题查阅"/><meta name="keywords" content="mysql, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/09/11/mysql-doc/"/>
+<meta name="description" content="ffmpeg整理文档"/><meta name="keywords" content="ffmpeg, ffprobe, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/12/11/ffmpeg-doc/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -188,7 +188,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>MySQL问题查阅 - Onns Blog</title>
+    <title>ffmpeg整理文档 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -263,12 +263,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">MySQL问题查阅
+      <h1 class="post-title">ffmpeg整理文档
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2021-09-11 16:33:15
+          2021-12-11 16:51:37
         </span><span class="post-author">
           Onns
         </span>
@@ -276,8 +276,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/categories/doc/">doc</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2021/09/11/mysql-doc/"
-             data-title="MySQL问题查阅">
+             data-url="/blog/2021/12/11/ffmpeg-doc/"
+             data-title="ffmpeg整理文档">
           Visits 0
         </span>
         </div>
@@ -286,40 +286,58 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql-的count-和count-1-有什么区别"><span class="toc-text">Mysql 的COUNT(*)和COUNT(1)有什么区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#count-和-limit"><span class="toc-text">Count(*) 和 limit</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为视频增加黑边"><span class="toc-text">为视频增加黑边</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从视频中截取一段"><span class="toc-text">从视频中截取一段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取视频通道数，采样率等信息"><span class="toc-text">获取视频通道数，采样率等信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改通道数-采样率"><span class="toc-text">修改通道数&#x2F;采样率</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>记录问题</p>
+  </div><div class="post-content"><p>ffmpeg 使用文档记录</p>
 <a id="more"></a>
-<h2 id="mysql-的count-和count-1-有什么区别"><a class="header-anchor" href="#mysql-的count-和count-1-有什么区别">#</a>Mysql 的<code>COUNT(*)</code>和<code>COUNT(1)</code>有什么区别</h2>
-<p>5.6 的官方文档中介绍如下：</p>
-<blockquote>
-<p><code>InnoDB</code> handles SELECT <code>COUNT(*)</code> and SELECT <code>COUNT(1)</code> operations in the same way. There is no performance difference.</p>
-</blockquote>
-<p>所以答案是没区别。<code>COUNT(name)</code>会算非空的个数。</p>
+<h2 id="为视频增加黑边"><a class="header-anchor" href="#为视频增加黑边">#</a>为视频增加黑边</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1920:888,pad=1920:1080:0:96:black"</span> output.mp4</span><br></pre></td></tr></table></figure>
+<p>从 iPhone 13 pro 录屏得到的视频大小为<code>1920*888</code>，投稿视频的时候没有办法达到 1080p 的要求，需要补黑边。</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20211211-1.png" alt="视频信息"></p>
+</center>
+<p>如果要将<code>888</code>补到<code>1080</code>其实要在上下加黑边。</p>
+<p>参数解释：</p>
 <ul>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/aggregate-functions.html#function_count" target="_blank" rel="noopener">12.19.1 Aggregate Function Descriptions</a></li>
+<li><code>scale</code> 原尺寸缩放到的比例。</li>
+<li><code>pad</code> 填充后的比例，已经视频要放的位置，还有补的颜色。因为上下补所以 x 不变，还是<code>0</code>，y 需要上下各加一半黑边的长度（不然视频的黑边都加在下面了）：</li>
 </ul>
-<h2 id="count-和-limit"><a class="header-anchor" href="#count-和-limit">#</a>Count(*) 和 limit</h2>
-<p>属于是我自己智障了，测试了一下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> bbot_chat_intent_message <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<p>是能拿到数据的，但是：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> bbot_chat_intent_message <span class="keyword">limit</span> <span class="number">100</span>,<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<p>就不行了，感觉有些地方的分页有问题，到时候要修复一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~  <span class="built_in">echo</span> $(((1080-888)/2))                             [2021/12/11 17:03:40]</span><br><span class="line">96</span><br></pre></td></tr></table></figure>
+<h2 id="从视频中截取一段"><a class="header-anchor" href="#从视频中截取一段">#</a>从视频中截取一段</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i RPReplay_Final1637503011.MP4 -ss 10:05 -t 72 -c:v copy -c:a copy output.mp4</span><br></pre></td></tr></table></figure>
+<p>参数解释：</p>
+<ul>
+<li><code>-ss</code>从哪里开始，事件格式可以参考<a href="https://ffmpeg.org/ffmpeg-utils.html#time-duration-syntax" target="_blank" rel="noopener">https://ffmpeg.org/ffmpeg-utils.html#time-duration-syntax</a>。</li>
+<li><code>-t</code> 截取秒数，格式同上。</li>
+<li><code>-c:v</code> 对视频的处理，直接拷贝。</li>
+<li><code>-c:a</code> 对音频的处理，直接拷贝。</li>
+</ul>
+<h2 id="获取视频通道数，采样率等信息"><a class="header-anchor" href="#获取视频通道数，采样率等信息">#</a>获取视频通道数，采样率等信息</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">~  ffprobe -i test2.wav -v quiet -print_format json -show_format -show_streams</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"streams"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"index"</span>: 0,</span><br><span class="line">            <span class="string">"codec_name"</span>: <span class="string">"pcm_s16le"</span>,</span><br><span class="line">            <span class="string">"codec_long_name"</span>: <span class="string">"PCM signed 16-bit little-endian"</span>,</span><br><span class="line">            <span class="string">"codec_type"</span>: <span class="string">"audio"</span>,</span><br><span class="line">            <span class="string">"codec_tag_string"</span>: <span class="string">"[1][0][0][0]"</span>,</span><br><span class="line">            <span class="string">"codec_tag"</span>: <span class="string">"0x0001"</span>,</span><br><span class="line">            <span class="string">"sample_fmt"</span>: <span class="string">"s16"</span>,</span><br><span class="line">            <span class="string">"sample_rate"</span>: <span class="string">"48000"</span>,</span><br><span class="line">            <span class="string">"channels"</span>: 2,</span><br><span class="line">            <span class="string">"bits_per_sample"</span>: 16,</span><br><span class="line">            <span class="string">"r_frame_rate"</span>: <span class="string">"0/0"</span>,</span><br><span class="line">            <span class="string">"avg_frame_rate"</span>: <span class="string">"0/0"</span>,</span><br><span class="line">            <span class="string">"time_base"</span>: <span class="string">"1/48000"</span>,</span><br><span class="line">            <span class="string">"duration_ts"</span>: 337920,</span><br><span class="line">            <span class="string">"duration"</span>: <span class="string">"7.040000"</span>,</span><br><span class="line">            <span class="string">"bit_rate"</span>: <span class="string">"1536000"</span>,</span><br><span class="line">            <span class="string">"disposition"</span>: &#123;</span><br><span class="line">                <span class="string">"default"</span>: 0,</span><br><span class="line">                <span class="string">"dub"</span>: 0,</span><br><span class="line">                <span class="string">"original"</span>: 0,</span><br><span class="line">                <span class="string">"comment"</span>: 0,</span><br><span class="line">                <span class="string">"lyrics"</span>: 0,</span><br><span class="line">                <span class="string">"karaoke"</span>: 0,</span><br><span class="line">                <span class="string">"forced"</span>: 0,</span><br><span class="line">                <span class="string">"hearing_impaired"</span>: 0,</span><br><span class="line">                <span class="string">"visual_impaired"</span>: 0,</span><br><span class="line">                <span class="string">"clean_effects"</span>: 0,</span><br><span class="line">                <span class="string">"attached_pic"</span>: 0,</span><br><span class="line">                <span class="string">"timed_thumbnails"</span>: 0,</span><br><span class="line">                <span class="string">"captions"</span>: 0,</span><br><span class="line">                <span class="string">"descriptions"</span>: 0,</span><br><span class="line">                <span class="string">"metadata"</span>: 0,</span><br><span class="line">                <span class="string">"dependent"</span>: 0,</span><br><span class="line">                <span class="string">"still_image"</span>: 0</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"format"</span>: &#123;</span><br><span class="line">        <span class="string">"filename"</span>: <span class="string">"test2.wav"</span>,</span><br><span class="line">        <span class="string">"nb_streams"</span>: 1,</span><br><span class="line">        <span class="string">"nb_programs"</span>: 0,</span><br><span class="line">        <span class="string">"format_name"</span>: <span class="string">"wav"</span>,</span><br><span class="line">        <span class="string">"format_long_name"</span>: <span class="string">"WAV / WAVE (Waveform Audio)"</span>,</span><br><span class="line">        <span class="string">"duration"</span>: <span class="string">"7.040000"</span>,</span><br><span class="line">        <span class="string">"size"</span>: <span class="string">"1351724"</span>,</span><br><span class="line">        <span class="string">"bit_rate"</span>: <span class="string">"1536050"</span>,</span><br><span class="line">        <span class="string">"probe_score"</span>: 99</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>channels</code>通道数<br>
+<code>sample_rate</code>采样率</p>
+<h2 id="修改通道数-采样率"><a class="header-anchor" href="#修改通道数-采样率">#</a>修改通道数/采样率</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i test3.wav -ac 1 -ar 16000 test4.wav</span><br><span class="line">ffmpeg -y -i test.mp3 -acodec pcm_s16le -f s16le -ac 1 -ar 16000 test.pcm</span><br></pre></td></tr></table></figure>
+<p>参考<a href="https://ffmpeg.org/ffmpeg.html#Audio-Options" target="_blank" rel="noopener">https://ffmpeg.org/ffmpeg.html#Audio-Options</a>：</p>
+<ul>
+<li><code>-ac</code> 设置通道数</li>
+<li><code>-ar</code> 设置采样率</li>
+<li><code>-acodec</code> 设置音频格式</li>
+<li><code>-f</code> 设置输入/输出的格式（其实不太懂，待细看）</li>
+</ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
-            <a href="/blog/tags/mysql/">mysql</a>
+            <a href="/blog/tags/ffmpeg/">ffmpeg</a>
+            <a href="/blog/tags/ffprobe/">ffprobe</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2021/10/07/golang-doc/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Golang一些问题记录</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/09/08/golang-utf8-chinese/">
-        <span class="next-text nav-default">Golang中文显示问题</span>
+        <nav class="post-nav"><a class="next" href="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/">
+        <span class="next-text nav-default">从零开始制作分支管理工具（第一版）</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
