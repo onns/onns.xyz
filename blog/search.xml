@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>《Concurrency in Go》笔记（1）</title>
+      <link href="/blog/2021/12/19/concurrency-in-go-note-1/"/>
+      <url>/blog/2021/12/19/concurrency-in-go-note-1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《concurrency-in-go》"><a class="header-anchor" href="#《concurrency-in-go》">#</a>《Concurrency in Go》</h1><p>第 2 章、第 3 章的一些笔记</p><a id="more"></a><h2 id="第二章-modeling-your-code-communicating-sequential-processes"><a class="header-anchor" href="#第二章-modeling-your-code-communicating-sequential-processes">#</a>第二章 Modeling Your Code: Communicating Sequential Processes</h2><p>CSP：Communicating Sequential Processes</p><p>input and output are two overlooked primitives of programming.</p><p>参考链接：<a href="https://blog.csdn.net/ScarletMeCarzy/article/details/106447870" target="_blank" rel="noopener">CSP（communicating sequential processes）并发模型</a></p><p>goroutines are lightweight, and we normally won’t have to worry about creating one.</p><p>Go’s runtime multiplexes goroutines onto OS threads automatically and manages their scheduling for us. This means that optimizations to the runtime can be made without us having to change how we’ve modeled our problem.</p><p>相当于一个黑盒子，不用去考虑下面的实现，下面的优化自然也不会影响程序的运行。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20211219-1.png" alt="决定树"></p></center><p>Package sync provides basic synchronization primitives such as mutual exclusion locks. Other than the Once and WaitGroup types, most are intended for use by low- level library routines. Higher-level synchronization is better done via channels and communication.</p><p>consider struc‐ turing your program so that only one goroutine at a time is ever responsible for a par‐ ticular piece of data.</p><p>Do not communicate by sharing memory. Instead, share memory by communicating.</p><p>我在<a href="https://stackoverflow.com/questions/70402617/about-is-it-a-performance-critical-section-in-concurrency-in-go" target="_blank" rel="noopener">stackoverflow</a>上也问了这个问题，如何理解这张图。</p><p>其实我认为这个图应该像她在文章里讲得那样画，首先先判断<code>是否需要转交数据的所有权</code>，是的话其实就可以保证同一时间只有一个 goroutine 使用该数据，然后后面的一些判断。</p><p>这样做的好处是：</p><p>you’ve implicitly made your concurrent code composable with other concurrent code.</p><p>最后，当性能成为一个很重要的需要解决的问题的时候，才会抛弃 channels 而使用 primitives。</p><p>Try to keep the locks constrained to a small lexical scope.</p><p>为什么性能成为瓶颈的时候用原生的：</p><p>This is because channels use memory access synchronization to operate, therefore they can only be slower.</p><p>Go 的哲学：</p><p>Aim for simplicity, use channels when possible, and treat goroutines like a free resource.</p><h2 id="第三章-go’s-concurrency-building-blocks"><a class="header-anchor" href="#第三章-go’s-concurrency-building-blocks">#</a>第三章 Go’s Concurrency Building Blocks</h2><p>Green threads 也被翻译成绿色线程，它的相关资料：</p><ul><li><a href="https://www.zhihu.com/question/64100112" target="_blank" rel="noopener">https://www.zhihu.com/question/64100112</a></li><li><a href="https://en.wikipedia.org/wiki/Green_threads" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Green_threads</a></li></ul><p>Coroutines are simply concurrent subroutines (functions, closures, or methods in Go) that are nonpreemptive—that is, they cannot be interrupted. Instead, coroutines have multiple points throughout which allow for suspension or reentry.</p><p>Go’s runtime observes the runtime behavior of goroutines and automatically suspends them when they block and then resumes them when they become unblocked.</p><p>the goroutines being scheduled may run at any point in time in the future, it is undetermined what values will be printed from within the goroutine.</p><p>The Go runtime is observant enough to know that a reference to the salutation variable is still being held, and therefore will transfer the memory to the heap so that the goroutines can continue to access it.</p><p>golang 的运行时会足够聪明地知道还有什么变量还需要使用，不会被回收。</p><p>the garbage collector does nothing to collect goroutines that have been abandoned somehow. If I write the following:</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="comment">// &lt;operation that will block forever&gt;</span></span><br><span class="line">&#125;()</span><br><span class="line"><span class="comment">// Do work</span></span><br></pre></td></tr></table></figure><p>如果 goroutine 里的代码永远运行着，那它就不会被垃圾回收。</p><p>Context switching in software is comparatively much, much cheaper.</p><p>在软件里的上下文切换，要比系统层面的轻量多了。</p><p>the more goroutines you create, and if your problem space is not constrained by one concurrent segment per Amdahl’s law, the more your program will scale with multiple processors.</p><p>看起来自己的笔记只有自己能懂。。</p><p>不过少数的问题可以给到别人启发也够了 :)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> go </tag>
+            
+            <tag> concurrency in go note </tag>
+            
+            <tag> concurrency in go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>shell脚本读取命令行参数</title>
       <link href="/blog/2021/12/11/bash-parameters/"/>
       <url>/blog/2021/12/11/bash-parameters/</url>
