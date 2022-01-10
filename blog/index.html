@@ -263,6 +263,98 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/01/10/golang-zip-encrypt/">Golang zip加密</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-01-10 08:47:43
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/work/">work</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/01/10/golang-zip-encrypt/"
+             data-title="Golang zip加密">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>gonlang zip 加密方法梳理</p>
+<h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2>
+<ul>
+<li>官方库不带有加密方法，加密的方法目前均为第三方实现。</li>
+<li>合理的一个方式是，先进行 zip 压缩，再使用加密方法加密。</li>
+</ul>
+<p>贴一个我备份脚本的 shell 代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf - <span class="string">"<span class="variable">$&#123;daily_img_dir&#125;</span>"</span> | openssl des3 -salt -k <span class="variable">$img_password</span> | dd of=$(weiyun_temp_image_dir)/img-<span class="variable">$&#123;now_date&#125;</span>-<span class="variable">$&#123;now_time&#125;</span>.bak</span><br></pre></td></tr></table></figure>
+<p>加密形式不同，但是流程一致。</p>
+          <div class="read-more">
+            <a href="/blog/2022/01/10/golang-zip-encrypt/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/01/03/mac-preference/">macOS设置记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-01-03 13:30:43
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/software/">software</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/01/03/mac-preference/"
+             data-title="macOS设置记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="零零散散"><a class="header-anchor" href="#零零散散">#</a>零零散散</h2>
+<ul>
+<li>记得把文件系统设置成大小写敏感，不然从 Linux 传来的带大小写的文件能把人恶心死。</li>
+</ul>
+          <div class="read-more">
+            <a href="/blog/2022/01/03/mac-preference/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/01/03/software-preference/">软件设置记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-01-03 11:06:15
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/software/">software</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/01/03/software-preference/"
+             data-title="软件设置记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>记录一些软件的配置，方便在无法同步的时候还原配置。</p>
+          <div class="read-more">
+            <a href="/blog/2022/01/03/software-preference/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2021/12/19/concurrency-in-go-note-1/">《Concurrency in Go》笔记（1）</a>
         </h1>
 
@@ -458,87 +550,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/2021/11/14/git-hook-usage/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/10/07/git-doc/">git相关使用</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-10-07 14:43:25
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/doc/">doc</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/10/07/git-doc/"
-             data-title="git相关使用">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>记录问题</p>
-          <div class="read-more">
-            <a href="/blog/2021/10/07/git-doc/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/10/07/golang-doc/">Golang一些问题记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-10-07 13:28:14
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/doc/">doc</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/10/07/golang-doc/"
-             data-title="Golang一些问题记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>一些问题的解答</p>
-          <div class="read-more">
-            <a href="/blog/2021/10/07/golang-doc/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/09/11/mysql-doc/">MySQL问题查阅</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-09-11 16:33:15
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/doc/">doc</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/09/11/mysql-doc/"
-             data-title="MySQL问题查阅">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>记录问题</p>
-          <div class="read-more">
-            <a href="/blog/2021/09/11/mysql-doc/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>
         <i class="iconfont icon-right"></i>
@@ -562,7 +573,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2022<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>

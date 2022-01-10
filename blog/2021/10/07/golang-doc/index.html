@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Golang一些问题记录"/><meta name="keywords" content="golang, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="Golang一些问题记录"/><meta name="keywords" content="golang, GO111MODULE, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2021/10/07/golang-doc/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -286,19 +286,31 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#go111module-用途"><span class="toc-text">GO111MODULE 用途</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#go111module-用途"><span class="toc-text">GO111MODULE 用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#path-ext-filepath-ext-difference"><span class="toc-text">path.ext filepath.ext difference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#map-string-string-make-map-string-string-difference"><span class="toc-text">map[string]string{} make(map[string]string) difference</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>一些问题的解答</p>
 <a id="more"></a>
 <h2 id="go111module-用途"><a class="header-anchor" href="#go111module-用途">#</a>GO111MODULE 用途</h2>
 <p><code>golang</code>从 1.11 版本之后开始用<code>go mod</code>来管理依赖包了，所以默认这个是开启的，但是像<code>ngrok</code>这种很老的，又不再更新开源版本的代码，不支持这个特性，需要关闭次功能：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go env -w GO111MODULE=off</span><br></pre></td></tr></table></figure>
+<h2 id="path-ext-filepath-ext-difference"><a class="header-anchor" href="#path-ext-filepath-ext-difference">#</a><code>path.ext</code> <code>filepath.ext</code> difference</h2>
+<p><code>path.ext</code>里文件分割符是写死的，在 win 下应该会出问题，也可能不会。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ext returns the file name extension used by path.</span></span><br><span class="line"><span class="comment">// The extension is the suffix beginning at the final dot</span></span><br><span class="line"><span class="comment">// in the final slash-separated element of path;</span></span><br><span class="line"><span class="comment">// it is empty if there is no dot.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ext</span><span class="params">(path <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="built_in">len</span>(path) - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; path[i] != <span class="string">'/'</span>; i-- &#123;</span><br><span class="line">		<span class="keyword">if</span> path[i] == <span class="string">'.'</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> path[i:]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ext returns the file name extension used by path.</span></span><br><span class="line"><span class="comment">// The extension is the suffix beginning at the final dot</span></span><br><span class="line"><span class="comment">// in the final element of path; it is empty if there is</span></span><br><span class="line"><span class="comment">// no dot.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ext</span><span class="params">(path <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="built_in">len</span>(path) - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; !os.IsPathSeparator(path[i]); i-- &#123;</span><br><span class="line">		<span class="keyword">if</span> path[i] == <span class="string">'.'</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> path[i:]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>几乎没区别，硬要说的话，后者更安全些，除此之外没什么区别。</p>
+<h2 id="map-string-string-make-map-string-string-difference"><a class="header-anchor" href="#map-string-string-make-map-string-string-difference">#</a><code>map[string]string{}</code> <code>make(map[string]string)</code> difference</h2>
+<p>没区别，一个更规范，一个更方便。</p>
+<p>参考说明：</p>
+<ul>
+<li><a href="https://stackoverflow.com/a/53575947/13182099" target="_blank" rel="noopener">https://stackoverflow.com/a/53575947/13182099</a></li>
+</ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/GO111MODULE/">GO111MODULE</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2021/10/07/git-doc/">
@@ -332,7 +344,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2022<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
