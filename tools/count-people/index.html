@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - Count People</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Count People
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original" placeholder=""></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder=''></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+
+		function countPeople(str) {
+			let res = "";
+			let country_list = [];
+			let total_count = 0;
+			let name_count = {
+				"中国籍": 0,
+				"中国香港": 0,
+				"中国台湾": 0,
+				"中国澳门": 0
+			};
+			let lines = str.split("\n");
+			for (let i = 0; i < lines.length; i++) {
+				let data = lines[i].split("，");
+				for (let j = 0; j < data.length; j++) {
+					let temp_data = data[j].match(/([\S]+)([0-9]+)人/)
+					if (temp_data == null || temp_data.length != 3) {
+						continue;
+					}
+					let country = temp_data[1];
+					let count = parseInt(temp_data[2]);
+					console.log(count);
+					total_count += count;
+					let country_flag = false;
+					for (var name in name_count) {
+						if (country == name) {
+							name_count[country] += count;
+							country_flag = true;
+							break;
+						}
+					}
+					if (country_flag) {
+						continue;
+					}
+					let repeated_flag = false;
+					for (let k = 0; k < country_list.length; k++) {
+						if (country_list[k] == country) {
+							repeated_flag = true;
+							break;
+						}
+					}
+					if (!repeated_flag) {
+						country_list.push(country);
+					}
+					// res += country + " ";
+				}
+			}
+
+			let other_count = total_count;
+			for (var name in name_count) {
+				res += name + "：" + name_count[name] + "人\r\n";
+				other_count -= name_count[name];
+			}
+			let country_count = 0;
+			for (let k = 0; k < country_list.length; k++) {
+				country_count += 1;
+			}
+			res += "其他国家：" + other_count + "\r\n";
+			res += "其他国家数量：" + country_count + "\r\n";
+			res += "其他国家自查：" + country_list.join("、");
+			return res;
+		}
+
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = countPeople(this.value.trim());
+		});
+	</script>
+</body>
+
+</html>
