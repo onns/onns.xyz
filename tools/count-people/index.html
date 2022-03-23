@@ -42,6 +42,10 @@
 			};
 			let lines = str.split("\n");
 			for (let i = 0; i < lines.length; i++) {
+				if (lines[i].indexOf(",") > -1) {
+					res = "第" + (i + 1) + "行有英文逗号，请检查";
+					return res;
+				}
 				let data = lines[i].split("，");
 				for (let j = 0; j < data.length; j++) {
 					let temp_data = data[j].match(/([\S]+)([0-9]+)人/)
