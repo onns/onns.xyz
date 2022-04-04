@@ -30,15 +30,25 @@
 	</div>
 	<script>
 
+		function nameMatch(country, name_list) {
+			console.log(country,name_list);
+			for (var name of name_list) {
+				if (country == name) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		function countPeople(str) {
 			let res = "";
 			let country_list = [];
 			let total_count = 0;
 			let name_count = {
-				"中国籍": 0,
-				"中国香港": 0,
-				"中国台湾": 0,
-				"中国澳门": 0
+				// "中国籍": { "other_name_list": ["中国"], "count": 0 },
+				"中国香港": { "other_name_list": ["香港"], "count": 0 },
+				"中国台湾": { "other_name_list": ["台湾"], "count": 0 },
+				"中国澳门": { "other_name_list": ["澳门"], "count": 0 }
 			};
 			let lines = str.split("\n");
 			for (let i = 0; i < lines.length; i++) {
@@ -48,7 +58,7 @@
 				}
 				let data = lines[i].split("，");
 				for (let j = 0; j < data.length; j++) {
-					let temp_data = data[j].match(/([\S]+)([0-9]+)人/)
+					let temp_data = data[j].match(/([\S]+)([0-9]+)人?/)
 					if (temp_data == null || temp_data.length != 3) {
 						continue;
 					}
@@ -58,8 +68,8 @@
 					total_count += count;
 					let country_flag = false;
 					for (var name in name_count) {
-						if (country == name) {
-							name_count[country] += count;
+						if (country == name || nameMatch(country, name_count[name]["other_name_list"])) {
+							name_count[name]["count"] += count;
 							country_flag = true;
 							break;
 						}
@@ -83,8 +93,8 @@
 
 			let other_count = total_count;
 			for (var name in name_count) {
-				res += name + "：" + name_count[name] + "人\r\n";
-				other_count -= name_count[name];
+				res += name + "：" + name_count[name]["count"] + "人\r\n";
+				other_count -= name_count[name]["count"];
 			}
 			let country_count = 0;
 			for (let k = 0; k < country_list.length; k++) {
