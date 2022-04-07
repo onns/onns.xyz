@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - Calculate Date</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Calculate Date
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original" placeholder=""></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder=''></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function formatTwo(date) {
+			if (date < 10) {
+				return "0" + date;
+			}
+			return date;
+		}
+		function calTime(dateA, dateB) {
+			let tA = formatTime(dateA);
+			if (tA['hour'] == -1) {
+				return dateA + " 格式有误";
+			}
+			let tB = formatTime(dateB);
+			if (tB['hour'] == -1) {
+				return dateB + " 格式有误";
+			}
+			let res = {
+				"hour": 0,
+				"minute": 0
+			}
+			let flag = 0;
+			res["minute"] = tB['minute'] - tA['minute'];
+			if (res["minute"] <= 0) {
+				res["minute"] += 60;
+				flag = 1;
+			}
+			res["hour"] = tB['hour'] - tA['hour'] - flag;
+			while (res["hour"] <= 0) {
+				res["hour"] += 24;
+			}
+			return formatTwo(res["hour"]) + ":" + formatTwo(res["minute"]);
+		}
+
+		function formatTime(date) {
+			let res = {
+				"hour": -1,
+				"minute": -1
+			}
+			let t = date.match(/([0-9]+)(:|：)([0-9]+)/);
+			if (t.length != 4) {
+				console.log(t);
+				return res;
+			}
+			res["hour"] = parseInt(t[1]);
+			res["minute"] = parseInt(t[3]);
+			return res;
+		}
+
+		function calDate(str) {
+			let res = "";
+			let lines = str.split("\n");
+			for (let i = 0; i < lines.length; i++) {
+				let temp_data = lines[i].match(/([0-9]+)(:|：)([0-9]+)/g);
+				if (temp_data == null || temp_data.length <= 1) {
+					continue;
+				}
+				for (let j = 0; j < temp_data.length - 1; j++) {
+					res += calTime(temp_data[j], temp_data[j + 1]) + " ";
+				}
+				res += "\r\n";
+			}
+
+			return res;
+		}
+
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = calDate(this.value.trim());
+		});
+	</script>
+</body>
+
+</html>
