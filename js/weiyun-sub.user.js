@@ -8,7 +8,7 @@
 // @match        https://www.weiyun.com/video_preview?*
 // @grant        none
 // @run-at       document-end
-// @require      https://cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js
+// @require      https://onns.xyz/js/av-min.js
 // @require      https://onns.xyz/js/subtitles.parser.min.js
 // ==/UserScript==
 
