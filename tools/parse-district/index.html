@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tools - Parse District</title>
+	<link rel="stylesheet" type="text/css" href="//onns.xyz/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Parse District
+				</span>
+				<div class="wrap-input100">
+					<textarea id="original" class="input100" name="original" placeholder=""></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<textarea id="current" class="input100" name="current" placeholder=''></textarea>
+					<span class="focus-input100"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+
+		function parseDistrict(str) {
+			let res = "";
+			let lines = str.split("\n");
+			for (let i = 0; i < lines.length; i++) {
+				let prefex = ""
+				if (lines[i].indexOf("徐汇区") < 0) {
+					prefex = "徐汇区" + prefex;
+				}
+				if (lines[i].indexOf("上海市") < 0) {
+					prefex = "上海市" + prefex;
+				}
+				res += prefex + lines[i] + "\r\n";
+			}
+			return res;
+		}
+
+		var original = document.getElementById("original");
+		var current = document.getElementById("current");
+		original.addEventListener("input", function () {
+			current.innerHTML = parseDistrict(this.value.trim());
+		});
+	</script>
+</body>
+
+</html>
