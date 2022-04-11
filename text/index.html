@@ -164,7 +164,7 @@
       if (change(docEle.innerText, contentWithoutHtml) && docEle.innerHTML != '' && canEdit) {
         update();
       }
-      document.title = wordCount(docEle.innerText) + " - " + url;
+      document.getElementById('title').innerHTML = wordCount(docEle.innerText) + " - " + url;
     }, 100);
   </script>
 </body>
