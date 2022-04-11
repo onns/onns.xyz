@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Text</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div id="window">
+    <!-- <div id="buttons">
+    <a href="#" id="minimize"></a>
+    <a href="#" id="resize"></a>
+    <a href="#" id="close"></a>
+  </div> -->
+
+    <div id="title">Notepad</div>
+    <textarea id="textarea"></textarea>
+  </div>
+  <footer style="text-align:center;width:100%;opacity:0.5;"><a href="http://www.beian.miit.gov.cn"
+      style="color:#41403E;">FUJIAN-ICP PREPARED No. 15022938-2</a></footer>
+  <script>
+    Date.prototype.format = function (formatStr) {
+      var str = formatStr;
+      var Week = ['日', '一', '二', '三', '四', '五', '六'];
+
+      str = str.replace(/yyyy|YYYY/, this.getFullYear());
+      str = str.replace(/yy|YY/, (this.getYear() % 100) > 9 ? (this.getYear() % 100).toString() : '0' + (this.getYear() % 100));
+
+      str = str.replace(/MM/, this.getMonth() > 8 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+      str = str.replace(/M/g, this.getMonth() + 1);
+
+      str = str.replace(/w|W/g, Week[this.getDay()]);
+
+      str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+      str = str.replace(/d|D/g, this.getDate());
+
+      str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+      str = str.replace(/h|H/g, this.getHours());
+      str = str.replace(/mm/, this.getMinutes() > 9 ? this.getMinutes().toString() : '0' + this.getMinutes());
+      str = str.replace(/m/g, this.getMinutes());
+
+      str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+      str = str.replace(/s|S/g, this.getSeconds());
+
+      return str;
+    }
+
+    class Debugger {
+      static log(msg, color = '') {
+        console.log('%c ' + new Date().format('yyyy-MM-dd hh:mm:ss') + ' ' + msg, color);
+      }
+    }
+
+    // https://blog.csdn.net/Gavid0124/article/details/38117381
+    function wordCount(str) {
+      sLen = 0;
+      try {
+        //先将回车换行符做特殊处理
+        str = str.replace(/(\r\n+|\s+|　+)/g, "龘");
+        //处理英文字符数字，连续字母、数字、英文符号视为一个单词
+        str = str.replace(/[\x00-\xff]/g, "m");
+        //合并字符m，连续字母、数字、英文符号视为一个单词
+        str = str.replace(/m+/g, "*");
+        //去掉回车换行符
+        str = str.replace(/龘+/g, "");
+        //返回字数
+        sLen = str.length;
+      } catch (e) {
+
+      }
+      return sLen;
+    }
+
+    // 获取当前url
+    var url = window.location.href.slice(window.location.href.indexOf('/text/')).slice(7);
+    Debugger.log(url);
+
+    document.getElementById('title').innerHTML = url;
+
+    // setInterval(function(){
+    var docEle = document.getElementById('textarea');
+    var content = '';
+    var contentWithoutHtml = '';
+    var objectId = '';
+    var canEdit = false;
+    // 	console.log(content);
+    // },1000);
+
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://jire5lrq.lc-cn-n1-shared.com"
+    });
+
+    var query = new AV.Query('TextSync');
+    query.equalTo('url', url).addAscending('createdAt');
+    query.find().then(function (docsync) {
+      // 拉取远端结果
+      // console.log(docsync);
+      if (docsync.length >= 1) {
+        docEle.innerHTML = docsync[0].attributes.content;
+        contentWithoutHtml = docEle.innerText;
+        content = docsync[0].attributes.content;
+        objectId = docsync[0].id;
+        canEdit = docsync[0].attributes.canEdit;
+      } else {
+        canEdit = true;
+      }
+    });
+
+    function update() {
+      content = docEle.innerHTML;
+      contentWithoutHtml = docEle.innerText;
+
+      if (objectId == '') {
+        // 声明 class
+        var DocSync = AV.Object.extend('TextSync');
+
+        // 构建对象
+        var docsync = new DocSync();
+
+        // 为属性赋值
+        docsync.set('url', url);
+        docsync.set('content', docEle.innerHTML);
+
+        // 将对象保存到云端
+        docsync.save().then(function (docsync) {
+          // 成功保存之后，执行其他逻辑
+          Debugger.log('保存成功。objectId：' + docsync.id);
+          objectId = docsync.id;
+        }, function (error) {
+          // 异常处理
+          Debugger.log(error);
+        });
+      } else {
+        var docsync = AV.Object.createWithoutData('TextSync', objectId);
+        docsync.set('content', docEle.innerHTML);
+        docsync.save().then(function (docsync) {
+          Debugger.log('更新成功。');
+        }, function (error) {
+          Debugger.log(error);
+        });
+      }
+    }
+
+    function change(doc1, doc2) {
+      if (Math.abs(doc1.length - doc2.length) > 10) {
+        // console.log(Math.abs(doc1.length - doc2.length));
+        return true;
+      }
+      return false;
+    }
+
+    setInterval(function () {
+      if (docEle.innerHTML != content && docEle.innerHTML != '' && canEdit) {
+        update();
+      }
+    }, 1000 * 10);
+
+    setInterval(function () {
+      if (change(docEle.innerText, contentWithoutHtml) && docEle.innerHTML != '' && canEdit) {
+        update();
+      }
+      document.title = wordCount(docEle.innerText) + " - " + url;
+    }, 100);
+  </script>
+</body>
+
+</html>
