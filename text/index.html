@@ -101,8 +101,8 @@
       // 拉取远端结果
       // console.log(docsync);
       if (docsync.length >= 1) {
-        docEle.innerHTML = docsync[0].attributes.content;
-        contentWithoutHtml = docEle.innerText;
+        docEle.value = docsync[0].attributes.content;
+        contentWithoutHtml = docEle.value;
         content = docsync[0].attributes.content;
         objectId = docsync[0].id;
         canEdit = docsync[0].attributes.canEdit;
@@ -112,8 +112,8 @@
     });
 
     function update() {
-      content = docEle.innerHTML;
-      contentWithoutHtml = docEle.innerText;
+      content = docEle.value;
+      contentWithoutHtml = docEle.value;
 
       if (objectId == '') {
         // 声明 class
@@ -124,7 +124,7 @@
 
         // 为属性赋值
         docsync.set('url', url);
-        docsync.set('content', docEle.innerHTML);
+        docsync.set('content', docEle.value);
 
         // 将对象保存到云端
         docsync.save().then(function (docsync) {
@@ -137,7 +137,7 @@
         });
       } else {
         var docsync = AV.Object.createWithoutData('TextSync', objectId);
-        docsync.set('content', docEle.innerHTML);
+        docsync.set('content', docEle.value);
         docsync.save().then(function (docsync) {
           Debugger.log('更新成功。');
         }, function (error) {
@@ -155,16 +155,16 @@
     }
 
     setInterval(function () {
-      if (docEle.innerHTML != content && docEle.innerHTML != '' && canEdit) {
+      if (docEle.value != content && docEle.value != '' && canEdit) {
         update();
       }
     }, 1000 * 10);
 
     setInterval(function () {
-      if (change(docEle.innerText, contentWithoutHtml) && docEle.innerHTML != '' && canEdit) {
+      if (change(docEle.value, contentWithoutHtml) && docEle.value != '' && canEdit) {
         update();
       }
-      document.getElementById('title').innerHTML = wordCount(docEle.innerText) + " - " + url;
+      document.getElementById('title').innerHTML = wordCount(docEle.value) + " - " + url;
     }, 100);
   </script>
 </body>
