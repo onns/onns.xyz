@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>标记地图</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        html,
+        body,
+        #container {
+            height: 100%;
+            width: 100%;
+        }
+
+        .input-card {
+            width: 25rem;
+            height: 15rem;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+
+        .input-card .btn {
+            width: 7rem;
+            margin: auto;
+        }
+
+        .author-info {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <div class='info' id="info"></div>
+    <div class="input-card">
+        <h4>功能按钮</h4>
+        <div class="input-item">
+            <input type="button" class="btn" value="显示聚合" onclick='addCluster()' />
+            <input type="button" class="btn" value="隐藏聚合" onclick='removeCluster()' />
+        </div>
+        <div class="input-item">
+            <input type="button" class="btn" value="显示标记" onclick='addText()' />
+            <input type="button" class="btn" value="隐藏标记" onclick='removeText()' />
+        </div>
+        <div class="input-item">
+            <a class="btn" href="/people-map/update/">更新数据</a>
+            <input type="button" class="btn" id="export" value="导出数据" onclick='showChosen()' />
+        </div>
+        <a class="author-info" href="mailto:onns@onns.xyz" target="_blank">Onns</a>
+    </div>
+    <script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=2.0&key=ff152ed8125559757aaa78d6ef52df18&plugin=AMap.MarkerCluster"></script>
+    <script type="text/javascript">
+        function downloadString(text, fileType, fileName) {
+            var blob = new Blob(["\uFEFF" + text], { type: fileType });
+
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = URL.createObjectURL(blob);
+            a.dataset.downloadurl = [fileType, a.download, a.href].join(':');
+            a.style.display = "none";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(function () {
+                URL.revokeObjectURL(a.href);
+            }, 1500);
+        }
+        function ajax(options) {
+            /**
+             * 传入方式默认为对象
+             * 作者：eternalshallow
+             * 链接：https://juejin.im/post/5a3229da5188257a3e4eadcf
+             * 来源：掘金
+             * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+             * */
+            options = options || {};
+            /**
+             * 默认为GET请求
+             * */
+            options.type = (options.type || "GET").toUpperCase();
+            /**
+             * 返回值类型默认为json
+             * */
+            options.dataType = options.dataType || "json";
+            /**
+             * 默认为异步请求
+             * */
+            options.async = options.async || true;
+            /**
+             * 对需要传入的参数的处理
+             * */
+            var params = getParams(options.data);
+            var xhr;
+            /**
+             * 创建一个 ajax请求
+             * W3C标准和IE标准
+             */
+            if (window.XMLHttpRequest) {
+                /**
+                 * W3C标准
+                 * */
+                xhr = new XMLHttpRequest();
+            } else {
+                /**
+                 * IE标准
+                 * @type {ActiveXObject}
+                 */
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var status = xhr.status;
+                    if (status >= 200 && status < 300) {
+                        options.success && options.success(xhr.responseText, xhr.responseXML);
+                    } else {
+                        options.fail && options.fail(status);
+                    }
+                }
+            };
+            if (options.type == "GET") {
+                xhr.open("GET", options.url + "?" + params, options.async);
+                xhr.send(null);
+            } else if (options.type == "POST") {
+                /**
+                 *打开请求
+                 * */
+                xhr.open("POST", options.url, options.async);
+                /**
+                 * POST请求设置请求头
+                 * */
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                /**
+                 * 发送请求参数
+                 */
+                xhr.send(params);
+            }
+        }
+
+        /**
+         * 对象参数的处理
+         * @param data
+         * @returns {string}
+         */
+        function getParams(data) {
+            var arr = [];
+            for (var param in data) {
+                arr.push(
+                    encodeURIComponent(param) + "=" + encodeURIComponent(data[param])
+                );
+            }
+            console.log(arr);
+            arr.push(("randomNumber=" + Math.random()).replace("."));
+            console.log(arr);
+            return arr.join("&");
+        }
+
+        var map = new AMap.Map("container", {
+            viewMode: '3D',
+            zoom: 13,
+            center: [121.458339, 31.193466],
+            resizeEnable: true
+        });
+        var cluster;
+        var points = [];
+        var texts = [];
+        var textsMap = {};
+        var count = 0;
+        var warn = "";
+        var exportEle = document.getElementById("export");
+        function getData() {
+            ajax({
+                url: "//sh.onns.xyz:8040/people-map/address.json", //请求地址
+                type: "GET", //请求方式
+                data: {}, //请求参数
+                dataType: "json", // 返回值类型的设定
+                async: false, //是否异步
+                success: function (response, xml) {
+                    let message = JSON.parse(response);
+                    points = [];
+                    texts = [];
+                    let all = [];
+                    for (let i = 0; i < message.length; i++) {
+                        // console.log(message[i]);
+                        let text = new AMap.Text({
+                            text: message[i].name,
+                            anchor: 'center',
+                            draggable: true,
+                            cursor: 'pointer',
+                            style: {
+                                'color': message[i].type,
+                                'font-size': '20px'
+                            },
+                            position: [message[i].lo, message[i].la]
+                        });
+                        if (textsMap[message[i].lo + "," + message[i].la] == undefined) {
+                            textsMap[message[i].lo + "," + message[i].la] = [];
+                        }
+                        textsMap[message[i].lo + "," + message[i].la].push(i);
+                        text.setExtData(
+                            {
+                                "message": message[i],
+                                "chosen": false
+                            }
+                        );
+                        text.on("click", function (e) {
+                            let raw = this.getExtData();
+                            let color = "yellow";
+                            if (raw["chosen"]) {
+                                count -= 1;
+                                exportEle.value = "导出数据(" + count + ")";
+                                color = "white";
+                            } else {
+                                count += 1;
+                                exportEle.value = "导出数据(" + count + ")";
+                            }
+                            raw["chosen"] = !raw["chosen"];
+                            this.setStyle({
+                                'color': message.type,
+                                'background-color': color
+                            })
+                            this.setExtData(raw);
+                        });
+                        texts.push(text);
+
+                        points.push({ lnglat: [message[i].lo, message[i].la] });
+                        all.push(i);
+                    }
+                    addText();
+                    addCluster();
+                    for (let ad in textsMap) {
+                        if (textsMap[ad].length > 1) {
+                            l = [];
+                            for (let i = 0; i < textsMap[ad].length; i++) {
+                                warn += texts[textsMap[ad][i]].getText() + " ";
+                                l.push(textsMap[ad][i]);
+                                // console.log(l);
+                            }
+                            warn += "地点可能重合 <span class='btn' onclick='choose([" + l.join(",") + "])'>一键点击</span><br/>";
+                        }
+                    }
+                    warn += "当前总人数：" + texts.length + "人 <span class='btn' onclick='choose([" + all.join(",") + "])'>一键全选</span><br/>";
+                    document.getElementById("info").innerHTML = warn;
+                },
+                fail: function (status) {
+                    alert("状态码为" + status);
+                }
+            });
+        }
+        function draw() {
+            getData();
+        }
+        draw();
+        function addText() {
+            for (let i = 0; i < texts.length; i++) {
+                texts[i].setMap(map);
+            }
+        }
+        function removeText() {
+            for (let i = 0; i < texts.length; i++) {
+                texts[i].setMap(null);
+            }
+        }
+        function showChosen() {
+            let res = "序号,姓名,病区,证件号码,手机号,健康监测地址,备注,标准地址\r\n";
+            let n = 1;
+            for (let i = 0; i < texts.length; i++) {
+                let data = texts[i].getExtData();
+                if (data['chosen']) {
+                    res += n + "," + data['message'].name + "," + data['message'].region + "," + data['message'].id_num + "\t," + data['message'].phone + "," + data['message'].address + "," + data['message'].note + "," + data['message'].formatted_address + "\r\n";
+                    n += 1;
+                }
+            }
+            console.log(res);
+            downloadString(res, "text/csv; charset=utf-8", "data.csv");
+        }
+        function choose(indexList) {
+            for (let i = 0; i < indexList.length; i++) {
+                let raw = texts[indexList[i]].getExtData();
+                let color = "yellow";
+                if (raw["chosen"]) {
+                    count -= 1;
+                    exportEle.value = "导出数据(" + count + ")";
+                    color = "white";
+                } else {
+                    count += 1;
+                    exportEle.value = "导出数据(" + count + ")";
+                }
+                raw["chosen"] = !raw["chosen"];
+                texts[indexList[i]].setStyle({
+                    'color': raw.message.type,
+                    'background-color': color
+                })
+                texts[indexList[i]].setExtData(raw);
+            }
+        }
+        function addCluster() {
+            if (cluster) {
+                cluster.setMap(null);
+            }
+            cluster = new AMap.MarkerCluster(map, points, { gridSize: 60 });
+        }
+        function removeCluster() {
+            cluster.setMap(null);
+        }
+    </script>
+</body>
+
+</html>
