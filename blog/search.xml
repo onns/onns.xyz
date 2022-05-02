@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>更新Monterey后的小结</title>
+      <link href="/blog/2022/05/02/updates-about-macos-monterey/"/>
+      <url>/blog/2022/05/02/updates-about-macos-monterey/</url>
+      
+        <content type="html"><![CDATA[<p>更新系统后踩的一些坑，望周知～</p><a id="more"></a><h3 id="python-not-found"><a class="header-anchor" href="#python-not-found">#</a>python not found</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bad interpreter: /usr/bin/python: no such file or directory</span><br></pre></td></tr></table></figure><p>我的定时脚本的报错，找了之后发现新系统把<code>python</code>或者说<code>python2</code>移除了，想用要自己装，只能用<code>python3</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br></pre></td></tr></table></figure><h3 id="sshd-配置重置"><a class="header-anchor" href="#sshd-配置重置">#</a>sshd 配置重置</h3><p>还好我有备份配置的习惯，不然我的电脑在公网下可以访问，然后 ssh 的密钥验证也被重置了的话，是真的很危险。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><p><img src="//onns.xyz/blog/image/20220502-1.png" alt="默认修改的配置项"></p></center><p>然后关于这个<code>ChallengeResponseAuthentication</code>，去查了好多资料，感觉这个比较好理解，👇：</p><blockquote><p>PasswordAuthentication controls support for the ‘password’ authentication scheme defined in RFC-4252 (section 8). ChallengeResponseAuthentication controls support for the ‘keyboard-interactive’ authentication scheme defined in RFC-4256. The ‘keyboard-interactive’ authentication scheme could, in theory, ask a user any number of multi-facited questions. In practice it often asks only for the user’s password.</p></blockquote><blockquote><p>If you want to fully disable password-based authentication, set BOTH PasswordAuthentication and ChallengeResponseAuthentication to ‘no’. If you’re of the belt-and-suspenders mindset, consider setting UsePAM to ‘no’ as well.</p></blockquote><blockquote><p>Public/Private Key-based authentication (enabled by the PubkeyAuthentication setting) is a separate type of authentication that does not involve sending user passwords to the server, of course.</p></blockquote><blockquote><p>Some would argue that using ChallengeResponseAuthentication is more secure than PasswordAuthentication because it is more difficult to automate. They therefore recommend leaving PasswordAuthentication disabled while leaving ChallengeResponseAuthentication enabled. This configuration also encourages (but does not necessarily prevent) use of publickey authentication for any automated system logins. But, since SSH is a network-based protocol, the server has no way to guarantee that responses to ChallengeResponseAuthentication (a.k.a. ‘keyboard-interactive’) are actually being provided by a user sitting at a keyboard so long as the challenge(s) always and only consists of asking a user for her password.</p></blockquote><h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3><ul><li><a href="https://blog.tankywoo.com/2013/09/14/ssh-passwordauthentication-vs-challengeresponseauthentication.html" target="_blank" rel="noopener">SSH PasswordAuthentication vs ChallengeResponseAuthentication</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> software </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> macos </tag>
+            
+            <tag> sshd </tag>
+            
+            <tag> monterey </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Golang zip加密</title>
       <link href="/blog/2022/01/10/golang-zip-encrypt/"/>
       <url>/blog/2022/01/10/golang-zip-encrypt/</url>
