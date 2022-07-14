@@ -52,6 +52,7 @@
             <input type="button" class="btn" id="export" value="导出数据" onclick='showChosen()' />
         </div>
         <a class="author-info" href="mailto:onns@onns.xyz" target="_blank">Onns</a>
+        <a class="author-info" href="//onns.xyz/doc/?people-map" target="_blank">使用教程</a>
     </div>
     <script type="text/javascript"
         src="https://webapi.amap.com/maps?v=2.0&key=ff152ed8125559757aaa78d6ef52df18&plugin=AMap.MarkerCluster"></script>
@@ -175,7 +176,7 @@
         var exportEle = document.getElementById("export");
         function getData() {
             ajax({
-                url: "//sh.onns.xyz:8040/people-map/address.json", //请求地址
+                url: "//onns.xyz/attachment/address.json", //请求地址
                 type: "GET", //请求方式
                 data: {}, //请求参数
                 dataType: "json", // 返回值类型的设定
