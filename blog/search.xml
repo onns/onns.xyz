@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Nginx一些问题记录</title>
+      <link href="/blog/2022/07/17/nginx-question-1/"/>
+      <url>/blog/2022/07/17/nginx-question-1/</url>
+      
+        <content type="html"><![CDATA[<p>一些之前不懂的问题的记录。</p><a id="more"></a><h3 id="一些-proxy-参数的用途"><a class="header-anchor" href="#一些-proxy-参数的用途">#</a>一些 proxy 参数的用途</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;x &#123;</span><br><span class="line">    proxy_pass       http:&#x2F;&#x2F;127.0.0.1:8080;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>proxy_pass</code>把当前的请求打到后面的地址中去。<br><code>proxy_set_header</code>把一些请求头重写。<br><code>X-Forwarded-For</code>会记录整个链路中经过的所有 ip 地址，可能会被欺骗。<br><code>X-Real-IP</code>建立远端通信的 ip，真实 ip，但不一定是发起请求的源头 ip。<br><code>Host</code>应该是当前主机的名称/地址？</p><h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3><ul><li><a href="https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/" target="_blank" rel="noopener">NGINX Reverse Proxy</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Golang一些问题记录</title>
+      <link href="/blog/2022/07/17/golang-question-1/"/>
+      <url>/blog/2022/07/17/golang-question-1/</url>
+      
+        <content type="html"><![CDATA[<p>一些之前不懂的问题的记录。</p><a id="more"></a><h3 id="为什么-waitgroup-mutex-等不需要初始化"><a class="header-anchor" href="#为什么-waitgroup-mutex-等不需要初始化">#</a>为什么 WaitGroup Mutex 等不需要初始化</h3><p>因为结构体里都是一些基本类型的变量，而且不存在指针，所以不需要初始化。</p><h3 id="waitgroup-中-nocopy-的作用"><a class="header-anchor" href="#waitgroup-中-nocopy-的作用">#</a>WaitGroup 中 noCopy 的作用</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WaitGroup <span class="keyword">struct</span> &#123;</span><br><span class="line">noCopy noCopy</span><br><span class="line">state1 <span class="keyword">uint64</span></span><br><span class="line">state2 <span class="keyword">uint32</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>noCopy</code>可以被 go 的语法检查器检查出错误，相当于一个语法检查标志（个人理解）。</p><h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3><ul><li><a href="https://www.cnblogs.com/leozmm/p/go_nocopy_copylocks_empty_struct.html" target="_blank" rel="noopener">https://www.cnblogs.com/leozmm/p/go_nocopy_copylocks_empty_struct.html</a></li><li><a href="https://www.jianshu.com/p/0f79d528410d" target="_blank" rel="noopener">https://www.jianshu.com/p/0f79d528410d</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>更新Monterey后的小结</title>
       <link href="/blog/2022/05/02/updates-about-macos-monterey/"/>
       <url>/blog/2022/05/02/updates-about-macos-monterey/</url>
