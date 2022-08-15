@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Raft学习笔记</title>
+      <link href="/blog/2022/08/15/raft/"/>
+      <url>/blog/2022/08/15/raft/</url>
+      
+        <content type="html"><![CDATA[<p>关于<code>Raft</code>的学习记录。如有疑问欢迎指正，也欢迎讨论。</p><p><code>paxos</code>的思想理解起来很困难，只是简单地理解了一下，连着看了几天都不能真正理解，跳过先看《In Search of an Understandable Consensus Algorithm》。</p><p>个人感觉学习这两个算法就不要想着10分钟学会的那种文章了，越长越好，毕竟论文18页？</p><h3 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h3><p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。</p><a id="more"></a><h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3><ul><li><a href="https://www.bilibili.com/video/BV1pr4y1b7H5" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1pr4y1b7H5</a></li><li><a href="https://zhuanlan.zhihu.com/p/31727291" target="_blank" rel="noopener">Paxos、Raft分布式一致性算法应用场景</a></li><li><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener">Paxos算法详解</a></li><li><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">Raft算法详解</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> raft </tag>
+            
+            <tag> paxos </tag>
+            
+            <tag> 分布式 </tag>
+            
+            <tag> consensus algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Nginx一些问题记录</title>
       <link href="/blog/2022/07/17/nginx-question-1/"/>
       <url>/blog/2022/07/17/nginx-question-1/</url>
