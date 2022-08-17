@@ -269,20 +269,37 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raft"><span class="toc-text">Raft</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#raft-basics"><span class="toc-text">Raft basics</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>关于<code>Raft</code>的学习记录。如有疑问欢迎指正，也欢迎讨论。</p>
 <p><code>paxos</code>的思想理解起来很困难，只是简单地理解了一下，连着看了几天都不能真正理解，跳过先看《In Search of an Understandable Consensus Algorithm》。</p>
-<p>个人感觉学习这两个算法就不要想着10分钟学会的那种文章了，越长越好，毕竟论文18页？</p>
+<p>个人感觉学习这两个算法就不要想着 10 分钟学会的那种文章了，越长越好，毕竟论文 18 页？</p>
 <h3 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h3>
-<p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。</p>
+<p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。具体有四个方面，<code>leader election</code>、<code>log replication</code>、<code>safety</code>和<code>membership changes</code>。</p>
 <a id="more"></a>
+<h3 id="raft"><a class="header-anchor" href="#raft">#</a>Raft</h3>
+<p>raft 通过选举出一位 leader 来实现共识，所有的日志复制和管理都由 leader 来<strong>全权负责</strong>。</p>
+<p>leader 的工作内容：</p>
+<ol>
+<li>接收来自客户端的指令，并将其复制给其他的服务器（Followers）。</li>
+<li><strong>告诉这些服务器什么时候可以应用（提交）这些指令到状态机。</strong></li>
+</ol>
+<h4 id="raft-basics"><a class="header-anchor" href="#raft-basics">#</a>Raft basics</h4>
+<p>一个<code>Raft</code>集群由多台服务器组成，5 台机器的集群允许 2 台机器 down 掉（另外 3 个可以满足<strong>大多数</strong>这个需求）。<br>
+任意时刻，每个服务器只拥有以下状态之一的状态：<code>leader</code>，<code>follower</code>，<code>candidate</code>。</p>
+<p><code>follower</code>：对<code>leader</code>和<code>candidate</code>的请求作出回应。<br>
+<code>leader</code>：接收<strong>所有</strong>来自客户端的请求。（如果客户端请求了一个<code>follower</code>，该请求会被重定向给<code>leader</code>）</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<!-- ../image -->
+<p><img src="//onns.xyz/blog/image/20220817-1.png" alt="关系转换"></p>
+</center>
 <h3 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h3>
 <ul>
 <li><a href="https://www.bilibili.com/video/BV1pr4y1b7H5" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1pr4y1b7H5</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/31727291" target="_blank" rel="noopener">Paxos、Raft分布式一致性算法应用场景</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener">Paxos算法详解</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">Raft算法详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31727291" target="_blank" rel="noopener">Paxos、Raft 分布式一致性算法应用场景</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener">Paxos 算法详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">Raft 算法详解</a></li>
 </ul>
 
       </div>

@@ -268,9 +268,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 
     <div class="post-content"><p>关于<code>Raft</code>的学习记录。如有疑问欢迎指正，也欢迎讨论。</p>
 <p><code>paxos</code>的思想理解起来很困难，只是简单地理解了一下，连着看了几天都不能真正理解，跳过先看《In Search of an Understandable Consensus Algorithm》。</p>
-<p>个人感觉学习这两个算法就不要想着10分钟学会的那种文章了，越长越好，毕竟论文18页？</p>
+<p>个人感觉学习这两个算法就不要想着 10 分钟学会的那种文章了，越长越好，毕竟论文 18 页？</p>
 <h3 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h3>
-<p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。</p>
+<p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。具体有四个方面，<code>leader election</code>、<code>log replication</code>、<code>safety</code>和<code>membership changes</code>。</p>
           <div class="read-more">
             <a href="/blog/2022/08/15/raft/" class="read-more-link">Read more..</a>
           </div>
