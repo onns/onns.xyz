@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Redis学习笔记</title>
+      <link href="/blog/2022/08/23/redis/"/>
+      <url>/blog/2022/08/23/redis/</url>
+      
+        <content type="html"><![CDATA[<p><code>Redis</code>笔记</p><a id="more"></a><h1 id="一些问题"><a class="header-anchor" href="#一些问题">#</a>一些问题</h1><ol><li>为什么 slot 大小设置成<code>16384</code>？（CRC16 的结果大概是 16bit，65536 个值）<ul><li>因为这样效率高一些，redis 的集群数不太会大于 1000，因为每时每刻 redis 的集群机器之间都会通信，太多的集群会造成网络拥堵。</li></ul></li><li>Redis 的三种集群方案<ul><li>主从复制模式</li><li>Sentinel（哨兵）模式</li><li>Cluster 模式（官方推荐的集群模式）</li></ul></li></ol><center><!-- //onns.xyz/blog/image --><!-- ../image --><!-- ![关系转换](//onns.xyz/blog/image/20220817-1.png) --></center><h1 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h1><ul><li><a href="https://github.com/redis/redis/issues/2576" target="_blank" rel="noopener">https://github.com/redis/redis/issues/2576</a></li><li><a href="https://juejin.cn/post/7126887124883734558" target="_blank" rel="noopener">redis cluster 集群，终极方案？</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kafka学习笔记</title>
       <link href="/blog/2022/08/18/kafka/"/>
       <url>/blog/2022/08/18/kafka/</url>
