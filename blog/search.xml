@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>launchd体验</title>
+      <link href="/blog/2022/08/30/launchd/"/>
+      <url>/blog/2022/08/30/launchd/</url>
+      
+        <content type="html"><![CDATA[<p>因为工作忙经常忘记事情，但是用日历记录这些小事情感觉有点“重”，用 iMessage 刚刚好。<br>记录遇到的问题，也算是折腾了好久。</p><a id="more"></a><h1 id="通过命令行发送短信"><a class="header-anchor" href="#通过命令行发送短信">#</a>通过命令行发送短信</h1><p>理论上是提供一种发消息手段，所幸<code>iMessage</code>真的不像微信那样给你出各种难题。</p><figure class="highlight osascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">on</span> <span class="built_in">run</span> &#123;targetBuddyPhone, targetMessage&#125;</span><br><span class="line">    <span class="keyword">tell</span> <span class="built_in">application</span> <span class="string">"Messages"</span></span><br><span class="line">        <span class="keyword">set</span> targetService <span class="keyword">to</span> <span class="number">1</span>st service <span class="keyword">whose</span> service type = iMessage</span><br><span class="line">        <span class="keyword">set</span> targetBuddy <span class="keyword">to</span> buddy targetBuddyPhone <span class="keyword">of</span> targetService</span><br><span class="line">        send targetMessage <span class="keyword">to</span> targetBuddy</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">tell</span></span><br><span class="line"><span class="keyword">end</span> <span class="built_in">run</span></span><br></pre></td></tr></table></figure><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/osascript /Users/onns/Documents/imessage.scpt <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line"><span class="comment"># $1 是手机号</span></span><br><span class="line"><span class="comment"># $2 是消息内容</span></span><br></pre></td></tr></table></figure><h1 id="定时执行"><a class="header-anchor" href="#定时执行">#</a>定时执行</h1><p>这一步就会有问题，问题的原因来自于 cron 的运行环境和我们在 shell 中的不同（我猜测），多方查询之后依然没有找到解决方案，如果有人找到了请告诉我！感谢！</p><p>然后就去查了一下解决办法，大致有两种：</p><ol><li>用苹果提出的<code>cron</code>替代方案<code>launchd</code>。</li><li>自己创建一个程序维护定时任务。</li></ol><p>很显然第一个方便些，毕竟第二个每次还要自己启动。</p><center><!-- //onns.xyz/blog/image --><!-- ../image --><!-- ![关系转换](//onns.xyz/blog/image/20220817-1.png) --></center><h1 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h1><ul><li><a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/Introduction.html" target="_blank" rel="noopener">About Daemons and Services</a></li><li><a href="https://www.chadou.me/p/234" target="_blank" rel="noopener">Mac Launchd 启动任务</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
+            
+            <tag> launchd </tag>
+            
+            <tag> imessage </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Redis学习笔记</title>
       <link href="/blog/2022/08/23/redis/"/>
       <url>/blog/2022/08/23/redis/</url>
