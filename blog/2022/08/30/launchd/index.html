@@ -269,7 +269,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#通过命令行发送短信"><span class="toc-text">通过命令行发送短信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定时执行"><span class="toc-text">定时执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#通过命令行发送短信"><span class="toc-text">通过命令行发送短信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定时执行"><span class="toc-text">定时执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建脚本"><span class="toc-text">创建脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生效脚本"><span class="toc-text">生效脚本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>因为工作忙经常忘记事情，但是用日历记录这些小事情感觉有点“重”，用 iMessage 刚刚好。<br>
 记录遇到的问题，也算是折腾了好久。</p>
@@ -286,6 +286,43 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>自己创建一个程序维护定时任务。</li>
 </ol>
 <p>很显然第一个方便些，毕竟第二个每次还要自己启动。</p>
+<h1 id="分类"><a class="header-anchor" href="#分类">#</a>分类</h1>
+<table>
+<thead>
+<tr>
+<th>文件夹</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/系统/资源库/LaunchDaemons</td>
+<td>Apple 提供的系统守护进程</td>
+</tr>
+<tr>
+<td>/系统/资源库/LaunchAgents</td>
+<td>Apple 提供的基于每个用户且所有用户适用的代理</td>
+</tr>
+<tr>
+<td>/资源库/LaunchDaemons</td>
+<td>第三方系统守护进程</td>
+</tr>
+<tr>
+<td>/资源库/LaunchAgents</td>
+<td>基于每个用户且所有用户适用的第三方代理</td>
+</tr>
+<tr>
+<td>~/资源库/LaunchAgents</td>
+<td>仅适用于登录用户的第三方代理</td>
+</tr>
+</tbody>
+</table>
+<h1 id="实现"><a class="header-anchor" href="#实现">#</a>实现</h1>
+<h2 id="创建脚本"><a class="header-anchor" href="#创建脚本">#</a>创建脚本</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Library/LaunchAgents</span><br><span class="line">vi xyz.onns.notification.plist</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>xyz.onns.notification<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/onns/Downloads/github/notification/notification<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StartInterval<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>60<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="生效脚本"><a class="header-anchor" href="#生效脚本">#</a>生效脚本</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl load -w xyz.onns.notification.plist</span><br></pre></td></tr></table></figure>
 <center>
 <!-- //onns.xyz/blog/image -->
 <!-- ../image -->
@@ -295,6 +332,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <ul>
 <li><a href="https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/Introduction.html" target="_blank" rel="noopener">About Daemons and Services</a></li>
 <li><a href="https://www.chadou.me/p/234" target="_blank" rel="noopener">Mac Launchd 启动任务</a></li>
+<li><a href="https://support.apple.com/zh-cn/guide/terminal/apdc6c1077b-5d5d-4d35-9c19-60f2397b2369/2.12/mac/11.0" target="_blank" rel="noopener">在 Mac 上的“终端”中使用 launchd 管理脚本</a></li>
 </ul>
 
       </div>
