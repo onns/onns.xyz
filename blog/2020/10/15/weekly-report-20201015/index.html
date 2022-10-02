@@ -81,12 +81,24 @@
             
             $input.addEventListener('input', function () {
                 var str = '<section class=\"posts\">';
-                // var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                var keywords = this.value.trim().toLowerCase();
-                $resultContent.innerHTML = "";
-                if (this.value.trim().length <= 0) {
+                var rawValue = this.value.trim().toLowerCase();
+                if (rawValue.length <= 0) {
                     return;
                 }
+                var keywords = [];
+                for (const matchKey of rawValue.matchAll(/"([^"]*)"/g)) {
+                  keywords.push(matchKey[1]);
+                  rawValue = rawValue.replace(matchKey[0], "");
+                }
+                keywords = keywords.concat(rawValue.split(/[\s\-]+/));
+                keywords = keywords.filter(function(el) {
+                    return el.trim().length > 0;
+                });
+                if (keywords.length <= 0) {
+                    return;
+                }
+                $resultContent.innerHTML = "";
+                
                 // perform local searching
                 datas.forEach(function (data) {
                     var isMatch = true;
