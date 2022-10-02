@@ -76,9 +76,9 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
-            
             <tag> kafka </tag>
+            
+            <tag> 分布式 </tag>
             
         </tags>
       
@@ -103,11 +103,11 @@
       
         <tags>
             
+            <tag> 分布式 </tag>
+            
             <tag> raft </tag>
             
             <tag> paxos </tag>
-            
-            <tag> 分布式 </tag>
             
             <tag> consensus algorithm </tag>
             
@@ -296,9 +296,9 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> concurrency in go note </tag>
             
@@ -329,9 +329,9 @@
             
             <tag> shell </tag>
             
-            <tag> bash </tag>
-            
             <tag> zsh </tag>
+            
+            <tag> bash </tag>
             
         </tags>
       
@@ -414,13 +414,13 @@
       
         <tags>
             
-            <tag> shell </tag>
-            
-            <tag> zsh </tag>
-            
             <tag> cron </tag>
             
             <tag> crontab </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> zsh </tag>
             
             <tag> macos </tag>
             
@@ -625,9 +625,9 @@
             
             <tag> linux </tag>
             
-            <tag> bash </tag>
-            
             <tag> macos </tag>
+            
+            <tag> bash </tag>
             
             <tag> environment variables </tag>
             
@@ -660,13 +660,13 @@
             
             <tag> linux </tag>
             
-            <tag> tips </tag>
-            
             <tag> macos </tag>
             
-            <tag> excel </tag>
+            <tag> tips </tag>
             
             <tag> csv </tag>
+            
+            <tag> excel </tag>
             
         </tags>
       
@@ -730,9 +730,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -763,9 +763,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -796,9 +796,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -829,9 +829,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -862,9 +862,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -922,9 +922,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -955,9 +955,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -988,9 +988,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1021,9 +1021,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1306,9 +1306,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1339,9 +1339,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1372,9 +1372,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1405,9 +1405,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1473,9 +1473,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1568,9 +1568,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1632,9 +1632,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1820,9 +1820,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1853,9 +1853,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1884,9 +1884,9 @@
             
             <tag> linux </tag>
             
-            <tag> tips </tag>
-            
             <tag> macos </tag>
+            
+            <tag> tips </tag>
             
             <tag> windows </tag>
             
@@ -1923,9 +1923,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1956,9 +1956,9 @@
             
             <tag> macos </tag>
             
-            <tag> golang </tag>
-            
             <tag> go </tag>
+            
+            <tag> golang </tag>
             
             <tag> golang note </tag>
             
@@ -1987,21 +1987,21 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
-            <tag> bash </tag>
-            
-            <tag> zsh </tag>
-            
-            <tag> shell note </tag>
-            
             <tag> cron </tag>
             
             <tag> crontab </tag>
             
-            <tag> tips </tag>
+            <tag> shell </tag>
+            
+            <tag> zsh </tag>
             
             <tag> macos </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
+            
+            <tag> tips </tag>
             
             <tag> zsh note </tag>
             
@@ -2030,17 +2030,17 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
-            <tag> bash </tag>
-            
-            <tag> zsh </tag>
-            
-            <tag> shell note </tag>
-            
             <tag> cron </tag>
             
             <tag> crontab </tag>
+            
+            <tag> shell </tag>
+            
+            <tag> zsh </tag>
+            
+            <tag> bash </tag>
+            
+            <tag> shell note </tag>
             
             <tag> tips </tag>
             
@@ -2139,9 +2139,9 @@
       
         <tags>
             
-            <tag> doc </tag>
-            
             <tag> git </tag>
+            
+            <tag> doc </tag>
             
         </tags>
       
@@ -3901,9 +3901,9 @@
             
             <tag> adobe </tag>
             
-            <tag> acrobat </tag>
-            
             <tag> macos </tag>
+            
+            <tag> acrobat </tag>
             
             <tag> adobe zii </tag>
             
@@ -3934,9 +3934,9 @@
             
             <tag> adobe </tag>
             
-            <tag> acrobat </tag>
-            
             <tag> macos </tag>
+            
+            <tag> acrobat </tag>
             
             <tag> adobe zii </tag>
             
@@ -4590,6 +4590,8 @@
             
             <tag> linux </tag>
             
+            <tag> golang </tag>
+            
             <tag> nginx </tag>
             
             <tag> socket </tag>
@@ -4597,8 +4599,6 @@
             <tag> websocket </tag>
             
             <tag> ws </tag>
-            
-            <tag> golang </tag>
             
             <tag> wss </tag>
             
@@ -4774,9 +4774,9 @@
             
             <tag> java </tag>
             
-            <tag> tips </tag>
-            
             <tag> macos </tag>
+            
+            <tag> tips </tag>
             
             <tag> servlet </tag>
             
@@ -5363,9 +5363,9 @@
             
             <tag> java </tag>
             
-            <tag> tips </tag>
-            
             <tag> macos </tag>
+            
+            <tag> tips </tag>
             
             <tag> udp </tag>
             
@@ -6399,13 +6399,13 @@
       
         <tags>
             
+            <tag> excel </tag>
+            
             <tag> visual basic for applications </tag>
             
             <tag> macro </tag>
             
             <tag> LCS </tag>
-            
-            <tag> excel </tag>
             
         </tags>
       
