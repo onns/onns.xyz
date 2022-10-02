@@ -81,7 +81,8 @@
             
             $input.addEventListener('input', function () {
                 var str = '<section class=\"posts\">';
-                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                // var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                var keywords = this.value.trim().toLowerCase();
                 $resultContent.innerHTML = "";
                 if (this.value.trim().length <= 0) {
                     return;
