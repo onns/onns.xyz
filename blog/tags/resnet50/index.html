@@ -80,6 +80,7 @@
             var $resultContent = document.getElementById(content_id);
             
             $input.addEventListener('input', function () {
+                $resultContent.innerHTML = "";
                 var str = '<section class=\"posts\">';
                 var rawValue = this.value.trim().toLowerCase();
                 if (rawValue.length <= 0) {
@@ -97,7 +98,6 @@
                 if (keywords.length <= 0) {
                     return;
                 }
-                $resultContent.innerHTML = "";
                 
                 // perform local searching
                 datas.forEach(function (data) {
