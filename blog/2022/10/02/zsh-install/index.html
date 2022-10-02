@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="categories"/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/categories/"/>
+<meta name="description" content="zsh安装"/><meta name="keywords" content="linux, shell, zsh, bash, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2022/10/02/zsh-install/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Categories - Onns Blog</title>
+    <title>zsh安装 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -260,14 +260,72 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><div class="categories">
-    <div class="categories-title">
-      22 Categories In Total
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">zsh安装
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-10-02 10:45:43
+        </span><span class="post-category">
+            <a href="/blog/categories/doc/">doc</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/10/02/zsh-install/"
+             data-title="zsh安装">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-zsh"><span class="toc-text">安装 zsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-ohmyzsh"><span class="toc-text">安装 ohmyzsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-zsh-syntax-highlighting"><span class="toc-text">安装 zsh-syntax-highlighting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-zsh-autosuggestions"><span class="toc-text">安装 zsh-autosuggestions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绑定-shell-快捷键"><span class="toc-text">绑定 shell 快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
     </div>
-    <div class="categories-tags">
-      <a class="category-link" href="/blog/categories/Photoshop/">Photoshop<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/accumulate/">accumulate<span class="category-count">2</span></a> <a class="category-link" href="/blog/categories/bim/">bim<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/c/">c<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/code/">code<span class="category-count">39</span></a> <a class="category-link" href="/blog/categories/design/">design<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/doc/">doc<span class="category-count">5</span></a> <a class="category-link" href="/blog/categories/findout/">findout<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/html/">html<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/idea/">idea<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/jobs/">jobs<span class="category-count">3</span></a> <a class="category-link" href="/blog/categories/learn/">learn<span class="category-count">74</span></a> <a class="category-link" href="/blog/categories/life/">life<span class="category-count">8</span></a> <a class="category-link" href="/blog/categories/linux/">linux<span class="category-count">4</span></a> <a class="category-link" href="/blog/categories/software/">software<span class="category-count">13</span></a> <a class="category-link" href="/blog/categories/study/">study<span class="category-count">55</span></a> <a class="category-link" href="/blog/categories/system/">system<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/try/">try<span class="category-count">13</span></a> <a class="category-link" href="/blog/categories/windows/">windows<span class="category-count">1</span></a> <a class="category-link" href="/blog/categories/work/">work<span class="category-count">7</span></a> <a class="category-link" href="/blog/categories/xmu/">xmu<span class="category-count">3</span></a>
-    </div>
-  </div></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p>
+<a id="more"></a>
+<h2 id="安装-zsh"><a class="header-anchor" href="#安装-zsh">#</a>安装 zsh</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前的shell类型</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可以选择的shell类型</span></span><br><span class="line">$ cat /etc/shells</span><br><span class="line"><span class="comment"># /etc/shells: valid login shells</span></span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/bin/rbash</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/zsh</span><br><span class="line">/usr/bin/zsh</span><br></pre></td></tr></table></figure>
+<p>安装 zsh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get -y install zsh</span><br></pre></td></tr></table></figure>
+<p>切换到 zsh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<h2 id="安装-ohmyzsh"><a class="header-anchor" href="#安装-ohmyzsh">#</a>安装 ohmyzsh</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装-zsh-syntax-highlighting"><a class="header-anchor" href="#安装-zsh-syntax-highlighting">#</a>安装 zsh-syntax-highlighting</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装-zsh-autosuggestions"><a class="header-anchor" href="#安装-zsh-autosuggestions">#</a>安装 zsh-autosuggestions</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure>
+<h2 id="绑定-shell-快捷键"><a class="header-anchor" href="#绑定-shell-快捷键">#</a>绑定 shell 快捷键</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.zshrc</span><br><span class="line"><span class="comment"># 新增👇</span></span><br><span class="line"><span class="built_in">bindkey</span> \^U backward-kill-line</span><br></pre></td></tr></table></figure>
+<p>作用是和 bash 的快捷键同步，<code>ctrl u</code>删除整行。</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/qierkang/article/details/85941316" target="_blank" rel="noopener">oh-my-zsh,让你的 Linux 命令终端从未这么爽过</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/bash/">bash</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2022/08/30/launchd/">
+        <span class="next-text nav-default">launchd体验</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
     </div></div>
       </main>
 
