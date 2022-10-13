@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Lucene查询文档</title>
+      <link href="/blog/2022/10/13/lucene-doc/"/>
+      <url>/blog/2022/10/13/lucene-doc/</url>
+      
+        <content type="html"><![CDATA[<p>Lucene 查询文档</p><a id="more"></a><h2 id="基本查询"><a class="header-anchor" href="#基本查询">#</a>基本查询</h2><h3 id="单词查询"><a class="header-anchor" href="#单词查询">#</a>单词查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;your message&quot;</span><br></pre></td></tr></table></figure><h3 id="field-字段查询"><a class="header-anchor" href="#field-字段查询">#</a>Field 字段查询</h3><p>通过相应的参数域查询，比如查询<code>path</code>的具体值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path:&quot;url&quot;</span><br></pre></td></tr></table></figure><h3 id="范围搜索"><a class="header-anchor" href="#范围搜索">#</a>范围搜索</h3><p><code>{}</code>尖括号表示不包含最小值和最大值<br><code>[]</code>方括号表示包含最小值和最大值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ecode:[100,200]</span><br></pre></td></tr></table></figure><h2 id="组合查询"><a class="header-anchor" href="#组合查询">#</a>组合查询</h2><h3 id="and"><a class="header-anchor" href="#and">#</a>AND</h3><p><strong>AND 大写</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; AND &quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; &amp;&amp; &quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><h3 id="or"><a class="header-anchor" href="#or">#</a>OR</h3><p><strong>OR 大写</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; OR &quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; || &quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><h3 id="not"><a class="header-anchor" href="#not">#</a>NOT</h3><p><strong>NOT 大写</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; NOT &quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;keyword 1&quot; &amp;&amp; !&quot;keyword 2&quot;</span><br></pre></td></tr></table></figure><h3 id=""><a class="header-anchor" href="#">#</a>+/-</h3><p>等同与 AND 和 NOT</p><h2 id="转义"><a class="header-anchor" href="#转义">#</a>转义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ - &amp;&amp; || ! ( ) &#123; &#125; [ ] ^ &quot; ~ * ? : \</span><br></pre></td></tr></table></figure><p>上述字符需要通过<code>\</code>来转义。</p><h2 id="参考文档"><a class="header-anchor" href="#参考文档">#</a>参考文档</h2><ul><li><a href="https://www.cnblogs.com/xing901022/p/4974977.html" target="_blank" rel="noopener">Lucene 查询语法详解</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> doc </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> es </tag>
+            
+            <tag> lucene </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>zsh安装</title>
       <link href="/blog/2022/10/02/zsh-install/"/>
       <url>/blog/2022/10/02/zsh-install/</url>
