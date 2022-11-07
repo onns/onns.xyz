@@ -279,7 +279,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         </div>
     </header>
 
-    <div class="post-content"><p>《Redis 开发与运维》</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>《Redis 开发与运维》</p>
 <a id="more"></a>
 <ul>
 <li><code>set key value nx</code>只有不存在时才设置 key 的值，同<code>setnx</code>。</li>
@@ -368,6 +373,24 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ol>
 </li>
 </ul>
+<h2 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h2>
+<ul>
+<li><code>sadd key element [element ...]</code> 添加元素</li>
+<li><code>srem key element [element ...]</code> 删除元素，返回结果为成功删除元素个数</li>
+<li><code>scard key</code> 计算元素个数，时间复杂度为 O（1）</li>
+<li><code>sismember key element</code> 判断元素是否在集合，在返回 1，不在返回 0</li>
+<li><code>srandmember key [count]</code> 随机从集合返回指定个数元素，不写默认为 1</li>
+<li><code>spop key [count]</code> 从集合随机弹出元素，元素会从集合中删除</li>
+<li><code>smembers key</code> 获取所有元素</li>
+</ul>
+<ul>
+<li><code>sinter key [key ...]</code> 求多个集合的交集</li>
+<li><code>suinon key [key ...]</code> 求多个集合的并集</li>
+<li><code>sdiff key [key ...]</code> 求多个集合的差集</li>
+<li><code>sinterstore destination key [key ...]</code> 将交集的结果保存</li>
+<li><code>suionstore destination key [key ...]</code> 将并集的结果保存</li>
+<li><code>sdiffstore destination key [key ...]</code> 将差集的结果保存</li>
+</ul>
 
       </div>
       
@@ -377,7 +400,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/tags/redis/">redis</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2022/10/28/vim-plug/">
+        <nav class="post-nav"><a class="prev" href="/blog/2022/11/07/wecom-rebot/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">wecom-rebot</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2022/10/28/vim-plug/">
         <span class="next-text nav-default">vim插件安装</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
