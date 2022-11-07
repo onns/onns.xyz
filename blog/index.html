@@ -262,6 +262,54 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/11/05/redis-note/">Redis开发与运维</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-11-05 12:27:45
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/11/05/redis-note/"
+             data-title="Redis开发与运维">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>《Redis 开发与运维》</p>
+          <div class="read-more">
+            <a href="/blog/2022/11/05/redis-note/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/10/28/vim-plug/">vim插件安装</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-10-28 20:51:43
+        </span><span class="post-category">
+            <a href="/blog/categories/doc/">doc</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/10/28/vim-plug/"
+             data-title="vim插件安装">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><ul>
+<li><a href="https://github.com/fatih/vim-go" target="_blank" rel="noopener">https://github.com/fatih/vim-go</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2022/10/13/lucene-doc/">Lucene查询文档</a>
         </h1>
 
@@ -474,68 +522,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-content"><p>一些之前不懂的问题的记录。</p>
           <div class="read-more">
             <a href="/blog/2022/07/17/golang-question-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/05/02/updates-about-macos-monterey/">更新Monterey后的小结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-05-02 20:15:39
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/05/02/updates-about-macos-monterey/"
-             data-title="更新Monterey后的小结">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>更新系统后踩的一些坑，望周知～</p>
-          <div class="read-more">
-            <a href="/blog/2022/05/02/updates-about-macos-monterey/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/01/10/golang-zip-encrypt/">Golang zip加密</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-01-10 08:47:43
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/work/">work</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/01/10/golang-zip-encrypt/"
-             data-title="Golang zip加密">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>gonlang zip 加密方法梳理</p>
-<h2 id="结论"><a class="header-anchor" href="#结论">#</a>结论</h2>
-<ul>
-<li>官方库不带有加密方法，加密的方法目前均为第三方实现。</li>
-<li>合理的一个方式是，先进行 zip 压缩，再使用加密方法加密。</li>
-</ul>
-<p>贴一个我备份脚本的 shell 代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf - <span class="string">"<span class="variable">$&#123;daily_img_dir&#125;</span>"</span> | openssl des3 -salt -k <span class="variable">$img_password</span> | dd of=$(weiyun_temp_image_dir)/img-<span class="variable">$&#123;now_date&#125;</span>-<span class="variable">$&#123;now_time&#125;</span>.bak</span><br></pre></td></tr></table></figure>
-<p>加密形式不同，但是流程一致。</p>
-          <div class="read-more">
-            <a href="/blog/2022/01/10/golang-zip-encrypt/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">

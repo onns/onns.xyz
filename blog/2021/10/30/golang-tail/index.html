@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/25/"/>
+<meta name="description" content="golang读取日志文件"/><meta name="keywords" content="linux, macos, golang, tail, file, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2021/10/30/golang-tail/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>golang读取日志文件 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -260,134 +260,65 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/30/2017-movie-list/">2017 movie list</a>
+      <h1 class="post-title">golang读取日志文件
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-10-30 22:35:04
+          2021-10-30 15:11:11
         </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
+            <a href="/blog/categories/try/">try</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2017/10/30/2017-movie-list/"
-             data-title="2017 movie list">
+             data-url="/blog/2021/10/30/golang-tail/"
+             data-title="golang读取日志文件">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h3 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h3>
-<p>好看的电影好多, 截图放到手机里怕丢, 写下来.<br>
-定期更新.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/30/2017-movie-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/29/new-here/">New Here</a>
-        </h1>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seek"><span class="toc-text">seek</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>需要用 golang 读取一些日志文件，感觉每次都完整读取太费时间，自己实现一下吧。</p>
+<a id="more"></a>
+<h2 id="seek"><a class="header-anchor" href="#seek">#</a>seek</h2>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">readLine</span><span class="params">(filename <span class="keyword">string</span>, offset <span class="keyword">int64</span>)</span> <span class="params">(line []<span class="keyword">byte</span>, <span class="built_in">len</span> <span class="keyword">int</span>, end <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line">	f, err := os.Open(filename)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> f.Close()</span><br><span class="line">	_, err = f.Seek(offset, <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	buf := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">2048</span>)</span><br><span class="line">	_, err = f.Read(buf)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">			end = <span class="literal">true</span></span><br><span class="line">			err = <span class="literal">nil</span></span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">len</span> = bytes.IndexByte(buf, <span class="string">'\n'</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span> == <span class="number">-1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	drop := <span class="number">0</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span> &gt; <span class="number">1</span> &amp;&amp; buf[<span class="built_in">len</span><span class="number">-1</span>] == <span class="string">'\r'</span> &#123;</span><br><span class="line">		drop = <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	line = buf[:<span class="built_in">len</span>-drop]</span><br><span class="line">	<span class="built_in">len</span> += <span class="number">1</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
+<ul>
+<li>基准测试</li>
+<li>使用<code>channel</code>实现</li>
+</ul>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29 10:38:19
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/10/29/new-here/"
-             data-title="New Here">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="first-and-foremost"><a class="header-anchor" href="#first-and-foremost">#</a>First and Foremost</h2>
-<p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/29/new-here/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/28/hello-world/">Hello World</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-28 12:00:00
-        </span><span class="post-visits"
-             data-url="/blog/2017/10/28/hello-world/"
-             data-title="Hello World">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/28/hello-world/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/05/01/arduino-in-command-line/">Arduino in command line</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-01 02:05:34
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/05/01/arduino-in-command-line/"
-             data-title="Arduino in command line">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>由于开发环境是树莓派连接Arduino的板子然后控制其它元件,而树莓派和Arduino都已经被放置在了密封装置中,只能通过wifi的方式连接,所以通过Google找到了一个教程成功实现远程Arduino编译上传.</p>
-          <div class="read-more">
-            <a href="/blog/2017/05/01/arduino-in-command-line/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/">如何用Adobe Photoshop创造月光场景效果</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-12-13 18:50:54
-        </span><span class="post-category">
-            <a href="/blog/categories/Photoshop/">Photoshop</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/"
-             data-title="如何用Adobe Photoshop创造月光场景效果">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><img src="http://r.photo.store.qq.com/psb?/V10scHBd1P6AZ9/mTf0sRWTETF*eeeP7I5HvMkVA.n8FexdNX9YQ9NFVts!/r/dHQBAAAAAAAA" alt=""><br>
-最终效果图<br>
-在这篇教程中，我会向你展示如何制作一张女子赏花的月景图。</p>
-          <div class="read-more">
-            <a href="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/24/">
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/macos/">macos</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/tail/">tail</a>
+            <a href="/blog/tags/file/">file</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2021/11/14/git-hook-usage/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
+        <span class="prev-text nav-default">git hook删除项目配置</span>
+        <span class="prev-text nav-mobile">Prev</span>
       </a>
-    </nav></section></div></div>
+    <a class="next" href="/blog/2021/10/07/git-doc/">
+        <span class="next-text nav-default">git相关使用</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -418,6 +349,29 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
