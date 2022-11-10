@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序集合"><span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键管理"><span class="toc-text">键管理</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>《Redis 开发与运维》</p>
 <a id="more"></a>
@@ -390,6 +390,38 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><code>sinterstore destination key [key ...]</code> 将交集的结果保存</li>
 <li><code>suionstore destination key [key ...]</code> 将并集的结果保存</li>
 <li><code>sdiffstore destination key [key ...]</code> 将差集的结果保存</li>
+</ul>
+<h2 id="有序集合"><a class="header-anchor" href="#有序集合">#</a>有序集合</h2>
+<ul>
+<li><code>zadd key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]</code> 添加成员
+<ol>
+<li><code>CH</code> 返回此次操作后，有序集合元素和分数发生变化的个数</li>
+<li><code>INCR</code> 对 score 做增加，相当于后面介绍的 zincrby</li>
+</ol>
+</li>
+<li><code>zcard key</code> 计算成员个数</li>
+<li><code>zscore key member</code> 计算某个成员的分数，不存在则返回 nil</li>
+<li><code>zrank key member</code> 计算成员的排名（从分数从低到高）</li>
+<li><code>zrevrank key member</code> 计算成员的排名（从分数从高到低）</li>
+<li><code>zrem key member [member ...]</code> 删除成员</li>
+<li><code>zincrby key increment member</code> 增加成员的分数</li>
+<li><code>zrange/zrevrange key start end [withscores]</code> 返回指定排名范围的成员
+<ol>
+<li><code>withscores</code> 同时返回成员的分数</li>
+</ol>
+</li>
+<li><code>zrangebyscore/zrevrangebyscore key min max [WITHSCORES] [LIMIT offset count]</code> 返回指定分数范围的成员</li>
+</ul>
+<h2 id="键管理"><a class="header-anchor" href="#键管理">#</a>键管理</h2>
+<ul>
+<li><code>rename key newkey</code> 键重命名，如果键本身存在会被覆盖
+<ol>
+<li>本质上要删除旧 key 和对应的 value 如果大 key 会阻塞（？为什么不直接复制呢？）</li>
+</ol>
+</li>
+<li><code>renamenx key newkey</code> 不会被覆盖的重命名</li>
+<li><code>randomkey</code> 随机返回一个键</li>
+<li><code>persist</code> 清除键的过期时间</li>
 </ul>
 
       </div>
