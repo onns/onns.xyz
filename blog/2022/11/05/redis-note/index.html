@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序集合"><span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键管理"><span class="toc-text">键管理</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序集合"><span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键管理"><span class="toc-text">键管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多实例"><span class="toc-text">多实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制"><span class="toc-text">复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞"><span class="toc-text">阻塞</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>《Redis 开发与运维》</p>
 <a id="more"></a>
@@ -423,6 +423,25 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><code>randomkey</code> 随机返回一个键</li>
 <li><code>persist</code> 清除键的过期时间</li>
 </ul>
+<h2 id="多实例"><a class="header-anchor" href="#多实例">#</a>多实例</h2>
+<ul>
+<li>客户端连接<code>redis-cli -h 127.0.0.1 -p 6378</code></li>
+<li><code>slaveof host port</code>成为某个实例的从实例</li>
+</ul>
+<h2 id="复制"><a class="header-anchor" href="#复制">#</a>复制</h2>
+<ul>
+<li>Redis 启动后有一个 40 位的 16 进制字符串作为运行 id，如果主节点的运行 id 变了，从节点要做全量复制。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info server</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>debug reload</code>可以不重启去变更一些配置。
+<ol>
+<li><code>debug reload</code>命令会阻塞当前 Redis 节点主线程，阻塞期间会生成本地 RDB 快照并清空数据之后再加载 RDB 文件。</li>
+</ol>
+</li>
+</ul>
+<h2 id="阻塞"><a class="header-anchor" href="#阻塞">#</a>阻塞</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --bigkeys</span><br></pre></td></tr></table></figure>
 
       </div>
       
@@ -463,7 +482,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2022<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2023<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>

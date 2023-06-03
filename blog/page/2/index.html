@@ -262,6 +262,64 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/08/15/raft/">Raft学习笔记</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-08-15 09:43:03
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/08/15/raft/"
+             data-title="Raft学习笔记">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>关于<code>Raft</code>的学习记录。如有疑问欢迎指正，也欢迎讨论。</p>
+<p><code>paxos</code>的思想理解起来很困难，只是简单地理解了一下，连着看了几天都不能真正理解，跳过先看《In Search of an Understandable Consensus Algorithm》。</p>
+<p>个人感觉学习这两个算法就不要想着 10 分钟学会的那种文章了，越长越好，毕竟论文 18 页？</p>
+<h1 id="摘要"><a class="header-anchor" href="#摘要">#</a>摘要</h1>
+<p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。具体有四个方面，<code>leader election</code>、<code>log replication</code>、<code>safety</code>和<code>membership changes</code>。</p>
+          <div class="read-more">
+            <a href="/blog/2022/08/15/raft/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/07/17/nginx-question-1/">Nginx一些问题记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-07-17 14:25:07
+        </span><span class="post-author">
+          Onns
+        </span>
+        <span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/07/17/nginx-question-1/"
+             data-title="Nginx一些问题记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>一些之前不懂的问题的记录。</p>
+          <div class="read-more">
+            <a href="/blog/2022/07/17/nginx-question-1/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2022/07/17/golang-question-1/">Golang一些问题记录</a>
         </h1>
 
@@ -490,60 +548,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/2021/12/11/ffmpeg-doc/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/">从零开始制作分支管理工具（第一版）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-11-21 17:05:20
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/try/">try</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/"
-             data-title="从零开始制作分支管理工具（第一版）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>第一版～</p>
-          <div class="read-more">
-            <a href="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2021/11/21/cron-tips/">cron脚本相关的记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2021-11-21 16:42:01
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/try/">try</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2021/11/21/cron-tips/"
-             data-title="cron脚本相关的记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>为了让之后的人少走弯路</p>
-          <div class="read-more">
-            <a href="/blog/2021/11/21/cron-tips/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
       <nav class="pagination"><a class="prev" href="/blog/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
@@ -571,7 +575,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2022<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2023<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
