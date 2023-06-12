@@ -4,13 +4,29 @@
   
     
     <entry>
-      <title>mysql-note</title>
-      <link href="/blog/2023/06/03/mysql-note/"/>
-      <url>/blog/2023/06/03/mysql-note/</url>
+      <title>AES相关问题记录</title>
+      <link href="/blog/2023/06/12/aes-note/"/>
+      <url>/blog/2023/06/12/aes-note/</url>
       
-        <content type="html"><![CDATA[<ul><li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>对加密方法的一些问题记录</p><a id="more"></a><h2 id="关于填充"><a class="header-anchor" href="#关于填充">#</a>关于填充</h2><ul><li><code>ZeroPadding</code>：用零填充，但是如果数据的末尾是0的话，相关的数据会在加密后被丢掉，导致数据丢失</li><li><code>PKCS7Padding</code>：用n填充，n是需要填充的大小，如果正好对齐则填充一整个块</li></ul><h2 id="关于cbc和iv"><a class="header-anchor" href="#关于cbc和iv">#</a>关于CBC和IV</h2><p>CBC的加密方式将第一个块与IV进行运算后得到第一个加密块</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"bytes"</span></span><br><span class="line"><span class="string">"crypto/aes"</span></span><br><span class="line"><span class="string">"crypto/cipher"</span></span><br><span class="line"><span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">text := <span class="string">"abcfefghijklmnopqrst剩下的是我自己的加密内容"</span></span><br><span class="line">key := <span class="string">"qwertyuiopasdfgh"</span></span><br><span class="line"></span><br><span class="line">iv := []<span class="keyword">byte</span>(<span class="string">"bbbbbbbbbbbbbbbb"</span>)</span><br><span class="line">iv2 := []<span class="keyword">byte</span>(<span class="string">"aaaaaaaaaaaaaaaa"</span>)</span><br><span class="line"></span><br><span class="line">result := CBCEncrypt([]<span class="keyword">byte</span>(text), []<span class="keyword">byte</span>(key), iv)</span><br><span class="line">fmt.Println(<span class="keyword">string</span>(CBCDecrypt(result, []<span class="keyword">byte</span>(key), iv2)))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CBCEncrypt</span><span class="params">(text []<span class="keyword">byte</span>, key []<span class="keyword">byte</span>, iv []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">b, err := aes.NewCipher(key)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line">p := PKCS7Padding(text, b.BlockSize())</span><br><span class="line">res := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="built_in">len</span>(p))</span><br><span class="line">cipher.NewCBCEncrypter(b, iv).CryptBlocks(res, p)</span><br><span class="line"><span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CBCDecrypt</span><span class="params">(t []<span class="keyword">byte</span>, key []<span class="keyword">byte</span>, iv []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">b, err := aes.NewCipher(key)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line">res := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="built_in">len</span>(t))</span><br><span class="line">cipher.NewCBCDecrypter(b, iv).CryptBlocks(res, t)</span><br><span class="line"><span class="keyword">return</span> UnPKCS7Padding(res)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PKCS7Padding</span><span class="params">(t []<span class="keyword">byte</span>, n <span class="keyword">int</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">l := n - <span class="built_in">len</span>(t)%n</span><br><span class="line"><span class="keyword">var</span> p []<span class="keyword">byte</span></span><br><span class="line"><span class="keyword">if</span> l == <span class="number">0</span> &#123;</span><br><span class="line">p = bytes.Repeat([]<span class="keyword">byte</span>&#123;<span class="keyword">byte</span>(n)&#125;, n)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">p = bytes.Repeat([]<span class="keyword">byte</span>&#123;<span class="keyword">byte</span>(l)&#125;, l)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">append</span>(t, p...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UnPKCS7Padding</span><span class="params">(t []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> t[:(<span class="built_in">len</span>(t) - <span class="keyword">int</span>(t[<span class="built_in">len</span>(t)<span class="number">-1</span>]))]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最终的结果是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ba&#96;efedkjihonmlsqrst剩下的是我自己的加密内容</span><br></pre></td></tr></table></figure><p>其实只影响了前16个字节的内容</p><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://moefactory.com/3098.moe" target="_blank" rel="noopener">https://moefactory.com/3098.moe</a></li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> aes </tag>
+            
+            <tag> cbc </tag>
+            
+            <tag> iv </tag>
+            
+        </tags>
       
     </entry>
     
@@ -40,6 +56,33 @@
             <tag> format </tag>
             
             <tag> proto </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql笔记</title>
+      <link href="/blog/2023/05/13/mysql-note/"/>
+      <url>/blog/2023/05/13/mysql-note/</url>
+      
+        <content type="html"><![CDATA[<ul><li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       

@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/21/"/>
+<meta name="description" content="AES相关问题记录"/><meta name="keywords" content="aes, cbc, iv, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2023/06/12/aes-note/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>AES相关问题记录 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -260,274 +260,66 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/06/02/ftp-server-on-mac/">在MacOS上部署ftp服务器</a>
+      <h1 class="post-title">AES相关问题记录
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-06-02 12:35:05
+          2023-06-12 08:37:39
         </span><span class="post-category">
-            <a href="/blog/categories/software/">software</a>
+            <a href="/blog/categories/learn/">learn</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2020/06/02/ftp-server-on-mac/"
-             data-title="在MacOS上部署ftp服务器">
+             data-url="/blog/2023/06/12/aes-note/"
+             data-title="AES相关问题记录">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>20200717 更新：<br>
-每次电脑重启之后需要执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services stop pure-ftpd</span><br><span class="line">sudo /usr/<span class="built_in">local</span>/sbin/pure-ftpd -lpam -B</span><br><span class="line">brew services start pure-ftpd</span><br></pre></td></tr></table></figure>
-<p>ftp 才会生效。</p>
-<hr>
-<p>因为小米手机的文件管理支持远程存储服务，早就想在自己的 Mac 上弄了，但是搜索了几次都失败了，昨晚半夜两点热得睡不着（好惨一男的），起床捣鼓，记录之。</p>
-          <div class="read-more">
-            <a href="/blog/2020/06/02/ftp-server-on-mac/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/06/01/install-homebrew-on-mac/">在MacOS上安装Homebrew</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-01 10:36:17
-        </span><span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/06/01/install-homebrew-on-mac/"
-             data-title="在MacOS上安装Homebrew">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>因为想在Mac上安装<code>python3</code>，一个最友好的方式是安装<code>pyenv</code>，所以顺便把包管理工具<code>homebrew</code>一起安装了叭。</p>
-          <div class="read-more">
-            <a href="/blog/2020/06/01/install-homebrew-on-mac/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/05/12/chrome-extension-sync-sofa/">Chrome插件-同步播放电影</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-05-12 13:32:33
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/05/12/chrome-extension-sync-sofa/"
-             data-title="Chrome插件-同步播放电影">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="太长不看版"><a class="header-anchor" href="#太长不看版">#</a>太长不看版</h2>
-<p>sync-sofa是一个chrome的插件，安装之后可以让两台不同的设备在播放同一个视频源的时候，彼此同步操作（播放、暂停、拖动进度条等）。</p>
-<p>目前支持的网站：</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于填充"><span class="toc-text">关于填充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于cbc和iv"><span class="toc-text">关于CBC和IV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>对加密方法的一些问题记录</p>
+<a id="more"></a>
+<h2 id="关于填充"><a class="header-anchor" href="#关于填充">#</a>关于填充</h2>
 <ul>
-<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener">爱奇艺</a></li>
-<li><a href="https://www.youku.com/" target="_blank" rel="noopener">优酷视频</a></li>
-<li><a href="https://www.weiyun.com/" target="_blank" rel="noopener">微云网盘</a></li>
-<li><a href="https://v.qq.com/" target="_blank" rel="noopener">腾讯视频</a></li>
-<li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+<li><code>ZeroPadding</code>：用零填充，但是如果数据的末尾是0的话，相关的数据会在加密后被丢掉，导致数据丢失</li>
+<li><code>PKCS7Padding</code>：用n填充，n是需要填充的大小，如果正好对齐则填充一整个块</li>
 </ul>
-          <div class="read-more">
-            <a href="/blog/2020/05/12/chrome-extension-sync-sofa/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/04/11/pcl-vs2017-in-windows10/">Windows10下安装PCL1.9.1</a>
-        </h1>
+<h2 id="关于cbc和iv"><a class="header-anchor" href="#关于cbc和iv">#</a>关于CBC和IV</h2>
+<p>CBC的加密方式将第一个块与IV进行运算后得到第一个加密块</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">	<span class="string">"crypto/aes"</span></span><br><span class="line">	<span class="string">"crypto/cipher"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	text := <span class="string">"abcfefghijklmnopqrst剩下的是我自己的加密内容"</span></span><br><span class="line">	key := <span class="string">"qwertyuiopasdfgh"</span></span><br><span class="line"></span><br><span class="line">	iv := []<span class="keyword">byte</span>(<span class="string">"bbbbbbbbbbbbbbbb"</span>)</span><br><span class="line">	iv2 := []<span class="keyword">byte</span>(<span class="string">"aaaaaaaaaaaaaaaa"</span>)</span><br><span class="line"></span><br><span class="line">	result := CBCEncrypt([]<span class="keyword">byte</span>(text), []<span class="keyword">byte</span>(key), iv)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(CBCDecrypt(result, []<span class="keyword">byte</span>(key), iv2)))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CBCEncrypt</span><span class="params">(text []<span class="keyword">byte</span>, key []<span class="keyword">byte</span>, iv []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">	b, err := aes.NewCipher(key)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	p := PKCS7Padding(text, b.BlockSize())</span><br><span class="line">	res := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="built_in">len</span>(p))</span><br><span class="line">	cipher.NewCBCEncrypter(b, iv).CryptBlocks(res, p)</span><br><span class="line">	<span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CBCDecrypt</span><span class="params">(t []<span class="keyword">byte</span>, key []<span class="keyword">byte</span>, iv []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">	b, err := aes.NewCipher(key)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	res := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="built_in">len</span>(t))</span><br><span class="line">	cipher.NewCBCDecrypter(b, iv).CryptBlocks(res, t)</span><br><span class="line">	<span class="keyword">return</span> UnPKCS7Padding(res)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PKCS7Padding</span><span class="params">(t []<span class="keyword">byte</span>, n <span class="keyword">int</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">	l := n - <span class="built_in">len</span>(t)%n</span><br><span class="line">	<span class="keyword">var</span> p []<span class="keyword">byte</span></span><br><span class="line">	<span class="keyword">if</span> l == <span class="number">0</span> &#123;</span><br><span class="line">		p = bytes.Repeat([]<span class="keyword">byte</span>&#123;<span class="keyword">byte</span>(n)&#125;, n)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		p = bytes.Repeat([]<span class="keyword">byte</span>&#123;<span class="keyword">byte</span>(l)&#125;, l)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">append</span>(t, p...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UnPKCS7Padding</span><span class="params">(t []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> t[:(<span class="built_in">len</span>(t) - <span class="keyword">int</span>(t[<span class="built_in">len</span>(t)<span class="number">-1</span>]))]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ba&#96;efedkjihonmlsqrst剩下的是我自己的加密内容</span><br></pre></td></tr></table></figure>
+<p>其实只影响了前16个字节的内容</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://moefactory.com/3098.moe" target="_blank" rel="noopener">https://moefactory.com/3098.moe</a></li>
+</ul>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2020-04-11 20:55:47
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/04/11/pcl-vs2017-in-windows10/"
-             data-title="Windows10下安装PCL1.9.1">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>PCL的库配置是真的繁琐，配置了好多次才成功。<br>
-Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
-          <div class="read-more">
-            <a href="/blog/2020/04/11/pcl-vs2017-in-windows10/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/04/01/stop-gif-for-screenshot/">网页截图之停止GIF</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-04-01 18:37:51
-        </span><span class="post-category">
-            <a href="/blog/categories/work/">work</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/04/01/stop-gif-for-screenshot/"
-             data-title="网页截图之停止GIF">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>经常会有用到网页截取的时候，截取方法很简单，但是如果页面里GIF图很多的话，会出现截断，即GIF上下画面不一致（因为本质上全屏截图也都是先截屏幕再拼接的）。花点功夫找了下，记录之。</p>
-          <div class="read-more">
-            <a href="/blog/2020/04/01/stop-gif-for-screenshot/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/03/16/java-notes-7/">Java学习笔记（七）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-03-16 10:36:43
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/03/16/java-notes-7/"
-             data-title="Java学习笔记（七）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h2>
-          <div class="read-more">
-            <a href="/blog/2020/03/16/java-notes-7/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/03/14/java-notes-6/">Java学习笔记（六）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-03-14 12:17:50
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/03/14/java-notes-6/"
-             data-title="Java学习笔记（六）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="范型程序设计"><a class="header-anchor" href="#范型程序设计">#</a>范型程序设计</h2>
-          <div class="read-more">
-            <a href="/blog/2020/03/14/java-notes-6/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/27/Indesign-skills/">InDesign小技巧</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-27 02:09:48
-        </span><span class="post-category">
-            <a href="/blog/categories/design/">design</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/27/Indesign-skills/"
-             data-title="InDesign小技巧">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>记录一些InDesign的小技巧。</p>
-          <div class="read-more">
-            <a href="/blog/2020/02/27/Indesign-skills/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/25/java-notes-5/">Java学习笔记（五）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-25 13:03:58
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/25/java-notes-5/"
-             data-title="Java学习笔记（五）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="异常、断言和日志"><a class="header-anchor" href="#异常、断言和日志">#</a>异常、断言和日志</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/25/java-notes-5/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/02/24/java-notes-4/">Java学习笔记（四）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-24 16:33:20
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/02/24/java-notes-4/"
-             data-title="Java学习笔记（四）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Java核心技术卷一基础知识第10版</p>
-<h2 id="接口、lambda-表达式与内部类"><a class="header-anchor" href="#接口、lambda-表达式与内部类">#</a>接口、lambda 表达式与内部类</h2>
-          <div class="read-more">
-            <a href="/blog/2020/02/24/java-notes-4/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/20/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/blog/page/22/">
-        <span class="next-text">Next</span>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/aes/">aes</a>
+            <a href="/blog/tags/cbc/">cbc</a>
+            <a href="/blog/tags/iv/">iv</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2023/06/03/clang-format-usage/">
+        <span class="next-text nav-default">clang-format使用记录</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -558,6 +350,29 @@ Point Cloud Library 1.9.1 + Visual Studio 2017 + Windows 10</p>
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
