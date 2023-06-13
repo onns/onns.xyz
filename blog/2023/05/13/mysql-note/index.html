@@ -279,8 +279,23 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         </div>
     </header>
 
-    <div class="post-content"><ul>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#innodb-物理结构"><span class="toc-text">InnoDB 物理结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><ul>
 <li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li>
+</ul>
+<h2 id="innodb-物理结构"><a class="header-anchor" href="#innodb-物理结构">#</a>InnoDB 物理结构</h2>
+<blockquote>
+<p>Each space in InnoDB is assigned a 32-bit integer space ID, which is used in many different places to refer to the space.<br>
+InnoDB always has a “system space”, which is always assigned the space ID of 0.</p>
+</blockquote>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://blog.jcole.us/2013/01/03/a-quick-introduction-to-innodb-ruby/" target="_blank" rel="noopener">A quick introduction to innodb_ruby</a></li>
+<li><a href="https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/" target="_blank" rel="noopener">The basics of InnoDB space file layout</a></li>
 </ul>
 
       </div>
