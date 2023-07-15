@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="golang图片处理"/><meta name="keywords" content="go, golang, image, hearthstone, draw, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2023/07/15/go-image/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script src="//onns.xyz/js/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://jire5lrq.lc-cn-n1-shared.com"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://jire5lrq.lc-cn-n1-shared.com"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                $resultContent.innerHTML = "";
+                var str = '<section class=\"posts\">';
+                var rawValue = this.value.trim().toLowerCase();
+                if (rawValue.length <= 0) {
+                    return;
+                }
+                var keywords = [];
+                for (const matchKey of rawValue.matchAll(/"([^"]*)"/g)) {
+                  keywords.push(matchKey[1]);
+                  rawValue = rawValue.replace(matchKey[0], "");
+                }
+                keywords = keywords.concat(rawValue.split(/[\s\-]+/));
+                keywords = keywords.filter(function(el) {
+                    return el.trim().length > 0;
+                });
+                if (keywords.length <= 0) {
+                    return;
+                }
+                
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>golang图片处理 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">golang图片处理
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2023-07-15 23:33:56
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2023/07/15/go-image/"
+             data-title="golang图片处理">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单版本"><span class="toc-text">简单版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建画布"><span class="toc-text">新建画布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上底色"><span class="toc-text">上底色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#放缩"><span class="toc-text">放缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贴图"><span class="toc-text">贴图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导出"><span class="toc-text">导出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂版本"><span class="toc-text">复杂版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上底色-2"><span class="toc-text">上底色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文字"><span class="toc-text">文字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>不得不感慨，前端的发展迅速以至于我觉得在前端样式下一小段 css 的事情，服务端实现起来无比复杂，甚至无法实现。<br>
+所以其实图片编辑的操作一直以来都是由前端或者客户端完成的。但，任何客户端的用户行为其实都是不可信的，对于一个图像裁剪，如果接入审核流又会过于繁重。服务端处理在一定程度上能够解决这个问题，如果这个场景其实不会特别频繁的话。</p>
+<a id="more"></a>
+<p>网上看了很多关于 golang 图像处理的，太复杂，甚至有的库调用了 open-cv，如果我都调用 open-cv 了= =，感觉也没你 go 什么事情了，python 不香吗。</p>
+<h2 id="简单版本"><a class="header-anchor" href="#简单版本">#</a>简单版本</h2>
+<p>还是以炉石的卡牌做例子，最近帮营地社区做了一个卡组的整合服务，可以看到外服（玩家已同意授权的前提下）前 200 玩家的卡组信息。</p>
+<p>数据上只有诸如<code>AAEBAf0EEoUX0MECtPwC9KsDxbgD4MwD5dED9tYDne4DoIoE5bAEhLIE27kEqd4El+8Eo5AF/cQF0fgFC8ABywS4tgOF5AOu9wPK3gSQlgWqmAXgwwXQ+AWxngYAAQOEuwL9xAXl0QP9xAWmkwX9xAUAAA==</code>这样的代码，人不是机器，读不懂，所以需要解码，解码可以参考 <a href="https://onns.xyz/blog/2023/07/15/go-varint/">用 golang 解析 varint</a>。</p>
+<p>但其实图片是最直观的，抱着学习的态度，熟悉一下 golang 的图片操作。</p>
+<p>整个流程简单下来可以概括成这样：</p>
+<ol>
+<li>新建一个指定大小的画布（一张卡固定大小）</li>
+<li>上底色</li>
+<li>拿到原始素材</li>
+<li>放缩比例</li>
+<li>把这张图贴到我们的画布上（现实中是先裁切，再贴图，代码层面两者可以同时完成）</li>
+</ol>
+<h3 id="新建画布"><a class="header-anchor" href="#新建画布">#</a>新建画布</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"image"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">ts := image.NewRGBA(image.Rectangle&#123;</span><br><span class="line">    Min: image.Point&#123;&#125;,</span><br><span class="line">    Max: image.Point&#123;</span><br><span class="line">        X: <span class="number">345</span>,</span><br><span class="line">        Y: <span class="number">50</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>指定整个画布的大小，通过指定左上角和右下角的点的方式。</p>
+<h3 id="上底色"><a class="header-anchor" href="#上底色">#</a>上底色</h3>
+<p>笑死，简单的不用上底色</p>
+<h3 id="放缩"><a class="header-anchor" href="#放缩">#</a>放缩</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"github.com/nfnt/resize"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">rawImage, _, err := getCardCutRaw(info.CardId)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">r2 := resize.Resize(<span class="number">450</span>, <span class="number">0</span>, rawImage, resize.Lanczos3)</span><br></pre></td></tr></table></figure>
+<p><code>resize</code>是个我看网上用的还比较多的包，本质上是指定长宽的放缩，但是如果你其中一个值不写，会默认等比例放缩。</p>
+<p>原始素材来源于一个开源的平台：<a href="https://hearthstonejson.com/" target="_blank" rel="noopener">https://hearthstonejson.com/</a>，走文件下载和缓存的方案就好。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b []<span class="keyword">byte</span></span><br><span class="line">b, err = tools.DownloadFile(fmt.Sprintf(<span class="string">"https://art.hearthstonejson.com/v1/tiles/%s.png"</span>, cardId), filename)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">res, _, err = image.Decode(bytes.NewReader(b))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是需要注意的是，图像操作基本上的结构/接口都是<code>image.Image</code>，需要解码。</p>
+<h3 id="贴图"><a class="header-anchor" href="#贴图">#</a>贴图</h3>
+<p>是整个流程中的核心操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"image/draw"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">draw.Draw(ts, ts.Rect, r2, image.Point&#123;X: <span class="number">90</span>, Y: <span class="number">50</span>&#125;, draw.Over)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Draw</span><span class="params">(dst Image, r image.Rectangle, src image.Image, sp image.Point, op Op)</span></span> &#123;</span><br><span class="line">	DrawMask(dst, r, src, sp, <span class="literal">nil</span>, image.Point&#123;&#125;, op)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Draw</code>方法的函数定义如上，本质上是这样几个信息：</p>
+<ol>
+<li>往哪里画</li>
+<li>在最终的画布上预留给贴图的空间大小，是一个矩形框，用左上角和右下角的点表示。</li>
+<li>要贴的图</li>
+<li>从要贴的图的哪个点开始，往画布上贴（拷贝像素点？）</li>
+<li>操作方式</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Op is a Porter-Duff compositing operator.</span></span><br><span class="line"><span class="keyword">type</span> Op <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	<span class="comment">// Over specifies ``(src in mask) over dst''.</span></span><br><span class="line">	Over Op = <span class="literal">iota</span></span><br><span class="line">	<span class="comment">// Src specifies ``src in mask''.</span></span><br><span class="line">	Src</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>官方的文档其实我没太懂，而且也很复杂。但是根据我实际的操作结果来看，<code>Over</code>更像是贴的操作，这个自己尝试即可。</p>
+<h3 id="导出"><a class="header-anchor" href="#导出">#</a>导出</h3>
+<p>最后转成文件：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">out, err := os.Create(filename)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">err = png.Encode(out, ts)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="复杂版本"><a class="header-anchor" href="#复杂版本">#</a>复杂版本</h2>
+<h3 id="上底色-2"><a class="header-anchor" href="#上底色-2">#</a>上底色</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gray := color.RGBA&#123;R: <span class="number">41</span>, G: <span class="number">46</span>, B: <span class="number">60</span>, A: <span class="number">255</span>&#125;</span><br><span class="line">draw.Draw(ts, image.Rectangle&#123;</span><br><span class="line">    Min: image.Point&#123;X: <span class="number">0</span>&#125;,</span><br><span class="line">    Max: image.Point&#123;X: <span class="number">295</span>, Y: <span class="number">44</span>&#125;,</span><br><span class="line">&#125;, &amp;image.Uniform&#123;C: gray&#125;, image.Point&#123;&#125;, draw.Over)</span><br></pre></td></tr></table></figure>
+<p>用<code>image.Uniform</code>形成一个单一颜色的矩形，贴入画布</p>
+<h3 id="文字"><a class="header-anchor" href="#文字">#</a>文字</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"github.com/golang/freetype"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fontBytes, err := os.ReadFile(filepath.Join(RawPath, <span class="string">"BelweBold.ttf"</span>))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line">font2, err := freetype.ParseFont(fontBytes)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line">c2 := freetype.NewContext()</span><br><span class="line">c2.SetDPI(<span class="number">72</span>)</span><br><span class="line">c2.SetFont(font2)</span><br><span class="line">c2.SetFontSize(<span class="number">32</span>)</span><br><span class="line">c2.SetClip(ts.Bounds())</span><br><span class="line">c2.SetDst(ts)</span><br><span class="line">c2.SetHinting(xfont.HintingFull)</span><br><span class="line"></span><br><span class="line">c2.SetSrc(image.Black)</span><br><span class="line">pt3 := freetype.Pt(<span class="number">18</span>, <span class="number">34</span>) <span class="comment">// 字出现的位置</span></span><br><span class="line">_, err = c2.DrawString(strconv.FormatInt(info.Cost, <span class="number">10</span>), pt3)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">c2.SetSrc(image.White)</span><br><span class="line">pt2 := freetype.Pt(<span class="number">16</span>, <span class="number">32</span>) <span class="comment">// 字出现的位置</span></span><br><span class="line">_, err = c2.DrawString(strconv.FormatInt(info.Cost, <span class="number">10</span>), pt2)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终下来效果其实是这样的：</p>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20230716-1.png" alt="卡牌代码"></p>
+</center>
+<p>令我意外的是服务端的渲染速度出奇的快，没有想象中的延时。</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/ghj1976/p/3443638.html" target="_blank" rel="noopener">https://www.cnblogs.com/ghj1976/p/3443638.html</a></li>
+</ul>
+<h2 id="最后"><a class="header-anchor" href="#最后">#</a>最后</h2>
+<p>如有不正确的地方，欢迎批评指正。</p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/image/">image</a>
+            <a href="/blog/tags/hearthstone/">hearthstone</a>
+            <a href="/blog/tags/draw/">draw</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2023/07/15/go-varint/">
+        <span class="next-text nav-default">用golang解析varint</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2023<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
