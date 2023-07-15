@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>用golang解析varint</title>
+      <link href="/blog/2023/07/15/go-varint/"/>
+      <url>/blog/2023/07/15/go-varint/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>解析 varint：</p><a id="more"></a><p>varint 是变长整数，如果数组中的数大小不均匀时用 varint 会比较高效。</p><p>本质上是将一个字节的低七位用于存储数据，最高一位用于标识是否该数字已结束。</p><p>比如二进制<code>1111111 1010101 0101010</code>和<code>000 11111</code>，如果用相同的大小存，第二个数字会用很多无用的零空间。</p><p>转化成 varint 的逻辑如下：</p><ol><li>按七个比特位分割，<code>1111111</code>、<code>1010101</code>、<code>0101010</code>。</li><li>小端序，低位在前，<code>0101010</code>、<code>1010101</code>、<code>1111111</code>。</li><li>第一、二个最前面补 1，最后一个补 0，<code>10101010</code>、<code>11010101</code>、<code>01111111</code>。</li></ol><h2 id="解码"><a class="header-anchor" href="#解码">#</a>解码</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeVarint</span><span class="params">(buf []<span class="keyword">byte</span>)</span> <span class="params">(x <span class="keyword">uint64</span>, n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"><span class="keyword">for</span> shift := <span class="keyword">uint</span>(<span class="number">0</span>); shift &lt; <span class="number">64</span>; shift += <span class="number">7</span> &#123;</span><br><span class="line"><span class="keyword">if</span> n &gt;= <span class="built_in">len</span>(buf) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">b := <span class="keyword">uint64</span>(buf[n])</span><br><span class="line">n++</span><br><span class="line">x |= (b &amp; <span class="number">0x7F</span>) &lt;&lt; shift</span><br><span class="line"><span class="keyword">if</span> (b &amp; <span class="number">0x80</span>) == <span class="number">0</span> &#123;</span><br><span class="line"><span class="keyword">return</span> x, n</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>解码是逆过程，取出七位的有效位数，并左移，越往后的数字 shift 的位数越多，因为编码的时候，越大的位数在整个 varint 的越后面。</p><p>直到首位是 0，代表一个数字结束，返回。</p><h2 id="疑问点"><a class="header-anchor" href="#疑问点">#</a>疑问点</h2><ol><li>在编码的时候需要把不足的位数补回去吗？感觉是需要的，但是没找到证据= =</li></ol><h2 id="最后"><a class="header-anchor" href="#最后">#</a>最后</h2><ol><li>炉石的卡牌代码就是 varint+base64，之前一直用 shell 调用 python 的解析库，实在是太慢了，研究一下，一小时搞定。</li><li>最近优化了很多项目上的东西，比如把 shell 调用换成了 go 语言重写，之前 7 秒的一个接口请求现在估计 1 秒就渲染好了= =</li></ol><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://zhuanlan.zhihu.com/p/84250836" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84250836</a></li><li><a href="https://zhangshuqiao.org/2018-12/%E7%82%89%E7%9F%B3%E5%8D%A1%E7%BB%84%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/" target="_blank" rel="noopener">炉石卡组代码解析</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> golang </tag>
+            
+            <tag> varint </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AES相关问题记录</title>
       <link href="/blog/2023/06/12/aes-note/"/>
       <url>/blog/2023/06/12/aes-note/</url>
