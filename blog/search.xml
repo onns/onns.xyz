@@ -4,6 +4,101 @@
   
     
     <entry>
+      <title>Neovim配置相关</title>
+      <link href="/blog/2023/11/03/reading-list-2023-44/"/>
+      <url>/blog/2023/11/03/reading-list-2023-44/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2><h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3><p><strong><a href="https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html" target="_blank" rel="noopener"><br>13.2.7.2 INSERT … ON DUPLICATE KEY UPDATE Statement<br></a></strong></p><p>Mysql 官方文档</p><blockquote><p>With ON DUPLICATE KEY UPDATE, the affected-rows value per row is 1 if the row is inserted as a new row, 2 if an existing row is updated, and 0 if an existing row is set to its current values. If you specify the CLIENT_FOUND_ROWS flag to the mysql_real_connect() C API function when connecting to mysqld, the affected-rows value is 1 (not 0) if an existing row is set to its current values.</p></blockquote><p>在用<code>upsert</code>语句时，标准的返回值是 1 插入、2 更新、0 无影响。</p><blockquote><p>In assignment value expressions in the ON DUPLICATE KEY UPDATE clause, you can use the VALUES(col_name) function to refer to column values from the INSERT portion of the INSERT … ON DUPLICATE KEY UPDATE statement. In other words, VALUES(col_name) in the ON DUPLICATE KEY UPDATE clause refers to the value of col_name that would be inserted, had no duplicate-key conflict occurred.</p></blockquote><p><code>VALUES()</code> 在上述语句的后面的时候，语法从来没见过，是存在歧义的，是代指数据库里的值还是插入语句中的值。</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="keyword">VALUES</span>(a)+<span class="keyword">VALUES</span>(b);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 等价于：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="number">3</span>;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="number">9</span>;</span><br></pre></td></tr></table></figure><blockquote><p>An INSERT … ON DUPLICATE KEY UPDATE statement against a table having more than one unique or primary key is also marked as unsafe. (Bug #11765650, Bug #58637)</p></blockquote><p>当一个表中有多个唯一索引时，同时使用<code>upsert</code>的结果是不确定的，只会更新随机一个。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> mysql </tag>
+            
+            <tag> reading </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Neovim配置相关</title>
+      <link href="/blog/2023/10/22/neovim-config/"/>
+      <url>/blog/2023/10/22/neovim-config/</url>
+      
+        <content type="html"><![CDATA[<h2 id="为什么用-neovim"><a class="header-anchor" href="#为什么用-neovim">#</a>为什么用 Neovim</h2><p><code>Goland</code>项目开多了之后编辑起来太卡了，严重影响了开发效率，所以只能换编辑器。同时 Neovim 可以允许你远程操作，有时候救急会很重要。</p><a id="more"></a><p>第一版本的配置是用的纯<code>VimScript</code>弄的，完全能满足日常需求。<br>但最终还是建议用 lua，大家的原因可能各不相同，但是大部分插件开始用 lua 写之后，用<code>VimScript</code>会很难配置。<br>比如我就是想找一个书签插件，发现大部分都是用 lua 写的，如果要修改自定义配置会很麻烦，怒而转 lua。</p><h2 id="如何快速入门-lua-配置"><a class="header-anchor" href="#如何快速入门-lua-配置">#</a>如何快速入门 lua 配置</h2><p>个人经验：</p><ol><li>用<a href="https://www.lazyvim.org/" target="_blank" rel="noopener">https://www.lazyvim.org/</a>快速配置，通过这个仓库可以快速让你的 neovim 可用。</li><li>这个插件还能快速帮你初始化 lua 的一个官方推荐配置目录（它的原理就像递归，引入了它的初始化包，这个初始化包帮你配置了一大堆初始化插件）。</li><li>随着自己逐渐了解并结合自己的使用习惯，把插件里的引用插件逐渐加到自己的目录中并修改对应的个性化设置（比如我发现它引入的某个包和我自己的插件冲突了，就在我<strong>自己的配置文件</strong>里把它禁用就行）。</li></ol><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  <span class="comment">-- disable trouble</span></span><br><span class="line">  &#123; <span class="string">"hrsh7th/nvim-cmp"</span>, enabled = <span class="literal">false</span> &#125;,</span><br><span class="line">  <span class="comment">-- &#123; "hrsh7th/nvim-cmp", enabled = false &#125;,</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol start="4"><li>重复上述过程，直到定制出符合自己的 neovim。</li></ol><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.amistyrain.com/post/2020/07/25/neovim/" target="_blank" rel="noopener">NeoVim 打造 Golang 开发环境</a> 如果想 neovim 入门，通过这一篇配置足够覆盖 99%的场景了。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> macos </tag>
+            
+            <tag> golang </tag>
+            
+            <tag> goland </tag>
+            
+            <tag> vim </tag>
+            
+            <tag> lua </tag>
+            
+            <tag> neovim </tag>
+            
+            <tag> config </tag>
+            
+            <tag> vimscript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>neovim笔记</title>
+      <link href="/blog/2023/08/20/neovim-note/"/>
+      <url>/blog/2023/08/20/neovim-note/</url>
+      
+        <content type="html"><![CDATA[<h2 id="移动"><a class="header-anchor" href="#移动">#</a>移动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下移半页</span></span><br><span class="line">ctrl d </span><br><span class="line"><span class="comment"># 上移半页</span></span><br><span class="line">ctrl u</span><br><span class="line"><span class="comment"># 移动光标到中心</span></span><br><span class="line">zz</span><br><span class="line"><span class="comment"># 向上移动屏幕</span></span><br><span class="line">ctrl e</span><br><span class="line"><span class="comment"># 向下移动屏幕</span></span><br><span class="line">ctrl y</span><br></pre></td></tr></table></figure><h2 id="编辑"><a class="header-anchor" href="#编辑">#</a>编辑</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 撤销</span></span><br><span class="line">u</span><br><span class="line"><span class="comment"># 恢复撤销</span></span><br><span class="line">ctrl r</span><br><span class="line"><span class="comment"># 剪切</span></span><br></pre></td></tr></table></figure><h2 id="调试"><a class="header-anchor" href="#调试">#</a>调试</h2><h3 id="断点"><a class="header-anchor" href="#断点">#</a>断点</h3><h2 id="其它"><a class="header-anchor" href="#其它">#</a>其它</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂起nvim</span></span><br><span class="line">:sus</span><br><span class="line">:<span class="built_in">suspend</span></span><br><span class="line"><span class="comment"># 从挂起中恢复</span></span><br><span class="line">$ fd</span><br><span class="line"><span class="comment"># 窗口交换</span></span><br><span class="line"><span class="comment"># 与下一个</span></span><br><span class="line">ctrl + w + x</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> neovim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>golang图片处理</title>
       <link href="/blog/2023/07/15/go-image/"/>
       <url>/blog/2023/07/15/go-image/</url>
@@ -132,7 +227,7 @@
       <link href="/blog/2023/05/13/mysql-note/"/>
       <url>/blog/2023/05/13/mysql-note/</url>
       
-        <content type="html"><![CDATA[<ul><li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li></ul><h2 id="innodb-物理结构"><a class="header-anchor" href="#innodb-物理结构">#</a>InnoDB 物理结构</h2><blockquote><p>Each space in InnoDB is assigned a 32-bit integer space ID, which is used in many different places to refer to the space.<br>InnoDB always has a “system space”, which is always assigned the space ID of 0.</p></blockquote><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://blog.jcole.us/2013/01/03/a-quick-introduction-to-innodb-ruby/" target="_blank" rel="noopener">A quick introduction to innodb_ruby</a></li><li><a href="https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/" target="_blank" rel="noopener">The basics of InnoDB space file layout</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<ul><li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li></ul><h2 id="innodb-物理结构"><a class="header-anchor" href="#innodb-物理结构">#</a>InnoDB 物理结构</h2><blockquote><p>Each space in InnoDB is assigned a 32-bit integer space ID, which is used in many different places to refer to the space.<br>InnoDB always has a “system space”, which is always assigned the space ID of 0.</p></blockquote><blockquote><p>Each page within a space is assigned a 32-bit integer page number, often called “offset”<br>page 0 is located at file offset 0, page 1 at file offset 16384</p></blockquote><ul><li>页是最基础的 InnoDB 的概念，一般为 16kb。</li><li>页一般由一个<code>38 byte</code>的<code>FIL header</code>和一个<code>8 byte</code>的<code>FIL trailer</code>组成。</li><li>FSP_HDR 和 XDES 是两种特殊的页，用来管理数据页。它们的区别在于，FSP_HDR 是第一个“管理页”，包含一些单独的信息。</li><li>一个 FSP_HDR 或 XDES 会管理和它们连续分配的 16384 个页，256MB，或者叫 16 个 extent（16 块）。</li><li>FSP_HDR 和 XDES 由<code>FIL header</code>、<code>FIL trailer</code>、<code>FSP header</code>和 256 个<code>extent descriptors</code>（<code>XDES Entry</code>）组成。</li></ul><center><!-- //onns.xyz/blog/image --><p><img src="../image/20230620-1.png" alt="page"></p></center><ul><li>一个<code>XDES Entry</code>管理<code>64</code>个页。</li><li></li></ul><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://blog.jcole.us/2013/01/03/a-quick-introduction-to-innodb-ruby/" target="_blank" rel="noopener">A quick introduction to innodb_ruby</a></li><li><a href="https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/" target="_blank" rel="noopener">The basics of InnoDB space file layout</a></li></ul>]]></content>
       
       
       <categories>
@@ -149,19 +244,6 @@
             <tag> mysql </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>wecom-rebot</title>
-      <link href="/blog/2022/11/07/wecom-rebot/"/>
-      <url>/blog/2022/11/07/wecom-rebot/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     

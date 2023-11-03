@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/golang/"/>
+<meta name="description" content="Neovim配置相关"/><meta name="keywords" content="golang, mysql, reading, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2023/11/03/reading-list-2023-44/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,8 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>golang · Onns Blog
-  </title>
+    <title>Neovim配置相关 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,330 +260,67 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">golang</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Neovim配置相关
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2023-11-03 10:36:57
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2023/11/03/reading-list-2023-44/"
+             data-title="Neovim配置相关">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2023-11-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/11/03/reading-list-2023-44/" class="archive-post-link">
-            Neovim配置相关
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近读的东西"><span class="toc-text">最近读的东西</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-text">1</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
+<h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3>
+<p><strong><a href="https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html" target="_blank" rel="noopener"><br>
+13.2.7.2 INSERT … ON DUPLICATE KEY UPDATE Statement<br>
+</a></strong></p>
+<p>Mysql 官方文档</p>
+<blockquote>
+<p>With ON DUPLICATE KEY UPDATE, the affected-rows value per row is 1 if the row is inserted as a new row, 2 if an existing row is updated, and 0 if an existing row is set to its current values. If you specify the CLIENT_FOUND_ROWS flag to the mysql_real_connect() C API function when connecting to mysqld, the affected-rows value is 1 (not 0) if an existing row is set to its current values.</p>
+</blockquote>
+<p>在用<code>upsert</code>语句时，标准的返回值是 1 插入、2 更新、0 无影响。</p>
+<blockquote>
+<p>In assignment value expressions in the ON DUPLICATE KEY UPDATE clause, you can use the VALUES(col_name) function to refer to column values from the INSERT portion of the INSERT … ON DUPLICATE KEY UPDATE statement. In other words, VALUES(col_name) in the ON DUPLICATE KEY UPDATE clause refers to the value of col_name that would be inserted, had no duplicate-key conflict occurred.</p>
+</blockquote>
+<p><code>VALUES()</code> 在上述语句的后面的时候，语法从来没见过，是存在歧义的，是代指数据库里的值还是插入语句中的值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="keyword">VALUES</span>(a)+<span class="keyword">VALUES</span>(b);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 等价于：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="number">3</span>;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t1 (a,b,c) <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">  <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> c=<span class="number">9</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>An INSERT … ON DUPLICATE KEY UPDATE statement against a table having more than one unique or primary key is also marked as unsafe. (Bug #11765650, Bug #58637)</p>
+</blockquote>
+<p>当一个表中有多个唯一索引时，同时使用<code>upsert</code>的结果是不确定的，只会更新随机一个。</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-10-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/10/22/neovim-config/" class="archive-post-link">
-            Neovim配置相关
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-08-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/08/20/neovim-note/" class="archive-post-link">
-            neovim笔记
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-07-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/07/15/go-image/" class="archive-post-link">
-            golang图片处理
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-07-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/07/15/go-varint/" class="archive-post-link">
-            用golang解析varint
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2022-07-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2022/07/17/golang-question-1/" class="archive-post-link">
-            Golang一些问题记录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2022-01-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2022/01/10/golang-zip-encrypt/" class="archive-post-link">
-            Golang zip加密
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-12-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/12/19/concurrency-in-go-note-1/" class="archive-post-link">
-            《Concurrency in Go》笔记（1）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-10-30
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/10/30/golang-tail/" class="archive-post-link">
-            golang读取日志文件
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-10-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/10/07/golang-doc/" class="archive-post-link">
-            Golang一些问题记录
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-09-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/09/08/golang-utf8-chinese/" class="archive-post-link">
-            Golang中文显示问题
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/12/the-go-programming-language-note-20/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（20）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/10/the-go-programming-language-note-19/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（19）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-06
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/06/the-go-programming-language-note-18/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（18）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-05
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/05/the-go-programming-language-note-17/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（17）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-06-02
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/06/02/the-go-programming-language-note-16/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（16）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-20
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/20/the-go-programming-language-note-15/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（15）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/14/the-go-programming-language-note-14/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（14）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-13
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/13/the-go-programming-language-note-13/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（13）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-05-12
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/05/12/the-go-programming-language-note-12/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（12）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-19
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/19/the-go-programming-language-note-11/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（11）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-18
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/18/the-go-programming-language-note-10/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（10）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-16
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/16/the-go-programming-language-note-9/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（9）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-15
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/15/the-go-programming-language-note-8/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（8）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/14/the-go-programming-language-note-7/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（7）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/11/the-go-programming-language-note-6/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（6）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-04-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/04/09/the-go-programming-language-note-5/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（5）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/17/the-go-programming-language-note-4/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（4）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/14/the-go-programming-language-note-3/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（3）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/11/the-go-programming-language-note-2/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（2）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-03-10
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/03/10/the-go-programming-language-note-1/" class="archive-post-link">
-            《Go语音圣经（中文版）》笔记（1）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/09/nginx-proxy-websocket/" class="archive-post-link">
-            Nginx代理websocket
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/mysql/">mysql</a>
+            <a href="/blog/tags/reading/">reading</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2023/10/22/neovim-config/">
+        <span class="next-text nav-default">Neovim配置相关</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

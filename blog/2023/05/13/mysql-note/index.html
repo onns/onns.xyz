@@ -292,6 +292,25 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>Each space in InnoDB is assigned a 32-bit integer space ID, which is used in many different places to refer to the space.<br>
 InnoDB always has a “system space”, which is always assigned the space ID of 0.</p>
 </blockquote>
+<blockquote>
+<p>Each page within a space is assigned a 32-bit integer page number, often called “offset”<br>
+page 0 is located at file offset 0, page 1 at file offset 16384</p>
+</blockquote>
+<ul>
+<li>页是最基础的 InnoDB 的概念，一般为 16kb。</li>
+<li>页一般由一个<code>38 byte</code>的<code>FIL header</code>和一个<code>8 byte</code>的<code>FIL trailer</code>组成。</li>
+<li>FSP_HDR 和 XDES 是两种特殊的页，用来管理数据页。它们的区别在于，FSP_HDR 是第一个“管理页”，包含一些单独的信息。</li>
+<li>一个 FSP_HDR 或 XDES 会管理和它们连续分配的 16384 个页，256MB，或者叫 16 个 extent（16 块）。</li>
+<li>FSP_HDR 和 XDES 由<code>FIL header</code>、<code>FIL trailer</code>、<code>FSP header</code>和 256 个<code>extent descriptors</code>（<code>XDES Entry</code>）组成。</li>
+</ul>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="../image/20230620-1.png" alt="page"></p>
+</center>
+<ul>
+<li>一个<code>XDES Entry</code>管理<code>64</code>个页。</li>
+<li></li>
+</ul>
 <h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
 <ul>
 <li><a href="https://blog.jcole.us/2013/01/03/a-quick-introduction-to-innodb-ruby/" target="_blank" rel="noopener">A quick introduction to innodb_ruby</a></li>
@@ -311,8 +330,8 @@ InnoDB always has a “system space”, which is always assigned the space ID of
         <span class="prev-text nav-default">clang-format使用记录</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/blog/2022/11/07/wecom-rebot/">
-        <span class="next-text nav-default">wecom-rebot</span>
+    <a class="next" href="/blog/2022/11/05/redis-note/">
+        <span class="next-text nav-default">Redis开发与运维</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
