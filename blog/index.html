@@ -262,7 +262,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/11/03/reading-list-2023-44/">Neovim配置相关</a>
+      <h1 class="post-title"><a class="post-link" href="/blog/2023/11/03/reading-list-2023-44/">列表2023-week44</a>
         </h1>
 
       <div class="post-meta">
@@ -273,7 +273,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             </span>
         <span class="post-visits"
              data-url="/blog/2023/11/03/reading-list-2023-44/"
-             data-title="Neovim配置相关">
+             data-title="列表2023-week44">
           Visits 0
         </span>
         </div>
@@ -281,9 +281,11 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 
     <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
 <h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3>
-<p><strong><a href="https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html" target="_blank" rel="noopener"><br>
+<ul>
+<li><strong><a href="https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html" target="_blank" rel="noopener"><br>
 13.2.7.2 INSERT … ON DUPLICATE KEY UPDATE Statement<br>
-</a></strong></p>
+</a></strong></li>
+</ul>
 <p>Mysql 官方文档</p>
 <blockquote>
 <p>With ON DUPLICATE KEY UPDATE, the affected-rows value per row is 1 if the row is inserted as a new row, 2 if an existing row is updated, and 0 if an existing row is set to its current values. If you specify the CLIENT_FOUND_ROWS flag to the mysql_real_connect() C API function when connecting to mysqld, the affected-rows value is 1 (not 0) if an existing row is set to its current values.</p>
@@ -298,6 +300,17 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>An INSERT … ON DUPLICATE KEY UPDATE statement against a table having more than one unique or primary key is also marked as unsafe. (Bug #11765650, Bug #58637)</p>
 </blockquote>
 <p>当一个表中有多个唯一索引时，同时使用<code>upsert</code>的结果是不确定的，只会更新随机一个。</p>
+<h2 id="2"><a class="header-anchor" href="#2">#</a>2</h2>
+<ul>
+<li><a href="https://halfrost.com/go_interface/" target="_blank" rel="noopener">深入研究 Go interface 底层实现</a></li>
+</ul>
+<p>在开发时经常会出现 int 与 string 相互转换的场景，所以从<code>int64</code>转换成<code>interface{}</code>的时候，到底发生了什么 👆</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">	<span class="string">"testing"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInterfaceConversion</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	num := <span class="keyword">int64</span>(<span class="number">123</span>)</span><br><span class="line">	<span class="keyword">var</span> result <span class="keyword">int64</span></span><br><span class="line"></span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		interfaceNum := <span class="keyword">interface</span>&#123;&#125;(num)</span><br><span class="line">		result = interfaceNum.(<span class="keyword">int64</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_ = result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkStrconvConversion</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	num := <span class="keyword">int64</span>(<span class="number">123</span>)</span><br><span class="line">	<span class="keyword">var</span> result <span class="keyword">int64</span></span><br><span class="line"></span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		str := strconv.FormatInt(num, <span class="number">10</span>)</span><br><span class="line">		result, _ = strconv.ParseInt(str, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_ = result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> [2023/11/03 13:11:15] mbp ➜  ~/Downloads/workspace/ct  go <span class="built_in">test</span> -bench=. conv_test.go</span><br><span class="line">goos: darwin</span><br><span class="line">goarch: amd64</span><br><span class="line">cpu: Intel(R) Core(TM) i5-1038NG7 CPU @ 2.00GHz</span><br><span class="line">BenchmarkInterfaceConversion-8   	1000000000	         0.4254 ns/op</span><br><span class="line">BenchmarkStrconvConversion-8     	23592367	        52.78 ns/op</span><br><span class="line">PASS</span><br><span class="line">ok  	<span class="built_in">command</span>-line-arguments	2.849s</span><br></pre></td></tr></table></figure>
+<h2 id="3"><a class="header-anchor" href="#3">#</a>3</h2>
+<p>为什么对 map 的访问，接了一个参数就不会 panic，还没找到资料</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"testing"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloWorld</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">	v, ok := m[<span class="string">"o"</span>]</span><br><span class="line">	fmt.Printf(<span class="string">"value:%+v ok:%+v\n"</span>, v, ok)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> [2023/11/03 13:21:49] mbp ➜  ~/Downloads/workspace/ct  go <span class="built_in">test</span> -v -run . map_test.go</span><br><span class="line">=== RUN   TestHelloWorld</span><br><span class="line">value: ok:<span class="literal">false</span></span><br><span class="line">--- PASS: TestHelloWorld (0.00s)</span><br><span class="line">PASS</span><br><span class="line">ok  	<span class="built_in">command</span>-line-arguments	0.290s</span><br></pre></td></tr></table></figure>
 
         </div></article>
       <article class="post">
@@ -497,7 +510,7 @@ page 0 is located at file offset 0, page 1 at file offset 16384</p>
 </ul>
 <center>
 <!-- //onns.xyz/blog/image -->
-<p><img src="../image/20230620-1.png" alt="page"></p>
+<p><img src="//onns.xyz/blog/image/20230620-1.png" alt="page"></p>
 </center>
 <ul>
 <li>一个<code>XDES Entry</code>管理<code>64</code>个页。</li>
