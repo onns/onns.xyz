@@ -4,11 +4,67 @@
   
     
     <entry>
+      <title>列表2023-week49</title>
+      <link href="/blog/2023/11/28/reading-list-2023-49/"/>
+      <url>/blog/2023/11/28/reading-list-2023-49/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2><h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3><ul><li><a href="https://mp.weixin.qq.com/s/zbV2UwHYvgsuwnXR2Vr04Q" target="_blank" rel="noopener">Go 项目目录该怎么组织？官方终于出指南了！ </a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> reading </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>列表2023-week48</title>
+      <link href="/blog/2023/11/28/reading-list-2023-48/"/>
+      <url>/blog/2023/11/28/reading-list-2023-48/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2><h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3><ul><li><a href="https://stackoverflow.com/questions/65099557/what-is-the-difference-between-sort-slice-and-sort-slicestable" target="_blank" rel="noopener">What is the difference between sort.Slice and sort.SliceStable</a></li><li><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Sorting_algorithm#Stability</a></li></ul><p>排序的稳定性，之前还真没关注过= =</p><h3 id="2"><a class="header-anchor" href="#2">#</a>2</h3><ul><li><a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" target="_blank" rel="noopener">The Log: What every software engineer should know about real-time data’s unifying abstraction</a></li><li><a href="https://github.com/oldratlee/translations/tree/master/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></li></ul><h3 id="3"><a class="header-anchor" href="#3">#</a>3</h3><ul><li><a href="https://blog.csdn.net/one312/article/details/105269380" target="_blank" rel="noopener">CROSSSLOT Keys in request don’t hash to the same slot</a></li><li><a href="https://github.com/e-chip/redis-rwlock" target="_blank" rel="noopener">https://github.com/e-chip/redis-rwlock</a></li></ul><p>验证了很久，一个 redis 的分布式读写锁，在脏缓存的情况下会发生问题，其它 ok</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> sort </tag>
+            
+            <tag> reading </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>列表2023-week45</title>
       <link href="/blog/2023/11/07/reading-list-2023-45/"/>
       <url>/blog/2023/11/07/reading-list-2023-45/</url>
       
-        <content type="html"><![CDATA[<h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2><h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Usage: paste [OPTION]... [FILE]...</span><br><span class="line">Write lines consisting of the sequentially corresponding lines from</span><br><span class="line">each FILE, separated by TABs, to standard output.</span><br><span class="line"></span><br><span class="line">With no FILE, or when FILE is -, <span class="built_in">read</span> standard input.</span><br><span class="line"></span><br><span class="line">Mandatory arguments to long options are mandatory <span class="keyword">for</span> short options too.</span><br><span class="line">  -d, --delimiters=LIST   reuse characters from LIST instead of TABs</span><br><span class="line">  -s, --serial            paste one file at a time instead of <span class="keyword">in</span> parallel</span><br><span class="line">  -z, --zero-terminated    line delimiter is NUL, not newline</span><br><span class="line">      --<span class="built_in">help</span>     display this <span class="built_in">help</span> and <span class="built_in">exit</span></span><br><span class="line">      --version  output version information and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">GNU coreutils online <span class="built_in">help</span>: &lt;http://www.gnu.org/software/coreutils/&gt;</span><br><span class="line">Report paste translation bugs to &lt;http://translationproject.org/team/&gt;</span><br><span class="line">Full documentation at: &lt;http://www.gnu.org/software/coreutils/paste&gt;</span><br><span class="line">or available locally via: info <span class="string">'(coreutils) paste invocation'</span></span><br></pre></td></tr></table></figure><p><code>paste1.txt</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2 3</span><br><span class="line">4 5 6</span><br></pre></td></tr></table></figure><p><code>paste2.txt</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a b c</span><br><span class="line">d e f</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ paste paste1.txt paste2.txt</span><br><span class="line">1 2 3a b c</span><br><span class="line">4 5 6d e f</span><br><span class="line">$ paste -s paste1.txt paste2.txt</span><br><span class="line">1 2 34 5 6</span><br><span class="line">a b cd e f</span><br></pre></td></tr></table></figure><p>把 N 个文件按列合并</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2><h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Usage: paste [OPTION]... [FILE]...</span><br><span class="line">Write lines consisting of the sequentially corresponding lines from</span><br><span class="line">each FILE, separated by TABs, to standard output.</span><br><span class="line"></span><br><span class="line">With no FILE, or when FILE is -, <span class="built_in">read</span> standard input.</span><br><span class="line"></span><br><span class="line">Mandatory arguments to long options are mandatory <span class="keyword">for</span> short options too.</span><br><span class="line">  -d, --delimiters=LIST   reuse characters from LIST instead of TABs</span><br><span class="line">  -s, --serial            paste one file at a time instead of <span class="keyword">in</span> parallel</span><br><span class="line">  -z, --zero-terminated    line delimiter is NUL, not newline</span><br><span class="line">      --<span class="built_in">help</span>     display this <span class="built_in">help</span> and <span class="built_in">exit</span></span><br><span class="line">      --version  output version information and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">GNU coreutils online <span class="built_in">help</span>: &lt;http://www.gnu.org/software/coreutils/&gt;</span><br><span class="line">Report paste translation bugs to &lt;http://translationproject.org/team/&gt;</span><br><span class="line">Full documentation at: &lt;http://www.gnu.org/software/coreutils/paste&gt;</span><br><span class="line">or available locally via: info <span class="string">'(coreutils) paste invocation'</span></span><br></pre></td></tr></table></figure><p><code>paste1.txt</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2 3</span><br><span class="line">4 5 6</span><br></pre></td></tr></table></figure><p><code>paste2.txt</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a b c</span><br><span class="line">d e f</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ paste paste1.txt paste2.txt</span><br><span class="line">1 2 3a b c</span><br><span class="line">4 5 6d e f</span><br><span class="line">$ paste -s paste1.txt paste2.txt</span><br><span class="line">1 2 34 5 6</span><br><span class="line">a b cd e f</span><br></pre></td></tr></table></figure><p>把 N 个文件按列合并</p><h3 id="2"><a class="header-anchor" href="#2">#</a>2</h3><ul><li><a href="https://luyuhuang.tech/2020/12/09/kcp.html" target="_blank" rel="noopener">详解 KCP 协议的原理和实现</a></li></ul><p>有点难</p>]]></content>
       
       
       <categories>
@@ -31,6 +87,8 @@
             <tag> reading </tag>
             
             <tag> paste </tag>
+            
+            <tag> kcp </tag>
             
         </tags>
       
