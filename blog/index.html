@@ -296,6 +296,27 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><a href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener">acme.sh</a></li>
 </ul>
 <p>免费方案 👆</p>
+<h3 id="快速-csv-文件处理"><a class="header-anchor" href="#快速-csv-文件处理">#</a>快速 csv 文件处理</h3>
+<p>为压测准备数据</p>
+<ol>
+<li>从源数据中选取指定列作为待选数据：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -d<span class="string">','</span> -f6 raw.csv &gt; res.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-d</code>指定分隔符</li>
+<li><code>-f</code>指定选的列，比如我只要第 6 列数据</li>
+</ul>
+<ol start="2">
+<li>拆分数据集合：</li>
+</ol>
+<p>因为我的数据从 100 个表取出来的，然后需要分成多个数据集合，我选择的第一种方法是把奇数行和偶数行拆分成两个文件（假设数据集只需要 2 个）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'&#123;if (NR % 2 == 0) print &gt; "res_1.txt"; else print &gt; "res_2.txt"&#125;'</span> res.txt</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>打散数据：</li>
+</ol>
+<p>因为数据是按尾号聚合的数据，具有不均匀性，需要打乱。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shuf res_2.txt  &gt; res_2_suf.txt</span><br><span class="line">shuf res_2.txt  &gt; res_2_suf.txt</span><br></pre></td></tr></table></figure>
+<p>感觉 chatgpt 出来之后，笔记已经显得不那么重要了= =</p>
 
         </div></article>
       <article class="post">
