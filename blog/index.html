@@ -280,10 +280,22 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     </header>
 
     <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3>
+<h3 id="自己的一些项目该如何组织"><a class="header-anchor" href="#自己的一些项目该如何组织">#</a>自己的一些项目该如何组织</h3>
 <ul>
 <li><a href="https://mp.weixin.qq.com/s/zbV2UwHYvgsuwnXR2Vr04Q" target="_blank" rel="noopener">Go 项目目录该怎么组织？官方终于出指南了！ </a></li>
 </ul>
+<h3 id="github-仓库拉取优化"><a class="header-anchor" href="#github-仓库拉取优化">#</a>github 仓库拉取优化</h3>
+<p>背景是<code>neovim</code>的插件都在 github 上，大陆拉不下来。</p>
+<p>解决方案：<code>全局配置 Git 使用 SSH</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure>
+<p>加入 👇</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[url &quot;git@github.com:&quot;]</span><br><span class="line">    insteadOf &#x3D; https:&#x2F;&#x2F;github.com&#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="https-证书"><a class="header-anchor" href="#https-证书">#</a>https 证书</h3>
+<p>阿里云免费的证书有效期变成 3 个月了= =</p>
+<ul>
+<li><a href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener">acme.sh</a></li>
+</ul>
+<p>免费方案 👆</p>
 
         </div></article>
       <article class="post">
