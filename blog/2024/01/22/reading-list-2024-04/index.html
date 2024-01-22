@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/git/"/>
+<meta name="description" content="列表2024-week04"/><meta name="keywords" content="github, git, reading, hosts, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/01/22/reading-list-2024-04/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,8 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>git · Onns Blog
-  </title>
+    <title>列表2024-week04 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,100 +260,59 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">git</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">列表2024-week04
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-22 10:26:51
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/22/reading-list-2024-04/"
+             data-title="列表2024-week04">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2024-01-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2024/01/22/reading-list-2024-04/" class="archive-post-link">
-            列表2024-week04
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近读的东西"><span class="toc-text">最近读的东西</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-仓库问题"><span class="toc-text">github 仓库问题</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
+<h3 id="github-仓库问题"><a class="header-anchor" href="#github-仓库问题">#</a>github 仓库问题</h3>
+<p>2024 一开年开始，我就发现<code>github.com</code>在大陆的主 ip<code>20.205.243.166</code>访问不通了= =，感觉每次都要专门开个梯子好麻烦，研究了一番，改 hosts 解决。</p>
+<p><a href="https://tool.chinaz.com/dns/github.com" target="_blank" rel="noopener">https://tool.chinaz.com/dns/github.com</a>可以查看所有 ip，我选了第二个，在<code>/etc/hosts</code>里添加了一条：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">140.82.121.4 github.com</span><br></pre></td></tr></table></figure>
+<p>问题解决。</p>
+<p>BTW，我用的是 ssh 的模式，这个模式在之前网页访问不通的情况下依然可以很快拉仓库，结果现在原来的 ip 也不行了（新换的这个依旧可以）。</p>
+<p>在<code>~/.gitconfig</code>添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[url</span> <span class="string">"git@github.com:"</span><span class="string">]</span></span><br><span class="line">    <span class="string">insteadOf</span> <span class="string">=</span> <span class="string">https://github.com/</span></span><br></pre></td></tr></table></figure>
+<p>就会都走 ssh 模式。（很好用，我之前用来拉 nvim 仓库包的）</p>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2024-01-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2024/01/21/reading-list-2024-03/" class="archive-post-link">
-            列表2024-week03
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-12-11
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/12/11/reading-list-2023-50/" class="archive-post-link">
-            列表2023-week50
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2023-11-28
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2023/11/28/reading-list-2023-49/" class="archive-post-link">
-            列表2023-week49
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-11-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/11/21/git-merge-tool-start-from-scratch-1/" class="archive-post-link">
-            从零开始制作分支管理工具（第一版）
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-11-14
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/11/14/git-hook-usage/" class="archive-post-link">
-            git hook删除项目配置
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-10-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/10/07/git-doc/" class="archive-post-link">
-            git相关使用
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-02-08
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/02/08/git-usage/" class="archive-post-link">
-            git相关文档
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-02-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/02/07/private-git-repository/" class="archive-post-link">
-            git私有仓库
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/github/">github</a>
+            <a href="/blog/tags/git/">git</a>
+            <a href="/blog/tags/reading/">reading</a>
+            <a href="/blog/tags/hosts/">hosts</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2024/01/21/reading-list-2024-03/">
+        <span class="next-text nav-default">列表2024-week03</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

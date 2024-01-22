@@ -262,6 +262,37 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/22/reading-list-2024-04/">列表2024-week04</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-22 10:26:51
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/22/reading-list-2024-04/"
+             data-title="列表2024-week04">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
+<h3 id="github-仓库问题"><a class="header-anchor" href="#github-仓库问题">#</a>github 仓库问题</h3>
+<p>2024 一开年开始，我就发现<code>github.com</code>在大陆的主 ip<code>20.205.243.166</code>访问不通了= =，感觉每次都要专门开个梯子好麻烦，研究了一番，改 hosts 解决。</p>
+<p><a href="https://tool.chinaz.com/dns/github.com" target="_blank" rel="noopener">https://tool.chinaz.com/dns/github.com</a>可以查看所有 ip，我选了第二个，在<code>/etc/hosts</code>里添加了一条：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">140.82.121.4 github.com</span><br></pre></td></tr></table></figure>
+<p>问题解决。</p>
+<p>BTW，我用的是 ssh 的模式，这个模式在之前网页访问不通的情况下依然可以很快拉仓库，结果现在原来的 ip 也不行了（新换的这个依旧可以）。</p>
+<p>在<code>~/.gitconfig</code>添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[url</span> <span class="string">"git@github.com:"</span><span class="string">]</span></span><br><span class="line">    <span class="string">insteadOf</span> <span class="string">=</span> <span class="string">https://github.com/</span></span><br></pre></td></tr></table></figure>
+<p>就会都走 ssh 模式。（很好用，我之前用来拉 nvim 仓库包的）</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2024/01/21/reading-list-2024-03/">列表2024-week03</a>
         </h1>
 
@@ -290,6 +321,16 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><code>-p</code>会打印输出，比较适合做管道处理。<code>-e</code>就是执行后面的命令。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 240120.json | ggrep -P <span class="string">"\"args\": \"mid"</span> | perl -pe <span class="string">'s/\s+"args": "mid:([0-9]+)([ \S]+)/$1/'</span></span><br></pre></td></tr></table></figure>
+<h3 id="https-go-dev-doc-gc-guide"><a class="header-anchor" href="#https-go-dev-doc-gc-guide">#</a><a href="https://go.dev/doc/gc-guide" target="_blank" rel="noopener">https://go.dev/doc/gc-guide</a></h3>
+<blockquote>
+<p>Until Go 1.19, GOGC was the sole parameter that could be used to modify the GC’s behavior. While it works great as a way to set a trade-off, it doesn’t take into account that available memory is finite. Consider what happens when there’s a transient spike in the live heap size: because the GC will pick a total heap size proportional to that live heap size, GOGC must be configured such for the peak live heap size, even if in the usual case a higher GOGC value provides a better trade-off.</p>
+</blockquote>
+<p><code>GOGC</code>在配置的时候没有考虑内存有限的情况，当出现有临时的内存突增时，要么 gc 阈值过高导致 oom，要么考验开发/运维，要在配置时考虑到内存激增的情况，配置对应可用的 GOGC。</p>
+<p>为了避免参数滥用，golang 限制了 gc 时间，使得理论上的最坏情况是程序性能下降两倍。</p>
+<h3 id="1-3"><a class="header-anchor" href="#1-3">#</a>-1%3=?</h3>
+<p>差点因为这个表达式写了一个 bug，测试了多个语言，发现只有 python 会返回 2。<br>
+数学定义上没有对负数的取模进行精确定义，所以只依赖具体语言实现。<br>
+对于<code>go</code>/<code>c</code>/<code>php</code>，这个值会返回 <strong>-1</strong>。</p>
 
         </div></article>
       <article class="post">
@@ -598,35 +639,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div class="read-more">
             <a href="/blog/2023/10/22/neovim-config/" class="read-more-link">Read more..</a>
           </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/08/20/neovim-note/">neovim笔记</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-08-20 10:31:09
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/08/20/neovim-note/"
-             data-title="neovim笔记">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="移动"><a class="header-anchor" href="#移动">#</a>移动</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下移半页</span></span><br><span class="line">ctrl d </span><br><span class="line"><span class="comment"># 上移半页</span></span><br><span class="line">ctrl u</span><br><span class="line"><span class="comment"># 移动光标到中心</span></span><br><span class="line">zz</span><br><span class="line"><span class="comment"># 向上移动屏幕</span></span><br><span class="line">ctrl e</span><br><span class="line"><span class="comment"># 向下移动屏幕</span></span><br><span class="line">ctrl y</span><br></pre></td></tr></table></figure>
-<h2 id="编辑"><a class="header-anchor" href="#编辑">#</a>编辑</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 撤销</span></span><br><span class="line">u</span><br><span class="line"><span class="comment"># 恢复撤销</span></span><br><span class="line">ctrl r</span><br><span class="line"><span class="comment"># 剪切</span></span><br></pre></td></tr></table></figure>
-<h2 id="调试"><a class="header-anchor" href="#调试">#</a>调试</h2>
-<h3 id="断点"><a class="header-anchor" href="#断点">#</a>断点</h3>
-<h2 id="其它"><a class="header-anchor" href="#其它">#</a>其它</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂起nvim</span></span><br><span class="line">:sus</span><br><span class="line">:<span class="built_in">suspend</span></span><br><span class="line"><span class="comment"># 从挂起中恢复</span></span><br><span class="line">$ fd</span><br><span class="line"><span class="comment"># 窗口交换</span></span><br><span class="line"><span class="comment"># 与下一个</span></span><br><span class="line">ctrl + w + x</span><br></pre></td></tr></table></figure>
-
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>
