@@ -262,6 +262,127 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/16/ssh-key-can-not-work/">今日的大坑：ssh密钥失效</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-16 09:17:39
+        </span><span class="post-category">
+            <a href="/blog/categories/work/">work</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/16/ssh-key-can-not-work/"
+             data-title="今日的大坑：ssh密钥失效">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>像往常一样，日常备份一下服务器上的备份文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -auv -e <span class="string">"ssh -i /home/deploy/.ssh/mi"</span> --progress /home/deploy/common/ android@xm.onns.xyz:/home/android/</span><br></pre></td></tr></table></figure>
+<p>突然间我服务器炸了，<code>ssh</code>什么的都连不上了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android@xm.onns.xyz: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/blog/2020/09/16/ssh-key-can-not-work/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/15/solution-of-coin-change/">Leetcode题解：零钱兑换</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-15 12:44:00
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/15/solution-of-coin-change/"
+             data-title="Leetcode题解：零钱兑换">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="322-零钱兑换"><a class="header-anchor" href="#322-零钱兑换">#</a><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">322. 零钱兑换</a></h2>
+<p>给定不同面额的硬币<code>coins</code>和一个总金额<code>amount</code>。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回<code>-1</code>。</p>
+<p>示例<code>1</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11</span><br><span class="line">输出: 3</span><br><span class="line">解释: 11 &#x3D; 5 + 5 + 1</span><br></pre></td></tr></table></figure>
+<p>示例<code>2</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: coins &#x3D; [2], amount &#x3D; 3</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
+<p>说明:<br>
+你可以认为每种硬币的数量是<code>无限的</code>。</p>
+          <div class="read-more">
+            <a href="/blog/2020/09/15/solution-of-coin-change/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/15/solution-of-fibonacci-number/">Leetcode题解：斐波那契数</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-15 12:33:42
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/15/solution-of-fibonacci-number/"
+             data-title="Leetcode题解：斐波那契数">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="509-斐波那契数"><a class="header-anchor" href="#509-斐波那契数">#</a><a href="https://leetcode-cn.com/problems/fibonacci-number/" target="_blank" rel="noopener">509. 斐波那契数</a></h2>
+<p>斐波那契数，通常用<code>F(n)</code>表示，形成的序列称为<strong>斐波那契数列</strong>。该数列由<code>0</code>和<code>1</code>开始，后面的每一项数字都是前面两项数字的和。也就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F(0) &#x3D; 0,   F(1) &#x3D; 1</span><br><span class="line">F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.</span><br></pre></td></tr></table></figure>
+<p>给定<code>N</code>，计算<code>F(N)</code>。</p>
+<p>示例<code>1</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：2</span><br><span class="line">输出：1</span><br><span class="line">解释：F(2) &#x3D; F(1) + F(0) &#x3D; 1 + 0 &#x3D; 1.</span><br></pre></td></tr></table></figure>
+<p>示例<code>2</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：3</span><br><span class="line">输出：2</span><br><span class="line">解释：F(3) &#x3D; F(2) + F(1) &#x3D; 1 + 1 &#x3D; 2.</span><br></pre></td></tr></table></figure>
+<p>示例<code>3</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：4</span><br><span class="line">输出：3</span><br><span class="line">解释：F(4) &#x3D; F(3) + F(2) &#x3D; 2 + 1 &#x3D; 3.</span><br></pre></td></tr></table></figure>
+<p>提示：</p>
+<p>0 ≤<code>N</code>≤ 30</p>
+          <div class="read-more">
+            <a href="/blog/2020/09/15/solution-of-fibonacci-number/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/">Leetcode题解：二叉树的中序遍历</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-14 15:24:50
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/"
+             data-title="Leetcode题解：二叉树的中序遍历">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="94-二叉树的中序遍历"><a class="header-anchor" href="#94-二叉树的中序遍历">#</a><a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener">94. 二叉树的中序遍历</a></h2>
+<p>给定一个二叉树，返回它的<em>中序</em>遍历。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,null,2,3]</span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    &#x2F;</span><br><span class="line">   3</span><br><span class="line"></span><br><span class="line">输出: [1,3,2]</span><br></pre></td></tr></table></figure>
+<p>进阶:  递归算法很简单，你可以通过迭代算法完成吗？</p>
+          <div class="read-more">
+            <a href="/blog/2020/09/14/solution-of-binary-tree-inorder-traversal/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/13/screen-record-with-internal-audio-on-quicktime-player/">使用MacOS自带的Quicktime Player录制系统声音</a>
         </h1>
 
@@ -425,123 +546,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             <a href="/blog/2020/09/12/concurrent-utility-class/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/12/use-vba-in-excel/">在Excel中使用宏</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-12 00:19:13
-        </span><span class="post-category">
-            <a href="/blog/categories/xmu/">xmu</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/12/use-vba-in-excel/"
-             data-title="在Excel中使用宏">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>工作交接～</p>
-          <div class="read-more">
-            <a href="/blog/2020/09/12/use-vba-in-excel/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/10/jsp-1/">JSP</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-10 16:48:52
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/10/jsp-1/"
-             data-title="JSP">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="jsp-热更新"><a class="header-anchor" href="#jsp-热更新">#</a>JSP 热更新</h2>
-<p>之前写 Java Servlet 的时候，每写一个就要重新启动一次<code>tomcat</code>，麻烦死，终于到<code>jsp</code>这里可以热更新了。</p>
-<p>在<code>Deployment</code>的界面里选带<strong>exploded</strong>后缀的。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-9.png" alt="Deployment界面"></p>
-</center>
-<p>然后在<code>Server</code>界面，把<code>On 'Update' action:</code>和<code>On frame deactivation:</code>改掉，重启就可以了。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200910-10.png" alt="Server界面"></p>
-</center>
-<p>我这样配了之后不生效，找了半天原因，发现重启就可以了，唉 ╮(╯▽╰)╭</p>
-          <div class="read-more">
-            <a href="/blog/2020/09/10/jsp-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/10/weekly-report-20200910/">周报-20200910</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-10 10:14:10
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/10/weekly-report-20200910/"
-             data-title="周报-20200910">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><center>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">2020-09-10</th>
-<th style="text-align:center">周报#04</th>
-<th style="text-align:center">刘潘</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/09/10/weekly-report-20200910/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/09/new-site-host/">新的静态博客托管商</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-09 17:52:01
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/09/09/new-site-host/"
-             data-title="新的静态博客托管商">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天终于下定决心要换博客托管了，之前一直在<code>GitHub Page</code>，国内访问简直龟速，其实自己有服务器的，但是纯静态放上去感觉有点浪费，搜索了一下，这个真的可以的！传送门：<a href="https://vercel.com/dashboard" target="_blank" rel="noopener">https://vercel.com/dashboard</a>。</p>
-          <div class="read-more">
-            <a href="/blog/2020/09/09/new-site-host/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/15/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
@@ -569,7 +573,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2023<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2024<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>

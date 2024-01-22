@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="wakapi配置"/><meta name="keywords" content="wakatime, wakapi, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/01/17/wakapi-usage/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script src="//onns.xyz/js/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://jire5lrq.lc-cn-n1-shared.com"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://jire5lrq.lc-cn-n1-shared.com"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                $resultContent.innerHTML = "";
+                var str = '<section class=\"posts\">';
+                var rawValue = this.value.trim().toLowerCase();
+                if (rawValue.length <= 0) {
+                    return;
+                }
+                var keywords = [];
+                for (const matchKey of rawValue.matchAll(/"([^"]*)"/g)) {
+                  keywords.push(matchKey[1]);
+                  rawValue = rawValue.replace(matchKey[0], "");
+                }
+                keywords = keywords.concat(rawValue.split(/[\s\-]+/));
+                keywords = keywords.filter(function(el) {
+                    return el.trim().length > 0;
+                });
+                if (keywords.length <= 0) {
+                    return;
+                }
+                
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>wakapi配置 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">wakapi配置
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-17 13:57:51
+        </span><span class="post-category">
+            <a href="/blog/categories/tool/">tool</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/17/wakapi-usage/"
+             data-title="wakapi配置">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#代码统计"><span class="toc-text">代码统计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结尾"><span class="toc-text">结尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="代码统计"><a class="header-anchor" href="#代码统计">#</a>代码统计</h1>
+<p>wakatime 的开源解决方案，可以自建服务。</p>
+<a id="more"></a>
+<h2 id="配置"><a class="header-anchor" href="#配置">#</a>配置</h2>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">env:</span> <span class="string">production</span></span><br><span class="line"><span class="attr">quick_start:</span> <span class="literal">false</span> <span class="comment"># whether to skip initial tasks on application startup, like summary generation</span></span><br><span class="line"><span class="attr">skip_migrations:</span> <span class="literal">false</span> <span class="comment"># whether to intentionally not run database migrations, only use for dev purposes</span></span><br><span class="line"><span class="attr">enable_pprof:</span> <span class="literal">false</span> <span class="comment"># whether to expose pprof (https://pkg.go.dev/runtime/pprof) profiling data as an endpoint for debugging</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">listen_ipv4:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="comment"># set to '-' to disable ipv4</span></span><br><span class="line">  <span class="attr">listen_ipv6:</span> <span class="string">"-"</span> <span class="comment"># set to '-' to disable ipv6</span></span><br><span class="line">  <span class="attr">listen_socket:</span> <span class="comment"># set to '-' to disable unix sockets</span></span><br><span class="line">  <span class="attr">listen_socket_mode:</span> <span class="number">0666</span> <span class="comment"># permission mode to create unix socket with</span></span><br><span class="line">  <span class="attr">timeout_sec:</span> <span class="number">30</span> <span class="comment"># request timeout</span></span><br><span class="line">  <span class="attr">tls_cert_path:</span> <span class="comment"># leave blank to not use https</span></span><br><span class="line">  <span class="attr">tls_key_path:</span> <span class="comment"># leave blank to not use https</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8045</span></span><br><span class="line">  <span class="attr">base_path:</span> <span class="string">/waka</span></span><br><span class="line">  <span class="attr">public_url:</span> <span class="string">http://localhost:3000</span> <span class="comment"># required for links (e.g. password reset) in e-mail</span></span><br><span class="line"></span><br><span class="line"><span class="attr">app:</span></span><br><span class="line">  <span class="attr">leaderboard_enabled:</span> <span class="literal">true</span> <span class="comment"># whether to enable public leaderboards</span></span><br><span class="line">  <span class="attr">leaderboard_scope:</span> <span class="string">7_days</span> <span class="comment"># leaderboard time interval (e.g. 14_days, 6_months, ...)</span></span><br><span class="line">  <span class="attr">leaderboard_generation_time:</span> <span class="string">"0 0 6 * * *,0 0 18 * * *"</span> <span class="comment"># times at which to re-calculate the leaderboard</span></span><br><span class="line">  <span class="attr">aggregation_time:</span> <span class="string">"0 15 2 * * *"</span> <span class="comment"># time at which to run daily aggregation batch jobs</span></span><br><span class="line">  <span class="attr">report_time_weekly:</span> <span class="string">"0 0 18 * * 5"</span> <span class="comment"># time at which to fan out weekly reports (extended cron)</span></span><br><span class="line">  <span class="attr">data_cleanup_time:</span> <span class="string">"0 0 6 * * 0"</span> <span class="comment"># time at which to run old data cleanup (if enabled through data_retention_months)</span></span><br><span class="line">  <span class="attr">inactive_days:</span> <span class="number">7</span> <span class="comment"># time of previous days within a user must have logged in to be considered active</span></span><br><span class="line">  <span class="attr">import_enabled:</span> <span class="literal">true</span> <span class="comment"># whether data import from wakatime or other wakapi instances is allowed</span></span><br><span class="line">  <span class="attr">import_backoff_min:</span> <span class="number">5</span> <span class="comment"># time (in minutes) for "cooldown" before allowing another data import attempt by a user</span></span><br><span class="line">  <span class="attr">import_max_rate:</span> <span class="number">24</span> <span class="comment"># minimum hours to pass after a successful data import by a user before attempting a new one</span></span><br><span class="line">  <span class="attr">import_batch_size:</span> <span class="number">50</span> <span class="comment"># maximum number of heartbeats to insert into the database within one transaction</span></span><br><span class="line">  <span class="attr">heartbeat_max_age:</span> <span class="string">"4320h"</span> <span class="comment"># maximum acceptable age of a heartbeat (see https://pkg.go.dev/time#ParseDuration)</span></span><br><span class="line">  <span class="attr">data_retention_months:</span> <span class="number">-1</span> <span class="comment"># maximum retention period on months for user data (heartbeats) (-1 for infinity)</span></span><br><span class="line">  <span class="attr">custom_languages:</span></span><br><span class="line">    <span class="attr">vue:</span> <span class="string">Vue</span></span><br><span class="line">    <span class="attr">jsx:</span> <span class="string">JSX</span></span><br><span class="line">    <span class="attr">tsx:</span> <span class="string">TSX</span></span><br><span class="line">    <span class="attr">cjs:</span> <span class="string">JavaScript</span></span><br><span class="line">    <span class="attr">ipynb:</span> <span class="string">Python</span></span><br><span class="line">    <span class="attr">svelte:</span> <span class="string">Svelte</span></span><br><span class="line">    <span class="attr">astro:</span> <span class="string">Astro</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># url template for user avatar images (to be used with services like gravatar or dicebear)</span></span><br><span class="line">  <span class="comment"># available variable placeholders are: username, username_hash, email, email_hash</span></span><br><span class="line">  <span class="comment"># defaults to wakapi's internal avatar rendering powered by https://codeberg.org/Codeberg/avatars</span></span><br><span class="line">  <span class="attr">avatar_url_template:</span> <span class="string">api/avatar/&#123;username_hash&#125;.svg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="comment"># leave blank when using sqlite3</span></span><br><span class="line">  <span class="attr">port:</span> <span class="comment"># leave blank when using sqlite3</span></span><br><span class="line">  <span class="attr">socket:</span> <span class="comment"># alternative to db.host (leave blank when using sqlite3)</span></span><br><span class="line">  <span class="attr">user:</span> <span class="comment"># leave blank when using sqlite3</span></span><br><span class="line">  <span class="attr">password:</span> <span class="comment"># leave blank when using sqlite3</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">wakapi_db.db</span> <span class="comment"># database name for mysql / postgres or file path for sqlite (e.g. /tmp/wakapi.db)</span></span><br><span class="line">  <span class="attr">dialect:</span> <span class="string">sqlite3</span> <span class="comment"># mysql, postgres, sqlite3</span></span><br><span class="line">  <span class="attr">charset:</span> <span class="string">utf8mb4</span> <span class="comment"># only used for mysql connections</span></span><br><span class="line">  <span class="attr">max_conn:</span> <span class="number">2</span> <span class="comment"># maximum number of concurrent connections to maintain</span></span><br><span class="line">  <span class="attr">ssl:</span> <span class="literal">false</span> <span class="comment"># whether to use tls for db connection (must be true for cockroachdb) (ignored for mysql and sqlite)</span></span><br><span class="line">  <span class="attr">automigrate_fail_silently:</span> <span class="literal">false</span> <span class="comment"># whether to ignore schema auto-migration failures when starting up</span></span><br><span class="line"></span><br><span class="line"><span class="attr">security:</span></span><br><span class="line">  <span class="attr">password_salt:</span> <span class="comment"># change this</span></span><br><span class="line">  <span class="attr">insecure_cookies:</span> <span class="literal">true</span> <span class="comment"># should be set to 'false', except when not running with HTTPS (e.g. on localhost)</span></span><br><span class="line">  <span class="attr">cookie_max_age:</span> <span class="number">172800</span></span><br><span class="line">  <span class="attr">allow_signup:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">disable_frontpage:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">expose_metrics:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">enable_proxy:</span> <span class="literal">false</span> <span class="comment"># only intended for production instance at wakapi.dev</span></span><br><span class="line">  <span class="attr">trusted_header_auth:</span> <span class="literal">false</span> <span class="comment"># whether to enable trusted header auth for reverse proxies, use with caution!! (https://github.com/muety/wakapi/issues/534)</span></span><br><span class="line">  <span class="attr">trusted_header_auth_key:</span> <span class="string">Remote-User</span> <span class="comment"># header field for trusted header auth (warning: your proxy must correctly strip this header from client requests!!)</span></span><br><span class="line">  <span class="attr">trust_reverse_proxy_ips:</span> <span class="comment"># single ip address of the reverse proxy which you trust to pass headers for authentication</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sentry:</span></span><br><span class="line">  <span class="attr">dsn:</span> <span class="comment"># leave blank to disable sentry integration</span></span><br><span class="line">  <span class="attr">enable_tracing:</span> <span class="literal">true</span> <span class="comment"># whether to use performance monitoring</span></span><br><span class="line">  <span class="attr">sample_rate:</span> <span class="number">0.75</span> <span class="comment"># probability of tracing a request</span></span><br><span class="line">  <span class="attr">sample_rate_heartbeats:</span> <span class="number">0.1</span> <span class="comment"># probability of tracing a heartbeat request</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only relevant for running wakapi as a hosted service with paid subscriptions and stripe payments</span></span><br><span class="line"><span class="attr">subscriptions:</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">expiry_notifications:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">stripe_api_key:</span></span><br><span class="line">  <span class="attr">stripe_secret_key:</span></span><br><span class="line">  <span class="attr">stripe_endpoint_secret:</span></span><br><span class="line">  <span class="attr">standard_price_id:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">mail:</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># whether to enable mails (used for password resets, reports, etc.)</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">smtp</span> <span class="comment"># method for sending mails, currently one of ['smtp']</span></span><br><span class="line">  <span class="attr">sender:</span> <span class="string">Wakapi</span> <span class="string">&lt;noreply@wakapi.dev&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># smtp settings when sending mails via smtp</span></span><br><span class="line">  <span class="attr">smtp:</span></span><br><span class="line">    <span class="attr">host:</span></span><br><span class="line">    <span class="attr">port:</span></span><br><span class="line">    <span class="attr">username:</span></span><br><span class="line">    <span class="attr">password:</span></span><br><span class="line">    <span class="attr">tls:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;waka&#x2F; &#123;</span><br><span class="line">    rewrite ^&#x2F;waka&#x2F;(.*) &#x2F;$1 break;</span><br><span class="line">    proxy_pass       http:&#x2F;&#x2F;127.0.0.1:8045;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">&#125;</span><br><span class="line">location &#x2F;api&#x2F; &#123;</span><br><span class="line">	rewrite ^&#x2F;api&#x2F;(.*) &#x2F;waka&#x2F;api&#x2F;$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结尾"><a class="header-anchor" href="#结尾">#</a>结尾</h2>
+<p>因为官网已经非常详细了，所以只是做一个配置备份= =</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://github.com/muety/wakapi" target="_blank" rel="noopener">https://github.com/muety/wakapi</a></li>
+</ul>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/wakatime/">wakatime</a>
+            <a href="/blog/tags/wakapi/">wakapi</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2024/01/20/prometheus-note-1/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">普罗米修斯笔记 (1)</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2023/12/11/reading-list-2023-50/">
+        <span class="next-text nav-default">列表2023-week50</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2024<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

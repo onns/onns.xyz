@@ -262,6 +262,134 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/21/reading-list-2024-03/">列表2024-week03</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-21 09:49:46
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/21/reading-list-2024-03/"
+             data-title="列表2024-week03">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
+<h3 id="perl-用法"><a class="header-anchor" href="#perl-用法">#</a>perl 用法</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[2024/01/21 9:47:32] mbp ➜  ~  perl -h</span><br><span class="line"></span><br><span class="line">Usage: perl [switches] [--] [programfile] [arguments]</span><br><span class="line">  -0[octal]         specify record separator (\0, <span class="keyword">if</span> no argument)</span><br><span class="line">  -a                autosplit mode with -n or -p (splits <span class="variable">$_</span> into @F)</span><br><span class="line">  -C[number/list]   enables the listed Unicode features</span><br><span class="line">  -c                check syntax only (runs BEGIN and CHECK blocks)</span><br><span class="line">  -d[:debugger]     run program under debugger</span><br><span class="line">  -D[number/list]   <span class="built_in">set</span> debugging flags (argument is a bit mask or alphabets)</span><br><span class="line">  -e program        one line of program (several -e<span class="string">'s allowed, omit programfile)</span></span><br><span class="line"><span class="string">  -E program        like -e, but enables all optional features</span></span><br><span class="line"><span class="string">  -f                don'</span>t <span class="keyword">do</span> <span class="variable">$sitelib</span>/sitecustomize.pl at startup</span><br><span class="line">  -F/pattern/       split() pattern <span class="keyword">for</span> -a switch (//<span class="string">'s are optional)</span></span><br><span class="line"><span class="string">  -i[extension]     edit &lt;&gt; files in place (makes backup if extension supplied)</span></span><br><span class="line"><span class="string">  -Idirectory       specify @INC/#include directory (several -I'</span>s allowed)</span><br><span class="line">  -l[octal]         <span class="built_in">enable</span> line ending processing, specifies line terminator</span><br><span class="line">  -[mM][-]module    execute <span class="string">"use/no module..."</span> before executing program</span><br><span class="line">  -n                assume <span class="string">"while (&lt;&gt;) &#123; ... &#125;"</span> loop around program</span><br><span class="line">  -p                assume loop like -n but <span class="built_in">print</span> line also, like sed</span><br><span class="line">  -s                <span class="built_in">enable</span> rudimentary parsing <span class="keyword">for</span> switches after programfile</span><br><span class="line">  -S                look <span class="keyword">for</span> programfile using PATH environment variable</span><br><span class="line">  -t                <span class="built_in">enable</span> tainting warnings</span><br><span class="line">  -T                <span class="built_in">enable</span> tainting checks</span><br><span class="line">  -u                dump core after parsing program</span><br><span class="line">  -U                allow unsafe operations</span><br><span class="line">  -v                <span class="built_in">print</span> version, patchlevel and license</span><br><span class="line">  -V[:variable]     <span class="built_in">print</span> configuration summary (or a single Config.pm variable)</span><br><span class="line">  -w                <span class="built_in">enable</span> many useful warnings</span><br><span class="line">  -W                <span class="built_in">enable</span> all warnings</span><br><span class="line">  -x[directory]     ignore text before <span class="comment">#!perl line (optionally cd to directory)</span></span><br><span class="line">  -X                <span class="built_in">disable</span> all warnings</span><br><span class="line"></span><br><span class="line">Run <span class="string">'perldoc perl'</span> <span class="keyword">for</span> more <span class="built_in">help</span> with Perl.</span><br></pre></td></tr></table></figure>
+<p>最近处理线上问题，需要捞日志，因为日常<code>Perl</code>风格的正则写的比较多，所以希望能直接一条命令导出，省的多个编辑器之间来回切换。</p>
+<p>但是目前几乎所有命令都只支持<code>POSIX</code>风格的正则，记录一下解决方案：</p>
+<ol>
+<li>grep 可以通过<code>-P</code>参数，但是必须要下载 gnu 的 grep 才支持，mac 本身的不支持</li>
+<li><code>sed</code>不支持<code>Perl</code>风格，也<a href="https://askubuntu.com/questions/1050693/sed-with-pcre-like-grep-p" target="_blank" rel="noopener">不会支持</a>，解决方法是换命令，<code>perl</code>几乎 mac 都是装机自带的。</li>
+<li><code>-p</code>会打印输出，比较适合做管道处理。<code>-e</code>就是执行后面的命令。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 240120.json | ggrep -P <span class="string">"\"args\": \"mid"</span> | perl -pe <span class="string">'s/\s+"args": "mid:([0-9]+)([ \S]+)/$1/'</span></span><br></pre></td></tr></table></figure>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/20/prometheus-note-1/">普罗米修斯笔记 (1)</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-20 10:10:26
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/20/prometheus-note-1/"
+             data-title="普罗米修斯笔记 (1)">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="普罗米修斯笔记-1"><a class="header-anchor" href="#普罗米修斯笔记-1">#</a>普罗米修斯笔记 (1)</h1>
+<h2 id="一些笔记"><a class="header-anchor" href="#一些笔记">#</a>一些笔记</h2>
+<blockquote>
+<p>All regular expressions in Prometheus use <a href="https://github.com/google/re2/wiki/Syntax" target="_blank" rel="noopener">RE2 syntax</a>.</p>
+</blockquote>
+<p>= = 暂缓研究，因为我发现运行一下午电脑 700m 空间没了，理想是希望能长期运行，但是目前看下来应用场景有问题，遂先放弃，但是相关的语法还是需要研究的。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://taoshu.in/sre/prom.html" target="_blank" rel="noopener">Prometheus 简介</a></li>
+<li><a href="https://prometheus.io/docs/tutorials/understanding_metric_types/" target="_blank" rel="noopener">Types of metrics.</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/" target="_blank" rel="noopener">Querying Prometheus</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/17/wakapi-usage/">wakapi配置</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-01-17 13:57:51
+        </span><span class="post-category">
+            <a href="/blog/categories/tool/">tool</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/01/17/wakapi-usage/"
+             data-title="wakapi配置">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="代码统计"><a class="header-anchor" href="#代码统计">#</a>代码统计</h1>
+<p>wakatime 的开源解决方案，可以自建服务。</p>
+          <div class="read-more">
+            <a href="/blog/2024/01/17/wakapi-usage/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2023/12/11/reading-list-2023-50/">列表2023-week50</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2023-12-11 11:17:24
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2023/12/11/reading-list-2023-50/"
+             data-title="列表2023-week50">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
+<h3 id="你真的知道如何设置数据库连接池的大小吗"><a class="header-anchor" href="#你真的知道如何设置数据库连接池的大小吗">#</a>你真的知道如何设置数据库连接池的大小吗</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/rickiyang/p/12239907.html" target="_blank" rel="noopener">你真的知道如何设置数据库连接池的大小吗</a></li>
+</ul>
+<h3 id="go-函数指针是如何让你的程序变慢的？"><a class="header-anchor" href="#go-函数指针是如何让你的程序变慢的？">#</a>Go 函数指针是如何让你的程序变慢的？</h3>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/bcmvPbWV7nBi7wIfr-MR8w" target="_blank" rel="noopener"> Go 函数指针是如何让你的程序变慢的？ </a></li>
+</ul>
+<h3 id="go-1-22-中的-for-循环"><a class="header-anchor" href="#go-1-22-中的-for-循环">#</a>Go 1.22 中的 For 循环</h3>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/yZc6_YQCKtyiB1YhtU4FXA" target="_blank" rel="noopener"> Go 1.22 中的 For 循环 </a></li>
+</ul>
+<h3 id="go1-21-速览：context-可以设置取消原因和回调函数了，等的可太久了！"><a class="header-anchor" href="#go1-21-速览：context-可以设置取消原因和回调函数了，等的可太久了！">#</a>Go1.21 速览：Context 可以设置取消原因和回调函数了，等的可太久了！</h3>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/3HVmCkPdEBsM0W3dRh8ycw" target="_blank" rel="noopener">Go1.21 速览：Context 可以设置取消原因和回调函数了，等的可太久了！</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2023/11/28/reading-list-2023-49/">列表2023-week49</a>
         </h1>
 
@@ -500,109 +628,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂起nvim</span></span><br><span class="line">:sus</span><br><span class="line">:<span class="built_in">suspend</span></span><br><span class="line"><span class="comment"># 从挂起中恢复</span></span><br><span class="line">$ fd</span><br><span class="line"><span class="comment"># 窗口交换</span></span><br><span class="line"><span class="comment"># 与下一个</span></span><br><span class="line">ctrl + w + x</span><br></pre></td></tr></table></figure>
 
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/07/15/go-image/">golang图片处理</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-07-15 23:33:56
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/07/15/go-image/"
-             data-title="golang图片处理">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>不得不感慨，前端的发展迅速以至于我觉得在前端样式下一小段 css 的事情，服务端实现起来无比复杂，甚至无法实现。<br>
-所以其实图片编辑的操作一直以来都是由前端或者客户端完成的。但，任何客户端的用户行为其实都是不可信的，对于一个图像裁剪，如果接入审核流又会过于繁重。服务端处理在一定程度上能够解决这个问题，如果这个场景其实不会特别频繁的话。</p>
-          <div class="read-more">
-            <a href="/blog/2023/07/15/go-image/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/07/15/go-varint/">用golang解析varint</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-07-15 23:04:10
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/07/15/go-varint/"
-             data-title="用golang解析varint">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>解析 varint：</p>
-          <div class="read-more">
-            <a href="/blog/2023/07/15/go-varint/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/06/12/aes-note/">AES相关问题记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-06-12 08:37:39
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/06/12/aes-note/"
-             data-title="AES相关问题记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>对加密方法的一些问题记录</p>
-          <div class="read-more">
-            <a href="/blog/2023/06/12/aes-note/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/06/03/clang-format-usage/">clang-format使用记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-06-03 23:10:58
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/06/03/clang-format-usage/"
-             data-title="clang-format使用记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>在团队协作上，代码的统一格式会让协作变得简单。<br>
-公司推荐用<code>clang-format</code>格式化proto文件，但格式化后的文档可读性很差，甚至“公司除了我没人在用”。</p>
-<p>一番折腾，解决，记录之。</p>
-          <div class="read-more">
-            <a href="/blog/2023/06/03/clang-format-usage/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>
         <i class="iconfont icon-right"></i>
@@ -626,7 +651,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2023<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2024<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Onns</span>
