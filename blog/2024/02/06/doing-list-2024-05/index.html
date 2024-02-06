@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#obsidian-入门"><span class="toc-text">Obsidian 入门</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#obsidian-入门"><span class="toc-text">Obsidian 入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取消追踪-git-文件"><span class="toc-text">取消追踪 git 文件</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
 <h3 id="obsidian-入门"><a class="header-anchor" href="#obsidian-入门">#</a>Obsidian 入门</h3>
@@ -297,6 +297,9 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <ol>
 <li>代码格式化很不友好，我格式化的多行带缩进的代码粘贴进去会乱。</li>
 </ol>
+<h3 id="取消追踪-git-文件"><a class="header-anchor" href="#取消追踪-git-文件">#</a>取消追踪 git 文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件</span></span><br><span class="line">git rm --cached example.txt</span><br><span class="line"><span class="comment"># 目录</span></span><br><span class="line">git rm --cached -r logs/</span><br></pre></td></tr></table></figure>
+<p>用于将先追踪过的文件，加入<code>.gitignore</code>并取消追踪。</p>
 
       </div>
       
