@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>列表2024-week06</title>
+      <link href="/blog/2024/02/12/doing-list-2024-06/"/>
+      <url>/blog/2024/02/12/doing-list-2024-06/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="waitgroup-原理"><a class="header-anchor" href="#waitgroup-原理">#</a>WaitGroup 原理</h3><ul><li><a href="https://segmentfault.com/a/1190000043730639" target="_blank" rel="noopener">Golang WaitGroup 底层原理及源码详解</a></li></ul><p>是我看到众多文章中逻辑最清晰的。<br>通过信号量控制并发问题，信号量的实现原理待继续阅读。</p><h3 id="《火星救援》"><a class="header-anchor" href="#《火星救援》">#</a>《火星救援》</h3><p>重新看了一遍经典影片，并查询了一些当初有疑问的点。</p><ul><li>原著说维生素、蛋白质都足够生存，缺的只是卡路里（通过土豆获取）。</li><li>电影只交代了如何制造食物和水，没有谈及氧气，查了一下，已经有通过二氧化碳制取氧气和碳的设备。</li></ul><h3 id="熟悉-obsidian"><a class="header-anchor" href="#熟悉-obsidian">#</a>熟悉 Obsidian</h3><ul><li><a href="https://publish.obsidian.md/chinesehelp/01+2021%E6%96%B0%E6%95%99%E7%A8%8B/%E6%8A%8AObsidian%E5%BD%93%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88%E4%BD%93%E9%AA%8C+by+Cuman" target="_blank" rel="noopener">把 Obsidian 当网页浏览器是什么体验 by Cuman</a></li></ul><p>有一款可以在里面边看网页边记笔记的<code>浏览器插件</code>，可用性有待研究。</p><p>目前已经逐步在把工作中的文档迁移到<code>Obsidian</code>，真的很利于检索文件或者内容。</p><p>想跨仓库引用笔记好像不可行，会被拷贝一份文件到当前仓库= =</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> movie </tag>
+            
+            <tag> semaphore </tag>
+            
+            <tag> golang </tag>
+            
+            <tag> obsidian </tag>
+            
+            <tag> waitgroup </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>列表2024-week05</title>
       <link href="/blog/2024/02/06/doing-list-2024-05/"/>
       <url>/blog/2024/02/06/doing-list-2024-05/</url>
