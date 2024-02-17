@@ -299,6 +299,29 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>有一款可以在里面边看网页边记笔记的<code>浏览器插件</code>，可用性有待研究。</p>
 <p>目前已经逐步在把工作中的文档迁移到<code>Obsidian</code>，真的很利于检索文件或者内容。</p>
 <p>想跨仓库引用笔记好像不可行，会被拷贝一份文件到当前仓库= =</p>
+<h3 id="信号量"><a class="header-anchor" href="#信号量">#</a>信号量</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/ricklz/p/14610213.html" target="_blank" rel="noopener">go 中 semaphore(信号量)源码解读</a></li>
+</ul>
+<p>这篇文章底部有一些链接也可以同步阅读。</p>
+<h3 id="内联函数inline"><a class="header-anchor" href="#内联函数inline">#</a>内联函数<code>inline</code></h3>
+<p>C 语言中的定义，在调用处展开函数。</p>
+<h3 id="tmux-了解"><a class="header-anchor" href="#tmux-了解">#</a>tmux 了解</h3>
+<p>了解下来是 screen 的升级版，但是目前应该没有类似的需求，因为工作无法远程所以不会有保持会话的需求。</p>
+<h3 id="vim-技巧"><a class="header-anchor" href="#vim-技巧">#</a>vim 技巧</h3>
+<ul>
+<li>高亮选区的范围由其两个端点界定。其中一端固定，而另一端可以随光标自由移动，我们可以用 o 键来切换其活动的端点。</li>
+<li>启用了<code>wrap</code>之后，长度会折叠，出现屏幕行与实际行不同的情况。<code>gj</code>作用于屏幕行，<code>j</code>作用于实际行。</li>
+<li>一个单词由字母、数字、下划线，或其他非空白字符的序列组成，单词间以空白字符分隔。而字串的定义则更简单，它由非空白字符序列组成，字串间以空白字符分隔。</li>
+<li><code>W</code>、<code>B</code>、<code>E</code>、<code>gE</code>是面向字串的移动方式。</li>
+<li>可视模式下，会有范围限定词，<code>t</code>是一个特殊的，代表 xml 或者 html 这类的标签选定（感觉算是特殊优化）。</li>
+<li><code>m{a-zA-Z}</code>命令会用选定的字母标记当前光标所在位置。小写位置标记只在每个缓冲区里局部可见，而大写位置标记则全局可见。</li>
+<li><code>'{mark}</code>命令跳到位置标记所在行，并把光标置于该行第一个非空白字符上；而 <code>`{mark}</code> 命令则把光标移动到设置此位置标记时光标所在之处，也就是说，它同时恢复行、列的位置。</li>
+</ul>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20240217-1.png" alt="跳转位置"></p>
+</center>
 
         </div></article>
       <article class="post">
