@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>列表2024-week07</title>
+      <link href="/blog/2024/02/22/doing-list-2024-07/"/>
+      <url>/blog/2024/02/22/doing-list-2024-07/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="tmux"><a class="header-anchor" href="#tmux">#</a>tmux</h3><p>每次要恢复一堆窗口好烦，用 tmux 了。<br>因为日常开发需要开 10 多个命令行窗口，每次重启都要手动开启，没想到这是我用<code>tmux</code>的原因= =</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install tmux</span><br></pre></td></tr></table></figure><ul><li><a href="https://github.com/gpakosz/.tmux" target="_blank" rel="noopener">Oh my tmux</a></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gpakosz/.tmux.git</span><br><span class="line">ln -s -f .tmux/.tmux.conf</span><br><span class="line">cp .tmux/.tmux.conf.local .</span><br></pre></td></tr></table></figure><p><code>prefix c</code>：创建一个新窗口，状态栏会显示多个窗口的信息。<br><code>prefix p</code>：切换到上一个窗口（按照状态栏上的顺序）。<br><code>prefix n</code>：切换到下一个窗口。<br><code>prefix &lt;number&gt;</code>：切换到指定编号的窗口，其中的<code>&lt;number&gt;</code>是状态栏上的窗口编号。<br><code>prefix w</code>：从列表中选择窗口。<br><code>prefix ,</code>：窗口重命名。</p><p>prefix %：划分左右两个窗格。<br>prefix &quot;：划分上下两个窗格。<br><code>prefix &lt;arrow key&gt;</code>：光标切换到其他窗格。<code>&lt;arrow key&gt;</code>是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键 ↓。<br>prefix ;：光标切换到上一个窗格。<br>prefix o：光标切换到下一个窗格。<br>prefix {：当前窗格与上一个窗格交换位置。<br>prefix }：当前窗格与下一个窗格交换位置。<br>prefix Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。<br>prefix Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。<br>prefix x：关闭当前窗格。<br>prefix !：将当前窗格拆分为一个独立窗口。<br>prefix z：当前窗格全屏显示，再使用一次会变回原来大小。<br><code>prefix Ctrl+&lt;arrow key&gt;</code>：按箭头方向调整窗格大小。<br>prefix q：显示窗格编号。</p><p>开启自动保存会话只需要把<code>.tmux.conf.local</code>的几行注释打开即可：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set -g @plugin &#39;tmux-plugins&#x2F;tmux-resurrect&#39;</span><br><span class="line">set -g @plugin &#39;tmux-plugins&#x2F;tmux-continuum&#39;</span><br><span class="line">set -g @continuum-restore &#39;on&#39;</span><br></pre></td></tr></table></figure><ul><li>自动保存会话的地址为：<code>/Users/onns/.local/share/tmux/resurrect</code></li></ul><h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4><ul><li><a href="https://github.com/gpakosz/.tmux" target="_blank" rel="noopener">https://github.com/gpakosz/.tmux</a></li><li><a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" target="_blank" rel="noopener">Tmux 使用教程</a></li><li><a href="http://louiszhai.github.io/2017/09/30/tmux/#%E4%BF%9D%E5%AD%98Tmux%E4%BC%9A%E8%AF%9D" target="_blank" rel="noopener">Tmux 使用手册</a></li><li><a href="https://github.com/tmux-plugins/tmux-resurrect" target="_blank" rel="noopener">https://github.com/tmux-plugins/tmux-resurrect</a></li><li><a href="https://github.com/tmux-plugins/tmux-continuum" target="_blank" rel="noopener">https://github.com/tmux-plugins/tmux-continuum</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tmux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>列表2024-week06</title>
       <link href="/blog/2024/02/12/doing-list-2024-06/"/>
       <url>/blog/2024/02/12/doing-list-2024-06/</url>
@@ -35,31 +60,6 @@
             <tag> tmux </tag>
             
             <tag> nvim </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>列表2024-week06</title>
-      <link href="/blog/2024/02/12/doing-list-2024-07/"/>
-      <url>/blog/2024/02/12/doing-list-2024-07/</url>
-      
-        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="tmux"><a class="header-anchor" href="#tmux">#</a>tmux</h3><p>每次要恢复一堆窗口好烦，用 tmux 了。<br>因为日常开发需要开 10 多个命令行窗口，每次重启都要手动开启，没想到这是我用<code>tmux</code>的原因= =</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install tmux</span><br></pre></td></tr></table></figure><ul><li><a href="https://github.com/gpakosz/.tmux" target="_blank" rel="noopener">Oh my tmux</a></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gpakosz/.tmux.git</span><br><span class="line">ln -s -f .tmux/.tmux.conf</span><br><span class="line">cp .tmux/.tmux.conf.local .</span><br></pre></td></tr></table></figure><p><code>prefix c</code>：创建一个新窗口，状态栏会显示多个窗口的信息。<br><code>prefix p</code>：切换到上一个窗口（按照状态栏上的顺序）。<br><code>prefix n</code>：切换到下一个窗口。<br><code>prefix &lt;number&gt;</code>：切换到指定编号的窗口，其中的<code>&lt;number&gt;</code>是状态栏上的窗口编号。<br><code>prefix w</code>：从列表中选择窗口。<br><code>prefix ,</code>：窗口重命名。</p><p>prefix %：划分左右两个窗格。<br>prefix &quot;：划分上下两个窗格。<br><code>prefix &lt;arrow key&gt;</code>：光标切换到其他窗格。<code>&lt;arrow key&gt;</code>是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键 ↓。<br>prefix ;：光标切换到上一个窗格。<br>prefix o：光标切换到下一个窗格。<br>prefix {：当前窗格与上一个窗格交换位置。<br>prefix }：当前窗格与下一个窗格交换位置。<br>prefix Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。<br>prefix Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。<br>prefix x：关闭当前窗格。<br>prefix !：将当前窗格拆分为一个独立窗口。<br>prefix z：当前窗格全屏显示，再使用一次会变回原来大小。<br><code>prefix Ctrl+&lt;arrow key&gt;</code>：按箭头方向调整窗格大小。<br>prefix q：显示窗格编号。</p><p>开启自动保存会话只需要把<code>.tmux.conf.local</code>的几行注释打开即可：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set -g @plugin &#39;tmux-plugins&#x2F;tmux-resurrect&#39;</span><br><span class="line">set -g @plugin &#39;tmux-plugins&#x2F;tmux-continuum&#39;</span><br><span class="line">set -g @continuum-restore &#39;on&#39;</span><br></pre></td></tr></table></figure><ul><li>自动保存会话的地址为：<code>/Users/onns/.local/share/tmux/resurrect</code></li></ul><h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4><ul><li><a href="https://github.com/gpakosz/.tmux" target="_blank" rel="noopener">https://github.com/gpakosz/.tmux</a></li><li><a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" target="_blank" rel="noopener">Tmux 使用教程</a></li><li><a href="http://louiszhai.github.io/2017/09/30/tmux/#%E4%BF%9D%E5%AD%98Tmux%E4%BC%9A%E8%AF%9D" target="_blank" rel="noopener">Tmux 使用手册</a></li><li><a href="https://github.com/tmux-plugins/tmux-resurrect" target="_blank" rel="noopener">https://github.com/tmux-plugins/tmux-resurrect</a></li><li><a href="https://github.com/tmux-plugins/tmux-continuum" target="_blank" rel="noopener">https://github.com/tmux-plugins/tmux-continuum</a></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> read </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> tmux </tag>
             
         </tags>
       
