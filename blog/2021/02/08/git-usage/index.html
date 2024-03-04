@@ -285,7 +285,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#push-和-pull-链接不同"><span class="toc-text">push 和 pull 链接不同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接-2"><span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除-ds-store"><span class="toc-text">删除 .DS_Store</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接-3"><span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并最新的-master"><span class="toc-text">合并最新的 master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退某个文件到某个版本"><span class="toc-text">回退某个文件到某个版本</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#push-和-pull-链接不同"><span class="toc-text">push 和 pull 链接不同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接-2"><span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除-ds-store"><span class="toc-text">删除 .DS_Store</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接-3"><span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并最新的-master"><span class="toc-text">合并最新的 master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回退某个文件到某个版本"><span class="toc-text">回退某个文件到某个版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消追踪-git-文件"><span class="toc-text">取消追踪 git 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改默认分支名为-main"><span class="toc-text">修改默认分支名为 main</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p>
@@ -324,6 +324,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p>拉最新的 master 数据并且合并到当前分支</p>
 <h2 id="回退某个文件到某个版本"><a class="header-anchor" href="#回退某个文件到某个版本">#</a>回退某个文件到某个版本</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout md5 file_dir</span><br></pre></td></tr></table></figure>
+<h2 id="取消追踪-git-文件"><a class="header-anchor" href="#取消追踪-git-文件">#</a>取消追踪 git 文件</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件</span></span><br><span class="line">git rm --cached example.txt</span><br><span class="line"><span class="comment"># 目录</span></span><br><span class="line">git rm --cached -r logs/</span><br></pre></td></tr></table></figure>
+<p>用于将先追踪过的文件，加入<code>.gitignore</code>并取消追踪。</p>
+<h2 id="修改默认分支名为-main"><a class="header-anchor" href="#修改默认分支名为-main">#</a>修改默认分支名为 main</h2>
+<p>= = 历史原因</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>
 
       </div>
       

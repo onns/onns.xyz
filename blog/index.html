@@ -262,6 +262,111 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/03/04/frp-usage/">frp配置记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-03-04 23:09:39
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/03/04/frp-usage/"
+             data-title="frp配置记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>ngrok 的证书有点难弄，导致经常 ssh 宕机，换<code>frp</code>。</p>
+<p>好处：</p>
+<ul>
+<li>配置简单</li>
+<li>不需要证书</li>
+</ul>
+          <div class="read-more">
+            <a href="/blog/2024/03/04/frp-usage/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/02/28/go-101/">go101笔记</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-02-28 20:22:06
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/02/28/go-101/"
+             data-title="go101笔记">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>go101 笔记</p>
+          <div class="read-more">
+            <a href="/blog/2024/02/28/go-101/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/02/28/doing-list-2024-08/">列表2024-week08</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-02-28 10:09:35
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/02/28/doing-list-2024-08/"
+             data-title="列表2024-week08">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<h3 id="自建网盘"><a class="header-anchor" href="#自建网盘">#</a>自建网盘</h3>
+<p>构建网盘本身是很简单的过程，网上有很多开源的项目，比如：<a href="https://github.com/cloudreve/cloudreve" target="_blank" rel="noopener">https://github.com/cloudreve/cloudreve</a></p>
+<p>但是相应的生态太难跟进了</p>
+<p>目前调研已知问题：</p>
+<ul>
+<li>webdav 传数据会丢失文件本来的时间信息（其它信息待确定）</li>
+<li>很难有通用的手机 app</li>
+</ul>
+<h3 id="golang-struct对齐"><a class="header-anchor" href="#golang-struct对齐">#</a>golang <code>struct</code>对齐</h3>
+<h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4>
+<ul>
+<li><a href="https://juejin.cn/post/6844904067244769294" target="_blank" rel="noopener">https://juejin.cn/post/6844904067244769294</a></li>
+<li><a href="https://learnku.com/articles/73108" target="_blank" rel="noopener">Go 高性能编程-了解内存对齐以及 Go 中的类型如何对齐保证</a></li>
+<li><a href="https://gfw.go101.org/article/memory-layout.html" target="_blank" rel="noopener">内存布局</a></li>
+</ul>
+<h3 id="w3m"><a class="header-anchor" href="#w3m">#</a>w3m</h3>
+<p>一个命令行网页浏览工具，比较方便阅读：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install w3m</span><br></pre></td></tr></table></figure>
+<p>不过不能被<code>wakatime</code>记录，突然有点不想用了。</p>
+<h3 id="golang-范型"><a class="header-anchor" href="#golang-范型">#</a>golang 范型</h3>
+<blockquote>
+<p>如果你经常要分别为不同的类型写完全相同逻辑的代码，那么使用泛型将是最合适的选择<br>
+在使用泛型的时候我们只能放弃使用匿名结构体，对于很多场景来说这会造成麻烦（最主要麻烦集中在单元测试的时候，为泛型做单元测试会非常麻烦）</p>
+</blockquote>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000041634906" target="_blank" rel="noopener">Go 1.18 泛型全面讲解：一篇讲清泛型的全部</a></li>
+<li><a href="https://www.cnblogs.com/apocelipes/p/17576990.html" target="_blank" rel="noopener">想在 golang 里用好泛型还挺难的</a></li>
+<li><a href="https://www.cnblogs.com/kevinwan/p/16223984.html" target="_blank" rel="noopener">简单易懂的 Go 泛型使用和实现原理介绍</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2024/02/22/doing-list-2024-07/">列表2024-week07</a>
         </h1>
 
@@ -419,9 +524,6 @@ prefix q：显示窗格编号。</p>
 <ol>
 <li>代码格式化很不友好，我格式化的多行带缩进的代码粘贴进去会乱。</li>
 </ol>
-<h3 id="取消追踪-git-文件"><a class="header-anchor" href="#取消追踪-git-文件">#</a>取消追踪 git 文件</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件</span></span><br><span class="line">git rm --cached example.txt</span><br><span class="line"><span class="comment"># 目录</span></span><br><span class="line">git rm --cached -r logs/</span><br></pre></td></tr></table></figure>
-<p>用于将先追踪过的文件，加入<code>.gitignore</code>并取消追踪。</p>
 
         </div></article>
       <article class="post">
@@ -554,142 +656,6 @@ prefix q：显示窗格编号。</p>
           <div class="read-more">
             <a href="/blog/2024/01/17/wakapi-usage/" class="read-more-link">Read more..</a>
           </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/12/11/reading-list-2023-50/">列表2023-week50</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-12-11 11:17:24
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/12/11/reading-list-2023-50/"
-             data-title="列表2023-week50">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="你真的知道如何设置数据库连接池的大小吗"><a class="header-anchor" href="#你真的知道如何设置数据库连接池的大小吗">#</a>你真的知道如何设置数据库连接池的大小吗</h3>
-<ul>
-<li><a href="https://www.cnblogs.com/rickiyang/p/12239907.html" target="_blank" rel="noopener">你真的知道如何设置数据库连接池的大小吗</a></li>
-</ul>
-<h3 id="go-函数指针是如何让你的程序变慢的？"><a class="header-anchor" href="#go-函数指针是如何让你的程序变慢的？">#</a>Go 函数指针是如何让你的程序变慢的？</h3>
-<ul>
-<li><a href="https://mp.weixin.qq.com/s/bcmvPbWV7nBi7wIfr-MR8w" target="_blank" rel="noopener"> Go 函数指针是如何让你的程序变慢的？ </a></li>
-</ul>
-<h3 id="go-1-22-中的-for-循环"><a class="header-anchor" href="#go-1-22-中的-for-循环">#</a>Go 1.22 中的 For 循环</h3>
-<ul>
-<li><a href="https://mp.weixin.qq.com/s/yZc6_YQCKtyiB1YhtU4FXA" target="_blank" rel="noopener"> Go 1.22 中的 For 循环 </a></li>
-</ul>
-<h3 id="go1-21-速览：context-可以设置取消原因和回调函数了，等的可太久了！"><a class="header-anchor" href="#go1-21-速览：context-可以设置取消原因和回调函数了，等的可太久了！">#</a>Go1.21 速览：Context 可以设置取消原因和回调函数了，等的可太久了！</h3>
-<ul>
-<li><a href="https://mp.weixin.qq.com/s/3HVmCkPdEBsM0W3dRh8ycw" target="_blank" rel="noopener">Go1.21 速览：Context 可以设置取消原因和回调函数了，等的可太久了！</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/11/28/reading-list-2023-49/">列表2023-week49</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-11-28 18:31:00
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/11/28/reading-list-2023-49/"
-             data-title="列表2023-week49">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="自己的一些项目该如何组织"><a class="header-anchor" href="#自己的一些项目该如何组织">#</a>自己的一些项目该如何组织</h3>
-<ul>
-<li><a href="https://mp.weixin.qq.com/s/zbV2UwHYvgsuwnXR2Vr04Q" target="_blank" rel="noopener">Go 项目目录该怎么组织？官方终于出指南了！ </a></li>
-</ul>
-<h3 id="github-仓库拉取优化"><a class="header-anchor" href="#github-仓库拉取优化">#</a>github 仓库拉取优化</h3>
-<p>背景是<code>neovim</code>的插件都在 github 上，大陆拉不下来。</p>
-<p>解决方案：<code>全局配置 Git 使用 SSH</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure>
-<p>加入 👇</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[url &quot;git@github.com:&quot;]</span><br><span class="line">    insteadOf &#x3D; https:&#x2F;&#x2F;github.com&#x2F;</span><br></pre></td></tr></table></figure>
-<h3 id="https-证书"><a class="header-anchor" href="#https-证书">#</a>https 证书</h3>
-<p>阿里云免费的证书有效期变成 3 个月了= =</p>
-<ul>
-<li><a href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener">acme.sh</a></li>
-</ul>
-<p>免费方案 👆</p>
-<h3 id="快速-csv-文件处理"><a class="header-anchor" href="#快速-csv-文件处理">#</a>快速 csv 文件处理</h3>
-<p>为压测准备数据</p>
-<ol>
-<li>从源数据中选取指定列作为待选数据：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -d<span class="string">','</span> -f6 raw.csv &gt; res.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-d</code>指定分隔符</li>
-<li><code>-f</code>指定选的列，比如我只要第 6 列数据</li>
-</ul>
-<ol start="2">
-<li>拆分数据集合：</li>
-</ol>
-<p>因为我的数据从 100 个表取出来的，然后需要分成多个数据集合，我选择的第一种方法是把奇数行和偶数行拆分成两个文件（假设数据集只需要 2 个）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'&#123;if (NR % 2 == 0) print &gt; "res_1.txt"; else print &gt; "res_2.txt"&#125;'</span> res.txt</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>打散数据：</li>
-</ol>
-<p>因为数据是按尾号聚合的数据，具有不均匀性，需要打乱。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shuf res_2.txt  &gt; res_2_suf.txt</span><br><span class="line">shuf res_2.txt  &gt; res_2_suf.txt</span><br></pre></td></tr></table></figure>
-<p>感觉 chatgpt 出来之后，笔记已经显得不那么重要了= =</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2023/11/28/reading-list-2023-48/">列表2023-week48</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2023-11-28 13:24:21
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2023/11/28/reading-list-2023-48/"
-             data-title="列表2023-week48">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="1"><a class="header-anchor" href="#1">#</a>1</h3>
-<ul>
-<li><a href="https://stackoverflow.com/questions/65099557/what-is-the-difference-between-sort-slice-and-sort-slicestable" target="_blank" rel="noopener">What is the difference between sort.Slice and sort.SliceStable</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Sorting_algorithm#Stability</a></li>
-</ul>
-<p>排序的稳定性，之前还真没关注过= =</p>
-<h3 id="2"><a class="header-anchor" href="#2">#</a>2</h3>
-<ul>
-<li><a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" target="_blank" rel="noopener">The Log: What every software engineer should know about real-time data’s unifying abstraction</a></li>
-<li><a href="https://github.com/oldratlee/translations/tree/master/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" target="_blank" rel="noopener">https://github.com/oldratlee/translations/tree/master/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></li>
-</ul>
-<h3 id="3"><a class="header-anchor" href="#3">#</a>3</h3>
-<ul>
-<li><a href="https://blog.csdn.net/one312/article/details/105269380" target="_blank" rel="noopener">CROSSSLOT Keys in request don’t hash to the same slot</a></li>
-<li><a href="https://github.com/e-chip/redis-rwlock" target="_blank" rel="noopener">https://github.com/e-chip/redis-rwlock</a></li>
-</ul>
-<p>验证了很久，一个 redis 的分布式读写锁，在脏缓存的情况下会发生问题，其它 ok</p>
-
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>

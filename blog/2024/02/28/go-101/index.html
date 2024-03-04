@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/tags/github/"/>
+<meta name="description" content="go101笔记"/><meta name="keywords" content="go, golang, go101, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/02/28/go-101/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,8 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>github · Onns Blog
-  </title>
+    <title>go101笔记 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -261,60 +260,93 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="archive" class="archive"><div class="archive-title tag">
-          <h2 class="archive-name">github</h2>
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">go101笔记
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-02-28 20:22:06
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/02/28/go-101/"
+             data-title="go101笔记">
+          Visits 0
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2024-03-04
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2024/03/04/frp-usage/" class="archive-post-link">
-            frp配置记录
-          </a>
-        </span>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#go-类型系统概述"><span class="toc-text">Go 类型系统概述</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>go101 笔记</p>
+<a id="more"></a>
+<h3 id="go-类型系统概述"><a class="header-anchor" href="#go-类型系统概述">#</a>Go 类型系统概述</h3>
+<ul>
+<li><code>预声明类型</code>：17 个内置基本类型</li>
+<li>从 Go 1.9 到 Go 1.17，Go 白皮书曾经把预声明类型视为定义类型。 但是从 Go 1.18 开始，Go 白皮书明确说明预声明类型不再属于定义类型。</li>
+</ul>
+<p>在 Go 中，每个类型都有一个底层类型。规则：</p>
+<ul>
+<li>一个内置类型的底层类型为它自己。</li>
+<li>unsafe 标准库包中定义的 Pointer 类型的底层类型是它自己。（至少我们可以认为是这样。事实上，关于 unsafe.Pointer 类型的底层类型，官方文档中并没有清晰的说明。我们也可以认为 unsafe.Pointer 类型的底层类型为*T，其中 T 表示一个任意类型。） unsafe.Pointer 也被视为一个内置类型。</li>
+<li>一个无名类型（必为一个组合类型）的底层类型为它自己。</li>
+<li>在一个类型声明中，新声明的类型和源类型共享底层类型。</li>
+<li>一般说来，一个可寻址的值是指被放置在内存中某固定位置处的一个值（但放置在某固定位置处的一个值并非一定是可寻址的）。 目前，我们只需知道所有变量都是可以寻址的；但是所有常量、函数返回值和强制转换结果都是不可寻址的。 当一个变量被声明的时候，Go 运行时将为此变量开辟一段内存。此内存的起始地址即为此变量的地址。</li>
+<li>解引用操作符*的优先级都高于自增++和自减–操作符。</li>
+<li>一个结构体类型中的字段标签和字段的声明顺序对此结构体类型的身份识别很重要。 如果两个无名结构体类型的各个对应字段声明都相同（按照它们的出现顺序），则此两个无名结构体类型是等同的。 两个字段声明只有在它们的名称、类型和标签都等同的情况下才相同。</li>
+<li><strong>两个声明在不同的代码包中的非导出字段将总被认为是不同的字段。</strong></li>
+<li>当一个（源）结构体值被赋值给另外一个（目标）结构体值时，其效果和逐个将源结构体值的各个字段赋值给目标结构体值的各个对应字段的效果是一样的。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> &#123;</span><br><span class="line">	book1 := Book&#123;pages: <span class="number">300</span>&#125;</span><br><span class="line">	book2 := Book&#123;<span class="string">"Go语言101"</span>, <span class="string">"老貘"</span>, <span class="number">256</span>&#125;</span><br><span class="line"></span><br><span class="line">	book2 = book1</span><br><span class="line">	<span class="comment">// 上面这行和下面这三行是等价的。</span></span><br><span class="line">	book2.title = book1.title</span><br><span class="line">	book2.author = book1.author</span><br><span class="line">	book2.pages = book1.pages</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>选择器中的属性选择操作符<code>.</code>的优先级比取地址操作符<code>&amp;</code>的优先级要高。</li>
+<li>组合字面量不可寻址但可被取地址。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">type</span> Book <span class="keyword">struct</span> &#123;</span><br><span class="line">		Pages <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Book&#123;100&#125;是不可寻址的，但是它可以被取地址。</span></span><br><span class="line">	p := &amp;Book&#123;<span class="number">100</span>&#125; <span class="comment">// &lt;=&gt; tmp := Book&#123;100&#125;; p := &amp;tmp</span></span><br><span class="line">	p.Pages = <span class="number">200</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在字段选择器中，属主结构体值可以是指针，它将被隐式解引用。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">type</span> Book <span class="keyword">struct</span> &#123;</span><br><span class="line">		pages <span class="keyword">int</span></span><br><span class="line">	&#125;</span><br><span class="line">	book1 := &amp;Book&#123;<span class="number">100</span>&#125; <span class="comment">// book1是一个指针</span></span><br><span class="line">	book2 := <span class="built_in">new</span>(Book)  <span class="comment">// book2是另外一个指针</span></span><br><span class="line">	<span class="comment">// 像使用结构值一样来使用结构体值的指针。</span></span><br><span class="line">	book2.pages = book1.pages</span><br><span class="line">	<span class="comment">// 上一行等价于下一行。换句话说，上一行</span></span><br><span class="line">	<span class="comment">// 两个选择器中的指针属主将被自动解引用。</span></span><br><span class="line">	(*book2).pages = (*book1).pages</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个非空接口类型的值的<code>dynamicTypeInfo</code>字段的<code>methods</code>字段引用着一个方法列表。 此列表中的每一项为此接口值的动态类型上定义的一个方法，此方法对应着此接口类型所指定的一个的同描述的方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> _interface <span class="keyword">struct</span> &#123;</span><br><span class="line">	dynamicTypeInfo *<span class="keyword">struct</span> &#123;</span><br><span class="line">		dynamicType *_type       <span class="comment">// 引用着接口值的动态类型</span></span><br><span class="line">		methods     []*_function <span class="comment">// 引用着动态类型的对应方法列表</span></span><br><span class="line">	&#125;</span><br><span class="line">	dynamicValue unsafe.Pointer <span class="comment">// 引用着动态值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>NOTE: 所以是 interface 定义的方法列表还是类型的方法列表？</p>
+<ul>
+<li>因为一个间接值部可能并不专属于任何一个值，所以在使用<code>unsafe.Sizeof</code>函数计算一个值的尺寸的时候，此值的间接部分所占内存空间未被计算在内。</li>
+<li>在运行时刻，即使一个数组变量在声明的时候未指定初始值，它的元素所占的内存空间也已经被开辟出来。 但是一个 nil 切片或者映射值的元素的内存空间尚未被开辟出来。</li>
+<li><code>[]T{}</code>表示类型<code>[]T</code>的一个空切片值，它和<code>[]T(nil)</code>是不等价的。 同样，<code>map[K]T{}</code>和<code>map[K]T(nil)</code>也是不等价的。</li>
+<li>容器字面量是不可寻址的但可以被取地址</li>
+<li>任意两个映射值（或切片值）是不能相互比较的。</li>
+<li>大多数数组类型都是可比较类型，除了元素类型为不可比较类型的数组类型。</li>
+</ul>
+
       </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2024-01-22
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2024/01/22/reading-list-2024-04/" class="archive-post-link">
-            列表2024-week04
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2021-02-07
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2021/02/07/private-git-repository/" class="archive-post-link">
-            git私有仓库
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-09-09
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/09/09/new-site-host/" class="archive-post-link">
-            新的静态博客托管商
-          </a>
-        </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2020-08-17
-          </span>
-        <span class="archive-post-title">
-          <a href="/blog/2020/08/17/change-file-format/" class="archive-post-link">
-            修改文件格式
-          </a>
-        </span>
-      </div>
-    </section><nav class="pagination"></nav></div></div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/go/">go</a>
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/go101/">go101</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2024/03/04/frp-usage/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">frp配置记录</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/blog/2024/02/28/doing-list-2024-08/">
+        <span class="next-text nav-default">列表2024-week08</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>

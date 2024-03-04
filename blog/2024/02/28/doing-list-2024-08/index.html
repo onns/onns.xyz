@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="O ever youthful, O ever weeping."/><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/page/27/"/>
+<meta name="description" content="列表2024-week08"/><meta name="keywords" content="golang, nas, tmux, w3m, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/02/28/doing-list-2024-08/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Onns Blog</title>
+    <title>列表2024-week08 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -260,189 +260,84 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content">
-            <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
+            <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/01/30/server-document/">服务器文档</a>
+      <h1 class="post-title">列表2024-week08
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-01-30 22:35:04
+          2024-02-28 10:09:35
         </span><span class="post-category">
-            <a href="/blog/categories/work/">work</a>
+            <a href="/blog/categories/read/">read</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2018/01/30/server-document/"
-             data-title="服务器文档">
+             data-url="/blog/2024/02/28/doing-list-2024-08/"
+             data-title="列表2024-week08">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="环境依赖"><a class="header-anchor" href="#环境依赖">#</a>环境依赖</h2>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自建网盘"><span class="toc-text">自建网盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang-struct对齐"><span class="toc-text">golang struct对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#w3m"><span class="toc-text">w3m</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang-范型"><span class="toc-text">golang 范型</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<h3 id="自建网盘"><a class="header-anchor" href="#自建网盘">#</a>自建网盘</h3>
+<p>构建网盘本身是很简单的过程，网上有很多开源的项目，比如：<a href="https://github.com/cloudreve/cloudreve" target="_blank" rel="noopener">https://github.com/cloudreve/cloudreve</a></p>
+<p>但是相应的生态太难跟进了</p>
+<p>目前调研已知问题：</p>
 <ul>
-<li>Centos/7.x.x</li>
-<li>nginx/1.12.2</li>
-<li>PHP/7.1.x、php-fpm/7.1.x</li>
-<li>mysql/5.7.x</li>
-<li>unoconv/0.8.x</li>
+<li>webdav 传数据会丢失文件本来的时间信息（其它信息待确定）</li>
+<li>很难有通用的手机 app</li>
 </ul>
-          <div class="read-more">
-            <a href="/blog/2018/01/30/server-document/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2018/01/01/2018-movie-list/">2018 movie list</a>
-        </h1>
+<h3 id="golang-struct对齐"><a class="header-anchor" href="#golang-struct对齐">#</a>golang <code>struct</code>对齐</h3>
+<h4 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h4>
+<ul>
+<li><a href="https://juejin.cn/post/6844904067244769294" target="_blank" rel="noopener">https://juejin.cn/post/6844904067244769294</a></li>
+<li><a href="https://learnku.com/articles/73108" target="_blank" rel="noopener">Go 高性能编程-了解内存对齐以及 Go 中的类型如何对齐保证</a></li>
+<li><a href="https://gfw.go101.org/article/memory-layout.html" target="_blank" rel="noopener">内存布局</a></li>
+</ul>
+<h3 id="w3m"><a class="header-anchor" href="#w3m">#</a>w3m</h3>
+<p>一个命令行网页浏览工具，比较方便阅读：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install w3m</span><br></pre></td></tr></table></figure>
+<p>不过不能被<code>wakatime</code>记录，突然有点不想用了。</p>
+<h3 id="golang-范型"><a class="header-anchor" href="#golang-范型">#</a>golang 范型</h3>
+<blockquote>
+<p>如果你经常要分别为不同的类型写完全相同逻辑的代码，那么使用泛型将是最合适的选择<br>
+在使用泛型的时候我们只能放弃使用匿名结构体，对于很多场景来说这会造成麻烦（最主要麻烦集中在单元测试的时候，为泛型做单元测试会非常麻烦）</p>
+</blockquote>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000041634906" target="_blank" rel="noopener">Go 1.18 泛型全面讲解：一篇讲清泛型的全部</a></li>
+<li><a href="https://www.cnblogs.com/apocelipes/p/17576990.html" target="_blank" rel="noopener">想在 golang 里用好泛型还挺难的</a></li>
+<li><a href="https://www.cnblogs.com/kevinwan/p/16223984.html" target="_blank" rel="noopener">简单易懂的 Go 泛型使用和实现原理介绍</a></li>
+</ul>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-01 00:00:00
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2018/01/01/2018-movie-list/"
-             data-title="2018 movie list">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h3 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h3>
-          <div class="read-more">
-            <a href="/blog/2018/01/01/2018-movie-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/30/2017-movie-list/">2017 movie list</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-30 22:35:04
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/10/30/2017-movie-list/"
-             data-title="2017 movie list">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h3 id="写在前面"><a class="header-anchor" href="#写在前面">#</a>写在前面</h3>
-<p>好看的电影好多, 截图放到手机里怕丢, 写下来.<br>
-定期更新.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/30/2017-movie-list/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/29/new-here/">New Here</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29 10:38:19
-        </span><span class="post-category">
-            <a href="/blog/categories/life/">life</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/10/29/new-here/"
-             data-title="New Here">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="first-and-foremost"><a class="header-anchor" href="#first-and-foremost">#</a>First and Foremost</h2>
-<p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/29/new-here/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/10/28/hello-world/">Hello World</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-28 12:00:00
-        </span><span class="post-visits"
-             data-url="/blog/2017/10/28/hello-world/"
-             data-title="Hello World">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <div class="read-more">
-            <a href="/blog/2017/10/28/hello-world/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2017/05/01/arduino-in-command-line/">Arduino in command line</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-01 02:05:34
-        </span><span class="post-category">
-            <a href="/blog/categories/code/">code</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2017/05/01/arduino-in-command-line/"
-             data-title="Arduino in command line">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
-<p>由于开发环境是树莓派连接Arduino的板子然后控制其它元件,而树莓派和Arduino都已经被放置在了密封装置中,只能通过wifi的方式连接,所以通过Google找到了一个教程成功实现远程Arduino编译上传.</p>
-          <div class="read-more">
-            <a href="/blog/2017/05/01/arduino-in-command-line/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/">如何用Adobe Photoshop创造月光场景效果</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-12-13 18:50:54
-        </span><span class="post-category">
-            <a href="/blog/categories/Photoshop/">Photoshop</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/"
-             data-title="如何用Adobe Photoshop创造月光场景效果">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><img src="http://r.photo.store.qq.com/psb?/V10scHBd1P6AZ9/mTf0sRWTETF*eeeP7I5HvMkVA.n8FexdNX9YQ9NFVts!/r/dHQBAAAAAAAA" alt=""><br>
-最终效果图<br>
-在这篇教程中，我会向你展示如何制作一张女子赏花的月景图。</p>
-          <div class="read-more">
-            <a href="/blog/2015/12/13/how-to-create-a-moonlight-scene-photo-manipulation-with-adobe-photoshop/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <nav class="pagination"><a class="prev" href="/blog/page/26/">
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/nas/">nas</a>
+            <a href="/blog/tags/tmux/">tmux</a>
+            <a href="/blog/tags/w3m/">w3m</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/blog/2024/02/28/go-101/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
+        <span class="prev-text nav-default">go101笔记</span>
+        <span class="prev-text nav-mobile">Prev</span>
       </a>
-    </nav></section></div></div>
+    <a class="next" href="/blog/2024/02/22/doing-list-2024-07/">
+        <span class="next-text nav-default">列表2024-week07</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
@@ -473,6 +368,29 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

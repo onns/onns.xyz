@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="git相关使用"/><meta name="keywords" content="git, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://onns.xyz/2021/10/07/git-doc/"/>
+<meta name="description" content="frp配置记录"/><meta name="keywords" content="linux, github, macos, git, ngrok, systemd, launchd, frp, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/03/04/frp-usage/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
     MathJax = {
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>git相关使用 - Onns Blog</title>
+    <title>frp配置记录 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,44 +262,77 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">git相关使用
+      <h1 class="post-title">frp配置记录
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2021-10-07 14:43:25
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/doc/">doc</a>
+          2024-03-04 23:09:39
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
             </span>
         <span class="post-visits"
-             data-url="/blog/2021/10/07/git-doc/"
-             data-title="git相关使用">
+             data-url="/blog/2024/03/04/frp-usage/"
+             data-title="frp配置记录">
           Visits 0
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>记录问题</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端配置"><span class="toc-text">服务端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开机自启-关闭自启"><span class="toc-text">开机自启&amp;关闭自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端配置"><span class="toc-text">客户端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开机自启-关闭自启-2"><span class="toc-text">开机自启&amp;关闭自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>ngrok 的证书有点难弄，导致经常 ssh 宕机，换<code>frp</code>。</p>
+<p>好处：</p>
+<ul>
+<li>配置简单</li>
+<li>不需要证书</li>
+</ul>
 <a id="more"></a>
-<p>合并到同一个文档里了：<a href="https://onns.xyz/blog/2021/02/08/git-usage/">git 相关文档</a></p>
+<h2 id="服务端配置"><a class="header-anchor" href="#服务端配置">#</a>服务端配置</h2>
+<p>从<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Github</a>处下载，传上服务器。</p>
+<p>修改配置，服务端目前看起来配置只有一个端口号，记得开防火墙（frps.toml）：<br>
+<code>auth.token</code>用于安全认证。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bindPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br></pre></td></tr></table></figure>
+<h2 id="开机自启-关闭自启"><a class="header-anchor" href="#开机自启-关闭自启">#</a>开机自启&amp;关闭自启</h2>
+<p>参考<a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a>，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvim /etc/systemd/system/frps.service</span><br></pre></td></tr></table></figure>
+<p>内容 👇：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"># 服务名称，可自定义</span><br><span class="line">Description &#x3D; frp server</span><br><span class="line">After &#x3D; network.target syslog.target</span><br><span class="line">Wants &#x3D; network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type &#x3D; simple</span><br><span class="line"># 启动frps的命令，需修改为您的frps的安装路径</span><br><span class="line">ExecStart &#x3D; ~&#x2F;frp&#x2F;frps -c ~&#x2F;code&#x2F;config&#x2F;frp&#x2F;frps.toml</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy &#x3D; multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动frp</span></span><br><span class="line">sudo systemctl start frps</span><br><span class="line"><span class="comment"># 停止frp</span></span><br><span class="line">sudo systemctl stop frps</span><br><span class="line"><span class="comment"># 重启frp</span></span><br><span class="line">sudo systemctl restart frps</span><br><span class="line"><span class="comment"># 查看frp状态</span></span><br><span class="line">sudo systemctl status frps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 frps 开机自启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> frps</span><br></pre></td></tr></table></figure>
+<h2 id="客户端配置"><a class="header-anchor" href="#客户端配置">#</a>客户端配置</h2>
+<p>同样修改配置（frpc.toml），保证<code>auth.token</code>一致：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">serverAddr</span> = <span class="string">"aaa.com"</span></span><br><span class="line"><span class="attr">serverPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[proxies]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"test-tcp"</span></span><br><span class="line"><span class="attr">type</span> = <span class="string">"tcp"</span></span><br><span class="line"><span class="attr">localIP</span> = <span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="attr">localPort</span> = <span class="number">22</span></span><br><span class="line"><span class="attr">remotePort</span> = <span class="number">7602</span></span><br></pre></td></tr></table></figure>
+<h2 id="开机自启-关闭自启-2"><a class="header-anchor" href="#开机自启-关闭自启-2">#</a>开机自启&amp;关闭自启</h2>
+<p>细节可自行 Google 或<a href="https://onns.xyz/blog/2022/08/30/launchd/">launchd 体验</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Library/LaunchDaemons &amp;&amp; sudo nvim frpc.plist</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple Computer//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>frpc.plist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc.toml<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动并开机自启</span></span><br><span class="line">sudo launchctl load -w frpc.plist</span><br><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">sudo launchctl unload frpc.plist</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://gofrp.org/zh-cn/docs/setup/" target="_blank" rel="noopener">关于如何安装 frp 的说明</a></li>
+<li><a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a></li>
+</ul>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
+            <a href="/blog/tags/linux/">linux</a>
+            <a href="/blog/tags/github/">github</a>
+            <a href="/blog/tags/macos/">macos</a>
             <a href="/blog/tags/git/">git</a>
+            <a href="/blog/tags/ngrok/">ngrok</a>
+            <a href="/blog/tags/systemd/">systemd</a>
+            <a href="/blog/tags/launchd/">launchd</a>
+            <a href="/blog/tags/frp/">frp</a>
             </div>
         
-        <nav class="post-nav"><a class="prev" href="/blog/2021/10/30/golang-tail/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">golang读取日志文件</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    <a class="next" href="/blog/2021/10/07/golang-doc/">
-        <span class="next-text nav-default">Golang一些问题记录</span>
+        <nav class="post-nav"><a class="next" href="/blog/2024/02/28/go-101/">
+        <span class="next-text nav-default">go101笔记</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

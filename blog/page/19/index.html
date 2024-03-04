@@ -262,6 +262,162 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/">PAN Towards Fast Action Recognition via Learning Persistence of Appearance</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-01 15:23:38
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/"
+             data-title="PAN Towards Fast Action Recognition via Learning Persistence of Appearance">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="pan-towards-fast-action-recognition-via-learning-persistence-of-appearance"><a class="header-anchor" href="#pan-towards-fast-action-recognition-via-learning-persistence-of-appearance">#</a>PAN: Towards Fast Action Recognition via Learning Persistence of Appearance</h2>
+<p>比光流网络快了1000倍</p>
+<blockquote>
+<p>Our PA is over 1000× faster (8196fps vs. 8fps) than conventional optical flow in terms of motion modeling speed</p>
+</blockquote>
+<p>运动边界的微小位移在动作识别中起重要作用的角色。</p>
+<blockquote>
+<p>According to the aforementioned anal- ysis, we can conclude that small displacements of motion boundaries play a vital role in action recognition.</p>
+</blockquote>
+<p>低层的<code>feature map</code>之间的差异能更多地关注边界的变化。</p>
+<blockquote>
+<p>the differences among low-level feature maps will pay more attention to the variations at boundaries.<br>
+In summary, differences in low-level feature maps can reflect small displacements of motion boundaries due to convolutional operations.</p>
+</blockquote>
+<p>在<code>UCF101</code>上做实验表明在第一层效果最好。</p>
+<blockquote>
+<p>We define the basic conv-layer as eight 7×7 convolutions with stride=1 and padding=3, so that the spatial resolutions of the obtained feature maps are not reduced.</p>
+</blockquote>
+<p>两种编码策略：</p>
+<p><strong>PA as motion modality</strong></p>
+<p><strong>PA as attention</strong></p>
+<p>第一种无论是从计算量上还是从准确率上都要更好。</p>
+<p>可能原因是第二种融合方法导致图像的不平衡。</p>
+<blockquote>
+<p>However, for e2, attending appearance feature maps with PA will highlight the motion boundaries, leading to the imbalanced appearance responses both inside and at the boundaries of the moving objects.</p>
+</blockquote>
+<p><strong>Various-timescale Aggregation Pooling</strong></p>
+<h2 id="安装测试"><a class="header-anchor" href="#安装测试">#</a>安装测试</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pip install torch torchvision</span><br><span class="line">pip install tensorboardX</span><br><span class="line">pip install tqdm</span><br><span class="line">pip install scikit-learn</span><br><span class="line">pip install lmdb</span><br></pre></td></tr></table></figure>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
+<h3 id="lite"><a class="header-anchor" href="#lite">#</a>Lite</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">somethingv2: 174 classes</span><br><span class="line">=&gt; <span class="built_in">shift</span>: True, shift_div: 8, shift_place: blockres</span><br><span class="line">=&gt; base model: resnet50</span><br><span class="line">Downloading: <span class="string">"https://download.pytorch.org/models/resnet50-19c8e357.pth"</span> to /home/xiangyi/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth</span><br><span class="line">100%|██████████████████████████████████████| 97.8M/97.8M [00:06&lt;00:00, 14.8MB/s]</span><br><span class="line">=&gt; Adding temporal <span class="built_in">shift</span>...</span><br><span class="line">=&gt; Using 3-level VAP</span><br><span class="line">=&gt; Converting the ImageNet model to a PAN_Lite init model</span><br><span class="line">=&gt; Done. PAN_lite model ready...</span><br><span class="line">video number:24777</span><br><span class="line">video 0 <span class="keyword">done</span>, total 0/24777, average 0.879 sec/video, moving Prec@1 65.625 Prec@5 87.500</span><br><span class="line">video 1280 <span class="keyword">done</span>, total 1280/24777, average 0.239 sec/video, moving Prec@1 60.491 Prec@5 85.640</span><br><span class="line">video 2560 <span class="keyword">done</span>, total 2560/24777, average 0.230 sec/video, moving Prec@1 60.518 Prec@5 85.671</span><br><span class="line">video 3840 <span class="keyword">done</span>, total 3840/24777, average 0.227 sec/video, moving Prec@1 60.015 Prec@5 85.374</span><br><span class="line">video 5120 <span class="keyword">done</span>, total 5120/24777, average 0.225 sec/video, moving Prec@1 60.031 Prec@5 85.475</span><br><span class="line">video 6400 <span class="keyword">done</span>, total 6400/24777, average 0.226 sec/video, moving Prec@1 59.855 Prec@5 85.334</span><br><span class="line">video 7680 <span class="keyword">done</span>, total 7680/24777, average 0.224 sec/video, moving Prec@1 59.775 Prec@5 85.292</span><br><span class="line">video 8960 <span class="keyword">done</span>, total 8960/24777, average 0.223 sec/video, moving Prec@1 59.519 Prec@5 85.284</span><br><span class="line">video 10240 <span class="keyword">done</span>, total 10240/24777, average 0.224 sec/video, moving Prec@1 59.530 Prec@5 85.423</span><br><span class="line">video 11520 <span class="keyword">done</span>, total 11520/24777, average 0.224 sec/video, moving Prec@1 59.686 Prec@5 85.497</span><br><span class="line">video 12800 <span class="keyword">done</span>, total 12800/24777, average 0.224 sec/video, moving Prec@1 59.678 Prec@5 85.487</span><br><span class="line">video 14080 <span class="keyword">done</span>, total 14080/24777, average 0.225 sec/video, moving Prec@1 59.637 Prec@5 85.464</span><br><span class="line">video 15360 <span class="keyword">done</span>, total 15360/24777, average 0.225 sec/video, moving Prec@1 59.349 Prec@5 85.315</span><br><span class="line">video 16640 <span class="keyword">done</span>, total 16640/24777, average 0.225 sec/video, moving Prec@1 59.327 Prec@5 85.327</span><br><span class="line">video 17920 <span class="keyword">done</span>, total 17920/24777, average 0.226 sec/video, moving Prec@1 59.058 Prec@5 85.204</span><br><span class="line">video 19200 <span class="keyword">done</span>, total 19200/24777, average 0.226 sec/video, moving Prec@1 59.121 Prec@5 85.206</span><br><span class="line">video 20480 <span class="keyword">done</span>, total 20480/24777, average 0.226 sec/video, moving Prec@1 59.200 Prec@5 85.295</span><br><span class="line">video 21760 <span class="keyword">done</span>, total 21760/24777, average 0.227 sec/video, moving Prec@1 59.283 Prec@5 85.337</span><br><span class="line">video 23040 <span class="keyword">done</span>, total 23040/24777, average 0.227 sec/video, moving Prec@1 59.254 Prec@5 85.422</span><br><span class="line">video 24320 <span class="keyword">done</span>, total 24320/24777, average 0.227 sec/video, moving Prec@1 59.277 Prec@5 85.421</span><br><span class="line">[0.84482759 0.38815789 0.51633987 0.58252427 0.58974359 0.54385965</span><br><span class="line"> 0.76738609 0.63636364 0.67716535 0.60264901 0.53932584 0.68613139</span><br><span class="line"> 0.26923077 0.425      0.7122807  0.51914894 0.42639594 0.38157895</span><br><span class="line"> 0.46025105 0.57345972 0.51574803 0.62280702 0.55232558 0.56382979</span><br><span class="line"> 0.56818182 0.52631579 0.6        0.48514851 0.71818182 0.77394636</span><br><span class="line"> 0.78378378 0.77477477 0.82954545 0.11650485 0.36144578 0.203125</span><br><span class="line"> 0.84331797 0.82129278 0.22222222 0.79411765 0.71584699 0.73214286</span><br><span class="line"> 0.59624413 0.62057878 0.72972973 0.51253482 0.5873494  0.40703518</span><br><span class="line"> 0.42857143 0.80430108 0.7257384  0.06666667 0.40625    0.68571429</span><br><span class="line"> 0.25       0.42       0.4109589  0.60377358 0.17647059 0.81654676</span><br><span class="line"> 0.92       0.21568627 0.73417722 0.30841121 0.21621622 0.53301887</span><br><span class="line"> 0.30188679 0.40298507 0.6754386  0.43       0.64285714 0.47826087</span><br><span class="line"> 0.54411765 0.61538462 0.66981132 0.36842105 0.5        0.30769231</span><br><span class="line"> 0.2962963  0.77586207 0.296875   0.168      0.36170213 0.44680851</span><br><span class="line"> 0.64       0.44444444 0.85882353 0.792      0.25       0.19277108</span><br><span class="line"> 0.56521739 0.85       0.57894737 0.764      0.76694915 0.13888889</span><br><span class="line"> 0.14705882 0.2892562  0.51020408 0.67765568 0.46792453 0.62637363</span><br><span class="line"> 0.29310345 0.8125     0.7480315  0.73333333 0.52054795 0.66502463</span><br><span class="line"> 0.39189189 0.48       0.6056338  0.05555556 0.49640288 0.27777778</span><br><span class="line"> 0.69097222 0.54347826 0.25925926 0.77777778 0.40677966 0.64356436</span><br><span class="line"> 0.80314961 0.80681818 0.34975369 0.69230769 0.36538462 0.63761468</span><br><span class="line"> 0.55339806 0.42608696 0.1302682  0.70955882 0.32142857 0.35616438</span><br><span class="line"> 0.44827586 0.24561404 0.79619565 0.62269939 0.23529412 0.45</span><br><span class="line"> 0.24770642 0.72727273 0.6627907  0.359375   0.59375    0.63311688</span><br><span class="line"> 0.56050955 0.44680851 0.74166667 0.0859375  0.55230126 0.90754717</span><br><span class="line"> 0.76902174 0.33152174 0.3877551  0.75229358 0.51181102 0.29268293</span><br><span class="line"> 0.5        0.58695652 0.55045872 0.34545455 0.41284404 0.46052632</span><br><span class="line"> 0.43925234 0.45       0.84398977 0.88709677 0.96428571 0.94444444</span><br><span class="line"> 0.81666667 0.70666667 0.45098039 0.72115385 0.74418605 0.65693431]</span><br><span class="line">upper bound: 0.548518228331384</span><br><span class="line">-----Evaluation is finished------</span><br><span class="line">Class Accuracy 53.84%</span><br><span class="line">Overall Prec@1 59.26% Prec@5 85.45%</span><br><span class="line">/home/xiangyi/miniconda3/envs/pan/lib/python3.7/site-packages/numpy/core/_asarray.py:136: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (<span class="built_in">which</span> is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to <span class="keyword">do</span> this, you must specify <span class="string">'dtype=object'</span> when creating the ndarray</span><br><span class="line">  <span class="built_in">return</span> array(a, dtype, copy=False, order=order, subok=True)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">$ python test_models.py somethingv2 --VAP --batch_size=16 -j=4 --test_crops=1 --test_segments=8 --weights=pretrained/PAN_Lite_somethingv2_resnet50_shift8_blockres_avg_segment8_e80.pth.tar</span><br><span class="line">somethingv2: 174 classes</span><br><span class="line">=&gt; <span class="built_in">shift</span>: True, shift_div: 8, shift_place: blockres</span><br><span class="line">=&gt; base model: resnet50</span><br><span class="line">=&gt; Adding temporal <span class="built_in">shift</span>...</span><br><span class="line">=&gt; Using 3-level VAP</span><br><span class="line">=&gt; Converting the ImageNet model to a PAN_Lite init model</span><br><span class="line">=&gt; Done. PAN_lite model ready...</span><br><span class="line">video number:24777</span><br><span class="line">video 0 <span class="keyword">done</span>, total 0/24777, average 4.263 sec/video, moving Prec@1 56.250 Prec@5 81.250</span><br><span class="line">video 320 <span class="keyword">done</span>, total 320/24777, average 0.481 sec/video, moving Prec@1 65.476 Prec@5 86.310</span><br><span class="line">video 640 <span class="keyword">done</span>, total 640/24777, average 0.399 sec/video, moving Prec@1 60.976 Prec@5 85.213</span><br><span class="line">video 960 <span class="keyword">done</span>, total 960/24777, average 0.452 sec/video, moving Prec@1 60.246 Prec@5 85.348</span><br><span class="line">video 1280 <span class="keyword">done</span>, total 1280/24777, average 0.424 sec/video, moving Prec@1 60.880 Prec@5 85.802</span><br><span class="line">video 1600 <span class="keyword">done</span>, total 1600/24777, average 0.400 sec/video, moving Prec@1 60.458 Prec@5 85.334</span><br><span class="line">video 1920 <span class="keyword">done</span>, total 1920/24777, average 0.397 sec/video, moving Prec@1 60.227 Prec@5 85.537</span><br><span class="line">video 2240 <span class="keyword">done</span>, total 2240/24777, average 0.398 sec/video, moving Prec@1 60.151 Prec@5 85.594</span><br><span class="line">video 2560 <span class="keyword">done</span>, total 2560/24777, average 0.390 sec/video, moving Prec@1 60.404 Prec@5 85.637</span><br><span class="line">video 2880 <span class="keyword">done</span>, total 2880/24777, average 0.388 sec/video, moving Prec@1 60.290 Prec@5 85.463</span><br><span class="line">video 3200 <span class="keyword">done</span>, total 3200/24777, average 0.386 sec/video, moving Prec@1 60.261 Prec@5 85.572</span><br><span class="line">video 3520 <span class="keyword">done</span>, total 3520/24777, average 0.380 sec/video, moving Prec@1 60.436 Prec@5 85.605</span><br><span class="line">video 3840 <span class="keyword">done</span>, total 3840/24777, average 0.372 sec/video, moving Prec@1 60.062 Prec@5 85.425</span><br><span class="line">video 4160 <span class="keyword">done</span>, total 4160/24777, average 0.368 sec/video, moving Prec@1 59.962 Prec@5 85.321</span><br><span class="line">video 4480 <span class="keyword">done</span>, total 4480/24777, average 0.367 sec/video, moving Prec@1 59.831 Prec@5 85.343</span><br><span class="line">video 4800 <span class="keyword">done</span>, total 4800/24777, average 0.365 sec/video, moving Prec@1 59.884 Prec@5 85.507</span><br><span class="line">video 5120 <span class="keyword">done</span>, total 5120/24777, average 0.362 sec/video, moving Prec@1 60.008 Prec@5 85.533</span><br><span class="line">video 5440 <span class="keyword">done</span>, total 5440/24777, average 0.358 sec/video, moving Prec@1 60.392 Prec@5 85.521</span><br><span class="line">video 5760 <span class="keyword">done</span>, total 5760/24777, average 0.355 sec/video, moving Prec@1 60.336 Prec@5 85.457</span><br><span class="line">video 6080 <span class="keyword">done</span>, total 6080/24777, average 0.352 sec/video, moving Prec@1 60.285 Prec@5 85.400</span><br><span class="line">video 6400 <span class="keyword">done</span>, total 6400/24777, average 0.351 sec/video, moving Prec@1 59.804 Prec@5 85.318</span><br><span class="line">video 6720 <span class="keyword">done</span>, total 6720/24777, average 0.348 sec/video, moving Prec@1 59.650 Prec@5 85.125</span><br><span class="line">video 7040 <span class="keyword">done</span>, total 7040/24777, average 0.347 sec/video, moving Prec@1 59.736 Prec@5 85.204</span><br><span class="line">video 7360 <span class="keyword">done</span>, total 7360/24777, average 0.344 sec/video, moving Prec@1 59.585 Prec@5 85.182</span><br><span class="line">video 7680 <span class="keyword">done</span>, total 7680/24777, average 0.342 sec/video, moving Prec@1 59.771 Prec@5 85.265</span><br><span class="line">video 8000 <span class="keyword">done</span>, total 8000/24777, average 0.341 sec/video, moving Prec@1 59.681 Prec@5 85.292</span><br><span class="line">video 8320 <span class="keyword">done</span>, total 8320/24777, average 0.339 sec/video, moving Prec@1 59.633 Prec@5 85.281</span><br><span class="line">video 8640 <span class="keyword">done</span>, total 8640/24777, average 0.337 sec/video, moving Prec@1 59.635 Prec@5 85.386</span><br><span class="line">video 8960 <span class="keyword">done</span>, total 8960/24777, average 0.336 sec/video, moving Prec@1 59.548 Prec@5 85.316</span><br><span class="line">video 9280 <span class="keyword">done</span>, total 9280/24777, average 0.334 sec/video, moving Prec@1 59.477 Prec@5 85.273</span><br><span class="line">video 9600 <span class="keyword">done</span>, total 9600/24777, average 0.333 sec/video, moving Prec@1 59.536 Prec@5 85.358</span><br><span class="line">video 9920 <span class="keyword">done</span>, total 9920/24777, average 0.331 sec/video, moving Prec@1 59.652 Prec@5 85.397</span><br><span class="line">video 10240 <span class="keyword">done</span>, total 10240/24777, average 0.331 sec/video, moving Prec@1 59.565 Prec@5 85.413</span><br><span class="line">video 10560 <span class="keyword">done</span>, total 10560/24777, average 0.330 sec/video, moving Prec@1 59.503 Prec@5 85.354</span><br><span class="line">video 10880 <span class="keyword">done</span>, total 10880/24777, average 0.329 sec/video, moving Prec@1 59.554 Prec@5 85.380</span><br><span class="line">video 11200 <span class="keyword">done</span>, total 11200/24777, average 0.330 sec/video, moving Prec@1 59.576 Prec@5 85.396</span><br><span class="line">video 11520 <span class="keyword">done</span>, total 11520/24777, average 0.329 sec/video, moving Prec@1 59.639 Prec@5 85.480</span><br><span class="line">video 11840 <span class="keyword">done</span>, total 11840/24777, average 0.327 sec/video, moving Prec@1 59.691 Prec@5 85.417</span><br><span class="line">video 12160 <span class="keyword">done</span>, total 12160/24777, average 0.326 sec/video, moving Prec@1 59.675 Prec@5 85.422</span><br><span class="line">video 12480 <span class="keyword">done</span>, total 12480/24777, average 0.325 sec/video, moving Prec@1 59.675 Prec@5 85.451</span><br><span class="line">video 12800 <span class="keyword">done</span>, total 12800/24777, average 0.325 sec/video, moving Prec@1 59.691 Prec@5 85.471</span><br><span class="line">video 13120 <span class="keyword">done</span>, total 13120/24777, average 0.324 sec/video, moving Prec@1 59.645 Prec@5 85.490</span><br><span class="line">video 13440 <span class="keyword">done</span>, total 13440/24777, average 0.323 sec/video, moving Prec@1 59.617 Prec@5 85.486</span><br><span class="line">video 13760 <span class="keyword">done</span>, total 13760/24777, average 0.322 sec/video, moving Prec@1 59.640 Prec@5 85.475</span><br><span class="line">video 14080 <span class="keyword">done</span>, total 14080/24777, average 0.321 sec/video, moving Prec@1 59.641 Prec@5 85.464</span><br><span class="line">video 14400 <span class="keyword">done</span>, total 14400/24777, average 0.322 sec/video, moving Prec@1 59.600 Prec@5 85.502</span><br><span class="line">video 14720 <span class="keyword">done</span>, total 14720/24777, average 0.323 sec/video, moving Prec@1 59.521 Prec@5 85.437</span><br><span class="line">video 15040 <span class="keyword">done</span>, total 15040/24777, average 0.323 sec/video, moving Prec@1 59.358 Prec@5 85.355</span><br><span class="line">video 15360 <span class="keyword">done</span>, total 15360/24777, average 0.323 sec/video, moving Prec@1 59.365 Prec@5 85.341</span><br><span class="line">video 15680 <span class="keyword">done</span>, total 15680/24777, average 0.322 sec/video, moving Prec@1 59.353 Prec@5 85.302</span><br><span class="line">video 16000 <span class="keyword">done</span>, total 16000/24777, average 0.321 sec/video, moving Prec@1 59.328 Prec@5 85.340</span><br><span class="line">video 16320 <span class="keyword">done</span>, total 16320/24777, average 0.322 sec/video, moving Prec@1 59.341 Prec@5 85.327</span><br><span class="line">video 16640 <span class="keyword">done</span>, total 16640/24777, average 0.320 sec/video, moving Prec@1 59.312 Prec@5 85.315</span><br><span class="line">video 16960 <span class="keyword">done</span>, total 16960/24777, average 0.320 sec/video, moving Prec@1 59.295 Prec@5 85.315</span><br><span class="line">video 17280 <span class="keyword">done</span>, total 17280/24777, average 0.320 sec/video, moving Prec@1 59.256 Prec@5 85.291</span><br><span class="line">video 17600 <span class="keyword">done</span>, total 17600/24777, average 0.321 sec/video, moving Prec@1 59.191 Prec@5 85.280</span><br><span class="line">video 17920 <span class="keyword">done</span>, total 17920/24777, average 0.321 sec/video, moving Prec@1 59.066 Prec@5 85.220</span><br><span class="line">video 18240 <span class="keyword">done</span>, total 18240/24777, average 0.321 sec/video, moving Prec@1 59.109 Prec@5 85.232</span><br><span class="line">video 18560 <span class="keyword">done</span>, total 18560/24777, average 0.321 sec/video, moving Prec@1 59.189 Prec@5 85.255</span><br><span class="line">video 18880 <span class="keyword">done</span>, total 18880/24777, average 0.320 sec/video, moving Prec@1 59.113 Prec@5 85.198</span><br><span class="line">video 19200 <span class="keyword">done</span>, total 19200/24777, average 0.319 sec/video, moving Prec@1 59.128 Prec@5 85.205</span><br><span class="line">video 19520 <span class="keyword">done</span>, total 19520/24777, average 0.319 sec/video, moving Prec@1 59.142 Prec@5 85.227</span><br><span class="line">video 19840 <span class="keyword">done</span>, total 19840/24777, average 0.319 sec/video, moving Prec@1 59.136 Prec@5 85.244</span><br><span class="line">video 20160 <span class="keyword">done</span>, total 20160/24777, average 0.320 sec/video, moving Prec@1 59.199 Prec@5 85.255</span><br><span class="line">video 20480 <span class="keyword">done</span>, total 20480/24777, average 0.320 sec/video, moving Prec@1 59.202 Prec@5 85.290</span><br><span class="line">video 20800 <span class="keyword">done</span>, total 20800/24777, average 0.319 sec/video, moving Prec@1 59.204 Prec@5 85.295</span><br><span class="line">video 21120 <span class="keyword">done</span>, total 21120/24777, average 0.319 sec/video, moving Prec@1 59.226 Prec@5 85.328</span><br><span class="line">video 21440 <span class="keyword">done</span>, total 21440/24777, average 0.318 sec/video, moving Prec@1 59.270 Prec@5 85.314</span><br><span class="line">video 21760 <span class="keyword">done</span>, total 21760/24777, average 0.318 sec/video, moving Prec@1 59.285 Prec@5 85.342</span><br><span class="line">video 22080 <span class="keyword">done</span>, total 22080/24777, average 0.318 sec/video, moving Prec@1 59.314 Prec@5 85.355</span><br><span class="line">video 22400 <span class="keyword">done</span>, total 22400/24777, average 0.318 sec/video, moving Prec@1 59.284 Prec@5 85.377</span><br><span class="line">video 22720 <span class="keyword">done</span>, total 22720/24777, average 0.318 sec/video, moving Prec@1 59.236 Prec@5 85.340</span><br><span class="line">video 23040 <span class="keyword">done</span>, total 23040/24777, average 0.317 sec/video, moving Prec@1 59.256 Prec@5 85.414</span><br><span class="line">video 23360 <span class="keyword">done</span>, total 23360/24777, average 0.317 sec/video, moving Prec@1 59.274 Prec@5 85.417</span><br><span class="line">video 23680 <span class="keyword">done</span>, total 23680/24777, average 0.317 sec/video, moving Prec@1 59.246 Prec@5 85.403</span><br><span class="line">video 24000 <span class="keyword">done</span>, total 24000/24777, average 0.318 sec/video, moving Prec@1 59.231 Prec@5 85.389</span><br><span class="line">video 24320 <span class="keyword">done</span>, total 24320/24777, average 0.317 sec/video, moving Prec@1 59.291 Prec@5 85.413</span><br><span class="line">video 24640 <span class="keyword">done</span>, total 24640/24777, average 0.317 sec/video, moving Prec@1 59.259 Prec@5 85.436</span><br><span class="line">[0.84482759 0.38815789 0.51633987 0.58252427 0.58974359 0.54385965</span><br><span class="line"> 0.76738609 0.63636364 0.67716535 0.60264901 0.53932584 0.68613139</span><br><span class="line"> 0.26923077 0.425      0.7122807  0.51914894 0.42639594 0.38157895</span><br><span class="line"> 0.46025105 0.57345972 0.51574803 0.62280702 0.55232558 0.56382979</span><br><span class="line"> 0.56818182 0.52631579 0.6        0.48514851 0.71818182 0.77394636</span><br><span class="line"> 0.78378378 0.77477477 0.82954545 0.11650485 0.36144578 0.203125</span><br><span class="line"> 0.84331797 0.82129278 0.22222222 0.79411765 0.71584699 0.73214286</span><br><span class="line"> 0.59624413 0.62057878 0.72972973 0.51253482 0.5873494  0.40703518</span><br><span class="line"> 0.42857143 0.80430108 0.7257384  0.06666667 0.40625    0.68571429</span><br><span class="line"> 0.25       0.42       0.4109589  0.60377358 0.17647059 0.81654676</span><br><span class="line"> 0.92       0.21568627 0.73417722 0.30841121 0.21621622 0.53301887</span><br><span class="line"> 0.30188679 0.40298507 0.6754386  0.43       0.64285714 0.47826087</span><br><span class="line"> 0.54411765 0.61538462 0.66981132 0.36842105 0.5        0.30769231</span><br><span class="line"> 0.2962963  0.77586207 0.296875   0.168      0.36170213 0.44680851</span><br><span class="line"> 0.64       0.44444444 0.85882353 0.792      0.25       0.19277108</span><br><span class="line"> 0.56521739 0.85       0.57894737 0.764      0.76694915 0.13888889</span><br><span class="line"> 0.14705882 0.2892562  0.51020408 0.67765568 0.46792453 0.62637363</span><br><span class="line"> 0.29310345 0.8125     0.7480315  0.73333333 0.52054795 0.66502463</span><br><span class="line"> 0.39189189 0.48       0.6056338  0.05555556 0.49640288 0.27777778</span><br><span class="line"> 0.69097222 0.54347826 0.25925926 0.77777778 0.40677966 0.64356436</span><br><span class="line"> 0.80314961 0.80681818 0.34975369 0.69230769 0.36538462 0.63761468</span><br><span class="line"> 0.55339806 0.42608696 0.1302682  0.70955882 0.32142857 0.35616438</span><br><span class="line"> 0.44827586 0.24561404 0.79619565 0.62269939 0.23529412 0.45</span><br><span class="line"> 0.24770642 0.72727273 0.6627907  0.359375   0.59375    0.63311688</span><br><span class="line"> 0.56050955 0.44680851 0.74166667 0.0859375  0.55230126 0.90754717</span><br><span class="line"> 0.76902174 0.33152174 0.3877551  0.75229358 0.51181102 0.29268293</span><br><span class="line"> 0.5        0.58695652 0.55045872 0.34545455 0.41284404 0.46052632</span><br><span class="line"> 0.43925234 0.45       0.84398977 0.88709677 0.96428571 0.94444444</span><br><span class="line"> 0.81666667 0.70666667 0.45098039 0.72115385 0.74418605 0.65693431]</span><br><span class="line">upper bound: 0.548518228331384</span><br><span class="line">-----Evaluation is finished------</span><br><span class="line">Class Accuracy 53.84%</span><br><span class="line">Overall Prec@1 59.26% Prec@5 85.45%</span><br><span class="line">E:\Program Files\Anaconda3\envs\tsm\lib\site-packages\numpy\core\_asarray.py:136: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (<span class="built_in">which</span> is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to <span class="keyword">do</span> this, you must specify <span class="string">'dtype=object'</span> when creating the ndarray</span><br><span class="line">  <span class="built_in">return</span> array(a, dtype, copy=False, order=order, subok=True)</span><br></pre></td></tr></table></figure>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://arxiv.org/pdf/2008.03462v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2008.03462v1.pdf</a></li>
+<li><a href="https://github.com/zhang-can/PAN-PyTorch" target="_blank" rel="noopener">https://github.com/zhang-can/PAN-PyTorch</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">TSM Temporal Shift Module for Efficient Video Understanding</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30 16:14:30
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/"
+             data-title="TSM Temporal Shift Module for Efficient Video Understanding">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="tsm-temporal-shift-module-for-efficient-video-understanding"><a class="header-anchor" href="#tsm-temporal-shift-module-for-efficient-video-understanding">#</a>TSM: Temporal Shift Module for Efficient Video Understanding</h1>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-1.png" alt="核心思想"></p>
+</center>
+<p>文章实现了在 2D 模型上达到 3D 模型的精度，极大的降低了计算。其核心思想是通过一种<code>shift</code>操作，将时间纬度上的不同帧之间的通道进行偏移，以达到共享时间特征的目的。</p>
+<p>然而并不是所有的<code>shift</code>操作都可以达到效果的，虽然<code>shift</code>操作不需要额外的运算但是仍然需要数据的移动，太多的移动会带来延迟。</p>
+<p>除此之外，<code>shift</code>是增加时间特征的提取，太多的<code>shift</code>操作也会导致空间特征的提取受到影响。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-2.png" alt="作者思路"></p>
+</center>
+<p>故文章中所提出的是一种改进的<code>shift</code>策略：并不是<code>shift</code>所有的<code>channels</code>，而是只选择性的<code>shift</code>其中的一部分，该策略能够有效的减少数据移动所带来的时间复杂度。</p>
+<p>另外<code>TSM</code>并不是直接被插入到从前往后的干道中的，而是以旁路的形式进行，因此在获得了时序信息的同时不会对二维卷积的空间信息进行损害。</p>
+<p>同时作者对于一些实时的在线检测提出了相应的模型策略，不同于将第一层下移第二层上移这种：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-3.png" alt="在线模型"></p>
+</center>
+<p>可以有相应的借鉴思路，并且这篇也是上一篇的基准之一。</p>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-7.png" alt="过程"></p>
+</center>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-8.png" alt="结果"></p>
+</center>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://github.com/mit-han-lab/temporal-shift-module" target="_blank" rel="noopener">https://github.com/mit-han-lab/temporal-shift-module</a></li>
+<li><a href="https://blog.csdn.net/justsolow/article/details/105127296" target="_blank" rel="noopener">《TSM: Temporal Shift Module for Efficient Video Understanding》学习小记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/66251207" target="_blank" rel="noopener">Temporal Shift Module</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/Amazingren/article/details/100715768" target="_blank" rel="noopener">【视频理解论文】——TSM：Temporal Shift Module for Efficient Video Understanding</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/strawqqhat/article/details/105292687" target="_blank" rel="noopener">Temporal Shift Module for Efficient Video Understanding</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/">Gate-Shift Networks for Video Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30 08:44:25
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/"
+             data-title="Gate-Shift Networks for Video Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="gate-shift-networks-for-video-action-recognition"><a class="header-anchor" href="#gate-shift-networks-for-video-action-recognition">#</a>Gate-Shift Networks for Video Action Recognition</h2>
+<p>用于行为识别的<code>Gate-Shift</code>网络</p>
+<p>在实践中，由于涉及大量的参数和计算，在缺乏足够大的数据集进行大规模训练的情况下，<code>C3D</code>可能表现不佳。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-5.png" alt="GSM"></p>
+</center>
+<p>文章提出了一种<code>Gate-Shift Module(GSM)</code>，将<code>2D-CNN</code>转换为高效的时空特征抽取器。</p>
+<p>通过<code>GSM</code>插件，一个<code>2D-CNN</code>可以适应性地学习时间路由特性并将它们结合起来，并且几乎没有额外的附加参数和计算开销。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-4.png" alt="思路对比"></p>
+</center>
+<p>传统的方法演变：<code>C3D</code> -&gt; <code>2D spatial + 1D temporal</code> -&gt; <code>CSN</code> -&gt; <code>GST</code>（与分离信道组上的二维和三维卷积并行空间和时空交互建模） -&gt; <code>TSM</code>（时域卷积可以被限制为硬编码的时移，使一些信道在时间上向前或向后移动）</p>
+<p>所有这些现有的方法都学习具有硬连线连接和跨网络传播模式的结构化内核。<br>
+在网络中的任何一点上都没有数据依赖的决策来选择地通过不同的分支来路由特性，分组和随机的模式是在设计之初就固定的，并且学习如何随机是具有组合复杂性的。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-6.png" alt="实验"></p>
+</center>
+<blockquote>
+<p>From the experiments we conclude that adding GSM to the branch with the least number of convolution layers performs the best.</p>
+</blockquote>
+<p><code>GSM</code>通过一种门移模块，来让网络自己学习<code>TSM</code>中的<code>shift</code>操作，并通过实验证明在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/weekly-report-20200830/">周报-20200830</a>
         </h1>
 
@@ -471,99 +627,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <h2 id="垃圾收集器与内存分配策略"><a class="header-anchor" href="#垃圾收集器与内存分配策略">#</a>垃圾收集器与内存分配策略</h2>
           <div class="read-more">
             <a href="/blog/2020/08/25/jvm-note-4/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/24/static-test/">Java静态加载顺序</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-24 18:00:19
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/24/static-test/"
-             data-title="Java静态加载顺序">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><style type="text/css">
-.question-right:hover { 
-	color:#1CDDB1; 
-} 
-.question-wrong:hover { 
-	color:#FE4C40; 
-} 
-</style>
-<p>以下代码的输出结果是？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"静态块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"构造块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StaticTest t = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/blog/2020/08/24/static-test/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/24/jvm-note-3/">深入理解Java虚拟机（三）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-24 14:10:23
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/24/jvm-note-3/"
-             data-title="深入理解Java虚拟机（三）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="java-内存区域与内存溢出异常"><a class="header-anchor" href="#java-内存区域与内存溢出异常">#</a>Java 内存区域与内存溢出异常</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
-<p>Java 虚拟机运行时数据区</p>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/24/jvm-note-3/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/23/jvm-note-2/">深入理解Java虚拟机（二）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-23 12:03:08
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/23/jvm-note-2/"
-             data-title="深入理解Java虚拟机（二）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="java-内存区域与内存溢出异常"><a class="header-anchor" href="#java-内存区域与内存溢出异常">#</a>Java 内存区域与内存溢出异常</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
-<p>Java 虚拟机运行时数据区</p>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/23/jvm-note-2/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/18/">

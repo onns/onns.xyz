@@ -262,6 +262,110 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2023/06/03/clang-format-usage/">clang-format使用记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2023-06-03 23:10:58
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2023/06/03/clang-format-usage/"
+             data-title="clang-format使用记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>在团队协作上，代码的统一格式会让协作变得简单。<br>
+公司推荐用<code>clang-format</code>格式化proto文件，但格式化后的文档可读性很差，甚至“公司除了我没人在用”。</p>
+<p>一番折腾，解决，记录之。</p>
+          <div class="read-more">
+            <a href="/blog/2023/06/03/clang-format-usage/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2023/05/13/mysql-note/">Mysql笔记</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2023-05-13 15:23:58
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2023/05/13/mysql-note/"
+             data-title="Mysql笔记">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><ul>
+<li>服务器会为诸如 ALTER TABLE 之类的语句使用表锁，而忽略存储引擎的锁机制</li>
+</ul>
+<h2 id="innodb-物理结构"><a class="header-anchor" href="#innodb-物理结构">#</a>InnoDB 物理结构</h2>
+<blockquote>
+<p>Each space in InnoDB is assigned a 32-bit integer space ID, which is used in many different places to refer to the space.<br>
+InnoDB always has a “system space”, which is always assigned the space ID of 0.</p>
+</blockquote>
+<blockquote>
+<p>Each page within a space is assigned a 32-bit integer page number, often called “offset”<br>
+page 0 is located at file offset 0, page 1 at file offset 16384</p>
+</blockquote>
+<ul>
+<li>页是最基础的 InnoDB 的概念，一般为 16kb。</li>
+<li>页一般由一个<code>38 byte</code>的<code>FIL header</code>和一个<code>8 byte</code>的<code>FIL trailer</code>组成。</li>
+<li>FSP_HDR 和 XDES 是两种特殊的页，用来管理数据页。它们的区别在于，FSP_HDR 是第一个“管理页”，包含一些单独的信息。</li>
+<li>一个 FSP_HDR 或 XDES 会管理和它们连续分配的 16384 个页，256MB，或者叫 16 个 extent（16 块）。</li>
+<li>FSP_HDR 和 XDES 由<code>FIL header</code>、<code>FIL trailer</code>、<code>FSP header</code>和 256 个<code>extent descriptors</code>（<code>XDES Entry</code>）组成。</li>
+</ul>
+<center>
+<!-- //onns.xyz/blog/image -->
+<p><img src="//onns.xyz/blog/image/20230620-1.png" alt="page"></p>
+</center>
+<ul>
+<li>一个<code>XDES Entry</code>管理<code>64</code>个页。</li>
+<li></li>
+</ul>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://blog.jcole.us/2013/01/03/a-quick-introduction-to-innodb-ruby/" target="_blank" rel="noopener">A quick introduction to innodb_ruby</a></li>
+<li><a href="https://blog.jcole.us/2013/01/03/the-basics-of-innodb-space-file-layout/" target="_blank" rel="noopener">The basics of InnoDB space file layout</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/11/05/redis-note/">Redis开发与运维</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-11-05 12:27:45
+        </span><span class="post-category">
+            <a href="/blog/categories/code/">code</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/11/05/redis-note/"
+             data-title="Redis开发与运维">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>《Redis 开发与运维》</p>
+          <div class="read-more">
+            <a href="/blog/2022/11/05/redis-note/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2022/10/28/vim-plug/">vim插件安装</a>
         </h1>
 
@@ -444,87 +548,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <p><code>Raft</code>是一个共识算法，为了解决<code>paxos</code>难以理解的问题，解决方式是将一些共识算法中的一些概念分离，并通过<code>safety</code>来约束这些之间的关系。具体有四个方面，<code>leader election</code>、<code>log replication</code>、<code>safety</code>和<code>membership changes</code>。</p>
           <div class="read-more">
             <a href="/blog/2022/08/15/raft/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/07/17/nginx-question-1/">Nginx一些问题记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-07-17 14:25:07
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/07/17/nginx-question-1/"
-             data-title="Nginx一些问题记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>一些之前不懂的问题的记录。</p>
-          <div class="read-more">
-            <a href="/blog/2022/07/17/nginx-question-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/07/17/golang-question-1/">Golang一些问题记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-07-17 14:01:15
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/07/17/golang-question-1/"
-             data-title="Golang一些问题记录">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>一些之前不懂的问题的记录。</p>
-          <div class="read-more">
-            <a href="/blog/2022/07/17/golang-question-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/05/02/updates-about-macos-monterey/">更新Monterey后的小结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-05-02 20:15:39
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/05/02/updates-about-macos-monterey/"
-             data-title="更新Monterey后的小结">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>更新系统后踩的一些坑，望周知～</p>
-          <div class="read-more">
-            <a href="/blog/2022/05/02/updates-about-macos-monterey/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/2/">
