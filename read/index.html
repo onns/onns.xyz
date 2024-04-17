@@ -1,77 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Read</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <div class="container gallery-container">
-      <div class="tz-gallery">
-        <div class="row" id="row"></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Read</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="container gallery-container">
+    <div class="tz-gallery">
+      <div class="row" id="row"></div>
     </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-    <script>
-      var from = 0;
-      const queryString = window.location.search;
-      const params = new URLSearchParams(queryString);
-      const fromValue = params.get("from");
-      const name = params.get("name");
-      if (fromValue != null) {
-        from = parseInt(fromValue);
-      }
-      console.log(from);
-      function zeroPad(number, length) {
-        return number.toString().padStart(length, "0");
-      }
-      function load(count) {
-        console.log("load count: " + count);
-        const container = document.getElementById("row");
-        for (var i = 0; i < count; i++) {
-          var page = zeroPad(from + 1, 3);
-          var pageCount = "Page_" + from;
-          var u = `https://read.onns.xyz/${name}/${name}_Page_${page}.png`;
-          var c = `<div class="col-sm-12 col-md-6">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+  <script>
+    var from = 0;
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const fromValue = params.get("from");
+    const name = params.get("name");
+    if (fromValue != null) {
+      from = parseInt(fromValue);
+    }
+    console.log(from);
+    function zeroPad(number, length) {
+      return number.toString().padStart(length, "0");
+    }
+    function load(count) {
+      console.log("load count: " + count);
+      const container = document.getElementById("row");
+      for (var i = 0; i < count; i++) {
+        var page = zeroPad(from + 1, 3);
+        var pageCount = "Page_" + from;
+        var u = `https://read.onns.xyz/${name}/${name}_Page_${page}.png`;
+        var c = `<div class="col-sm-12 col-md-6">
   <a class="lightbox" href="${u}" data-caption="${pageCount}">
     <img src="${u}" alt="Bridge" />
   </a>
 </div>`;
-          container.insertAdjacentHTML("beforeend", c);
-          from++;
-          console.log(from);
-          baguetteBox.run(".tz-gallery");
-        }
+        container.insertAdjacentHTML("beforeend", c);
+        from++;
+        console.log(from);
+        baguetteBox.run(".tz-gallery");
       }
-      window.onload = function () {
-        load(4);
-        document.addEventListener("scroll", function () {
-          // 计算页面是否已滚动到底部
-          if (
-            window.innerHeight + window.scrollY >=
-            document.body.offsetHeight
-          ) {
-            load(2);
-          }
-        });
-      };
-    </script>
-  </body>
+    }
+    window.onload = function () {
+      load(4);
+      document.addEventListener("scroll", function () {
+        // 计算页面是否已滚动到底部
+        if (
+          window.innerHeight + window.scrollY + 3 >=
+          document.body.offsetHeight
+        ) {
+          load(2);
+        }
+      });
+    };
+  </script>
+</body>
+
 </html>
