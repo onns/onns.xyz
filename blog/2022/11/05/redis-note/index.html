@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Redis开发与运维"/><meta name="keywords" content="note, redis, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="Redis笔记"/><meta name="keywords" content="note, redis, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2022/11/05/redis-note/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -187,7 +187,7 @@ search_path = "search.xml";
 var path = "/blog/" + search_path;
 searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
-    <title>Redis开发与运维 - Onns Blog</title>
+    <title>Redis笔记 - Onns Blog</title>
   <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -262,7 +262,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><article class="post">
     <header class="post-header">
-      <h1 class="post-title">Redis开发与运维
+      <h1 class="post-title">Redis笔记
         </h1>
 
       <div class="post-meta">
@@ -273,7 +273,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
             </span>
         <span class="post-visits"
              data-url="/blog/2022/11/05/redis-note/"
-             data-title="Redis开发与运维">
+             data-title="Redis笔记">
           Visits 0
         </span>
         </div>
@@ -282,10 +282,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有序集合"><span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#键管理"><span class="toc-text">键管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多实例"><span class="toc-text">多实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制"><span class="toc-text">复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞"><span class="toc-text">阻塞</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-开发与运维"><span class="toc-text">Redis 开发与运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有序集合"><span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#键管理"><span class="toc-text">键管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多实例"><span class="toc-text">多实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制"><span class="toc-text">复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻塞"><span class="toc-text">阻塞</span></a></li></ol></li></ol>
     </div>
-  </div><div class="post-content"><p>《Redis 开发与运维》</p>
+  </div><div class="post-content"><p>《Redis 开发与运维》<br>
+《Redis 设计与实现》</p>
 <a id="more"></a>
+<h2 id="redis-开发与运维"><a class="header-anchor" href="#redis-开发与运维">#</a>Redis 开发与运维</h2>
 <ul>
 <li><code>set key value nx</code>只有不存在时才设置 key 的值，同<code>setnx</code>。</li>
 <li><code>set key value xx</code>只有存在时才设置 key 的值。</li>
@@ -373,7 +375,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ol>
 </li>
 </ul>
-<h2 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h2>
+<h3 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h3>
 <ul>
 <li><code>sadd key element [element ...]</code> 添加元素</li>
 <li><code>srem key element [element ...]</code> 删除元素，返回结果为成功删除元素个数</li>
@@ -391,7 +393,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><code>suionstore destination key [key ...]</code> 将并集的结果保存</li>
 <li><code>sdiffstore destination key [key ...]</code> 将差集的结果保存</li>
 </ul>
-<h2 id="有序集合"><a class="header-anchor" href="#有序集合">#</a>有序集合</h2>
+<h3 id="有序集合"><a class="header-anchor" href="#有序集合">#</a>有序集合</h3>
 <ul>
 <li><code>zadd key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]</code> 添加成员
 <ol>
@@ -412,7 +414,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </li>
 <li><code>zrangebyscore/zrevrangebyscore key min max [WITHSCORES] [LIMIT offset count]</code> 返回指定分数范围的成员</li>
 </ul>
-<h2 id="键管理"><a class="header-anchor" href="#键管理">#</a>键管理</h2>
+<h3 id="键管理"><a class="header-anchor" href="#键管理">#</a>键管理</h3>
 <ul>
 <li><code>rename key newkey</code> 键重命名，如果键本身存在会被覆盖
 <ol>
@@ -423,12 +425,12 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li><code>randomkey</code> 随机返回一个键</li>
 <li><code>persist</code> 清除键的过期时间</li>
 </ul>
-<h2 id="多实例"><a class="header-anchor" href="#多实例">#</a>多实例</h2>
+<h3 id="多实例"><a class="header-anchor" href="#多实例">#</a>多实例</h3>
 <ul>
 <li>客户端连接<code>redis-cli -h 127.0.0.1 -p 6378</code></li>
 <li><code>slaveof host port</code>成为某个实例的从实例</li>
 </ul>
-<h2 id="复制"><a class="header-anchor" href="#复制">#</a>复制</h2>
+<h3 id="复制"><a class="header-anchor" href="#复制">#</a>复制</h3>
 <ul>
 <li>Redis 启动后有一个 40 位的 16 进制字符串作为运行 id，如果主节点的运行 id 变了，从节点要做全量复制。</li>
 </ul>
@@ -440,7 +442,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 </ol>
 </li>
 </ul>
-<h2 id="阻塞"><a class="header-anchor" href="#阻塞">#</a>阻塞</h2>
+<h3 id="阻塞"><a class="header-anchor" href="#阻塞">#</a>阻塞</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --bigkeys</span><br></pre></td></tr></table></figure>
 
       </div>
@@ -456,8 +458,8 @@ searchFunc(path, 'local-search-input', 'local-search-result');
         <span class="prev-text nav-default">Mysql笔记</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/blog/2022/10/28/vim-plug/">
-        <span class="next-text nav-default">vim插件安装</span>
+    <a class="next" href="/blog/2022/11/05/rust-note/">
+        <span class="next-text nav-default">Rust笔记</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

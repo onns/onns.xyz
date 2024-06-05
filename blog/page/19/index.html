@@ -262,6 +262,296 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/multi-part-archive-extract-in-windows/">Windows下分卷压缩包解压</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07 21:15:55
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/multi-part-archive-extract-in-windows/"
+             data-title="Windows下分卷压缩包解压">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>The video data is provided as one large TGZ archive, split into parts of 1 GB max. The total download size is 19.4 GB. The archive contains webm-files using the VP9 codec. Files are numbered from 1 to 220847.</p>
+</blockquote>
+<p>20bn-something-something-v2-00<br>
+20bn-something-something-v2-01<br>
+20bn-something-something-v2-02<br>
+20bn-something-something-v2-03<br>
+20bn-something-something-v2-04<br>
+20bn-something-something-v2-05<br>
+20bn-something-something-v2-06<br>
+20bn-something-something-v2-07<br>
+20bn-something-something-v2-08<br>
+20bn-something-something-v2-09<br>
+20bn-something-something-v2-10<br>
+20bn-something-something-v2-11<br>
+20bn-something-something-v2-12<br>
+20bn-something-something-v2-13<br>
+20bn-something-something-v2-14<br>
+20bn-something-something-v2-15<br>
+20bn-something-something-v2-16<br>
+20bn-something-something-v2-17<br>
+20bn-something-something-v2-18<br>
+20bn-something-something-v2-19</p>
+<p><code>Linux</code>下很好解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 20bn-something-something-v2-?? | tar zx</span><br></pre></td></tr></table></figure>
+<p><code>Windows</code>下需要将所有的分卷先合并：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy /b 20bn* temp.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后用解压软件打开即可。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/XX_123_1_RJ/article/details/95237636" target="_blank" rel="noopener">Windows 中解压 Linux 中产生的 tar.gz 分卷压缩包</a></li>
+<li><a href="https://20bn.com/datasets/something-something/v2#download" target="_blank" rel="noopener">The 20BN-something-something Dataset V2</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/ssh-key-in-linux/">Linux下密钥登录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07 13:12:07
+        </span><span class="post-category">
+            <a href="/blog/categories/work/">work</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/ssh-key-in-linux/"
+             data-title="Linux下密钥登录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>每次都教一遍，记录一下，下次直接甩链接吧。</p>
+          <div class="read-more">
+            <a href="/blog/2020/09/07/ssh-key-in-linux/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/">Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07 12:05:03
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition/"
+             data-title="Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition"><a class="header-anchor" href="#late-temporal-modeling-in-3d-cnn-architectures-with-bert-for-action-recognition">#</a>Late Temporal Modeling in 3D CNN Architectures with BERT for Action Recognition</h2>
+<p><code>HMDB51</code>和<code>UCF101</code>的<code>top-1</code>达到现阶段最好的水平，分别为<code>85.10%</code>和<code>98.69%</code>。</p>
+<p>时序全局平均池化阻碍了时序信息的更丰富表达。虽然感受野可能分布在整个视频切片中，但是对于不同的切片，它所能提供的信息是服从高斯分布的，简单的平均可能会损失信息。</p>
+<blockquote>
+<p>temporal global average pooling (TGAP) layer is used at the end of all 3D CNN architectures hinders the richness of final temporal information.<br>
+the receptive field might cover the whole clip, the effective receptive field has a Gaussian distribution</p>
+</blockquote>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://github.com/artest08/LateTemporalModeling3DCNN" target="_blank" rel="noopener">https://github.com/artest08/LateTemporalModeling3DCNN</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/07/optical-flow/">光流法</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-07 10:36:11
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/07/optical-flow/"
+             data-title="光流法">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><center>
+<p><img src="//onns.xyz/blog/image/20200907-1.png" alt="计算公式"></p>
+</center>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2>
+<ul>
+<li><a href="https://blog.csdn.net/qq_41368247/article/details/82562165" target="_blank" rel="noopener">计算机视觉–光流法(optical flow)简介</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/42942198" target="_blank" rel="noopener">运动目标检测(3)—光流法</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/06/servlet-in-java-1/">从流中获取 properties</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-06 12:23:37
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/06/servlet-in-java-1/"
+             data-title="从流中获取 properties">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="idea-小技巧"><a class="header-anchor" href="#idea-小技巧">#</a>IDEA 小技巧</h2>
+<ul>
+<li><code>alt</code>按住移动鼠标可以多行编辑。</li>
+<li><code>cmd + n</code>可以快速创建构造器（自行选择参数）或者重写继承方法。</li>
+</ul>
+          <div class="read-more">
+            <a href="/blog/2020/09/06/servlet-in-java-1/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/">GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-05 12:23:47
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/05/gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition/"
+             data-title="GFNET A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition"><a class="header-anchor" href="#gfnet-a-lightweight-group-frame-network-for-efficient-human-action-recognition">#</a>GFNET: A LIGHTWEIGHT GROUP FRAME NETWORK FOR EFFICIENT HUMAN ACTION RECOGNITION</h2>
+<p>为了解决现有的行为识别方法<code>计算量大</code>、<code>参数多</code>的问题，作者提出了<code>GFNet</code>。</p>
+<blockquote>
+<p>To handle these issues, we propose a lightweight neural network called Group Frame Network (GFNet).</p>
+</blockquote>
+<p>GFNet 通过帧级分解，以极小的代价提取每一帧的特征。</p>
+<blockquote>
+<p>GFNet adds frame-level decomposition to extract features of each frame at a minuscule cost.</p>
+</blockquote>
+<p>设计了两个核心组件，能够仅从<code>RGB图像</code>中提取时空信息，而不需要借助<code>光流</code>或<code>multi-scale testing</code>等。</p>
+<blockquote>
+<p>There are two core components: <code>Group Temporal Module</code> (GTM) and <code>Group Spatial Module</code> (GSM). These two modules enable GFNet to obtain temporal-spatial information only from RGB images.</p>
+</blockquote>
+<p>为了证明模型的有效性，他们没有使用预训练策略。</p>
+<blockquote>
+<p>To verify the validity of the model, no pre-training strategy is used in our experiments.</p>
+</blockquote>
+<p>网络的输入是<code>一定数量</code>的<code>视频帧</code>，对视频进行分段采样得到结果。</p>
+<blockquote>
+<p>The entire video with a variable number of frames is provided as the input of the network. Through an average sampling strategy, the video is divided into N equal-length segments and only one frame is selected from each segment. Due to the repeatability of adjacent frames, this sampling strategy can reduce inter-frame redundancy while preserving long-temporal information.</p>
+</blockquote>
+<p>K 个层同时输入网络获取时间信息。</p>
+<blockquote>
+<p>The first part is a feature extraction layer consisting of K separated branches. The sampled frames are simultaneously fed into the network to maintain the temporal information among these frames.</p>
+</blockquote>
+<p>各自的分支独立计算获得空间信息。</p>
+<blockquote>
+<p>In the feature extraction layer, each frame is learned independently using a network branch to get its spatial features.</p>
+</blockquote>
+<p>没太理解。</p>
+<blockquote>
+<p>all the sampled frames are stacked by channel-wise convolution.<br>
+It means that the input channel of GFNet is 3N when using RGB images as input.</p>
+</blockquote>
+<p>由于残差网络具有高度的泛化能力和性能，所以后续的块选择高度模块化残差单元。</p>
+<blockquote>
+<p>Owing to the impressive performance and strong generalization abil- ity of residual architecture, the block is based on the highly modularized residual unit.</p>
+</blockquote>
+<p>这句话没太理解。</p>
+<blockquote>
+<p>Considering the extraneous motion and identical texture features in sampled frames, GFNet decomposes frames and reduces the number of channels for each frame to lessen spatial redundancy. To be specific, the number of channels is equally divided among branches. It means that only a small number of channels are used per frame.</p>
+</blockquote>
+<h2 id="group-temporal-module"><a class="header-anchor" href="#group-temporal-module">#</a>Group Temporal Module</h2>
+<p>因为每个分支都是单独计算的，所以势必会降低准确率（没有提取帧间的联系），所以提出了<code>GTM</code>模块。</p>
+<blockquote>
+<p>To leverage the inter-frame information effectively and better strengthen temporal relationships, GTM is proposed to efficiently overcome the side effects brought by the separated branch.</p>
+</blockquote>
+<blockquote>
+<p>GTM consists of a translation layer and a 3D convolution layer.</p>
+</blockquote>
+<blockquote>
+<p>The translation layer makes the replacement of the data dimension. It includes the channel merger and the channel separation, which achieves the conversion of the feature map from four-dimensional data to five-dimensional data.</p>
+</blockquote>
+<h2 id="group-spatial-module"><a class="header-anchor" href="#group-spatial-module">#</a>Group Spatial Module</h2>
+<p>For the convolution layer of ResNet50, the computational cost is closely related to the number of channels. Motivated by this, a novel module called GSM is designed to significantly decrease the number of parameters and computational efforts.</p>
+<p>GSM 也是通过只取纹理来最小化计算成本。</p>
+<blockquote>
+<p>Because of the similarity among frames, the texture information is repetitive. Meanwhile, irrelevant motion inside frames increases the intra-frame redundancy. Aiming at minimizing the interference of redundant information, GSM diminishes the number of channels to extract features per frame.</p>
+</blockquote>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/09/02/maven-in-mac/">MacOS下配置maven</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-09-02 10:02:47
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/09/02/maven-in-mac/"
+             data-title="MacOS下配置maven">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>官方下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p>下载：<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a></p>
+<p>解压之后，复制目录：<code>/Users/onns/Downloads/java/apache-maven-3.6.3</code></p>
+<p>因为系统更新后，命令行从<code>bash</code>换成了<code>zsh</code>所以环境变量文件也改了：<code>.zshrc</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export M2_HOME=/Users/onns/Downloads/java/apache-maven-3.6.3/bin'</span> &gt;&gt; .zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export MAVEN_HOME=/Users/onns/Downloads/java/apache-maven-3.6.3'</span> &gt;&gt; .zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$MAVEN_HOME/bin:$PATH'</span> &gt;&gt; .zshrc</span><br></pre></td></tr></table></figure>
+<p>让环境变量生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mvn --version</span><br><span class="line">Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)</span><br><span class="line">Maven home: &#x2F;Users&#x2F;onns&#x2F;Downloads&#x2F;java&#x2F;apache-maven-3.6.3</span><br><span class="line">Java version: 13.0.2, vendor: Oracle Corporation, runtime: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-13.0.2.jdk&#x2F;Contents&#x2F;Home</span><br><span class="line">Default locale: en_CN, platform encoding: UTF-8</span><br><span class="line">OS name: &quot;mac os x&quot;, version: &quot;10.15.5&quot;, arch: &quot;x86_64&quot;, family: &quot;mac&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="修改镜像源"><a class="header-anchor" href="#修改镜像源">#</a>修改镜像源</h2>
+<p>参照阿里云的使用指南：<a href="https://maven.aliyun.com/mvn/guide" target="_blank" rel="noopener">https://maven.aliyun.com/mvn/guide</a></p>
+<p>打开<code>$MAVEN_HOME/conf/settings.xml</code></p>
+<p>在<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code>标签中添加<code>mirror</code>子节点：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置本地仓库"><a class="header-anchor" href="#配置本地仓库">#</a>配置本地仓库</h2>
+<p>打开<code>$MAVEN_HOME/conf/settings.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- localRepository</span></span><br><span class="line"><span class="comment"> | The path to the local repository maven will use to store artifacts.</span></span><br><span class="line"><span class="comment"> |</span></span><br><span class="line"><span class="comment"> | Default: $&#123;user.home&#125;/.m2/repository</span></span><br><span class="line"><span class="comment">&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/Users/onns/Downloads/java/apache-maven-3.6.3/repo<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>完</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV12J411M7Sj?p=5" target="_blank" rel="noopener">教程地址</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/09/01/pan-towards-fast-action-recognition-via-learning-persistence-of-appearance/">PAN Towards Fast Action Recognition via Learning Persistence of Appearance</a>
         </h1>
 
@@ -415,219 +705,6 @@ In summary, differences in low-level feature maps can reflect small displacement
 </blockquote>
 <p><code>GSM</code>通过一种门移模块，来让网络自己学习<code>TSM</code>中的<code>shift</code>操作，并通过实验证明在卷积层最少的分支上添加<code>GSM</code>模块表现最好。</p>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/weekly-report-20200830/">周报-20200830</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-30 07:50:29
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/30/weekly-report-20200830/"
-             data-title="周报-20200830">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><center>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">2020-08-30</th>
-<th style="text-align:center">周报#03</th>
-<th style="text-align:center">刘潘</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/30/weekly-report-20200830/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/weekly-report-template/">Markdown格式的周报模板</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-30 07:32:57
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/30/weekly-report-template/"
-             data-title="Markdown格式的周报模板">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">| date | report#ID | name |</span><br><span class="line">| :--: | :-------: | :--: |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">## I. Task achieved last week</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## II. Reports</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## III. Plan for this week</span></span><br><span class="line"></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/">一种基于 2D 时空信息提取的行为识别算法</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-29 14:24:12
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/29/a-behavioral-recognition-algorithm-based-on-2d-spatiotemporal-information-extraction/"
-             data-title="一种基于 2D 时空信息提取的行为识别算法">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="一种基于-2d-时空信息提取的行为识别算法"><a class="header-anchor" href="#一种基于-2d-时空信息提取的行为识别算法">#</a>一种基于 2D 时空信息提取的行为识别算法</h2>
-<p>在<code>UCF101</code>数据集上准确率<code>94.46%</code>。</p>
-<p>采用<code>DenseNet</code>做为网络的架构。</p>
-<p>从一个视频片段提取出 <code>16</code> 帧的 <code>64 × 64 × 3</code> 的有时序顺序的图像，组织成 <code>4 × 4</code> 的图像。</p>
-<center>
-<p><img src="//onns.xyz/blog/image/20200829-1.png" alt="图像翻转设计"></p>
-</center>
-<center>
-<p><img src="//onns.xyz/blog/image/20200829-2.png" alt="实验结果"></p>
-</center>
-<p>文章没有具体说明执行速度，但是我觉得应该比基于视频的快很多，也相对来讲更有实践性。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/">Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-28 15:04:15
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/28/disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition/"
-             data-title="Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition"><a class="header-anchor" href="#disentangling-and-unifying-graph-convolutionsfor-skeleton-based-action-recognition">#</a>Disentangling and Unifying Graph Convolutionsfor Skeleton-Based Action Recognition</h2>
-<p>基于骨架的动作识别的分离统一图卷积</p>
-<p>在多尺度算子下无偏的远程联合关系建模<br>
-在信息流中无障碍的跨时空捕获复杂的时空依赖性</p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a>Introduction</h2>
-<p>首先介绍了一下基于人体骨架的行为识别的高效性和广阔前景。</p>
-<p>对于骨架图的鲁棒动作识别，一个理想的算法应该不仅仅局限于局部关节连通性，提取多尺度结构特征和长距离依赖关系，因为结构上分离的关节也具有很强的相关性。</p>
-<p>现有的方法是通过图卷积的骨架邻接矩阵的高阶多项式，邻接多项式通过使远邻可到达而增加了图卷积的感受野。</p>
-<p>但因此就会出现<code>biased weighting problem</code>，即<code>偏加权问题</code>。更高的多项式阶在从远端关节获取信息方面仅具有一点点的效果，因为聚集的特征将由来自局部身体部位的关节控制。这是限制现有多尺度聚合器可扩展性的一个关键缺点。</p>
-<p>鲁棒算法的另一个可取特征是能够利用复杂的跨时空联合关系进行动作识别。然而，为了达到这一目的，大多数现有的方法都是使用交错的空间独立（spatial-only）和时间独立（temporal-only）模型，类似于分解的三维卷积。一种典型的方法是首先使用图卷积提取每个时间片的空间关系，然后使用循环的或一维卷积层来模拟时间动态。这种<code>因式分解</code>允许高效的远程建模，它支持跨时空的直接信息流，但是它无法捕获复杂的区域时空联合依赖关系。例如，“站起来”的动作常常同时发生上下身体跨越时空的运动，上半身的运动（前倾）与下半身的运动（站起来）有着强烈的关联。<code>因式分解</code>建模可能无法有效地捕捉到做出预测的有力线索。</p>
-<ol>
-<li>我们提出了一个分离的多尺度聚合方案，该方案消除了来自不同邻域的节点特征之间的冗余依赖关系，从而使强大的多尺度聚合器能够有效地捕获人类骨骼上的图形范围的关节关系。</li>
-<li>我们提出了一个<code>G3D</code>操作单元。它促进了信息在时空中的直接流动，从而有效地进行特征学习。</li>
-<li>将分离的聚集方案与 G3D 集成，提供了一个强大的特征抽取器（MS-G3D），具有跨空间和时间维度的多尺度感受野。时空特性的直接多尺度聚合进一步提高了模型性能。</li>
-</ol>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://www.pianshen.com/article/75261564402/" target="_blank" rel="noopener">别人的笔记 1</a></li>
-<li><a href="https://blog.csdn.net/qq_36852840/article/details/106374430" target="_blank" rel="noopener">别人的笔记 2</a></li>
-<li><a href="https://blog.csdn.net/m0_37852937/article/details/106565861" target="_blank" rel="noopener">别人的笔记 3</a></li>
-<li><a href="https://github.com/kenziyuliu/ms-g3d" target="_blank" rel="noopener">github 源码</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/">Spatiotemporal Fusion in 3D CNNs A Probabilistic View</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-28 10:52:17
-        </span><span class="post-category">
-            <a href="/blog/categories/study/">study</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/28/spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view/"
-             data-title="Spatiotemporal Fusion in 3D CNNs A Probabilistic View">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view"><a class="header-anchor" href="#spatiotemporal-fusion-in-3d-cnns-a-probabilistic-view">#</a>Spatiotemporal Fusion in 3D CNNs A Probabilistic View</h2>
-<p>感觉是纯理论性质的研究…不是很能参考。</p>
-<p>时间空间的融合方法有很多种，以往的探究方法是假设一种融合方法，然后进行假设验证。这样做的缺点是：因为训练需要很久的时间，所以验证要花费很长时间。</p>
-<p>所以文章通过将融合方法映射到概率空间，通过理论模拟来提高验证效率。</p>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://mp.weixin.qq.com/s/qZOCUuLt98fTpstGpC1ilg" target="_blank" rel="noopener">CVPR 2020 丨 Variational DropPath：提高 3D CNN 时空融合分析效率的秘诀</a></li>
-<li><a href="https://github.com/scenarios/Probabilistic3DCNN" target="_blank" rel="noopener">https://github.com/scenarios/Probabilistic3DCNN</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/27/jvm-web-1/">深入分析Java Web技术内幕（一）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-27 13:01:53
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/27/jvm-web-1/"
-             data-title="深入分析Java Web技术内幕（一）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入分析 Java Web 技术内幕</p>
-<h2 id="深入分析-java-i-o-的工作机制"><a class="header-anchor" href="#深入分析-java-i-o-的工作机制">#</a>深入分析 Java I/O 的工作机制</h2>
-          <div class="read-more">
-            <a href="/blog/2020/08/27/jvm-web-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/25/jvm-note-4/">深入理解Java虚拟机（四）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-25 20:52:17
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/25/jvm-note-4/"
-             data-title="深入理解Java虚拟机（四）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="垃圾收集器与内存分配策略"><a class="header-anchor" href="#垃圾收集器与内存分配策略">#</a>垃圾收集器与内存分配策略</h2>
-          <div class="read-more">
-            <a href="/blog/2020/08/25/jvm-note-4/" class="read-more-link">Read more..</a>
-          </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/18/">
         <i class="iconfont icon-left"></i>

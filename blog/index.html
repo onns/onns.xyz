@@ -262,6 +262,145 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/12/31/doing-list-2024/">列表2024</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-12-31 23:59:59
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/12/31/doing-list-2024/"
+             data-title="列表2024">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+          <div class="read-more">
+            <a href="/blog/2024/12/31/doing-list-2024/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/05/30/docker-usage/">docker问题记录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-05-30 08:43:11
+        </span><span class="post-category">
+            <a href="/blog/categories/doc/">doc</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/05/30/docker-usage/"
+             data-title="docker问题记录">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
+<p>之前一直觉得 docker 太浪费资源，但是好像实际上不是如此</p>
+          <div class="read-more">
+            <a href="/blog/2024/05/30/docker-usage/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/03/28/doing-list-2024-12/">列表2024-week12</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-03-28 16:22:17
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/03/28/doing-list-2024-12/"
+             data-title="列表2024-week12">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<h3 id="ssh-密钥提示"><a class="header-anchor" href="#ssh-密钥提示">#</a>ssh 密钥提示</h3>
+<p>每次通过 ssh 连接到一个新的服务器时都会提示加到 known_hosts 中，但是如果不小心加错了，就会每次只要进行 git 提交就会提示，解决方案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R github.com</span><br><span class="line">ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br></pre></td></tr></table></figure>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/03/18/doing-list-2024-11/">列表2024-week11</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-03-18 11:20:41
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/03/18/doing-list-2024-11/"
+             data-title="列表2024-week11">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<h3 id="vim-寄存器相关"><a class="header-anchor" href="#vim-寄存器相关">#</a>vim 寄存器相关</h3>
+<p><a href="https://zhuweileo.github.io/blog/2018/06/12/vim%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8/" target="_blank" rel="noopener">vim 复制粘贴与寄存器</a></p>
+<h3 id="golang-环境变量相关"><a class="header-anchor" href="#golang-环境变量相关">#</a>golang 环境变量相关</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装包的时候提示：</span></span><br><span class="line">warning: GOPATH <span class="built_in">set</span> to GOROOT (/usr/<span class="built_in">local</span>/go/go1.22.1) has no effect</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://stackoverflow.com/questions/22877775/gopath-must-not-be-set-to-goroot-why-not" target="_blank" rel="noopener">$GOPATH must not be set to $GOROOT, why not?</a></li>
+</ul>
+<p>大概是基于语言哲学，最好把标准包和第三方包分开。</p>
+<h3 id="toml-的空格"><a class="header-anchor" href="#toml-的空格">#</a>toml 的空格</h3>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">a</span>=<span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span>= <span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span> =<span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span> = <span class="string">"xx"</span></span><br></pre></td></tr></table></figure>
+<p>TOML 语法对于等号=周围的空格没有严格要求。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2024/03/04/doing-list-2024-09/">列表2024-week09</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-03-04 23:45:49
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/03/04/doing-list-2024-09/"
+             data-title="列表2024-week09">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<h3 id="cp-软链接"><a class="header-anchor" href="#cp-软链接">#</a>cp 软链接</h3>
+<p>在 <code>linux</code> 下执行<code>cp</code>命令的时候，软链接只会拷贝一个快捷方式，不会拷贝真正的内容。<br>
+查询得知，这是<code>cp</code>的默认逻辑，使用 <code>-L</code> 或 <code>--dereference</code> 选项时，<code>cp</code> 命令会复制链接指向的文件或目录的内容，而不是链接本身。</p>
+<h3 id="安卓安装-linux"><a class="header-anchor" href="#安卓安装-linux">#</a>安卓安装 linux</h3>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1951604" target="_blank" rel="noopener">用 Linux Deploy 让安卓手机成为 Linux 服务器</a></li>
+</ul>
+<p>失败了= =，之前曾经成功过，有时间再研究</p>
+<h3 id="mysql-的-utf-8-问题"><a class="header-anchor" href="#mysql-的-utf-8-问题">#</a>MySQL 的 utf-8 问题</h3>
+<p><code>MySQL</code>不支持 emoji 的原因是它的 utf8 实际上只能处理 3 个字节的 unicode 字符，但是目前的 unicode 是四字节的。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2024/03/04/frp-usage/">frp配置记录</a>
         </h1>
 
@@ -491,171 +630,6 @@ prefix q：显示窗格编号。</p>
 <p><img src="//onns.xyz/blog/image/20240217-1.png" alt="跳转位置"></p>
 </center>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2024/02/06/doing-list-2024-05/">列表2024-week05</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2024-02-06 10:24:43
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2024/02/06/doing-list-2024-05/"
-             data-title="列表2024-week05">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
-<h3 id="obsidian-入门"><a class="header-anchor" href="#obsidian-入门">#</a>Obsidian 入门</h3>
-<p>因为经常会有使用知识库这样一个需求，所以需要类似的软件，小红书经常推<code>Obsidian</code>，所以尝试入门。</p>
-<p>优点：</p>
-<ol>
-<li>只基于 markdown 文件，方便整理、保存、备份等</li>
-<li>有关系图谱，方便在信息之间寻找</li>
-</ol>
-<p>缺点：</p>
-<p>才开始使用，不知道能否找到相应的解决方案，目前主要为了整理开发文档+快速索引</p>
-<ol>
-<li>代码格式化很不友好，我格式化的多行带缩进的代码粘贴进去会乱。</li>
-</ol>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/22/reading-list-2024-04/">列表2024-week04</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2024-01-22 10:26:51
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2024/01/22/reading-list-2024-04/"
-             data-title="列表2024-week04">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="github-仓库问题"><a class="header-anchor" href="#github-仓库问题">#</a>github 仓库问题</h3>
-<p>2024 一开年开始，我就发现<code>github.com</code>在大陆的主 ip<code>20.205.243.166</code>访问不通了= =，感觉每次都要专门开个梯子好麻烦，研究了一番，改 hosts 解决。</p>
-<p><a href="https://tool.chinaz.com/dns/github.com" target="_blank" rel="noopener">https://tool.chinaz.com/dns/github.com</a>可以查看所有 ip，我选了第二个，在<code>/etc/hosts</code>里添加了一条：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">140.82.121.4 github.com</span><br></pre></td></tr></table></figure>
-<p>问题解决。</p>
-<p>BTW，我用的是 ssh 的模式，这个模式在之前网页访问不通的情况下依然可以很快拉仓库，结果现在原来的 ip 也不行了（新换的这个依旧可以）。</p>
-<p>在<code>~/.gitconfig</code>添加：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[url</span> <span class="string">"git@github.com:"</span><span class="string">]</span></span><br><span class="line">    <span class="string">insteadOf</span> <span class="string">=</span> <span class="string">https://github.com/</span></span><br></pre></td></tr></table></figure>
-<p>就会都走 ssh 模式。（很好用，我之前用来拉 nvim 仓库包的）</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/21/reading-list-2024-03/">列表2024-week03</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2024-01-21 09:49:46
-        </span><span class="post-category">
-            <a href="/blog/categories/read/">read</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2024/01/21/reading-list-2024-03/"
-             data-title="列表2024-week03">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="最近读的东西"><a class="header-anchor" href="#最近读的东西">#</a>最近读的东西</h2>
-<h3 id="perl-用法"><a class="header-anchor" href="#perl-用法">#</a>perl 用法</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[2024/01/21 9:47:32] mbp ➜  ~  perl -h</span><br><span class="line"></span><br><span class="line">Usage: perl [switches] [--] [programfile] [arguments]</span><br><span class="line">  -0[octal]         specify record separator (\0, <span class="keyword">if</span> no argument)</span><br><span class="line">  -a                autosplit mode with -n or -p (splits <span class="variable">$_</span> into @F)</span><br><span class="line">  -C[number/list]   enables the listed Unicode features</span><br><span class="line">  -c                check syntax only (runs BEGIN and CHECK blocks)</span><br><span class="line">  -d[:debugger]     run program under debugger</span><br><span class="line">  -D[number/list]   <span class="built_in">set</span> debugging flags (argument is a bit mask or alphabets)</span><br><span class="line">  -e program        one line of program (several -e<span class="string">'s allowed, omit programfile)</span></span><br><span class="line"><span class="string">  -E program        like -e, but enables all optional features</span></span><br><span class="line"><span class="string">  -f                don'</span>t <span class="keyword">do</span> <span class="variable">$sitelib</span>/sitecustomize.pl at startup</span><br><span class="line">  -F/pattern/       split() pattern <span class="keyword">for</span> -a switch (//<span class="string">'s are optional)</span></span><br><span class="line"><span class="string">  -i[extension]     edit &lt;&gt; files in place (makes backup if extension supplied)</span></span><br><span class="line"><span class="string">  -Idirectory       specify @INC/#include directory (several -I'</span>s allowed)</span><br><span class="line">  -l[octal]         <span class="built_in">enable</span> line ending processing, specifies line terminator</span><br><span class="line">  -[mM][-]module    execute <span class="string">"use/no module..."</span> before executing program</span><br><span class="line">  -n                assume <span class="string">"while (&lt;&gt;) &#123; ... &#125;"</span> loop around program</span><br><span class="line">  -p                assume loop like -n but <span class="built_in">print</span> line also, like sed</span><br><span class="line">  -s                <span class="built_in">enable</span> rudimentary parsing <span class="keyword">for</span> switches after programfile</span><br><span class="line">  -S                look <span class="keyword">for</span> programfile using PATH environment variable</span><br><span class="line">  -t                <span class="built_in">enable</span> tainting warnings</span><br><span class="line">  -T                <span class="built_in">enable</span> tainting checks</span><br><span class="line">  -u                dump core after parsing program</span><br><span class="line">  -U                allow unsafe operations</span><br><span class="line">  -v                <span class="built_in">print</span> version, patchlevel and license</span><br><span class="line">  -V[:variable]     <span class="built_in">print</span> configuration summary (or a single Config.pm variable)</span><br><span class="line">  -w                <span class="built_in">enable</span> many useful warnings</span><br><span class="line">  -W                <span class="built_in">enable</span> all warnings</span><br><span class="line">  -x[directory]     ignore text before <span class="comment">#!perl line (optionally cd to directory)</span></span><br><span class="line">  -X                <span class="built_in">disable</span> all warnings</span><br><span class="line"></span><br><span class="line">Run <span class="string">'perldoc perl'</span> <span class="keyword">for</span> more <span class="built_in">help</span> with Perl.</span><br></pre></td></tr></table></figure>
-<p>最近处理线上问题，需要捞日志，因为日常<code>Perl</code>风格的正则写的比较多，所以希望能直接一条命令导出，省的多个编辑器之间来回切换。</p>
-<p>但是目前几乎所有命令都只支持<code>POSIX</code>风格的正则，记录一下解决方案：</p>
-<ol>
-<li>grep 可以通过<code>-P</code>参数，但是必须要下载 gnu 的 grep 才支持，mac 本身的不支持</li>
-<li><code>sed</code>不支持<code>Perl</code>风格，也<a href="https://askubuntu.com/questions/1050693/sed-with-pcre-like-grep-p" target="_blank" rel="noopener">不会支持</a>，解决方法是换命令，<code>perl</code>几乎 mac 都是装机自带的。</li>
-<li><code>-p</code>会打印输出，比较适合做管道处理。<code>-e</code>就是执行后面的命令。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 240120.json | ggrep -P <span class="string">"\"args\": \"mid"</span> | perl -pe <span class="string">'s/\s+"args": "mid:([0-9]+)([ \S]+)/$1/'</span></span><br></pre></td></tr></table></figure>
-<h3 id="https-go-dev-doc-gc-guide"><a class="header-anchor" href="#https-go-dev-doc-gc-guide">#</a><a href="https://go.dev/doc/gc-guide" target="_blank" rel="noopener">https://go.dev/doc/gc-guide</a></h3>
-<blockquote>
-<p>Until Go 1.19, GOGC was the sole parameter that could be used to modify the GC’s behavior. While it works great as a way to set a trade-off, it doesn’t take into account that available memory is finite. Consider what happens when there’s a transient spike in the live heap size: because the GC will pick a total heap size proportional to that live heap size, GOGC must be configured such for the peak live heap size, even if in the usual case a higher GOGC value provides a better trade-off.</p>
-</blockquote>
-<p><code>GOGC</code>在配置的时候没有考虑内存有限的情况，当出现有临时的内存突增时，要么 gc 阈值过高导致 oom，要么考验开发/运维，要在配置时考虑到内存激增的情况，配置对应可用的 GOGC。</p>
-<p>为了避免参数滥用，golang 限制了 gc 时间，使得理论上的最坏情况是程序性能下降两倍。</p>
-<h3 id="1-3"><a class="header-anchor" href="#1-3">#</a>-1%3=?</h3>
-<p>差点因为这个表达式写了一个 bug，测试了多个语言，发现只有 python 会返回 2。<br>
-数学定义上没有对负数的取模进行精确定义，所以只依赖具体语言实现。<br>
-对于<code>go</code>/<code>c</code>/<code>php</code>，这个值会返回 <strong>-1</strong>。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/20/prometheus-note-1/">普罗米修斯笔记 (1)</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2024-01-20 10:10:26
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2024/01/20/prometheus-note-1/"
-             data-title="普罗米修斯笔记 (1)">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="普罗米修斯笔记-1"><a class="header-anchor" href="#普罗米修斯笔记-1">#</a>普罗米修斯笔记 (1)</h1>
-<h2 id="一些笔记"><a class="header-anchor" href="#一些笔记">#</a>一些笔记</h2>
-<blockquote>
-<p>All regular expressions in Prometheus use <a href="https://github.com/google/re2/wiki/Syntax" target="_blank" rel="noopener">RE2 syntax</a>.</p>
-</blockquote>
-<p>= = 暂缓研究，因为我发现运行一下午电脑 700m 空间没了，理想是希望能长期运行，但是目前看下来应用场景有问题，遂先放弃，但是相关的语法还是需要研究的。</p>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
-<ul>
-<li><a href="https://taoshu.in/sre/prom.html" target="_blank" rel="noopener">Prometheus 简介</a></li>
-<li><a href="https://prometheus.io/docs/tutorials/understanding_metric_types/" target="_blank" rel="noopener">Types of metrics.</a></li>
-<li><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/" target="_blank" rel="noopener">Querying Prometheus</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2024/01/17/wakapi-usage/">wakapi配置</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2024-01-17 13:57:51
-        </span><span class="post-category">
-            <a href="/blog/categories/tool/">tool</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2024/01/17/wakapi-usage/"
-             data-title="wakapi配置">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="代码统计"><a class="header-anchor" href="#代码统计">#</a>代码统计</h1>
-<p>wakatime 的开源解决方案，可以自建服务。</p>
-          <div class="read-more">
-            <a href="/blog/2024/01/17/wakapi-usage/" class="read-more-link">Read more..</a>
-          </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/blog/page/2/">
         <span class="next-text">Next</span>

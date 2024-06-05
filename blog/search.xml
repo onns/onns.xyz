@@ -4,11 +4,154 @@
   
     
     <entry>
+      <title>列表2024</title>
+      <link href="/blog/2024/12/31/doing-list-2024/"/>
+      <url>/blog/2024/12/31/doing-list-2024/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><a id="more"></a><h3 id="mysql-锁相关"><a class="header-anchor" href="#mysql-锁相关">#</a>MySQL 锁相关</h3><ul><li><a href="https://dev.mysql.com/doc/refman/8.3/en/innodb-locking.html" target="_blank" rel="noopener">17.7.1 InnoDB Locking</a></li></ul><h3 id="golang"><a class="header-anchor" href="#golang">#</a>Golang</h3><ul><li><a href="https://mp.weixin.qq.com/s/yrMkH5xOLUS8O9V2H8nfmA" target="_blank" rel="noopener">Cloudflare 最佳实践：如何通过 Go PGO 回收 CPU</a></li></ul><h3 id="awk-相关"><a class="header-anchor" href="#awk-相关">#</a>awk 相关</h3><p>对于 linux 随系统提供的软件，不同系统可能有不同的版本，可能有些 api 不同，需要在编写跨机器脚本时注意：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌ [2024/05/19 20:19:28] aliyun ~/.onns/code/bash</span><br><span class="line">└➜ update-alternatives --display awk</span><br><span class="line">awk - 自动模式</span><br><span class="line">  最佳链接版本为 /usr/bin/gawk</span><br><span class="line"> 链接目前指向 /usr/bin/gawk</span><br><span class="line">  链接 awk 指向 /usr/bin/awk</span><br><span class="line">  从链接 awk.1.gz 指向 /usr/share/man/man1/awk.1.gz</span><br><span class="line">  从链接 nawk 指向 /usr/bin/nawk</span><br><span class="line">  从链接 nawk.1.gz 指向 /usr/share/man/man1/nawk.1.gz</span><br><span class="line">/usr/bin/gawk - 优先级 10</span><br><span class="line">  次要 awk.1.gz：/usr/share/man/man1/gawk.1.gz</span><br><span class="line">  次要 nawk：/usr/bin/gawk</span><br><span class="line">  次要 nawk.1.gz：/usr/share/man/man1/gawk.1.gz</span><br><span class="line">/usr/bin/mawk - 优先级 5</span><br><span class="line">  次要 awk.1.gz：/usr/share/man/man1/mawk.1.gz</span><br><span class="line">  次要 nawk：/usr/bin/mawk</span><br><span class="line">  次要 nawk.1.gz：/usr/share/man/man1/mawk.1.gz</span><br></pre></td></tr></table></figure><p><code>alternatives</code>是用来管理多个可执行程序的工具</p><h3 id="tmux-alacritty-配置"><a class="header-anchor" href="#tmux-alacritty-配置">#</a>tmux+alacritty 配置</h3><p>通过配置可以实现切换不同的 session 和 window，解决了 alacritty 没有 tab 的问题</p><p><a href="https://github.com/alacritty/alacritty/issues/5680" target="_blank" rel="noopener">https://github.com/alacritty/alacritty/issues/5680</a></p><h3 id="行格式（row-format）"><a class="header-anchor" href="#行格式（row-format）">#</a>行格式（row_format）</h3><p>博客再多，不如官方文档来得详细清楚：<a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-row-format.html#innodb-row-format-compact" target="_blank" rel="noopener">MySQL :: MySQL 8.4 Reference Manual :: 17.10 InnoDB Row Formats</a></p><blockquote><p>The <code>DYNAMIC</code> row format offers the same storage characteristics as the <code>COMPACT</code> row format but adds enhanced storage capabilities for long variable-length columns and supports large index key prefixes.<br>When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</code> can store long variable-length column values (for <a href="https://dev.mysql.com/doc/refman/8.4/en/char.html" target="_blank" rel="noopener" title="13.3.2 The CHAR and VARCHAR Types"><code>VARCHAR</code></a>, <a href="https://dev.mysql.com/doc/refman/8.4/en/binary-varbinary.html" target="_blank" rel="noopener" title="13.3.3 The BINARY and VARBINARY Types"><code>VARBINARY</code></a>, and <a href="https://dev.mysql.com/doc/refman/8.4/en/blob.html" target="_blank" rel="noopener" title="13.3.4 The BLOB and TEXT Types"><code>BLOB</code></a> and <a href="https://dev.mysql.com/doc/refman/8.4/en/blob.html" target="_blank" rel="noopener" title="13.3.4 The BLOB and TEXT Types"><code>TEXT</code></a> types) fully off-page, with the clustered index record containing only a 20-byte pointer to the overflow page. Fixed-length fields greater than or equal to 768 bytes are encoded as variable-length fields. For example, a <code>CHAR(255)</code> column can exceed 768 bytes if the maximum byte length of the character set is greater than 3, as it is with <code>utf8mb4</code>.</p></blockquote><p>目前默认的<code>DYNAMIC</code>行格式是在<code>COMPACT</code>上进行的升级。</p><h3 id="行大小限制"><a class="header-anchor" href="#行大小限制">#</a>行大小限制</h3><p>一直以来知道的都是 varchar 最大 65535 字节，原来这个限制是整个行的大小限制。</p><p><a href="https://dev.mysql.com/doc/refman/8.4/en/column-count-limit.html" target="_blank" rel="noopener">MySQL :: MySQL 8.4 Reference Manual :: 10.4.7 Limits on Table Column Count and Row Size</a></p><p>几个疑问：</p><ol><li>InnoDB 为什么限制一页（默认 16KB）最少 2 条记录</li><li>一行最多 65535bytes，为什么</li><li>mysql 限制行最大 65535bytes，innodb 可以通过溢出存储更多数据，为什么还要遵守这个限制</li></ol><p>第三个问题贴个 gpt 的回答：</p><blockquote><p>MySQL 中的行大小限制为 65535 字节（bytes），这个限制是由于 MySQL 表结构的固有设计决定的。尽管 InnoDB 存储引擎可以通过溢出页来存储更大数据，但这个行大小限制仍然存在，主要有以下几个原因：</p><ol><li><strong>表结构的设计限制</strong>： MySQL 表的行大小限制为 65535 字节，这是由于 MySQL 的表定义结构决定的。每个表的行长度在表定义阶段就被限制在这个范围内。这是一个静态限制，无法通过任何存储引擎的特性来绕过。</li><li><strong>数据页结构的设计</strong>： InnoDB 的每个数据页（page）的大小通常为 16KB。尽管 InnoDB 可以将大字段存储在溢出页中，但主记录页仍然需要存储一定量的列数据和元数据。如果单行数据过大，可能导致主记录页无法容纳基本的元数据。</li><li><strong>内存和缓存管理</strong>： 在内存和缓存管理方面，遵守 65535 字节的行大小限制可以简化数据库的缓存策略和内存管理。过大的行可能会导致内存管理和缓存命中的复杂性增加，从而影响数据库的性能。</li><li><strong>一致性和回滚支持</strong>： InnoDB 在处理事务时，需要确保数据的一致性和支持回滚操作。单行数据过大可能会增加事务日志和回滚日志的复杂性，影响数据库的性能和可靠性。</li><li><strong>简化数据库设计和维护</strong>： 遵守行大小限制可以使数据库设计和维护更为简单和一致。开发者在设计数据库时，可以预先考虑行大小限制，避免在实际使用中遇到数据超限的问题。</li></ol><p>尽管 InnoDB 通过溢出页技术可以存储更多的数据，但 MySQL 的行大小限制仍然需要遵守。这是为了保证数据库的稳定性、一致性和性能，同时也使数据库设计和管理更加简便。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> golang </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker问题记录</title>
+      <link href="/blog/2024/05/30/docker-usage/"/>
+      <url>/blog/2024/05/30/docker-usage/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>之前一直觉得 docker 太浪费资源，但是好像实际上不是如此</p><a id="more"></a><h2 id="安装"><a class="header-anchor" href="#安装">#</a>安装</h2><p>参考<a href="https://u.sb/debian-install-docker/" target="_blank" rel="noopener">Debian 12 / Ubuntu 22.04 安装 Docker 以及 Docker Compose 教程</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> doc </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>列表2024-week12</title>
+      <link href="/blog/2024/03/28/doing-list-2024-12/"/>
+      <url>/blog/2024/03/28/doing-list-2024-12/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="ssh-密钥提示"><a class="header-anchor" href="#ssh-密钥提示">#</a>ssh 密钥提示</h3><p>每次通过 ssh 连接到一个新的服务器时都会提示加到 known_hosts 中，但是如果不小心加错了，就会每次只要进行 git 提交就会提示，解决方案：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R github.com</span><br><span class="line">ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ssh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>列表2024-week11</title>
+      <link href="/blog/2024/03/18/doing-list-2024-11/"/>
+      <url>/blog/2024/03/18/doing-list-2024-11/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="vim-寄存器相关"><a class="header-anchor" href="#vim-寄存器相关">#</a>vim 寄存器相关</h3><p><a href="https://zhuweileo.github.io/blog/2018/06/12/vim%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8/" target="_blank" rel="noopener">vim 复制粘贴与寄存器</a></p><h3 id="golang-环境变量相关"><a class="header-anchor" href="#golang-环境变量相关">#</a>golang 环境变量相关</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装包的时候提示：</span></span><br><span class="line">warning: GOPATH <span class="built_in">set</span> to GOROOT (/usr/<span class="built_in">local</span>/go/go1.22.1) has no effect</span><br></pre></td></tr></table></figure><ul><li><a href="https://stackoverflow.com/questions/22877775/gopath-must-not-be-set-to-goroot-why-not" target="_blank" rel="noopener">$GOPATH must not be set to $GOROOT, why not?</a></li></ul><p>大概是基于语言哲学，最好把标准包和第三方包分开。</p><h3 id="toml-的空格"><a class="header-anchor" href="#toml-的空格">#</a>toml 的空格</h3><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">a</span>=<span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span>= <span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span> =<span class="string">"xx"</span></span><br><span class="line"><span class="attr">a</span> = <span class="string">"xx"</span></span><br></pre></td></tr></table></figure><p>TOML 语法对于等号=周围的空格没有严格要求。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> golang </tag>
+            
+            <tag> vim </tag>
+            
+            <tag> daily </tag>
+            
+            <tag> toml </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>列表2024-week09</title>
+      <link href="/blog/2024/03/04/doing-list-2024-09/"/>
+      <url>/blog/2024/03/04/doing-list-2024-09/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="cp-软链接"><a class="header-anchor" href="#cp-软链接">#</a>cp 软链接</h3><p>在 <code>linux</code> 下执行<code>cp</code>命令的时候，软链接只会拷贝一个快捷方式，不会拷贝真正的内容。<br>查询得知，这是<code>cp</code>的默认逻辑，使用 <code>-L</code> 或 <code>--dereference</code> 选项时，<code>cp</code> 命令会复制链接指向的文件或目录的内容，而不是链接本身。</p><h3 id="安卓安装-linux"><a class="header-anchor" href="#安卓安装-linux">#</a>安卓安装 linux</h3><ul><li><a href="https://cloud.tencent.com/developer/article/1951604" target="_blank" rel="noopener">用 Linux Deploy 让安卓手机成为 Linux 服务器</a></li></ul><p>失败了= =，之前曾经成功过，有时间再研究</p><h3 id="mysql-的-utf-8-问题"><a class="header-anchor" href="#mysql-的-utf-8-问题">#</a>MySQL 的 utf-8 问题</h3><p><code>MySQL</code>不支持 emoji 的原因是它的 utf8 实际上只能处理 3 个字节的 unicode 字符，但是目前的 unicode 是四字节的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> read </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> cp </tag>
+            
+            <tag> mysql </tag>
+            
+            <tag> utf-8 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>frp配置记录</title>
       <link href="/blog/2024/03/04/frp-usage/"/>
       <url>/blog/2024/03/04/frp-usage/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>ngrok 的证书有点难弄，导致经常 ssh 宕机，换<code>frp</code>。</p><p>好处：</p><ul><li>配置简单</li><li>不需要证书</li></ul><a id="more"></a><h2 id="服务端配置"><a class="header-anchor" href="#服务端配置">#</a>服务端配置</h2><p>从<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Github</a>处下载，传上服务器。</p><p>修改配置，服务端目前看起来配置只有一个端口号，记得开防火墙（frps.toml）：<br><code>auth.token</code>用于安全认证。</p><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bindPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br></pre></td></tr></table></figure><h2 id="开机自启-关闭自启"><a class="header-anchor" href="#开机自启-关闭自启">#</a>开机自启&amp;关闭自启</h2><p>参考<a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a>，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvim /etc/systemd/system/frps.service</span><br></pre></td></tr></table></figure><p>内容 👇：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"># 服务名称，可自定义</span><br><span class="line">Description &#x3D; frp server</span><br><span class="line">After &#x3D; network.target syslog.target</span><br><span class="line">Wants &#x3D; network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type &#x3D; simple</span><br><span class="line"># 启动frps的命令，需修改为您的frps的安装路径</span><br><span class="line">ExecStart &#x3D; ~&#x2F;frp&#x2F;frps -c ~&#x2F;code&#x2F;config&#x2F;frp&#x2F;frps.toml</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy &#x3D; multi-user.target</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动frp</span></span><br><span class="line">sudo systemctl start frps</span><br><span class="line"><span class="comment"># 停止frp</span></span><br><span class="line">sudo systemctl stop frps</span><br><span class="line"><span class="comment"># 重启frp</span></span><br><span class="line">sudo systemctl restart frps</span><br><span class="line"><span class="comment"># 查看frp状态</span></span><br><span class="line">sudo systemctl status frps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 frps 开机自启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> frps</span><br></pre></td></tr></table></figure><h2 id="客户端配置"><a class="header-anchor" href="#客户端配置">#</a>客户端配置</h2><p>同样修改配置（frpc.toml），保证<code>auth.token</code>一致：</p><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">serverAddr</span> = <span class="string">"aaa.com"</span></span><br><span class="line"><span class="attr">serverPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[proxies]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"test-tcp"</span></span><br><span class="line"><span class="attr">type</span> = <span class="string">"tcp"</span></span><br><span class="line"><span class="attr">localIP</span> = <span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="attr">localPort</span> = <span class="number">22</span></span><br><span class="line"><span class="attr">remotePort</span> = <span class="number">7602</span></span><br></pre></td></tr></table></figure><h2 id="开机自启-关闭自启-2"><a class="header-anchor" href="#开机自启-关闭自启-2">#</a>开机自启&amp;关闭自启</h2><p>细节可自行 Google 或<a href="https://onns.xyz/blog/2022/08/30/launchd/">launchd 体验</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Library/LaunchDaemons &amp;&amp; sudo nvim frpc.plist</span><br></pre></td></tr></table></figure><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple Computer//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>frpc.plist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc.toml<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动并开机自启</span></span><br><span class="line">sudo launchctl load -w frpc.plist</span><br><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">sudo launchctl unload frpc.plist</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://gofrp.org/zh-cn/docs/setup/" target="_blank" rel="noopener">关于如何安装 frp 的说明</a></li><li><a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>ngrok 的证书有点难弄，导致经常 ssh 宕机，换<code>frp</code>。</p><p>好处：</p><ul><li>配置简单</li><li>不需要证书</li></ul><a id="more"></a><h2 id="服务端配置"><a class="header-anchor" href="#服务端配置">#</a>服务端配置</h2><p>从<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Github</a>处下载，传上服务器。</p><p>修改配置，服务端目前看起来配置只有一个端口号，记得开防火墙（frps.toml）：<br><code>auth.token</code>用于安全认证。</p><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bindPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br></pre></td></tr></table></figure><h2 id="开机自启-保活"><a class="header-anchor" href="#开机自启-保活">#</a>开机自启&amp;保活</h2><p>参考<a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a>，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nvim /etc/systemd/system/frps.service</span><br></pre></td></tr></table></figure><p>内容 👇：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"># 服务名称，可自定义</span><br><span class="line">Description &#x3D; frp server</span><br><span class="line">After &#x3D; network.target syslog.target</span><br><span class="line">Wants &#x3D; network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type &#x3D; simple</span><br><span class="line"># 启动frps的命令，需修改为您的frps的安装路径</span><br><span class="line">ExecStart &#x3D; ~&#x2F;frp&#x2F;frps -c ~&#x2F;code&#x2F;config&#x2F;frp&#x2F;frps.toml</span><br><span class="line">Restart &#x3D; always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy &#x3D; multi-user.target</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动frp</span></span><br><span class="line">sudo systemctl start frps</span><br><span class="line"><span class="comment"># 停止frp</span></span><br><span class="line">sudo systemctl stop frps</span><br><span class="line"><span class="comment"># 重启frp</span></span><br><span class="line">sudo systemctl restart frps</span><br><span class="line"><span class="comment"># 查看frp状态</span></span><br><span class="line">sudo systemctl status frps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 frps 开机自启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> frps</span><br></pre></td></tr></table></figure><h2 id="客户端配置"><a class="header-anchor" href="#客户端配置">#</a>客户端配置</h2><p>同样修改配置（frpc.toml），保证<code>auth.token</code>一致：</p><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">serverAddr</span> = <span class="string">"aaa.com"</span></span><br><span class="line"><span class="attr">serverPort</span> = <span class="number">4443</span></span><br><span class="line"><span class="attr">auth.token</span> = <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line"><span class="section">[[proxies]]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"test-tcp"</span></span><br><span class="line"><span class="attr">type</span> = <span class="string">"tcp"</span></span><br><span class="line"><span class="attr">localIP</span> = <span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="attr">localPort</span> = <span class="number">22</span></span><br><span class="line"><span class="attr">remotePort</span> = <span class="number">7602</span></span><br></pre></td></tr></table></figure><h2 id="开机自启-保活-2"><a class="header-anchor" href="#开机自启-保活-2">#</a>开机自启&amp;保活</h2><p>细节可自行 Google 或<a href="https://onns.xyz/blog/2022/08/30/launchd/">launchd 体验</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Library/LaunchDaemons &amp;&amp; sudo nvim frpc.plist</span><br></pre></td></tr></table></figure><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple Computer//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>frpc.plist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>绝对路径/frpc.toml<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动并开机自启</span></span><br><span class="line">sudo launchctl load -w frpc.plist</span><br><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">sudo launchctl unload frpc.plist</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://gofrp.org/zh-cn/docs/setup/" target="_blank" rel="noopener">关于如何安装 frp 的说明</a></li><li><a href="https://gofrp.org/zh-cn/docs/setup/systemd/" target="_blank" rel="noopener">使用 systemd</a></li></ul>]]></content>
       
       
       <categories>
@@ -22,19 +165,21 @@
             
             <tag> linux </tag>
             
-            <tag> github </tag>
-            
             <tag> macos </tag>
             
-            <tag> git </tag>
+            <tag> github </tag>
             
-            <tag> ngrok </tag>
-            
-            <tag> systemd </tag>
+            <tag> frp </tag>
             
             <tag> launchd </tag>
             
-            <tag> frp </tag>
+            <tag> systemd </tag>
+            
+            <tag> ngrok </tag>
+            
+            <tag> git </tag>
+            
+            <tag> doc </tag>
             
         </tags>
       
@@ -90,9 +235,9 @@
             
             <tag> golang </tag>
             
-            <tag> nas </tag>
-            
             <tag> tmux </tag>
+            
+            <tag> nas </tag>
             
             <tag> w3m </tag>
             
@@ -146,17 +291,17 @@
             
             <tag> movie </tag>
             
-            <tag> semaphore </tag>
-            
             <tag> golang </tag>
             
-            <tag> vim </tag>
+            <tag> semaphore </tag>
             
             <tag> obsidian </tag>
             
             <tag> waitgroup </tag>
             
             <tag> tmux </tag>
+            
+            <tag> vim </tag>
             
             <tag> nvim </tag>
             
@@ -171,7 +316,7 @@
       <link href="/blog/2024/02/06/doing-list-2024-05/"/>
       <url>/blog/2024/02/06/doing-list-2024-05/</url>
       
-        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="obsidian-入门"><a class="header-anchor" href="#obsidian-入门">#</a>Obsidian 入门</h3><p>因为经常会有使用知识库这样一个需求，所以需要类似的软件，小红书经常推<code>Obsidian</code>，所以尝试入门。</p><p>优点：</p><ol><li>只基于 markdown 文件，方便整理、保存、备份等</li><li>有关系图谱，方便在信息之间寻找</li></ol><p>缺点：</p><p>才开始使用，不知道能否找到相应的解决方案，目前主要为了整理开发文档+快速索引</p><ol><li>代码格式化很不友好，我格式化的多行带缩进的代码粘贴进去会乱。</li></ol>]]></content>
+        <content type="html"><![CDATA[<h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2><h3 id="obsidian-入门"><a class="header-anchor" href="#obsidian-入门">#</a>Obsidian 入门</h3><p>因为经常会有使用知识库这样一个需求，所以需要类似的软件，小红书经常推<code>Obsidian</code>，所以尝试入门。</p><p>优点：</p><ol><li>只基于 markdown 文件，方便整理、保存、备份等</li><li>有关系图谱，方便在信息之间寻找</li></ol><p>缺点：</p><p>才开始使用，不知道能否找到相应的解决方案，目前主要为了整理开发文档+快速索引</p><ol><li>代码格式化很不友好，我格式化的多行带缩进的代码粘贴进去会乱。</li><li>软件提供了文档链接功能，并且支持链接标题，但是当你修改标题后，对应的链接不会自动更新，官方的论坛：<a href="https://forum.obsidian.md/t/automatic-inline-update-of-links-to-headers-and-blocks-when-they-are-modified-no-extra-dialog-window/25412/61" target="_blank" rel="noopener">https://forum.obsidian.md/t/automatic-inline-update-of-links-to-headers-and-blocks-when-they-are-modified-no-extra-dialog-window/25412/61</a>，说是性能问题= =</li></ol>]]></content>
       
       
       <categories>
@@ -239,15 +384,15 @@
       
         <tags>
             
+            <tag> bash </tag>
+            
             <tag> shell </tag>
             
             <tag> zsh </tag>
             
-            <tag> bash </tag>
+            <tag> golang </tag>
             
             <tag> git </tag>
-            
-            <tag> golang </tag>
             
             <tag> reading </tag>
             
@@ -330,9 +475,9 @@
       
         <tags>
             
-            <tag> git </tag>
-            
             <tag> golang </tag>
+            
+            <tag> git </tag>
             
             <tag> reading </tag>
             
@@ -359,9 +504,9 @@
       
         <tags>
             
-            <tag> git </tag>
-            
             <tag> golang </tag>
+            
+            <tag> git </tag>
             
             <tag> reading </tag>
             
@@ -487,17 +632,17 @@
             
             <tag> golang </tag>
             
-            <tag> goland </tag>
-            
             <tag> vim </tag>
-            
-            <tag> lua </tag>
             
             <tag> neovim </tag>
             
             <tag> config </tag>
             
+            <tag> goland </tag>
+            
             <tag> vimscript </tag>
+            
+            <tag> lua </tag>
             
         </tags>
       
@@ -586,9 +731,9 @@
             
             <tag> golang </tag>
             
-            <tag> varint </tag>
-            
             <tag> hearthstone </tag>
+            
+            <tag> varint </tag>
             
         </tags>
       
@@ -684,11 +829,11 @@
     
     
     <entry>
-      <title>Redis开发与运维</title>
+      <title>Redis笔记</title>
       <link href="/blog/2022/11/05/redis-note/"/>
       <url>/blog/2022/11/05/redis-note/</url>
       
-        <content type="html"><![CDATA[<p>《Redis 开发与运维》</p><a id="more"></a><ul><li><code>set key value nx</code>只有不存在时才设置 key 的值，同<code>setnx</code>。</li><li><code>set key value xx</code>只有存在时才设置 key 的值。</li></ul><ul><li><code>type key</code>查询 redis 的 key 类型。</li><li><code>object encoding key</code>判断 key 的内部编码类型。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; rpush l a b c d e f</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line">127.0.0.1:6379&gt; object encoding l</span><br><span class="line"><span class="string">"quicklist"</span></span><br></pre></td></tr></table></figure><ul><li><code>exists key</code>判断 key 是否存在。</li></ul><ul><li><p><code>incr key</code>自增 key。</p><ol><li>值不是整数，返回错误。</li><li>值是整数，返回自增后的结果。</li><li>键不存在，按照值为 0 自增，返回结果为 1。</li></ol></li><li><p><code>decr key</code>、<code>incrby key increment</code>、<code>decrby key decrement</code>、<code>incrbyfloat</code>和加减相关。</p></li><li><p><code>hset key field value</code>设置哈希值。</p></li><li><p><code>hset nx key field value</code>不存在时设置。</p></li><li><p><code>hmset key value key value</code>批量设置</p></li><li><p><code>hlen key</code>计算 field 的个数。</p></li><li><p><code>hkeys key</code>返回所有<code>field</code>。</p></li><li><p><code>hvals key</code>获取所有<code>value</code>。</p></li><li><p><code>hgetall key</code>获取所有<code>field+value</code>。</p></li><li><p><code>lrange key start end</code> 获取指定范围内的元素列表</p></li><li><p><code>linsert key before|after pivot value</code> 向某个元素前或者后插入元素</p></li><li><p><code>lrange key start end</code> 获取指定范围内的元素列表</p><ol><li>索引下标从左到右分别是 0 到 N-1，但是从右到左分别是-1 到-N</li><li>lrange 中的 end 选项包含了自身</li></ol></li><li><p><code>lindex key index</code> 获取列表指定索引下标的元素</p></li><li><p><code>llen key</code> 获取列表长度</p></li><li><p><code>lrem key count value</code> 删除指定元素</p><ol><li>count&gt;0，从左到右，删除最多 count 个元素</li><li>count&lt;0，从右到左，删除最多 count 绝对值个元素</li><li>count=0，删除所有</li></ol></li><li><p><code>ltrim key start end</code> 按照索引范围修剪列表</p></li><li><p><code>lset key index newValue</code> 修改指定索引下标的元素</p></li><li><p><code>blpop|brpop key [key ...] timeout</code> 阻塞式弹出</p><ol><li>列表为空则等待 timeout 的时间，如果为 0 则一直等待</li><li>列表不为空会立即返回</li><li>如果多个客户端对同一个键执行 brpop，那么最先执行 brpop 命令的客户端可以获取到弹出的值</li></ol></li></ul><h2 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h2><ul><li><code>sadd key element [element ...]</code> 添加元素</li><li><code>srem key element [element ...]</code> 删除元素，返回结果为成功删除元素个数</li><li><code>scard key</code> 计算元素个数，时间复杂度为 O（1）</li><li><code>sismember key element</code> 判断元素是否在集合，在返回 1，不在返回 0</li><li><code>srandmember key [count]</code> 随机从集合返回指定个数元素，不写默认为 1</li><li><code>spop key [count]</code> 从集合随机弹出元素，元素会从集合中删除</li><li><code>smembers key</code> 获取所有元素</li></ul><ul><li><code>sinter key [key ...]</code> 求多个集合的交集</li><li><code>suinon key [key ...]</code> 求多个集合的并集</li><li><code>sdiff key [key ...]</code> 求多个集合的差集</li><li><code>sinterstore destination key [key ...]</code> 将交集的结果保存</li><li><code>suionstore destination key [key ...]</code> 将并集的结果保存</li><li><code>sdiffstore destination key [key ...]</code> 将差集的结果保存</li></ul><h2 id="有序集合"><a class="header-anchor" href="#有序集合">#</a>有序集合</h2><ul><li><code>zadd key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]</code> 添加成员<ol><li><code>CH</code> 返回此次操作后，有序集合元素和分数发生变化的个数</li><li><code>INCR</code> 对 score 做增加，相当于后面介绍的 zincrby</li></ol></li><li><code>zcard key</code> 计算成员个数</li><li><code>zscore key member</code> 计算某个成员的分数，不存在则返回 nil</li><li><code>zrank key member</code> 计算成员的排名（从分数从低到高）</li><li><code>zrevrank key member</code> 计算成员的排名（从分数从高到低）</li><li><code>zrem key member [member ...]</code> 删除成员</li><li><code>zincrby key increment member</code> 增加成员的分数</li><li><code>zrange/zrevrange key start end [withscores]</code> 返回指定排名范围的成员<ol><li><code>withscores</code> 同时返回成员的分数</li></ol></li><li><code>zrangebyscore/zrevrangebyscore key min max [WITHSCORES] [LIMIT offset count]</code> 返回指定分数范围的成员</li></ul><h2 id="键管理"><a class="header-anchor" href="#键管理">#</a>键管理</h2><ul><li><code>rename key newkey</code> 键重命名，如果键本身存在会被覆盖<ol><li>本质上要删除旧 key 和对应的 value 如果大 key 会阻塞（？为什么不直接复制呢？）</li></ol></li><li><code>renamenx key newkey</code> 不会被覆盖的重命名</li><li><code>randomkey</code> 随机返回一个键</li><li><code>persist</code> 清除键的过期时间</li></ul><h2 id="多实例"><a class="header-anchor" href="#多实例">#</a>多实例</h2><ul><li>客户端连接<code>redis-cli -h 127.0.0.1 -p 6378</code></li><li><code>slaveof host port</code>成为某个实例的从实例</li></ul><h2 id="复制"><a class="header-anchor" href="#复制">#</a>复制</h2><ul><li>Redis 启动后有一个 40 位的 16 进制字符串作为运行 id，如果主节点的运行 id 变了，从节点要做全量复制。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info server</span><br></pre></td></tr></table></figure><ul><li><code>debug reload</code>可以不重启去变更一些配置。<ol><li><code>debug reload</code>命令会阻塞当前 Redis 节点主线程，阻塞期间会生成本地 RDB 快照并清空数据之后再加载 RDB 文件。</li></ol></li></ul><h2 id="阻塞"><a class="header-anchor" href="#阻塞">#</a>阻塞</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --bigkeys</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>《Redis 开发与运维》<br>《Redis 设计与实现》</p><a id="more"></a><h2 id="redis-开发与运维"><a class="header-anchor" href="#redis-开发与运维">#</a>Redis 开发与运维</h2><ul><li><code>set key value nx</code>只有不存在时才设置 key 的值，同<code>setnx</code>。</li><li><code>set key value xx</code>只有存在时才设置 key 的值。</li></ul><ul><li><code>type key</code>查询 redis 的 key 类型。</li><li><code>object encoding key</code>判断 key 的内部编码类型。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; rpush l a b c d e f</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line">127.0.0.1:6379&gt; object encoding l</span><br><span class="line"><span class="string">"quicklist"</span></span><br></pre></td></tr></table></figure><ul><li><code>exists key</code>判断 key 是否存在。</li></ul><ul><li><p><code>incr key</code>自增 key。</p><ol><li>值不是整数，返回错误。</li><li>值是整数，返回自增后的结果。</li><li>键不存在，按照值为 0 自增，返回结果为 1。</li></ol></li><li><p><code>decr key</code>、<code>incrby key increment</code>、<code>decrby key decrement</code>、<code>incrbyfloat</code>和加减相关。</p></li><li><p><code>hset key field value</code>设置哈希值。</p></li><li><p><code>hset nx key field value</code>不存在时设置。</p></li><li><p><code>hmset key value key value</code>批量设置</p></li><li><p><code>hlen key</code>计算 field 的个数。</p></li><li><p><code>hkeys key</code>返回所有<code>field</code>。</p></li><li><p><code>hvals key</code>获取所有<code>value</code>。</p></li><li><p><code>hgetall key</code>获取所有<code>field+value</code>。</p></li><li><p><code>lrange key start end</code> 获取指定范围内的元素列表</p></li><li><p><code>linsert key before|after pivot value</code> 向某个元素前或者后插入元素</p></li><li><p><code>lrange key start end</code> 获取指定范围内的元素列表</p><ol><li>索引下标从左到右分别是 0 到 N-1，但是从右到左分别是-1 到-N</li><li>lrange 中的 end 选项包含了自身</li></ol></li><li><p><code>lindex key index</code> 获取列表指定索引下标的元素</p></li><li><p><code>llen key</code> 获取列表长度</p></li><li><p><code>lrem key count value</code> 删除指定元素</p><ol><li>count&gt;0，从左到右，删除最多 count 个元素</li><li>count&lt;0，从右到左，删除最多 count 绝对值个元素</li><li>count=0，删除所有</li></ol></li><li><p><code>ltrim key start end</code> 按照索引范围修剪列表</p></li><li><p><code>lset key index newValue</code> 修改指定索引下标的元素</p></li><li><p><code>blpop|brpop key [key ...] timeout</code> 阻塞式弹出</p><ol><li>列表为空则等待 timeout 的时间，如果为 0 则一直等待</li><li>列表不为空会立即返回</li><li>如果多个客户端对同一个键执行 brpop，那么最先执行 brpop 命令的客户端可以获取到弹出的值</li></ol></li></ul><h3 id="集合"><a class="header-anchor" href="#集合">#</a>集合</h3><ul><li><code>sadd key element [element ...]</code> 添加元素</li><li><code>srem key element [element ...]</code> 删除元素，返回结果为成功删除元素个数</li><li><code>scard key</code> 计算元素个数，时间复杂度为 O（1）</li><li><code>sismember key element</code> 判断元素是否在集合，在返回 1，不在返回 0</li><li><code>srandmember key [count]</code> 随机从集合返回指定个数元素，不写默认为 1</li><li><code>spop key [count]</code> 从集合随机弹出元素，元素会从集合中删除</li><li><code>smembers key</code> 获取所有元素</li></ul><ul><li><code>sinter key [key ...]</code> 求多个集合的交集</li><li><code>suinon key [key ...]</code> 求多个集合的并集</li><li><code>sdiff key [key ...]</code> 求多个集合的差集</li><li><code>sinterstore destination key [key ...]</code> 将交集的结果保存</li><li><code>suionstore destination key [key ...]</code> 将并集的结果保存</li><li><code>sdiffstore destination key [key ...]</code> 将差集的结果保存</li></ul><h3 id="有序集合"><a class="header-anchor" href="#有序集合">#</a>有序集合</h3><ul><li><code>zadd key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]</code> 添加成员<ol><li><code>CH</code> 返回此次操作后，有序集合元素和分数发生变化的个数</li><li><code>INCR</code> 对 score 做增加，相当于后面介绍的 zincrby</li></ol></li><li><code>zcard key</code> 计算成员个数</li><li><code>zscore key member</code> 计算某个成员的分数，不存在则返回 nil</li><li><code>zrank key member</code> 计算成员的排名（从分数从低到高）</li><li><code>zrevrank key member</code> 计算成员的排名（从分数从高到低）</li><li><code>zrem key member [member ...]</code> 删除成员</li><li><code>zincrby key increment member</code> 增加成员的分数</li><li><code>zrange/zrevrange key start end [withscores]</code> 返回指定排名范围的成员<ol><li><code>withscores</code> 同时返回成员的分数</li></ol></li><li><code>zrangebyscore/zrevrangebyscore key min max [WITHSCORES] [LIMIT offset count]</code> 返回指定分数范围的成员</li></ul><h3 id="键管理"><a class="header-anchor" href="#键管理">#</a>键管理</h3><ul><li><code>rename key newkey</code> 键重命名，如果键本身存在会被覆盖<ol><li>本质上要删除旧 key 和对应的 value 如果大 key 会阻塞（？为什么不直接复制呢？）</li></ol></li><li><code>renamenx key newkey</code> 不会被覆盖的重命名</li><li><code>randomkey</code> 随机返回一个键</li><li><code>persist</code> 清除键的过期时间</li></ul><h3 id="多实例"><a class="header-anchor" href="#多实例">#</a>多实例</h3><ul><li>客户端连接<code>redis-cli -h 127.0.0.1 -p 6378</code></li><li><code>slaveof host port</code>成为某个实例的从实例</li></ul><h3 id="复制"><a class="header-anchor" href="#复制">#</a>复制</h3><ul><li>Redis 启动后有一个 40 位的 16 进制字符串作为运行 id，如果主节点的运行 id 变了，从节点要做全量复制。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info server</span><br></pre></td></tr></table></figure><ul><li><code>debug reload</code>可以不重启去变更一些配置。<ol><li><code>debug reload</code>命令会阻塞当前 Redis 节点主线程，阻塞期间会生成本地 RDB 快照并清空数据之后再加载 RDB 文件。</li></ol></li></ul><h3 id="阻塞"><a class="header-anchor" href="#阻塞">#</a>阻塞</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --bigkeys</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -703,6 +848,33 @@
             <tag> note </tag>
             
             <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust笔记</title>
+      <link href="/blog/2022/11/05/rust-note/"/>
+      <url>/blog/2022/11/05/rust-note/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> RUSTUP_DIST_SERVER=<span class="string">"https://rsproxy.cn"</span></span><br><span class="line"><span class="built_in">export</span> RUSTUP_UPDATE_ROOT=<span class="string">"https://rsproxy.cn/rustup"</span></span><br><span class="line"><span class="comment"># curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</span></span><br><span class="line">curl --proto <span class="string">'=https'</span> --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh</span><br><span class="line">rustup component add rust-analyzer</span><br></pre></td></tr></table></figure><ul><li>break 可以单独使用，也可以带一个返回值，有些类似 return</li><li>loop 是一个表达式，因此可以返回一个值</li></ul><p>字节提供的<code>rust</code>镜像：<a href="https://rsproxy.cn/#getStarted" target="_blank" rel="noopener">https://rsproxy.cn/#getStarted</a></p><p>这种定义在 impl 中且没有 self 的函数被称之为关联函数： 因为它没有 self，不能用 f.read() 的形式调用，因此它是一个函数而不是方法，它又在 impl 中，与结构体紧密关联，因此称为关联函数。</p><p>但是这种写法限制了 <code>Screen</code> 实例的 <code>Vec&lt;T&gt;</code> 中的每个元素必须是 <code>Button</code> 类型或者全是 <code>SelectBox</code> 类型。如果只需要同质（相同类型）集合，更倾向于采用泛型+特征约束这种写法，因其实现更清晰，且性能更好(特征对象，需要在运行时从 <code>vtable</code> 动态查找需要调用的方法)。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> note </tag>
+            
+            <tag> rust </tag>
             
         </tags>
       
@@ -729,11 +901,11 @@
             
             <tag> linux </tag>
             
+            <tag> bash </tag>
+            
             <tag> shell </tag>
             
             <tag> zsh </tag>
-            
-            <tag> bash </tag>
             
             <tag> vim </tag>
             
@@ -777,7 +949,7 @@
       <link href="/blog/2022/10/02/zsh-install/"/>
       <url>/blog/2022/10/02/zsh-install/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>为了环境统一，把自己的 linux 和 mac 的电脑都装上统一的 zsh。</p><a id="more"></a><h2 id="安装-zsh"><a class="header-anchor" href="#安装-zsh">#</a>安装 zsh</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前的shell类型</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可以选择的shell类型</span></span><br><span class="line">$ cat /etc/shells</span><br><span class="line"><span class="comment"># /etc/shells: valid login shells</span></span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/bin/rbash</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/zsh</span><br><span class="line">/usr/bin/zsh</span><br></pre></td></tr></table></figure><p>安装 zsh：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get -y install zsh</span><br></pre></td></tr></table></figure><p>切换到 zsh：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure><h2 id="安装-ohmyzsh"><a class="header-anchor" href="#安装-ohmyzsh">#</a>安装 ohmyzsh</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure><h2 id="安装-zsh-syntax-highlighting"><a class="header-anchor" href="#安装-zsh-syntax-highlighting">#</a>安装 zsh-syntax-highlighting</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure><h2 id="安装-zsh-autosuggestions"><a class="header-anchor" href="#安装-zsh-autosuggestions">#</a>安装 zsh-autosuggestions</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure><h2 id="安装-wakatime"><a class="header-anchor" href="#安装-wakatime">#</a>安装 wakatime</h2><p>前置安装 <code>wakatime-cli</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c <span class="string">"<span class="variable">$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)</span>"</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/sobolevn/wakatime-zsh-plugin.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/wakatime</span><br></pre></td></tr></table></figure><h2 id="绑定-shell-快捷键"><a class="header-anchor" href="#绑定-shell-快捷键">#</a>绑定 shell 快捷键</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.zshrc</span><br><span class="line"><span class="comment"># 新增👇</span></span><br><span class="line"><span class="built_in">bindkey</span> \^U backward-kill-line</span><br></pre></td></tr></table></figure><p>作用是和 bash 的快捷键同步，<code>ctrl u</code>删除整行。</p><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://blog.csdn.net/qierkang/article/details/85941316" target="_blank" rel="noopener">oh-my-zsh,让你的 Linux 命令终端从未这么爽过</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>为了环境统一，把自己的 linux 和 mac 的电脑都装上统一的 zsh。</p><a id="more"></a><h3 id="安装-zsh"><a class="header-anchor" href="#安装-zsh">#</a>安装 zsh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前的shell类型</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看可以选择的shell类型</span></span><br><span class="line">$ cat /etc/shells</span><br><span class="line"><span class="comment"># /etc/shells: valid login shells</span></span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/bin/rbash</span><br><span class="line">/bin/dash</span><br><span class="line">/bin/zsh</span><br><span class="line">/usr/bin/zsh</span><br></pre></td></tr></table></figure><p>安装 zsh：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install zsh git curl</span><br></pre></td></tr></table></figure><p>切换到 zsh：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure><h3 id="修改-hosts"><a class="header-anchor" href="#修改-hosts">#</a>修改 hosts</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">140.82.121.4 github.com</span><br></pre></td></tr></table></figure><h3 id="修改-ssh-config"><a class="header-anchor" href="#修改-ssh-config">#</a>修改 .ssh/config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.ssh/config</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    Hostname github.com</span><br><span class="line">    IdentityFile ~&#x2F;.ssh&#x2F;key&#x2F;github</span><br></pre></td></tr></table></figure><h3 id="修改-gitconfig"><a class="header-anchor" href="#修改-gitconfig">#</a>修改 gitconfig</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[url &quot;git@github.com:&quot;]</span><br><span class="line">    insteadOf &#x3D; https:&#x2F;&#x2F;github.com&#x2F;</span><br></pre></td></tr></table></figure><h3 id="安装-neovim"><a class="header-anchor" href="#安装-neovim">#</a>安装 neovim</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz</span><br><span class="line">sudo rm -rf /opt/nvim-linux64</span><br><span class="line">sudo tar -C /opt -xzf nvim-linux64.tar.gz</span><br></pre></td></tr></table></figure><p>修改环境变量：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;&quot;$PATH:&#x2F;opt&#x2F;nvim-linux64&#x2F;bin&quot;</span><br></pre></td></tr></table></figure><p>安装依赖：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ripgrep fzf -y</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:GoInstallBinaries</span><br></pre></td></tr></table></figure><h3 id="加载-neovim-配置"><a class="header-anchor" href="#加载-neovim-配置">#</a>加载 neovim 配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:onns/nvim-config.git ~/.config/nvim</span><br></pre></td></tr></table></figure><h3 id="安装-ohmyzsh"><a class="header-anchor" href="#安装-ohmyzsh">#</a>安装 ohmyzsh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure><h3 id="安装-zsh-syntax-highlighting"><a class="header-anchor" href="#安装-zsh-syntax-highlighting">#</a>安装 zsh-syntax-highlighting</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure><h3 id="安装-zsh-autosuggestions"><a class="header-anchor" href="#安装-zsh-autosuggestions">#</a>安装 zsh-autosuggestions</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span></span><br></pre></td></tr></table></figure><h3 id="安装-wakatime"><a class="header-anchor" href="#安装-wakatime">#</a>安装 wakatime</h3><p>前置安装 <code>wakatime-cli</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c <span class="string">"<span class="variable">$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)</span>"</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/sobolevn/wakatime-zsh-plugin.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/wakatime</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="comment"># plugins=(git zsh-autosuggestions zsh-syntax-highlighting wakatime)</span></span><br></pre></td></tr></table></figure><h3 id="绑定-shell-快捷键"><a class="header-anchor" href="#绑定-shell-快捷键">#</a>绑定 shell 快捷键</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.zshrc</span><br><span class="line"><span class="comment"># 新增👇</span></span><br><span class="line"><span class="built_in">bindkey</span> \^U backward-kill-line</span><br></pre></td></tr></table></figure><p>作用是和 bash 的快捷键同步，<code>ctrl u</code>删除整行。</p><h3 id="创建新用户"><a class="header-anchor" href="#创建新用户">#</a>创建新用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser onns</span><br><span class="line">sudo usermod -aG sudo onns</span><br></pre></td></tr></table></figure><h3 id="修改主机名"><a class="header-anchor" href="#修改主机名">#</a>修改主机名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hostname aliyun</span><br></pre></td></tr></table></figure><h3 id="关闭密码登录"><a class="header-anchor" href="#关闭密码登录">#</a>关闭密码登录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PasswordAuthentication no</span></span><br><span class="line">sudo /etc/init.d/ssh restart</span><br></pre></td></tr></table></figure><h3 id="安装-golang"><a class="header-anchor" href="#安装-golang">#</a>安装 golang</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -C /usr/<span class="built_in">local</span> -xzf go1.22.3.linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">export</span> GOROOT=<span class="string">"/usr/local/go/go1.22.3"</span></span><br><span class="line"><span class="built_in">export</span> GOPATH=<span class="string">"/home/onns/go"</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:/opt/nvim-linux64/bin:<span class="variable">$GOPATH</span>/bin"</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go env -w GOPROXY=https://goproxy.io,direct</span><br><span class="line">go install golang.org/x/tools/gopls@latest</span><br></pre></td></tr></table></figure><h3 id="安装-rsync"><a class="header-anchor" href="#安装-rsync">#</a>安装 rsync</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install rsync -y</span><br></pre></td></tr></table></figure><h3 id="安装-tmux"><a class="header-anchor" href="#安装-tmux">#</a>安装 tmux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/nelsonenzo/tmux-appimage/releases/tag/3.3a 下载tmux.appimage</span></span><br><span class="line">sudo mv tmux.appimage /usr/<span class="built_in">local</span>/bin/tmux</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/tmux</span><br></pre></td></tr></table></figure><p>如果 mount 报错：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fuse</span><br></pre></td></tr></table></figure><p>配置在：<a href="https://onns.xyz/blog/2024/02/22/doing-list-2024-07/#tmux">https://onns.xyz/blog/2024/02/22/doing-list-2024-07/#tmux</a></p><h3 id="git-配置"><a class="header-anchor" href="#git-配置">#</a>git 配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br><span class="line">git config --global core.editor <span class="string">"nvim"</span></span><br><span class="line">git config --global user.email <span class="string">"onns@onns.xyz"</span></span><br><span class="line">git config --global user.name <span class="string">"Onns"</span></span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[url &quot;git@github.com:&quot;]</span><br><span class="line">    insteadOf &#x3D; https:&#x2F;&#x2F;github.com&#x2F;</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://blog.csdn.net/qierkang/article/details/85941316" target="_blank" rel="noopener">oh-my-zsh,让你的 Linux 命令终端从未这么爽过</a></li></ul><h3 id="安装-redis"><a class="header-anchor" href="#安装-redis">#</a>安装 Redis</h3><ul><li><a href="https://redis.io/docs/install/install-redis/install-redis-on-linux/" target="_blank" rel="noopener">Install Redis on Linux</a></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.redis.io/redis-stable.tar.gz</span><br><span class="line">tar -xzvf redis-stable.tar.gz</span><br><span class="line"><span class="built_in">cd</span> redis-stable</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><h3 id="brew-换源"><a class="header-anchor" href="#brew-换源">#</a>brew 换源</h3><ul><li><a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/" target="_blank" rel="noopener">Homebrew / Linuxbrew 镜像使用帮助</a></li></ul>]]></content>
       
       
       <categories>
@@ -791,11 +963,11 @@
             
             <tag> linux </tag>
             
+            <tag> bash </tag>
+            
             <tag> shell </tag>
             
             <tag> zsh </tag>
-            
-            <tag> bash </tag>
             
         </tags>
       
@@ -1127,11 +1299,11 @@
       
         <tags>
             
+            <tag> bash </tag>
+            
             <tag> shell </tag>
             
             <tag> zsh </tag>
-            
-            <tag> bash </tag>
             
         </tags>
       
@@ -1183,11 +1355,11 @@
       
         <tags>
             
+            <tag> macos </tag>
+            
             <tag> shell </tag>
             
             <tag> zsh </tag>
-            
-            <tag> macos </tag>
             
             <tag> git </tag>
             
@@ -1214,15 +1386,15 @@
       
         <tags>
             
-            <tag> cron </tag>
-            
-            <tag> crontab </tag>
+            <tag> macos </tag>
             
             <tag> shell </tag>
             
             <tag> zsh </tag>
             
-            <tag> macos </tag>
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
             
         </tags>
       
@@ -1278,9 +1450,9 @@
       
         <tags>
             
-            <tag> zsh </tag>
-            
             <tag> macos </tag>
+            
+            <tag> zsh </tag>
             
             <tag> git </tag>
             
@@ -1724,9 +1896,9 @@
       
         <tags>
             
-            <tag> vlc </tag>
-            
             <tag> lua </tag>
+            
+            <tag> vlc </tag>
             
         </tags>
       
@@ -1885,9 +2057,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -1949,9 +2121,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -1980,9 +2152,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2011,9 +2183,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2042,9 +2214,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2073,9 +2245,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2337,9 +2509,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2368,9 +2540,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2432,9 +2604,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2496,9 +2668,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2527,9 +2699,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2558,9 +2730,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2589,9 +2761,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -2625,6 +2797,41 @@
             <tag> action recognition </tag>
             
             <tag> 2021 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>noevim记录</title>
+      <link href="/blog/2021/03/18/neovim-usage/"/>
+      <url>/blog/2021/03/18/neovim-usage/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p><code>noevim</code>一些技巧汇总</p><a id="more"></a><h2 id="删除并粘贴"><a class="header-anchor" href="#删除并粘贴">#</a>删除并粘贴</h2><p>删除或拷贝默认会替换剪切板的内容，虽然<code>neovim</code>的剪切板可以设置为系统的，但是在系统中复制粘贴并不会写入<code>0</code>号复制专用寄存器。</p><h2 id="nvim-cmp-顺序问题"><a class="header-anchor" href="#nvim-cmp-顺序问题">#</a>nvim-cmp 顺序问题</h2><p>在使用<code>nvim-cmp</code>自动补全插件时，提示词并不会默认选中第一个，原因作者回复了：<a href="https://github.com/hrsh7th/nvim-cmp/issues/1809" target="_blank" rel="noopener">https://github.com/hrsh7th/nvim-cmp/issues/1809</a>，是 gopls 的问题，解决方法是把插件的预选修改：</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> cmp = <span class="built_in">require</span>(<span class="string">"cmp"</span>)</span><br><span class="line">cmp.setup(&#123;</span><br><span class="line">  preselect = cmp.PreselectMode.None</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="查询格式化信息"><a class="header-anchor" href="#查询格式化信息">#</a>查询格式化信息</h3><p>本质上使用的是：<code>conform.nvim</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:ConformInfo</span><br></pre></td></tr></table></figure><h3 id="查询-treesitter-节点信息"><a class="header-anchor" href="#查询-treesitter-节点信息">#</a>查询 treesitter 节点信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:InspectTree</span><br></pre></td></tr></table></figure><h3 id="多行编辑"><a class="header-anchor" href="#多行编辑">#</a>多行编辑</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 竖向选区</span><br><span class="line">ctrl + v</span><br><span class="line"># 进入编辑模式</span><br><span class="line">shift + i</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vim </tag>
+            
+            <tag> nvim </tag>
+            
+            <tag> doc </tag>
+            
+            <tag> neovim </tag>
+            
+            <tag> nvim-cmp </tag>
+            
+            <tag> gopls </tag>
             
         </tags>
       
@@ -2721,9 +2928,9 @@
             
             <tag> tips </tag>
             
-            <tag> windows </tag>
-            
             <tag> nas </tag>
+            
+            <tag> windows </tag>
             
             <tag> nfs </tag>
             
@@ -2806,7 +3013,7 @@
       <link href="/blog/2021/03/10/zsh-usage/"/>
       <url>/blog/2021/03/10/zsh-usage/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p><a id="more"></a><h2 id="comm"><a class="header-anchor" href="#comm">#</a>comm</h2><p>在进行文件比对的时候，有可能因为文件结尾是<code>CRLF</code>导致每一行都不一样，这时候需要统一换行符。</p><p>简单的方式是用<code>vim</code>打开文件，然后：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">set</span> ff=unix</span><br></pre></td></tr></table></figure><h2 id="零填充"><a class="header-anchor" href="#零填充">#</a>零填充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/10/14 16:06:27] mbp ➜  ~  <span class="built_in">printf</span> <span class="string">"%02d"</span> 2</span><br><span class="line">02%</span><br></pre></td></tr></table></figure><h2 id="grep"><a class="header-anchor" href="#grep">#</a>grep</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat data.txt | grep  <span class="string">"[9]$"</span></span><br></pre></td></tr></table></figure><p>筛选所有<code>9</code>结尾的行</p><h2 id="纳秒-微秒"><a class="header-anchor" href="#纳秒-微秒">#</a>纳秒/微秒</h2><p>zsh 本身的 date 不支持微秒</p><p>替代工具是<code>gdate</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/10/13 11:21:12] mbp ➜  ~  gdate +%s%N</span><br><span class="line">1665631578359404000</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装gdate</span></span><br><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure><p>使用场景是，脚本的 token 生成等。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 微秒在纳秒的基础上除法</span></span><br><span class="line"><span class="built_in">echo</span> $(($(gdate +%s%N)/1000000))</span><br></pre></td></tr></table></figure><h2 id="列表数据-数组"><a class="header-anchor" href="#列表数据-数组">#</a>列表数据/数组</h2><p>理论上空格可以作为列表分隔的元素，所以最简单的使用方法是：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 1 2 3; <span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>也可以用参数的形式：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=(1 2 3)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;a&#125;</span>; <span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h3 id="向列表添加数据"><a class="header-anchor" href="#向列表添加数据">#</a>向列表添加数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qs=(<span class="string">'aaaa'</span> <span class="string">'bbbb'</span>)</span><br><span class="line">qs+=(<span class="string">'foo'</span>)</span><br><span class="line"><span class="keyword">for</span> q <span class="keyword">in</span> <span class="variable">$&#123;qs&#125;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"test <span class="variable">$&#123;q&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h2 id="反引号"><a class="header-anchor" href="#反引号">#</a>反引号</h2><p>被反引号`包括的内容会作为命令执行，然后把结果作为参数传给变量</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cur_sec=`date <span class="string">'+%s'</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$cur_sec</span></span><br><span class="line"><span class="comment"># 获取秒级时间戳</span></span><br></pre></td></tr></table></figure><h2 id="no-matches-found"><a class="header-anchor" href="#no-matches-found">#</a>no matches found</h2><p>在用通配符<code>*</code>的时候，有时候如果没有文件，就会报错：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mv /Users/onns/Desktop/temp/* <span class="variable">$&#123;another_dir&#125;</span></span><br><span class="line">no matches found: /Users/onns/Desktop/temp/*</span><br></pre></td></tr></table></figure><p>原因改天再补吧！</p><h3 id="解决方法"><a class="header-anchor" href="#解决方法">#</a>解决方法</h3><p>解决方法是在运行脚本之前先运行一下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setopt</span> +o nomatch</span><br></pre></td></tr></table></figure><p>但是必须要写在脚本文件里，我写在<code>.zshrc</code>里结果没用，我也不知道为什么，如果有人知道可以告知一下。</p><h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3><ul><li><a href="https://unix.stackexchange.com/questions/310540/how-to-get-rid-of-no-match-found-when-running-rm" target="_blank" rel="noopener">How to get rid of “No match found” when running “rm *”</a></li></ul><h2 id="tar-removing-leading-‘-’-from-member-names"><a class="header-anchor" href="#tar-removing-leading-‘-’-from-member-names">#</a>tar: Removing leading ‘/’ from member names</h2><p>这个就比较好解决了，一搜就有，没想到<code>tar</code>默认是用相对地址的= =</p><p>不过我比较好奇的是，为什么在压缩过程的输出是输出到<code>stderr</code>里而不是<code>stdout</code>里，也是<code>TODO</code>，改日再说。</p><h3 id="解决方法-2"><a class="header-anchor" href="#解决方法-2">#</a>解决方法</h3><p>添加<code>-P</code>参数：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvPf  - <span class="string">"<span class="variable">$&#123;imgdir&#125;</span>"</span> | openssl des3 -salt -k <span class="variable">$img_password</span> | dd of=<span class="variable">$&#123;bakdir&#125;</span>img-<span class="variable">$&#123;now_date&#125;</span>-<span class="variable">$&#123;now_time&#125;</span>.bak</span><br></pre></td></tr></table></figure><h3 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h3><ul><li><a href="https://unix.stackexchange.com/questions/545984/how-to-overcome-tar-removing-leading-from-member-names" target="_blank" rel="noopener">How to overcome tar: Removing leading `/’ from member names [duplicate]</a></li><li><a href="https://unix.stackexchange.com/questions/59243/tar-removing-leading-from-member-names/59244" target="_blank" rel="noopener">tar: Removing leading `/’ from member names</a></li></ul><h2 id="prompt"><a class="header-anchor" href="#prompt">#</a>Prompt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT=<span class="string">'%F&#123;green&#125;[%*] %n@%m%f %F&#123;blue&#125;%~%f $ '</span></span><br></pre></td></tr></table></figure><h3 id="相关链接-3"><a class="header-anchor" href="#相关链接-3">#</a>相关链接</h3><ul><li><a href="https://medium.com/dev-genius/customize-the-macos-terminal-zsh-4cb387e4f447" target="_blank" rel="noopener">Customize the MacOS Terminal</a></li><li><a href="https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/" target="_blank" rel="noopener">Moving to zsh, part 6 – Customizing the zsh Prompt</a></li></ul><h2 id="默认值"><a class="header-anchor" href="#默认值">#</a>默认值</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FOO=<span class="string">"<span class="variable">$&#123;VARIABLE:-default&#125;</span>"</span></span><br></pre></td></tr></table></figure><p><code>:-</code>后加默认值</p><h2 id="for-循环"><a class="header-anchor" href="#for-循环">#</a>for 循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ((c = 1; c &lt;= page; c++)); <span class="keyword">do</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>在 <code>(())</code> 里面写变量的时候，不需要加<code>$</code>。</p><h2 id="screen-乱码"><a class="header-anchor" href="#screen-乱码">#</a>screen 乱码</h2><p>创建窗口的时候用：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -U -S onns</span><br></pre></td></tr></table></figure><p>重连的时候用：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -U -r pid</span><br></pre></td></tr></table></figure><p>不知道为什么用配置文件的方式没生效= =</p><h2 id="时间相关"><a class="header-anchor" href="#时间相关">#</a>时间相关</h2><p>显示今天是今年的第几天：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/12/06 17:06:25] mbp ➜  ~  gdate +%j</span><br><span class="line">340</span><br></pre></td></tr></table></figure><h2 id="curl-相关"><a class="header-anchor" href="#curl-相关">#</a>curl 相关</h2><p>curl 的<code>-G</code>选项代表 get，否则默认 post</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -G --data-urlencode <span class="string">"key=value"</span> url</span><br></pre></td></tr></table></figure><p>可以在 shell 中输入需要 urlencode 的内容，比如 json 输入的时候<br><strong>如果用了<code>--data-urlencode</code>，再在 url 里加参数会不生效，必须全部用这个参数指示</strong></p><h2 id="对文件进行拆分"><a class="header-anchor" href="#对文件进行拆分">#</a>对文件进行拆分</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ split -h</span><br><span class="line">split [-l line_count] [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -b byte_count[K|k|M|m|G|g] [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -n chunk_count [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -p pattern [-a suffix_length] [file [prefix]]</span><br></pre></td></tr></table></figure><p>最常用的是按照行号分割：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">split -l 200 order.csv oa.</span><br><span class="line"><span class="comment"># 将order.csv按照200行拆分成一个文件，文件的前缀是oa.</span></span><br></pre></td></tr></table></figure><h2 id="seq"><a class="header-anchor" href="#seq">#</a>seq</h2><p>可以生成序号的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 60)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="comment">#curl xxxx</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h2 id="查找内容前后数据"><a class="header-anchor" href="#查找内容前后数据">#</a>查找内容前后数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">$ grep --<span class="built_in">help</span></span><br><span class="line">Usage: grep [OPTION]... PATTERN [FILE]...</span><br><span class="line">Search <span class="keyword">for</span> PATTERN <span class="keyword">in</span> each FILE.</span><br><span class="line">Example: grep -i <span class="string">'hello world'</span> menu.h main.c</span><br><span class="line"></span><br><span class="line">Pattern selection and interpretation:</span><br><span class="line">  -E, --extended-regexp     PATTERN is an extended regular expression</span><br><span class="line">  -F, --fixed-strings       PATTERN is a <span class="built_in">set</span> of newline-separated strings</span><br><span class="line">  -G, --basic-regexp        PATTERN is a basic regular expression (default)</span><br><span class="line">  -P, --perl-regexp         PATTERN is a Perl regular expression</span><br><span class="line">  -e, --regexp=PATTERN      use PATTERN <span class="keyword">for</span> matching</span><br><span class="line">  -f, --file=FILE           obtain PATTERN from FILE</span><br><span class="line">  -i, --ignore-case         ignore <span class="keyword">case</span> distinctions</span><br><span class="line">  -w, --word-regexp         force PATTERN to match only whole words</span><br><span class="line">  -x, --line-regexp         force PATTERN to match only whole lines</span><br><span class="line">  -z, --null-data           a data line ends <span class="keyword">in</span> 0 byte, not newline</span><br><span class="line"></span><br><span class="line">Miscellaneous:</span><br><span class="line">  -s, --no-messages         suppress error messages</span><br><span class="line">  -v, --invert-match        select non-matching lines</span><br><span class="line">  -V, --version             display version information and <span class="built_in">exit</span></span><br><span class="line">      --<span class="built_in">help</span>                display this <span class="built_in">help</span> text and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">Output control:</span><br><span class="line">  -m, --max-count=NUM       stop after NUM selected lines</span><br><span class="line">  -b, --byte-offset         <span class="built_in">print</span> the byte offset with output lines</span><br><span class="line">  -n, --line-number         <span class="built_in">print</span> line number with output lines</span><br><span class="line">      --line-buffered       flush output on every line</span><br><span class="line">  -H, --with-filename       <span class="built_in">print</span> file name with output lines</span><br><span class="line">  -h, --no-filename         suppress the file name prefix on output</span><br><span class="line">      --label=LABEL         use LABEL as the standard input file name prefix</span><br><span class="line">  -o, --only-matching       show only the part of a line matching PATTERN</span><br><span class="line">  -q, --quiet, --silent     suppress all normal output</span><br><span class="line">      --binary-files=TYPE   assume that binary files are TYPE;</span><br><span class="line">                            TYPE is <span class="string">'binary'</span>, <span class="string">'text'</span>, or <span class="string">'without-match'</span></span><br><span class="line">  -a, --text                equivalent to --binary-files=text</span><br><span class="line">  -I                        equivalent to --binary-files=without-match</span><br><span class="line">  -d, --directories=ACTION  how to handle directories;</span><br><span class="line">                            ACTION is <span class="string">'read'</span>, <span class="string">'recurse'</span>, or <span class="string">'skip'</span></span><br><span class="line">  -D, --devices=ACTION      how to handle devices, FIFOs and sockets;</span><br><span class="line">                            ACTION is <span class="string">'read'</span> or <span class="string">'skip'</span></span><br><span class="line">  -r, --recursive           like --directories=recurse</span><br><span class="line">  -R, --dereference-recursive  likewise, but follow all symlinks</span><br><span class="line">      --include=FILE_PATTERN  search only files that match FILE_PATTERN</span><br><span class="line">      --exclude=FILE_PATTERN  skip files and directories matching FILE_PATTERN</span><br><span class="line">      --exclude-from=FILE   skip files matching any file pattern from FILE</span><br><span class="line">      --exclude-dir=PATTERN  directories that match PATTERN will be skipped.</span><br><span class="line">  -L, --files-without-match  <span class="built_in">print</span> only names of FILEs with no selected lines</span><br><span class="line">  -l, --files-with-matches  <span class="built_in">print</span> only names of FILEs with selected lines</span><br><span class="line">  -c, --count               <span class="built_in">print</span> only a count of selected lines per FILE</span><br><span class="line">  -T, --initial-tab         make tabs line up (<span class="keyword">if</span> needed)</span><br><span class="line">  -Z, --null                <span class="built_in">print</span> 0 byte after FILE name</span><br><span class="line"></span><br><span class="line">Context control:</span><br><span class="line">  -B, --before-context=NUM  <span class="built_in">print</span> NUM lines of leading context</span><br><span class="line">  -A, --after-context=NUM   <span class="built_in">print</span> NUM lines of trailing context</span><br><span class="line">  -C, --context=NUM         <span class="built_in">print</span> NUM lines of output context</span><br><span class="line">  -NUM                      same as --context=NUM</span><br><span class="line">      --color[=WHEN],</span><br><span class="line">      --colour[=WHEN]       use markers to highlight the matching strings;</span><br><span class="line">                            WHEN is <span class="string">'always'</span>, <span class="string">'never'</span>, or <span class="string">'auto'</span></span><br><span class="line">  -U, --binary              <span class="keyword">do</span> not strip CR characters at EOL (MSDOS/Windows)</span><br><span class="line"></span><br><span class="line">When FILE is <span class="string">'-'</span>, <span class="built_in">read</span> standard input.  With no FILE, <span class="built_in">read</span> <span class="string">'.'</span> <span class="keyword">if</span></span><br><span class="line">recursive, <span class="string">'-'</span> otherwise.  With fewer than two FILEs, assume -h.</span><br><span class="line">Exit status is 0 <span class="keyword">if</span> any line is selected, 1 otherwise;</span><br><span class="line"><span class="keyword">if</span> any error occurs and -q is not given, the <span class="built_in">exit</span> status is 2.</span><br><span class="line"></span><br><span class="line">Report bugs to: bug-grep@gnu.org</span><br><span class="line">GNU grep home page: &lt;http://www.gnu.org/software/grep/&gt;</span><br><span class="line">General <span class="built_in">help</span> using GNU software: &lt;http://www.gnu.org/gethelp/&gt;</span><br></pre></td></tr></table></figure><p><code>-A 10</code> 显示查找内容+<code>后面</code>的 10 行。<br><code>-B 10</code> 显示查找内容+<code>前面</code>的 10 行。<br><code>-C 10</code> 显示查找内容+<code>前面和后面</code>的 10 行。</p><h2 id="判断文件是否存在"><a class="header-anchor" href="#判断文件是否存在">#</a>判断文件是否存在</h2><h2 id="从数据中选取指定列"><a class="header-anchor" href="#从数据中选取指定列">#</a>从数据中选取指定列</h2><ul><li><a href="https://onns.xyz/blog/2023/11/28/reading-list-2023-49/#%E5%BF%AB%E9%80%9F-csv-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">快速 csv 文件处理</a></li></ul><h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2><ul><li>[ ] <code>setopt +o nomatch</code>的作用</li><li>[ ] <code>tar</code>输出问题</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p><a id="more"></a><h2 id="comm"><a class="header-anchor" href="#comm">#</a>comm</h2><p>在进行文件比对的时候，有可能因为文件结尾是<code>CRLF</code>导致每一行都不一样，这时候需要统一换行符。</p><p>简单的方式是用<code>vim</code>打开文件，然后：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">set</span> ff=unix</span><br></pre></td></tr></table></figure><h2 id="零填充"><a class="header-anchor" href="#零填充">#</a>零填充</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/10/14 16:06:27] mbp ➜  ~  <span class="built_in">printf</span> <span class="string">"%02d"</span> 2</span><br><span class="line">02%</span><br></pre></td></tr></table></figure><h2 id="grep"><a class="header-anchor" href="#grep">#</a>grep</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat data.txt | grep  <span class="string">"[9]$"</span></span><br></pre></td></tr></table></figure><p>筛选所有<code>9</code>结尾的行</p><h2 id="纳秒-微秒"><a class="header-anchor" href="#纳秒-微秒">#</a>纳秒/微秒</h2><p>zsh 本身的 date 不支持微秒</p><p>替代工具是<code>gdate</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/10/13 11:21:12] mbp ➜  ~  gdate +%s%N</span><br><span class="line">1665631578359404000</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装gdate</span></span><br><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure><p>使用场景是，脚本的 token 生成等。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 微秒在纳秒的基础上除法</span></span><br><span class="line"><span class="built_in">echo</span> $(($(gdate +%s%N)/1000000))</span><br></pre></td></tr></table></figure><h2 id="列表数据-数组"><a class="header-anchor" href="#列表数据-数组">#</a>列表数据/数组</h2><p>理论上空格可以作为列表分隔的元素，所以最简单的使用方法是：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 1 2 3; <span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>也可以用参数的形式：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=(1 2 3)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;a&#125;</span>; <span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h3 id="向列表添加数据"><a class="header-anchor" href="#向列表添加数据">#</a>向列表添加数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qs=(<span class="string">'aaaa'</span> <span class="string">'bbbb'</span>)</span><br><span class="line">qs+=(<span class="string">'foo'</span>)</span><br><span class="line"><span class="keyword">for</span> q <span class="keyword">in</span> <span class="variable">$&#123;qs&#125;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"test <span class="variable">$&#123;q&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h2 id="反引号"><a class="header-anchor" href="#反引号">#</a>反引号</h2><p>被反引号`包括的内容会作为命令执行，然后把结果作为参数传给变量</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cur_sec=`date <span class="string">'+%s'</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$cur_sec</span></span><br><span class="line"><span class="comment"># 获取秒级时间戳</span></span><br></pre></td></tr></table></figure><h2 id="no-matches-found"><a class="header-anchor" href="#no-matches-found">#</a>no matches found</h2><p>在用通配符<code>*</code>的时候，有时候如果没有文件，就会报错：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mv /Users/onns/Desktop/temp/* <span class="variable">$&#123;another_dir&#125;</span></span><br><span class="line">no matches found: /Users/onns/Desktop/temp/*</span><br></pre></td></tr></table></figure><p>原因改天再补吧！</p><h3 id="解决方法"><a class="header-anchor" href="#解决方法">#</a>解决方法</h3><p>解决方法是在运行脚本之前先运行一下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setopt</span> +o nomatch</span><br></pre></td></tr></table></figure><p>但是必须要写在脚本文件里，我写在<code>.zshrc</code>里结果没用，我也不知道为什么，如果有人知道可以告知一下。</p><h3 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h3><ul><li><a href="https://unix.stackexchange.com/questions/310540/how-to-get-rid-of-no-match-found-when-running-rm" target="_blank" rel="noopener">How to get rid of “No match found” when running “rm *”</a></li></ul><h2 id="tar-removing-leading-‘-’-from-member-names"><a class="header-anchor" href="#tar-removing-leading-‘-’-from-member-names">#</a>tar: Removing leading ‘/’ from member names</h2><p>这个就比较好解决了，一搜就有，没想到<code>tar</code>默认是用相对地址的= =</p><p>不过我比较好奇的是，为什么在压缩过程的输出是输出到<code>stderr</code>里而不是<code>stdout</code>里，也是<code>TODO</code>，改日再说。</p><h3 id="解决方法-2"><a class="header-anchor" href="#解决方法-2">#</a>解决方法</h3><p>添加<code>-P</code>参数：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvPf  - <span class="string">"<span class="variable">$&#123;imgdir&#125;</span>"</span> | openssl des3 -salt -k <span class="variable">$img_password</span> | dd of=<span class="variable">$&#123;bakdir&#125;</span>img-<span class="variable">$&#123;now_date&#125;</span>-<span class="variable">$&#123;now_time&#125;</span>.bak</span><br></pre></td></tr></table></figure><h3 id="相关链接-2"><a class="header-anchor" href="#相关链接-2">#</a>相关链接</h3><ul><li><a href="https://unix.stackexchange.com/questions/545984/how-to-overcome-tar-removing-leading-from-member-names" target="_blank" rel="noopener">How to overcome tar: Removing leading `/’ from member names [duplicate]</a></li><li><a href="https://unix.stackexchange.com/questions/59243/tar-removing-leading-from-member-names/59244" target="_blank" rel="noopener">tar: Removing leading `/’ from member names</a></li></ul><h2 id="prompt"><a class="header-anchor" href="#prompt">#</a>Prompt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROMPT=<span class="string">'%F&#123;green&#125;[%*] %n@%m%f %F&#123;blue&#125;%~%f $ '</span></span><br></pre></td></tr></table></figure><h3 id="相关链接-3"><a class="header-anchor" href="#相关链接-3">#</a>相关链接</h3><ul><li><a href="https://medium.com/dev-genius/customize-the-macos-terminal-zsh-4cb387e4f447" target="_blank" rel="noopener">Customize the MacOS Terminal</a></li><li><a href="https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/" target="_blank" rel="noopener">Moving to zsh, part 6 – Customizing the zsh Prompt</a></li></ul><h2 id="默认值"><a class="header-anchor" href="#默认值">#</a>默认值</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FOO=<span class="string">"<span class="variable">$&#123;VARIABLE:-default&#125;</span>"</span></span><br></pre></td></tr></table></figure><p><code>:-</code>后加默认值</p><h2 id="for-循环"><a class="header-anchor" href="#for-循环">#</a>for 循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ((c = 1; c &lt;= page; c++)); <span class="keyword">do</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>在 <code>(())</code> 里面写变量的时候，不需要加<code>$</code>。</p><h2 id="screen-乱码"><a class="header-anchor" href="#screen-乱码">#</a>screen 乱码</h2><p>创建窗口的时候用：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -U -S onns</span><br></pre></td></tr></table></figure><p>重连的时候用：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -U -r pid</span><br></pre></td></tr></table></figure><p>不知道为什么用配置文件的方式没生效= =</p><h2 id="时间相关"><a class="header-anchor" href="#时间相关">#</a>时间相关</h2><p>显示今天是今年的第几天：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> [2022/12/06 17:06:25] mbp ➜  ~  gdate +%j</span><br><span class="line">340</span><br></pre></td></tr></table></figure><h2 id="curl-相关"><a class="header-anchor" href="#curl-相关">#</a>curl 相关</h2><p>curl 的<code>-G</code>选项代表 get，否则默认 post</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -G --data-urlencode <span class="string">"key=value"</span> url</span><br></pre></td></tr></table></figure><p>可以在 shell 中输入需要 urlencode 的内容，比如 json 输入的时候<br><strong>如果用了<code>--data-urlencode</code>，再在 url 里加参数会不生效，必须全部用这个参数指示</strong></p><h2 id="对文件进行拆分"><a class="header-anchor" href="#对文件进行拆分">#</a>对文件进行拆分</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ split -h</span><br><span class="line">split [-l line_count] [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -b byte_count[K|k|M|m|G|g] [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -n chunk_count [-a suffix_length] [file [prefix]]</span><br><span class="line">       split -p pattern [-a suffix_length] [file [prefix]]</span><br></pre></td></tr></table></figure><p>最常用的是按照行号分割：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">split -l 200 order.csv oa.</span><br><span class="line"><span class="comment"># 将order.csv按照200行拆分成一个文件，文件的前缀是oa.</span></span><br></pre></td></tr></table></figure><h2 id="seq"><a class="header-anchor" href="#seq">#</a>seq</h2><p>可以生成序号的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 60)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="comment">#curl xxxx</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><h2 id="查找内容前后数据"><a class="header-anchor" href="#查找内容前后数据">#</a>查找内容前后数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">$ grep --<span class="built_in">help</span></span><br><span class="line">Usage: grep [OPTION]... PATTERN [FILE]...</span><br><span class="line">Search <span class="keyword">for</span> PATTERN <span class="keyword">in</span> each FILE.</span><br><span class="line">Example: grep -i <span class="string">'hello world'</span> menu.h main.c</span><br><span class="line"></span><br><span class="line">Pattern selection and interpretation:</span><br><span class="line">  -E, --extended-regexp     PATTERN is an extended regular expression</span><br><span class="line">  -F, --fixed-strings       PATTERN is a <span class="built_in">set</span> of newline-separated strings</span><br><span class="line">  -G, --basic-regexp        PATTERN is a basic regular expression (default)</span><br><span class="line">  -P, --perl-regexp         PATTERN is a Perl regular expression</span><br><span class="line">  -e, --regexp=PATTERN      use PATTERN <span class="keyword">for</span> matching</span><br><span class="line">  -f, --file=FILE           obtain PATTERN from FILE</span><br><span class="line">  -i, --ignore-case         ignore <span class="keyword">case</span> distinctions</span><br><span class="line">  -w, --word-regexp         force PATTERN to match only whole words</span><br><span class="line">  -x, --line-regexp         force PATTERN to match only whole lines</span><br><span class="line">  -z, --null-data           a data line ends <span class="keyword">in</span> 0 byte, not newline</span><br><span class="line"></span><br><span class="line">Miscellaneous:</span><br><span class="line">  -s, --no-messages         suppress error messages</span><br><span class="line">  -v, --invert-match        select non-matching lines</span><br><span class="line">  -V, --version             display version information and <span class="built_in">exit</span></span><br><span class="line">      --<span class="built_in">help</span>                display this <span class="built_in">help</span> text and <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">Output control:</span><br><span class="line">  -m, --max-count=NUM       stop after NUM selected lines</span><br><span class="line">  -b, --byte-offset         <span class="built_in">print</span> the byte offset with output lines</span><br><span class="line">  -n, --line-number         <span class="built_in">print</span> line number with output lines</span><br><span class="line">      --line-buffered       flush output on every line</span><br><span class="line">  -H, --with-filename       <span class="built_in">print</span> file name with output lines</span><br><span class="line">  -h, --no-filename         suppress the file name prefix on output</span><br><span class="line">      --label=LABEL         use LABEL as the standard input file name prefix</span><br><span class="line">  -o, --only-matching       show only the part of a line matching PATTERN</span><br><span class="line">  -q, --quiet, --silent     suppress all normal output</span><br><span class="line">      --binary-files=TYPE   assume that binary files are TYPE;</span><br><span class="line">                            TYPE is <span class="string">'binary'</span>, <span class="string">'text'</span>, or <span class="string">'without-match'</span></span><br><span class="line">  -a, --text                equivalent to --binary-files=text</span><br><span class="line">  -I                        equivalent to --binary-files=without-match</span><br><span class="line">  -d, --directories=ACTION  how to handle directories;</span><br><span class="line">                            ACTION is <span class="string">'read'</span>, <span class="string">'recurse'</span>, or <span class="string">'skip'</span></span><br><span class="line">  -D, --devices=ACTION      how to handle devices, FIFOs and sockets;</span><br><span class="line">                            ACTION is <span class="string">'read'</span> or <span class="string">'skip'</span></span><br><span class="line">  -r, --recursive           like --directories=recurse</span><br><span class="line">  -R, --dereference-recursive  likewise, but follow all symlinks</span><br><span class="line">      --include=FILE_PATTERN  search only files that match FILE_PATTERN</span><br><span class="line">      --exclude=FILE_PATTERN  skip files and directories matching FILE_PATTERN</span><br><span class="line">      --exclude-from=FILE   skip files matching any file pattern from FILE</span><br><span class="line">      --exclude-dir=PATTERN  directories that match PATTERN will be skipped.</span><br><span class="line">  -L, --files-without-match  <span class="built_in">print</span> only names of FILEs with no selected lines</span><br><span class="line">  -l, --files-with-matches  <span class="built_in">print</span> only names of FILEs with selected lines</span><br><span class="line">  -c, --count               <span class="built_in">print</span> only a count of selected lines per FILE</span><br><span class="line">  -T, --initial-tab         make tabs line up (<span class="keyword">if</span> needed)</span><br><span class="line">  -Z, --null                <span class="built_in">print</span> 0 byte after FILE name</span><br><span class="line"></span><br><span class="line">Context control:</span><br><span class="line">  -B, --before-context=NUM  <span class="built_in">print</span> NUM lines of leading context</span><br><span class="line">  -A, --after-context=NUM   <span class="built_in">print</span> NUM lines of trailing context</span><br><span class="line">  -C, --context=NUM         <span class="built_in">print</span> NUM lines of output context</span><br><span class="line">  -NUM                      same as --context=NUM</span><br><span class="line">      --color[=WHEN],</span><br><span class="line">      --colour[=WHEN]       use markers to highlight the matching strings;</span><br><span class="line">                            WHEN is <span class="string">'always'</span>, <span class="string">'never'</span>, or <span class="string">'auto'</span></span><br><span class="line">  -U, --binary              <span class="keyword">do</span> not strip CR characters at EOL (MSDOS/Windows)</span><br><span class="line"></span><br><span class="line">When FILE is <span class="string">'-'</span>, <span class="built_in">read</span> standard input.  With no FILE, <span class="built_in">read</span> <span class="string">'.'</span> <span class="keyword">if</span></span><br><span class="line">recursive, <span class="string">'-'</span> otherwise.  With fewer than two FILEs, assume -h.</span><br><span class="line">Exit status is 0 <span class="keyword">if</span> any line is selected, 1 otherwise;</span><br><span class="line"><span class="keyword">if</span> any error occurs and -q is not given, the <span class="built_in">exit</span> status is 2.</span><br><span class="line"></span><br><span class="line">Report bugs to: bug-grep@gnu.org</span><br><span class="line">GNU grep home page: &lt;http://www.gnu.org/software/grep/&gt;</span><br><span class="line">General <span class="built_in">help</span> using GNU software: &lt;http://www.gnu.org/gethelp/&gt;</span><br></pre></td></tr></table></figure><p><code>-A 10</code> 显示查找内容+<code>后面</code>的 10 行。<br><code>-B 10</code> 显示查找内容+<code>前面</code>的 10 行。<br><code>-C 10</code> 显示查找内容+<code>前面和后面</code>的 10 行。</p><h2 id="判断文件是否存在"><a class="header-anchor" href="#判断文件是否存在">#</a>判断文件是否存在</h2><h2 id="从数据中选取指定列"><a class="header-anchor" href="#从数据中选取指定列">#</a>从数据中选取指定列</h2><ul><li><a href="https://onns.xyz/blog/2023/11/28/reading-list-2023-49/#%E5%BF%AB%E9%80%9F-csv-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">快速 csv 文件处理</a></li></ul><h2 id="iterm2-分屏"><a class="header-anchor" href="#iterm2-分屏">#</a>iterm2 分屏</h2><ul><li><p><code>cmd + d</code>垂直分屏</p></li><li><p><code>cmd + shift + d</code>水平分屏</p></li><li><p><code>cmd + option/alt + 方向键</code>切换分屏</p></li></ul><h2 id="ffmpeg-相关"><a class="header-anchor" href="#ffmpeg-相关">#</a>ffmpeg 相关</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取视频首帧</span></span><br><span class="line">ffmpeg -i input.mp4 -frames:v 1 output.jpg</span><br><span class="line"><span class="comment"># 指定宽高放缩</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:720"</span> output.mp4</span><br><span class="line"><span class="comment"># 按比例缩放</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:-1"</span> output.mp4</span><br><span class="line"><span class="comment"># 按比例放缩到指定大小，添加黑边</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2"</span> output.mp4</span><br></pre></td></tr></table></figure><h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2><ul><li>[ ] <code>setopt +o nomatch</code>的作用</li><li>[ ] <code>tar</code>输出问题</li></ul>]]></content>
       
       
       <categories>
@@ -2820,21 +3027,25 @@
             
             <tag> linux </tag>
             
-            <tag> cron </tag>
+            <tag> macos </tag>
             
-            <tag> crontab </tag>
+            <tag> bash </tag>
             
             <tag> shell </tag>
             
             <tag> zsh </tag>
             
-            <tag> macos </tag>
+            <tag> cron </tag>
             
-            <tag> bash </tag>
+            <tag> crontab </tag>
             
             <tag> shell note </tag>
             
             <tag> tips </tag>
+            
+            <tag> ffmpeg </tag>
+            
+            <tag> doc </tag>
             
             <tag> zsh note </tag>
             
@@ -2863,15 +3074,15 @@
             
             <tag> linux </tag>
             
-            <tag> cron </tag>
-            
-            <tag> crontab </tag>
+            <tag> bash </tag>
             
             <tag> shell </tag>
             
             <tag> zsh </tag>
             
-            <tag> bash </tag>
+            <tag> cron </tag>
+            
+            <tag> crontab </tag>
             
             <tag> shell note </tag>
             
@@ -2960,7 +3171,7 @@
       <link href="/blog/2021/02/08/git-usage/"/>
       <url>/blog/2021/02/08/git-usage/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p><a id="more"></a><p><code>git</code>添加多个远程仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --add origin git@xm.onns.xyz:/home/git/paper.git</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.cnblogs.com/morethink/p/8700003.html" target="_blank" rel="noopener">Git 同时 push 到多个远程仓库</a></li></ul><h2 id="push-和-pull-链接不同"><a class="header-anchor" href="#push-和-pull-链接不同">#</a>push 和 pull 链接不同</h2><p>你想从别人的分支克隆代码，但是你没有修改权限，你有另一个分支的修改权限。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br></pre></td></tr></table></figure><p>然后你的<code>.git/config</code>长这样：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">repositoryformatversion = 0</span><br><span class="line">filemode = <span class="literal">true</span></span><br><span class="line">bare = <span class="literal">false</span></span><br><span class="line">logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">remote = origin</span><br><span class="line">merge = refs/heads/master</span><br></pre></td></tr></table></figure><p>然后可以用下面的命令增加<code>push</code>的仓库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --push origin git@git119:/home/git/vfos.git</span><br></pre></td></tr></table></figure><p>再次查看<code>.git/config</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">repositoryformatversion = 0</span><br><span class="line">filemode = <span class="literal">true</span></span><br><span class="line">bare = <span class="literal">false</span></span><br><span class="line">logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">pushurl = git@git119:/home/git/vfos.git</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">remote = origin</span><br><span class="line">merge = refs/heads/master</span><br></pre></td></tr></table></figure><p>所以其实你手动添加一项<code>pushurl</code>也是可以的！</p><h3 id="参考链接-2"><a class="header-anchor" href="#参考链接-2">#</a>参考链接</h3><ul><li><a href="https://stackoverflow.com/questions/2916845/different-default-remote-tracking-branch-for-git-pull-and-git-push" target="_blank" rel="noopener">Different default remote (tracking branch) for git pull and git push</a></li></ul><h2 id="删除-ds-store"><a class="header-anchor" href="#删除-ds-store">#</a>删除 .DS_Store</h2><p>用<code>.gitignore</code>排除即可，官方文档说<code>**/</code>代表所有的目录下，所以只需要加下面两行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**/.DS_Store</span><br><span class="line">**/._.DS_Store</span><br></pre></td></tr></table></figure><p>第二行也可以不用加，听说那个是别名，但是我目前没遇到过。</p><h3 id="参考链接-3"><a class="header-anchor" href="#参考链接-3">#</a>参考链接</h3><ul><li><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">Git - gitignore Documentation</a></li><li><a href="https://gist.github.com/lohenyumnam/2b127b9c3d1435dc12a33613c44e6308" target="_blank" rel="noopener">Add DS_Store into .gitignore for the sub directory.md</a></li></ul><h2 id="合并最新的-master"><a class="header-anchor" href="#合并最新的-master">#</a>合并最新的 master</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure><p>拉最新的 master 数据并且合并到当前分支</p><h2 id="回退某个文件到某个版本"><a class="header-anchor" href="#回退某个文件到某个版本">#</a>回退某个文件到某个版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout md5 file_dir</span><br></pre></td></tr></table></figure><h2 id="取消追踪-git-文件"><a class="header-anchor" href="#取消追踪-git-文件">#</a>取消追踪 git 文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件</span></span><br><span class="line">git rm --cached example.txt</span><br><span class="line"><span class="comment"># 目录</span></span><br><span class="line">git rm --cached -r logs/</span><br></pre></td></tr></table></figure><p>用于将先追踪过的文件，加入<code>.gitignore</code>并取消追踪。</p><h2 id="修改默认分支名为-main"><a class="header-anchor" href="#修改默认分支名为-main">#</a>修改默认分支名为 main</h2><p>= = 历史原因</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2><p>一些<code>git</code>的操作记录，方便自己忘记之后查找～</p><a id="more"></a><p><code>git</code>添加多个远程仓库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --add origin git@xm.onns.xyz:/home/git/paper.git</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a class="header-anchor" href="#参考链接">#</a>参考链接</h2><ul><li><a href="https://www.cnblogs.com/morethink/p/8700003.html" target="_blank" rel="noopener">Git 同时 push 到多个远程仓库</a></li></ul><h2 id="push-和-pull-链接不同"><a class="header-anchor" href="#push-和-pull-链接不同">#</a>push 和 pull 链接不同</h2><p>你想从别人的分支克隆代码，但是你没有修改权限，你有另一个分支的修改权限。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br></pre></td></tr></table></figure><p>然后你的<code>.git/config</code>长这样：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">repositoryformatversion = 0</span><br><span class="line">filemode = <span class="literal">true</span></span><br><span class="line">bare = <span class="literal">false</span></span><br><span class="line">logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">remote = origin</span><br><span class="line">merge = refs/heads/master</span><br></pre></td></tr></table></figure><p>然后可以用下面的命令增加<code>push</code>的仓库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --push origin git@git119:/home/git/vfos.git</span><br></pre></td></tr></table></figure><p>再次查看<code>.git/config</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git/config</span><br><span class="line">[core]</span><br><span class="line">repositoryformatversion = 0</span><br><span class="line">filemode = <span class="literal">true</span></span><br><span class="line">bare = <span class="literal">false</span></span><br><span class="line">logallrefupdates = <span class="literal">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">url = https://engagementhub.caixamagica.pt/virtual-factory-operating-system/vf-os-platform-environment-vf-p.git</span><br><span class="line">fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">pushurl = git@git119:/home/git/vfos.git</span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">remote = origin</span><br><span class="line">merge = refs/heads/master</span><br></pre></td></tr></table></figure><p>所以其实你手动添加一项<code>pushurl</code>也是可以的！</p><h3 id="参考链接-2"><a class="header-anchor" href="#参考链接-2">#</a>参考链接</h3><ul><li><a href="https://stackoverflow.com/questions/2916845/different-default-remote-tracking-branch-for-git-pull-and-git-push" target="_blank" rel="noopener">Different default remote (tracking branch) for git pull and git push</a></li></ul><h2 id="删除-ds-store"><a class="header-anchor" href="#删除-ds-store">#</a>删除 .DS_Store</h2><p>用<code>.gitignore</code>排除即可，官方文档说<code>**/</code>代表所有的目录下，所以只需要加下面两行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**/.DS_Store</span><br><span class="line">**/._.DS_Store</span><br></pre></td></tr></table></figure><p>第二行也可以不用加，听说那个是别名，但是我目前没遇到过。</p><h3 id="参考链接-3"><a class="header-anchor" href="#参考链接-3">#</a>参考链接</h3><ul><li><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">Git - gitignore Documentation</a></li><li><a href="https://gist.github.com/lohenyumnam/2b127b9c3d1435dc12a33613c44e6308" target="_blank" rel="noopener">Add DS_Store into .gitignore for the sub directory.md</a></li></ul><h2 id="合并最新的-master"><a class="header-anchor" href="#合并最新的-master">#</a>合并最新的 master</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure><p>拉最新的 master 数据并且合并到当前分支</p><h2 id="回退某个文件到某个版本"><a class="header-anchor" href="#回退某个文件到某个版本">#</a>回退某个文件到某个版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout md5 file_dir</span><br></pre></td></tr></table></figure><h2 id="取消追踪-git-文件"><a class="header-anchor" href="#取消追踪-git-文件">#</a>取消追踪 git 文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件</span></span><br><span class="line">git rm --cached example.txt</span><br><span class="line"><span class="comment"># 目录</span></span><br><span class="line">git rm --cached -r logs/</span><br></pre></td></tr></table></figure><p>用于将先追踪过的文件，加入<code>.gitignore</code>并取消追踪。</p><h2 id="修改默认分支名为-main"><a class="header-anchor" href="#修改默认分支名为-main">#</a>修改默认分支名为 main</h2><p>= = 历史原因</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure><h3 id="amend"><a class="header-anchor" href="#amend">#</a><code>--amend</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -v --amend</span><br></pre></td></tr></table></figure><p>把当前的修改追加到上一次<code>commit</code>中，相当于修改了分支信息，如果上一次修改已经在远端，需要强制推送。</p>]]></content>
       
       
       <categories>
@@ -3003,9 +3214,9 @@
             
             <tag> github </tag>
             
-            <tag> git </tag>
-            
             <tag> ssh </tag>
+            
+            <tag> git </tag>
             
             <tag> private repository </tag>
             
@@ -3098,9 +3309,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3356,11 +3567,11 @@
             
             <tag> linux </tag>
             
+            <tag> systemd </tag>
+            
             <tag> ngrok </tag>
             
             <tag> service </tag>
-            
-            <tag> systemd </tag>
             
             <tag> bios </tag>
             
@@ -3389,11 +3600,11 @@
             
             <tag> linux </tag>
             
-            <tag> intranet penetration </tag>
+            <tag> ssh </tag>
             
             <tag> ngrok </tag>
             
-            <tag> ssh </tag>
+            <tag> intranet penetration </tag>
             
             <tag> 内网穿透 </tag>
             
@@ -3461,9 +3672,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3492,9 +3703,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3523,9 +3734,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3554,9 +3765,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3585,9 +3796,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3616,9 +3827,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3647,9 +3858,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3678,9 +3889,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3709,9 +3920,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3740,9 +3951,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3771,9 +3982,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3802,9 +4013,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -3860,9 +4071,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -4356,9 +4567,9 @@
             
             <tag> linux </tag>
             
-            <tag> shell </tag>
-            
             <tag> bash </tag>
+            
+            <tag> shell </tag>
             
             <tag> shell note </tag>
             
@@ -4575,11 +4786,11 @@
       
         <tags>
             
+            <tag> ssh </tag>
+            
             <tag> rsync </tag>
             
             <tag> windows </tag>
-            
-            <tag> ssh </tag>
             
             <tag> sshd </tag>
             
@@ -4943,9 +5154,9 @@
             
             <tag> linux </tag>
             
-            <tag> rsync </tag>
-            
             <tag> ssh </tag>
+            
+            <tag> rsync </tag>
             
             <tag> sshd </tag>
             
@@ -5464,9 +5675,9 @@
             
             <tag> macos </tag>
             
-            <tag> rsync </tag>
-            
             <tag> ssh </tag>
+            
+            <tag> rsync </tag>
             
         </tags>
       
@@ -5673,9 +5884,9 @@
             
             <tag> java </tag>
             
-            <tag> zsh </tag>
-            
             <tag> macos </tag>
+            
+            <tag> zsh </tag>
             
             <tag> maven </tag>
             
@@ -6153,6 +6364,8 @@
             
             <tag> linux </tag>
             
+            <tag> tail </tag>
+            
             <tag> sort </tag>
             
             <tag> uniq </tag>
@@ -6166,8 +6379,6 @@
             <tag> wc </tag>
             
             <tag> head </tag>
-            
-            <tag> tail </tag>
             
         </tags>
       
@@ -6262,11 +6473,11 @@
       
         <tags>
             
+            <tag> ngrok </tag>
+            
             <tag> doc </tag>
             
             <tag> intranet penetration </tag>
-            
-            <tag> ngrok </tag>
             
         </tags>
       
@@ -6475,6 +6686,8 @@
             
             <tag> linux </tag>
             
+            <tag> ssh </tag>
+            
             <tag> windows </tag>
             
             <tag> log </tag>
@@ -6482,8 +6695,6 @@
             <tag> file system </tag>
             
             <tag> ext4 </tag>
-            
-            <tag> ssh </tag>
             
             <tag> permission </tag>
             
@@ -6830,11 +7041,11 @@
       
         <tags>
             
+            <tag> macos </tag>
+            
             <tag> cron </tag>
             
             <tag> crontab </tag>
-            
-            <tag> macos </tag>
             
             <tag> Catalina </tag>
             
@@ -8242,17 +8453,6 @@
     
     
     <entry>
-      <title>Xlibrary接口文档</title>
-      <link href="/blog/drafts/xlibrary-api-document.html"/>
-      <url>/blog/drafts/xlibrary-api-document.html</url>
-      
-        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>画啊画涂啊涂</title>
       <link href="/blog/draw/index.html"/>
       <url>/blog/draw/index.html</url>
@@ -8275,9 +8475,31 @@
     
     
     <entry>
+      <title>Xlibrary接口文档</title>
+      <link href="/blog/drafts/xlibrary-api-document.html"/>
+      <url>/blog/drafts/xlibrary-api-document.html</url>
+      
+        <content type="html"><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} --><!-- code_chunk_output --><ul><li><a href="#%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3">接口文档</a><ul><li><a href="#%E7%94%9F%E6%88%90%E8%BD%AC%E5%80%9F%E7%A0%81">生成转借码</a></li><li><a href="#%E8%BD%AC%E5%80%9F%E5%9B%BE%E4%B9%A6">转借图书</a></li></ul></li></ul><!-- /code_chunk_output --><a id="more"></a><h1 id="接口文档"><a class="header-anchor" href="#接口文档">#</a>接口文档</h1><ul><li>段落标题<ul><li>段落标题<ul><li>段落标题<ul><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul></li><li>段落标题</li></ul><h2 id="生成转借码"><a class="header-anchor" href="#生成转借码">#</a>生成转借码</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>拥有书的用户可以生成转借码，将书借给他人。</p><ul><li><strong>网址：</strong><br>/api/book/generate-code</li><li><strong>方法：</strong><br><code>GET</code> | <code>POST</code></li></ul><ul><li><strong>参数：</strong><ul><li>必需：<br><code>isbn=[isbn]</code></li></ul></li></ul><ul><li><strong>成功：</strong><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10101</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10101: 生成转借码成功&quot;,&quot;data&quot;:&quot;LDMvsjLWikpPjXX+ytc3wISPZr66c9oE1XN1NgzBjO0=&quot;}</code></li></ul></li><li><strong>失败：</strong><ul><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10102</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10102: isbn号有误&quot;}</code></li><li>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></li></ul></li></ul><h2 id="转借图书"><a class="header-anchor" href="#转借图书">#</a>转借图书</h2><ul><li>作者：@Onns</li><li>上次修改：2019-08-14</li></ul><p>通过扫码他人的转借码，获得转借的图书。</p><ul><li><p><strong>网址：</strong></p><p>/api/book/subtenancy</p></li><li><p><strong>方法：</strong></p><p><code>GET</code> | <code>POST</code></p></li><li><p><strong>参数：</strong></p><ul><li><p>必需：</p><p><code>code=[code]</code></p></li></ul></li><li><p><strong>成功：</strong></p><ul><li>返回码：<img src="https://placehold.it/15/00ff00/000000?text=+" alt=""> <strong>10201</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:0,&quot;message&quot;:&quot;10201: 转借成功&quot;}</code></li></ul></li><li><p><strong>失败：</strong></p><ul><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10000</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10000: 未登录，禁止操作&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10202</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10202: 不能转借给自己&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10103</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10103: 未找到相关记录&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10204</strong> <br /><br>返回值：<br /><br><code>{&quot;error&quot;:1,&quot;message&quot;:&quot;10204: 转借码有误&quot;}</code></p></li><li><p>返回码：<img src="https://placehold.it/15/ff0000/000000?text=+" alt=""> <strong>10205</strong> <br /><br>返回值：<br /><br><code>{error: 1, message: &quot;10205: 转借码有误&quot;}</code></p></li></ul></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>image</title>
       <link href="/blog/image/index.html"/>
       <url>/blog/image/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/blog/tags/index.html"/>
+      <url>/blog/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -8291,17 +8513,6 @@
       <url>/blog/links/index.html</url>
       
         <content type="html"><![CDATA[<ul><li><a href="https://www.mycgx.com/" target="_blank" rel="noopener">小鱼 blog</a></li><li><a href="http://xiangyi.pro/" target="_blank" rel="noopener">Xiangyi’s Blog</a></li><li><a href="https://her-cat.com/" target="_blank" rel="noopener">她和她的猫</a></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/blog/tags/index.html"/>
-      <url>/blog/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
     </entry>
     

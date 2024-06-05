@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script type="text/javascript" src="/blog/lib/jquery/jquery.min.js"></script>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="/blog/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/blog/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="列表2024"/><meta name="keywords" content="golang, mysql, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://onns.xyz/2024/12/31/doing-list-2024/"/>
+
+<link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]  
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" async src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?094f3776af9873aa4bf55d2700e2b1cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127068305-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127068305-1');
+</script><script src="//onns.xyz/js/av-min.js"></script>
+  <script id="leancloud">
+    AV.init({
+      appId: "jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz",
+      appKey: "pM10kNYtPMwvqYUCWfbUGBPJ",
+      serverURLs: "https://jire5lrq.lc-cn-n1-shared.com"
+    });
+  </script><script>
+  window.config = {"leancloud":{"app_id":"jIRe5LRqbWDB2dxmu7FH8c1S-gzGzoHsz","app_key":"pM10kNYtPMwvqYUCWfbUGBPJ","server_urls":"https://jire5lrq.lc-cn-n1-shared.com"},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+<script id="search">
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+
+            var $input = document.getElementById(search_id);
+			if (!$input) return;
+            var $resultContent = document.getElementById(content_id);
+            
+            $input.addEventListener('input', function () {
+                $resultContent.innerHTML = "";
+                var str = '<section class=\"posts\">';
+                var rawValue = this.value.trim().toLowerCase();
+                if (rawValue.length <= 0) {
+                    return;
+                }
+                var keywords = [];
+                for (const matchKey of rawValue.matchAll(/"([^"]*)"/g)) {
+                  keywords.push(matchKey[1]);
+                  rawValue = rawValue.replace(matchKey[0], "");
+                }
+                keywords = keywords.concat(rawValue.split(/[\s\-]+/));
+                keywords = keywords.filter(function(el) {
+                    return el.trim().length > 0;
+                });
+                if (keywords.length <= 0) {
+                    return;
+                }
+                
+                // perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += `
+<article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="`+ data_url +`">`+ data_title +`</a>
+        </h1>
+    </header>
+    <div class="post-content">
+        `;
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+
+                            if (start < 0) {
+                                start = 0;
+                            }
+
+                            if (start == 0) {
+                                end = 100;
+                            }
+
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+
+                            var match_content = content.substring(start, end);
+
+                            // highlight all keywords
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<code>" + keyword + "</code>");
+                            });
+
+                            str += "<p>" + match_content + "...</p>"
+                        }
+                        str += "</article>";
+                    }
+                });
+                str += "</section>";
+                $resultContent.innerHTML = str;
+            });
+        }
+    });
+}    
+var search_path = "search.xml";
+if (search_path.length == 0) {
+search_path = "search.xml";
+}
+var path = "/blog/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
+    <title>列表2024 - Onns Blog</title>
+  <meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="mobile-header-logo">
+    <a href="/blog/." class="logo">Onns Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/blog/home">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/blog/archives">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/blog/tags">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/blog/categories">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/blog/about">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/blog/." class="logo">Onns Blog</a>
+</div>
+
+<nav class="site-navbar"><div class="search-button">
+        <a href="#" class="search-toggle" data-selector=".site-navbar"></a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="local-search-input" class="text search-input" placeholder="Type here to search..." />
+    </div><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/blog/home">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/archives">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/tags">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/categories">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/blog/about">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            <div id="local-search-result"></div><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">列表2024
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2024-12-31 23:59:59
+        </span><span class="post-category">
+            <a href="/blog/categories/read/">read</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2024/12/31/doing-list-2024/"
+             data-title="列表2024">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-锁相关"><span class="toc-text">MySQL 锁相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang"><span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk-相关"><span class="toc-text">awk 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-alacritty-配置"><span class="toc-text">tmux+alacritty 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行格式（row-format）"><span class="toc-text">行格式（row_format）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行大小限制"><span class="toc-text">行大小限制</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
+<a id="more"></a>
+<h3 id="mysql-锁相关"><a class="header-anchor" href="#mysql-锁相关">#</a>MySQL 锁相关</h3>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.3/en/innodb-locking.html" target="_blank" rel="noopener">17.7.1 InnoDB Locking</a></li>
+</ul>
+<h3 id="golang"><a class="header-anchor" href="#golang">#</a>Golang</h3>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/yrMkH5xOLUS8O9V2H8nfmA" target="_blank" rel="noopener">Cloudflare 最佳实践：如何通过 Go PGO 回收 CPU</a></li>
+</ul>
+<h3 id="awk-相关"><a class="header-anchor" href="#awk-相关">#</a>awk 相关</h3>
+<p>对于 linux 随系统提供的软件，不同系统可能有不同的版本，可能有些 api 不同，需要在编写跨机器脚本时注意：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌ [2024/05/19 20:19:28] aliyun ~/.onns/code/bash</span><br><span class="line">└➜ update-alternatives --display awk</span><br><span class="line">awk - 自动模式</span><br><span class="line">  最佳链接版本为 /usr/bin/gawk</span><br><span class="line"> 链接目前指向 /usr/bin/gawk</span><br><span class="line">  链接 awk 指向 /usr/bin/awk</span><br><span class="line">  从链接 awk.1.gz 指向 /usr/share/man/man1/awk.1.gz</span><br><span class="line">  从链接 nawk 指向 /usr/bin/nawk</span><br><span class="line">  从链接 nawk.1.gz 指向 /usr/share/man/man1/nawk.1.gz</span><br><span class="line">/usr/bin/gawk - 优先级 10</span><br><span class="line">  次要 awk.1.gz：/usr/share/man/man1/gawk.1.gz</span><br><span class="line">  次要 nawk：/usr/bin/gawk</span><br><span class="line">  次要 nawk.1.gz：/usr/share/man/man1/gawk.1.gz</span><br><span class="line">/usr/bin/mawk - 优先级 5</span><br><span class="line">  次要 awk.1.gz：/usr/share/man/man1/mawk.1.gz</span><br><span class="line">  次要 nawk：/usr/bin/mawk</span><br><span class="line">  次要 nawk.1.gz：/usr/share/man/man1/mawk.1.gz</span><br></pre></td></tr></table></figure>
+<p><code>alternatives</code>是用来管理多个可执行程序的工具</p>
+<h3 id="tmux-alacritty-配置"><a class="header-anchor" href="#tmux-alacritty-配置">#</a>tmux+alacritty 配置</h3>
+<p>通过配置可以实现切换不同的 session 和 window，解决了 alacritty 没有 tab 的问题</p>
+<p><a href="https://github.com/alacritty/alacritty/issues/5680" target="_blank" rel="noopener">https://github.com/alacritty/alacritty/issues/5680</a></p>
+<h3 id="行格式（row-format）"><a class="header-anchor" href="#行格式（row-format）">#</a>行格式（row_format）</h3>
+<p>博客再多，不如官方文档来得详细清楚：<a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-row-format.html#innodb-row-format-compact" target="_blank" rel="noopener">MySQL :: MySQL 8.4 Reference Manual :: 17.10 InnoDB Row Formats</a></p>
+<blockquote>
+<p>The <code>DYNAMIC</code> row format offers the same storage characteristics as the <code>COMPACT</code> row format but adds enhanced storage capabilities for long variable-length columns and supports large index key prefixes.<br>
+When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</code> can store long variable-length column values (for <a href="https://dev.mysql.com/doc/refman/8.4/en/char.html" target="_blank" rel="noopener" title="13.3.2 The CHAR and VARCHAR Types"><code>VARCHAR</code></a>, <a href="https://dev.mysql.com/doc/refman/8.4/en/binary-varbinary.html" target="_blank" rel="noopener" title="13.3.3 The BINARY and VARBINARY Types"><code>VARBINARY</code></a>, and <a href="https://dev.mysql.com/doc/refman/8.4/en/blob.html" target="_blank" rel="noopener" title="13.3.4 The BLOB and TEXT Types"><code>BLOB</code></a> and <a href="https://dev.mysql.com/doc/refman/8.4/en/blob.html" target="_blank" rel="noopener" title="13.3.4 The BLOB and TEXT Types"><code>TEXT</code></a> types) fully off-page, with the clustered index record containing only a 20-byte pointer to the overflow page. Fixed-length fields greater than or equal to 768 bytes are encoded as variable-length fields. For example, a <code>CHAR(255)</code> column can exceed 768 bytes if the maximum byte length of the character set is greater than 3, as it is with <code>utf8mb4</code>.</p>
+</blockquote>
+<p>目前默认的<code>DYNAMIC</code>行格式是在<code>COMPACT</code>上进行的升级。</p>
+<h3 id="行大小限制"><a class="header-anchor" href="#行大小限制">#</a>行大小限制</h3>
+<p>一直以来知道的都是 varchar 最大 65535 字节，原来这个限制是整个行的大小限制。</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/column-count-limit.html" target="_blank" rel="noopener">MySQL :: MySQL 8.4 Reference Manual :: 10.4.7 Limits on Table Column Count and Row Size</a></p>
+<p>几个疑问：</p>
+<ol>
+<li>InnoDB 为什么限制一页（默认 16KB）最少 2 条记录</li>
+<li>一行最多 65535bytes，为什么</li>
+<li>mysql 限制行最大 65535bytes，innodb 可以通过溢出存储更多数据，为什么还要遵守这个限制</li>
+</ol>
+<p>第三个问题贴个 gpt 的回答：</p>
+<blockquote>
+<p>MySQL 中的行大小限制为 65535 字节（bytes），这个限制是由于 MySQL 表结构的固有设计决定的。尽管 InnoDB 存储引擎可以通过溢出页来存储更大数据，但这个行大小限制仍然存在，主要有以下几个原因：</p>
+<ol>
+<li><strong>表结构的设计限制</strong>： MySQL 表的行大小限制为 65535 字节，这是由于 MySQL 的表定义结构决定的。每个表的行长度在表定义阶段就被限制在这个范围内。这是一个静态限制，无法通过任何存储引擎的特性来绕过。</li>
+<li><strong>数据页结构的设计</strong>： InnoDB 的每个数据页（page）的大小通常为 16KB。尽管 InnoDB 可以将大字段存储在溢出页中，但主记录页仍然需要存储一定量的列数据和元数据。如果单行数据过大，可能导致主记录页无法容纳基本的元数据。</li>
+<li><strong>内存和缓存管理</strong>： 在内存和缓存管理方面，遵守 65535 字节的行大小限制可以简化数据库的缓存策略和内存管理。过大的行可能会导致内存管理和缓存命中的复杂性增加，从而影响数据库的性能。</li>
+<li><strong>一致性和回滚支持</strong>： InnoDB 在处理事务时，需要确保数据的一致性和支持回滚操作。单行数据过大可能会增加事务日志和回滚日志的复杂性，影响数据库的性能和可靠性。</li>
+<li><strong>简化数据库设计和维护</strong>： 遵守行大小限制可以使数据库设计和维护更为简单和一致。开发者在设计数据库时，可以预先考虑行大小限制，避免在实际使用中遇到数据超限的问题。</li>
+</ol>
+<p>尽管 InnoDB 通过溢出页技术可以存储更多的数据，但 MySQL 的行大小限制仍然需要遵守。这是为了保证数据库的稳定性、一致性和性能，同时也使数据库设计和管理更加简便。</p>
+</blockquote>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/blog/tags/golang/">golang</a>
+            <a href="/blog/tags/mysql/">mysql</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/blog/2024/05/30/docker-usage/">
+        <span class="next-text nav-default">docker问题记录</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitalk-container"></div>
+    </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:onns@onns.xyz" class="iconfont icon-email" title="email"></a>
+        <a href="https://facebook.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-facebook" title="facebook"></a>
+        <a href="https://github.com/onns" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.douban.com/people/onnsxyz/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="https://instagram.com/onnsxyz" target="_blank" rel="noopener" class="iconfont icon-instagram" title="instagram"></a>
+        <a href="/blog/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2024<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Onns</span>
+    <span class="licence"> <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备15022938号-2</a> </span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css"/>
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '7ebadcd52312c2b34f81',
+    clientSecret: '052f4cb2121b344c1acd459e277d1bcdc53d1bce',
+    repo: 'onns.xyz',
+    owner: 'onns',
+    admin: ['onns'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script><script type="text/javascript" src="/blog/js/src/even.js?v=2.11.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

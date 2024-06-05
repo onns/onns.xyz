@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="zsh问题记录"/><meta name="keywords" content="linux, cron, crontab, shell, zsh, macos, bash, shell note, tips, zsh note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="zsh问题记录"/><meta name="keywords" content="linux, macos, bash, shell, zsh, cron, crontab, shell note, tips, ffmpeg, doc, zsh note, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2021/03/10/zsh-usage/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#comm"><span class="toc-text">comm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#零填充"><span class="toc-text">零填充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纳秒-微秒"><span class="toc-text">纳秒&#x2F;微秒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表数据-数组"><span class="toc-text">列表数据&#x2F;数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向列表添加数据"><span class="toc-text">向列表添加数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反引号"><span class="toc-text">反引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#no-matches-found"><span class="toc-text">no matches found</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-removing-leading-‘-’-from-member-names"><span class="toc-text">tar: Removing leading ‘&#x2F;’ from member names</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法-2"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prompt"><span class="toc-text">Prompt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-3"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认值"><span class="toc-text">默认值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-循环"><span class="toc-text">for 循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#screen-乱码"><span class="toc-text">screen 乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间相关"><span class="toc-text">时间相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#curl-相关"><span class="toc-text">curl 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对文件进行拆分"><span class="toc-text">对文件进行拆分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seq"><span class="toc-text">seq</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找内容前后数据"><span class="toc-text">查找内容前后数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断文件是否存在"><span class="toc-text">判断文件是否存在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从数据中选取指定列"><span class="toc-text">从数据中选取指定列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#comm"><span class="toc-text">comm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#零填充"><span class="toc-text">零填充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纳秒-微秒"><span class="toc-text">纳秒&#x2F;微秒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表数据-数组"><span class="toc-text">列表数据&#x2F;数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向列表添加数据"><span class="toc-text">向列表添加数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反引号"><span class="toc-text">反引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#no-matches-found"><span class="toc-text">no matches found</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-removing-leading-‘-’-from-member-names"><span class="toc-text">tar: Removing leading ‘&#x2F;’ from member names</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方法-2"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-2"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prompt"><span class="toc-text">Prompt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关链接-3"><span class="toc-text">相关链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认值"><span class="toc-text">默认值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-循环"><span class="toc-text">for 循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#screen-乱码"><span class="toc-text">screen 乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间相关"><span class="toc-text">时间相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#curl-相关"><span class="toc-text">curl 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对文件进行拆分"><span class="toc-text">对文件进行拆分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seq"><span class="toc-text">seq</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找内容前后数据"><span class="toc-text">查找内容前后数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断文件是否存在"><span class="toc-text">判断文件是否存在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从数据中选取指定列"><span class="toc-text">从数据中选取指定列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iterm2-分屏"><span class="toc-text">iterm2 分屏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ffmpeg-相关"><span class="toc-text">ffmpeg 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-text">TODO</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="前言"><a class="header-anchor" href="#前言">#</a>前言</h2>
 <p>之前自己写过一些定时脚本，比如整理照片啊、加密备份啥的，之前一直没有把<code>cron</code>的运行日志记录下来，最近记录之后发现写的有好多问题，之后有关<code>zsh</code>的问题也会在这里进行记录总结。</p>
@@ -380,6 +380,20 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <ul>
 <li><a href="https://onns.xyz/blog/2023/11/28/reading-list-2023-49/#%E5%BF%AB%E9%80%9F-csv-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">快速 csv 文件处理</a></li>
 </ul>
+<h2 id="iterm2-分屏"><a class="header-anchor" href="#iterm2-分屏">#</a>iterm2 分屏</h2>
+<ul>
+<li>
+<p><code>cmd + d</code>垂直分屏</p>
+</li>
+<li>
+<p><code>cmd + shift + d</code>水平分屏</p>
+</li>
+<li>
+<p><code>cmd + option/alt + 方向键</code>切换分屏</p>
+</li>
+</ul>
+<h2 id="ffmpeg-相关"><a class="header-anchor" href="#ffmpeg-相关">#</a>ffmpeg 相关</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取视频首帧</span></span><br><span class="line">ffmpeg -i input.mp4 -frames:v 1 output.jpg</span><br><span class="line"><span class="comment"># 指定宽高放缩</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:720"</span> output.mp4</span><br><span class="line"><span class="comment"># 按比例缩放</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:-1"</span> output.mp4</span><br><span class="line"><span class="comment"># 按比例放缩到指定大小，添加黑边</span></span><br><span class="line">ffmpeg -i input.mp4 -vf <span class="string">"scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2"</span> output.mp4</span><br></pre></td></tr></table></figure>
 <h2 id="todo"><a class="header-anchor" href="#todo">#</a>TODO</h2>
 <ul>
 <li>[ ] <code>setopt +o nomatch</code>的作用</li>
@@ -391,14 +405,16 @@ searchFunc(path, 'local-search-input', 'local-search-result');
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/blog/tags/linux/">linux</a>
-            <a href="/blog/tags/cron/">cron</a>
-            <a href="/blog/tags/crontab/">crontab</a>
-            <a href="/blog/tags/shell/">shell</a>
-            <a href="/blog/tags/zsh/">zsh</a>
             <a href="/blog/tags/macos/">macos</a>
             <a href="/blog/tags/bash/">bash</a>
+            <a href="/blog/tags/shell/">shell</a>
+            <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/cron/">cron</a>
+            <a href="/blog/tags/crontab/">crontab</a>
             <a href="/blog/tags/shell-note/">shell note</a>
             <a href="/blog/tags/tips/">tips</a>
+            <a href="/blog/tags/ffmpeg/">ffmpeg</a>
+            <a href="/blog/tags/doc/">doc</a>
             <a href="/blog/tags/zsh-note/">zsh note</a>
             </div>
         
