@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-锁相关"><span class="toc-text">MySQL 锁相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang"><span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk-相关"><span class="toc-text">awk 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-alacritty-配置"><span class="toc-text">tmux+alacritty 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行格式（row-format）"><span class="toc-text">行格式（row_format）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行大小限制"><span class="toc-text">行大小限制</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-锁相关"><span class="toc-text">MySQL 锁相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang"><span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk-相关"><span class="toc-text">awk 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-alacritty-配置"><span class="toc-text">tmux+alacritty 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行格式（row-format）"><span class="toc-text">行格式（row_format）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行大小限制"><span class="toc-text">行大小限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang格式化"><span class="toc-text">golang格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innodb行读取"><span class="toc-text">InnoDB行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql视图"><span class="toc-text">MySQL视图</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
 <a id="more"></a>
@@ -314,6 +314,11 @@ When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</co
 <p>几个疑问：</p>
 <ol>
 <li>InnoDB 为什么限制一页（默认 16KB）最少 2 条记录</li>
+</ol>
+<center>
+<p><img src="//onns.xyz/blog/image/20240605-1.png" alt="20240605-1"></p>
+</center>
+<ol>
 <li>一行最多 65535bytes，为什么</li>
 <li>mysql 限制行最大 65535bytes，innodb 可以通过溢出存储更多数据，为什么还要遵守这个限制</li>
 </ol>
@@ -329,6 +334,40 @@ When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</co
 </ol>
 <p>尽管 InnoDB 通过溢出页技术可以存储更多的数据，但 MySQL 的行大小限制仍然需要遵守。这是为了保证数据库的稳定性、一致性和性能，同时也使数据库设计和管理更加简便。</p>
 </blockquote>
+<h3 id="golang格式化"><a class="header-anchor" href="#golang格式化">#</a>golang格式化</h3>
+<p><a href="https://github.com/mvdan/gofumpt" target="_blank" rel="noopener">mvdan/gofumpt: A stricter gofmt (github.com)</a></p>
+<p>比标准的格式化更严格</p>
+<h3 id="innodb行读取"><a class="header-anchor" href="#innodb行读取">#</a>InnoDB行读取</h3>
+<center>
+<p><img src="//onns.xyz/blog/image/20240609-2.png" alt="compact行记录格式"></p>
+</center>
+<ul>
+<li><a href="https://blog.jcole.us/2013/01/10/the-physical-structure-of-records-in-innodb/" target="_blank" rel="noopener">The physical structure of records in InnoDB – Jeremy Cole (jcole.us)</a></li>
+<li><a href="https://blog.csdn.net/yang131peng/article/details/113849366" target="_blank" rel="noopener">mysql学习-Innodb行格式compact行记录解析_为什么变长字段长度列表的信息要按照逆序存放?-CSDN博客</a></li>
+</ul>
+<p>一直有个疑问，变长字段是怎么读取的，既没有明确的分隔符，又没有长度标识。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20240609-1.png" alt="compact记录头信息"></p>
+</center>
+<p>多方查证后：</p>
+<ol>
+<li>前置知识需要知道这行数据：多少个可空字段，以及，多少个变长字段</li>
+<li>innodb和redis的sds类似，指针指向数据的时候，指向的是真实数据的首位，该位置前方是记录头信息</li>
+<li>null标识和变长字段长度列表都是逆序存放，所以也逆序读取</li>
+<li>null字符被补齐为8的倍数，用比特位代表字段是否为空，为空不占用真实数据部分任何空间</li>
+<li>一个字节本来可以表示0-255，但是在mysql中只能用来表示0-127，最高位若是1，则代表长度数据需要2个字节，因此无需标注也可以确保读取完整数据</li>
+<li>记录头信息（record header）中有16位的下一个记录的相对位置，代表的也是数据部分，且16位只能代表0-65535</li>
+</ol>
+<p>衍生出几个问题和几个结论：</p>
+<ol>
+<li>为什么行长度只能是65535？因为代表下一个数据的偏移只有2字节，只能偏移65535</li>
+<li>为什么都建议字段NOT NULL？</li>
+<li>null字段和空串有什么区别？</li>
+</ol>
+<h3 id="mysql视图"><a class="header-anchor" href="#mysql视图">#</a>MySQL视图</h3>
+<p><a href="https://segmentfault.com/q/1010000043665333" target="_blank" rel="noopener">java - 开发中何时使用数据库视图？ - SegmentFault 思否</a></p>
+<p>感觉是个日常开发不太会使用的功能，了解下来主要的用途是在MySQL层面对外做权限控制，即隐藏底层基础表，整合数据后，对外只提供针对视图的读取账号。</p>
+<p>读书时先行跳过。</p>
 
       </div>
       
