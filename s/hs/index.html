@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -40,10 +40,10 @@
       .spinner-border {
         display: none;
       }
-    .code-column {
-    max-width:150px;
-    white-space: pre-wrap;
-    }
+      .code-column {
+        max-width: 150px;
+        white-space: pre-wrap;
+      }
     </style>
   </head>
   <body>
@@ -128,13 +128,20 @@
         const from = document.getElementById("from").value;
         const to = document.getElementById("to").value;
         const format = document.getElementById("format").value;
-        const sort= document.getElementById("sort").value;
+        const sort = document.getElementById("sort").value;
 
-        const params = new URLSearchParams({auth,code,from,to,format,sort}).toString();
-            const newUrl = `${window.location.pathname}?${params}`;
-            
-            // 更新浏览器地址栏的URL
-            window.history.pushState({}, '', newUrl);
+        const params = new URLSearchParams({
+          auth,
+          code,
+          from,
+          to,
+          format,
+          sort,
+        }).toString();
+        const newUrl = `${window.location.pathname}?${params}`;
+
+        // 更新浏览器地址栏的URL
+        window.history.pushState({}, "", newUrl);
 
         // 显示加载指示器
         document.getElementById("loadingSpinner").style.display =
@@ -158,9 +165,9 @@
 
           data.data.forEach((item) => {
             const row = document.createElement("tr");
-            if (item.deck == null){
+            if (item.deck == null) {
               item.deck = [];
-            } 
+            }
             // 假设数据包含 'column1', 'column2', 'column3'
             row.innerHTML = `
                         <td>${item.format}</td>
@@ -181,10 +188,14 @@
                         <td class="code-column"><a href="https://onns.xyz/hs/code-gen?code=${
                           item.deck_code
                         }" target="_blank">${item.deck_code}</a></td>
-                        <td>总场数：${item.win_count+item.lose_count}<br/>赢${item.win_count}/输${item.lose_count}<br/>胜率：${(
+                        <td>总场数：${item.win_count + item.lose_count}<br/>赢${
+                          item.win_count
+                        }/输${item.lose_count}<br/>胜率：${(
                           (item.win_count * 100) /
                           (item.win_count + item.lose_count)
-                        ).toFixed(2)}%<br/>排名区间：${item.min_rank} ~ ${item.max_rank}<br/>平均对局时长：${(
+                        ).toFixed(2)}%<br/>排名区间：${item.min_rank} ~ ${
+                          item.max_rank
+                        }<br/>平均对局时长：${(
                           (item.win_duration + item.lose_duration) /
                           (item.win_count + item.lose_count) /
                           60
@@ -198,19 +209,18 @@
           document.getElementById("loadingSpinner").style.display = "none";
         }
       }
-      window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            for (const [key, value] of params) {
-                const input = document.querySelector(`[id="${key}"]`);
-                if (input) {
-                    input.value = value;
-                }
-            }
-            if (params.toString()) {
-                submitData(); // 自动提交数据以加载表格
-            }
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        for (const [key, value] of params) {
+          const input = document.querySelector(`[id="${key}"]`);
+          if (input) {
+            input.value = value;
+          }
         }
+        if (params.toString()) {
+          submitData(); // 自动提交数据以加载表格
+        }
+      };
     </script>
   </body>
 </html>
-
