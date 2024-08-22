@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#go-类型系统概述"><span class="toc-text">Go 类型系统概述</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#go-类型系统概述"><span class="toc-text">Go 类型系统概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#defer"><span class="toc-text">defer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#稍后再看"><span class="toc-text">稍后再看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发"><span class="toc-text">并发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#context"><span class="toc-text">context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存顺序保证"><span class="toc-text">内存顺序保证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存块"><span class="toc-text">内存块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nil"><span class="toc-text">nil</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>go101 笔记</p>
 <a id="more"></a>
@@ -324,6 +324,52 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>任意两个映射值（或切片值）是不能相互比较的。</li>
 <li>大多数数组类型都是可比较类型，除了元素类型为不可比较类型的数组类型。</li>
 </ul>
+<h3 id="defer"><a class="header-anchor" href="#defer">#</a>defer</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">defer</span> fmt.Println(<span class="string">"此行可以被执行到"</span>)</span><br><span class="line">	<span class="keyword">var</span> f <span class="function"><span class="keyword">func</span><span class="params">()</span> // <span class="title">f</span> == <span class="title">nil</span></span></span><br><span class="line">	<span class="keyword">defer</span> f()    <span class="comment">// 将产生一个恐慌</span></span><br><span class="line">	fmt.Println(<span class="string">"此行可以被执行到"</span>)</span><br><span class="line">	f = <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;&#125; <span class="comment">// 此行不会阻止恐慌产生</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main 函数第一行依旧可以被执行的原因是：</p>
+<blockquote>
+<p>在恐慌传播到调用者之前，所有已注册的 defer 语句仍然会被执行。</p>
+</blockquote>
+<ul>
+<li>在循环中 defer 关闭可以通过构造一个匿名函数的形式，更优雅。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeManyFiles</span><span class="params">(files []File)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> _, file := <span class="keyword">range</span> files &#123;</span><br><span class="line">		<span class="keyword">if</span> err := <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">			f, err := os.Open(file.path)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> err</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">defer</span> f.Close() <span class="comment">// 将在此循环步内执行</span></span><br><span class="line"></span><br><span class="line">			_, err = f.WriteString(file.content)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> err</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> f.Sync()</span><br><span class="line">		&#125;(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这仿佛不是一个能看懂的句式，尤其最后一段话。</li>
+</ul>
+<center>
+<p><img src="//onns.xyz/blog/image/20240708-1.png" alt=""></p>
+</center>
+<h3 id="稍后再看"><a class="header-anchor" href="#稍后再看">#</a>稍后再看</h3>
+<ul>
+<li><a href="https://gfw.go101.org/article/blocks-and-scopes.html" target="_blank" rel="noopener">代码块和标识符作用域 -Go 语言 101 (go101.org)</a></li>
+</ul>
+<h3 id="并发"><a class="header-anchor" href="#并发">#</a>并发</h3>
+<p>一个<code>WaitGroup</code>可以在它的一个<code>Wait</code>方法返回之后被重用。 但是请注意，当一个<code>WaitGroup</code>值维护的基数为零时，它的带有正整数实参的<code>Add</code>方法调用不能和它的<code>Wait</code>方法调用并发运行，否则将可能出现数据竞争。</p>
+<h3 id="context"><a class="header-anchor" href="#context">#</a>context</h3>
+<p>在 db 侧都有一个检测超时的代码段：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line"><span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>, ctx.Err()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主动控制超时</p>
+<p>请注意，到目前为止（Go 1.22），一个 64 位字（int64 或 uint64 值）的原子操作要求此 64 位字的内存地址必须是 8 字节对齐的。 对于 Go 1.19 引入的原子方法操作，此要求无论在 32-bit 还是 64-bit 架构上总是会得到满足，但是对于 32-bit 架构上的原子函数操作，此要求并非总会得到满足。 请阅读<a href="https://gfw.go101.org/article/memory-layout.html" target="_blank" rel="noopener">关于 Go 值的内存布局</a>一文获取详情。</p>
+<h3 id="内存顺序保证"><a class="header-anchor" href="#内存顺序保证">#</a>内存顺序保证</h3>
+<p>下面列出的是通道操作做出的基本顺序保证：</p>
+<ol>
+<li>一个通道上的第**<em>n</em><strong>次成功发送操作的开始发生在此通道上的第</strong><em>n</em>**次成功接收操作完成之前，无论此通道是缓冲的还是非缓冲的。</li>
+<li>一个容量为**<em>m</em><strong>通道上的第</strong><em>n</em><strong>次成功接收操作的开始发生在此通道上的第</strong><em>n+m</em><strong>次发送操作完成之前。 特别地，如果此通道是非缓冲的（<code>m == 0</code>），则此通道上的第</strong><em>n</em><strong>次成功接收操作的开始发生在此通道上的第</strong><em>n</em>**次发送操作完成之前。</li>
+<li>一个通道的关闭操作发生在任何因为此通道被关闭而从此通道接收到了零值的操作完成之前。</li>
+</ol>
+<h3 id="内存块"><a class="header-anchor" href="#内存块">#</a>内存块</h3>
+<ul>
+<li>一个内存块同时可能承载着不同 Go 值的若干值部，但是一个值部在内存中绝不会跨内存块存储，无论此值部的尺寸有多大。</li>
+<li>在运行时刻，每一个仍在被使用中的逃逸到堆上的值部肯定被至少一个开辟在栈上的值部所引用着。 如果一个逃逸到堆上的值是一个被声明为<code>T</code>类型的局部变量，则在运行时，一个<code>*T</code>类型的隐式指针将被创建在栈上。 此指针存储着此<code>T</code>类型的局部变量的在堆上的地址，从而形成了一个从栈到堆的引用关系。 另外，编译器还将所有对此局部变量的使用替换为对此指针的解引用。 此<code>*T</code>值可能从今后的某一时刻不再被使用从而使得此引用关系不再存在。</li>
+<li>如果一个结构体值的一个字段逃逸到了堆上，则此整个结构体值也逃逸到了堆上。</li>
+<li>如果一个数组的某个元素逃逸到了堆上，则此整个数组也逃逸到了堆上。</li>
+<li>如果一个切片的某个元素逃逸到了堆上，则此切片中的所有元素都将逃逸到堆上，但此切片值的直接部分可能开辟在栈上。</li>
+<li>如果一个值部<code>v</code>被一个逃逸到了堆上的值部所引用，则此值部<code>v</code>也将逃逸到堆上。</li>
+</ul>
+<h3 id="nil"><a class="header-anchor" href="#nil">#</a>nil</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">map</span>[<span class="keyword">int64</span>]<span class="keyword">string</span></span><br><span class="line">	fmt.Println(a[<span class="number">1</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>空map的访问不会panic，我之前一直以为会，然后以为只要接了<code>v, ok :=</code>就不会panic，没想到直接索引也不会。</p>
 
       </div>
       

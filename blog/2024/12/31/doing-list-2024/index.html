@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="列表2024"/><meta name="keywords" content="golang, mysql, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="列表2024"/><meta name="keywords" content="golang, mysql, in doubt, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2024/12/31/doing-list-2024/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-锁相关"><span class="toc-text">MySQL 锁相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang"><span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk-相关"><span class="toc-text">awk 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-alacritty-配置"><span class="toc-text">tmux+alacritty 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行格式（row-format）"><span class="toc-text">行格式（row_format）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行大小限制"><span class="toc-text">行大小限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang格式化"><span class="toc-text">golang格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innodb行读取"><span class="toc-text">InnoDB行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql视图"><span class="toc-text">MySQL视图</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最近做的事"><span class="toc-text">最近做的事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-锁相关"><span class="toc-text">MySQL 锁相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang"><span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk-相关"><span class="toc-text">awk 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-alacritty-配置"><span class="toc-text">tmux+alacritty 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行格式（row-format）"><span class="toc-text">行格式（row_format）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行大小限制"><span class="toc-text">行大小限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#golang格式化"><span class="toc-text">golang格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#innodb行读取"><span class="toc-text">InnoDB行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql视图"><span class="toc-text">MySQL视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql索引"><span class="toc-text">MySQL索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取模"><span class="toc-text">取模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql重做日志"><span class="toc-text">MySQL重做日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swap"><span class="toc-text">swap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql死锁"><span class="toc-text">MySQL死锁</span></a></li></ol></li></ol>
     </div>
   </div><div class="post-content"><h2 id="最近做的事"><a class="header-anchor" href="#最近做的事">#</a>最近做的事</h2>
 <a id="more"></a>
@@ -368,6 +368,25 @@ When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</co
 <p><a href="https://segmentfault.com/q/1010000043665333" target="_blank" rel="noopener">java - 开发中何时使用数据库视图？ - SegmentFault 思否</a></p>
 <p>感觉是个日常开发不太会使用的功能，了解下来主要的用途是在MySQL层面对外做权限控制，即隐藏底层基础表，整合数据后，对外只提供针对视图的读取账号。</p>
 <p>读书时先行跳过。</p>
+<h3 id="mysql索引"><a class="header-anchor" href="#mysql索引">#</a>MySQL索引</h3>
+<p>B+树索引并不能找到一个给定键值的具体行。B+树索引能找到的只是被查找数据行所在的页。然后数据库通过把页读入到内存，再在内存中进行查找，最后得到要查找的数据。</p>
+<ul>
+<li>对于B+树，如果主键一直自增那如果均匀分裂，前半部分的树永远都不会被使用，所以会有插入方向字段，用于控制分裂方向。（疑问点，这样设计真的会解决这个问题嘛？）</li>
+</ul>
+<center>
+<p><img src="//onns.xyz/blog/image/20240618-1.png" alt=""></p>
+</center>
+<h3 id="取模"><a class="header-anchor" href="#取模">#</a>取模</h3>
+<p><a href="https://flat2010.github.io/2018/04/19/%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%AD%E4%B8%BA%E4%BD%95%E8%A6%81%E7%94%A8%E7%B4%A0%E6%95%B0%E4%BD%9C%E4%B8%BA%E6%A8%A1/" target="_blank" rel="noopener">模运算中为何要用素数作为模 | 断鸿声里，立尽斜阳 (flat2010.github.io)</a></p>
+<h3 id="mysql重做日志"><a class="header-anchor" href="#mysql重做日志">#</a>MySQL重做日志</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/f-ck-need-u/p/9010872.html" target="_blank" rel="noopener">详细分析MySQL事务日志(redo log和undo log) - 骏马金龙 - 博客园 (cnblogs.com)</a></li>
+</ul>
+<h3 id="swap"><a class="header-anchor" href="#swap">#</a>swap</h3>
+<p>云服务器经常因为内存爆掉，所以需要开启swap虚拟内存：</p>
+<p><a href="https://u.sb/debian-swap/" target="_blank" rel="noopener">Debian / Ubuntu 手工添加 Swap 分区 - 烧饼博客</a></p>
+<h3 id="mysql死锁"><a class="header-anchor" href="#mysql死锁">#</a>MySQL死锁</h3>
+<p><a href="https://mp.weixin.qq.com/s/VTK03xFSfTlFxECC_xhJcw" target="_blank" rel="noopener">万字解析 mysql innodb 锁机制实现原理 (qq.com)</a></p>
 
       </div>
       
@@ -375,10 +394,11 @@ When a table is created with <code>ROW_FORMAT=DYNAMIC</code>, <code>InnoDB</co
         <div class="post-tags">
             <a href="/blog/tags/golang/">golang</a>
             <a href="/blog/tags/mysql/">mysql</a>
+            <a href="/blog/tags/in-doubt/">in doubt</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/blog/2024/05/30/docker-usage/">
-        <span class="next-text nav-default">docker问题记录</span>
+        <nav class="post-nav"><a class="next" href="/blog/2024/08/09/highlights-202408/">
+        <span class="next-text nav-default">列表2024</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
