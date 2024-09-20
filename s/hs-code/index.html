@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多行文本请求图片</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      #container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+        font-size: 14px;
+        margin-bottom: 10px;
+        transition: border-color 0.3s;
+        box-sizing: border-box; /* 确保内边距不影响宽度 */
+      }
+      textarea:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 20px; /* 在按钮下方添加空间 */
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #result {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>炉石卡图生成</h1>
+      <textarea
+        id="input"
+        placeholder="每行输入一个卡组代码"
+        spellcheck="false"
+      ></textarea>
+      <button id="requestBtn">生成卡图</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      document.getElementById("requestBtn").addEventListener("click", () => {
+        const inputText = document.getElementById("input").value;
+        const lines = inputText.split("\n");
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = ""; // 清空之前的结果
+
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+          if (trimmedLine) {
+            const img = document.createElement("img");
+            img.src = "https://onns.xyz/hs/code-gen?code=" + trimmedLine;
+            img.onerror = () => {
+              img.alt = "图片无法加载";
+              img.src = ""; // 可选：替换为一个默认图像
+            };
+            resultDiv.appendChild(img);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
