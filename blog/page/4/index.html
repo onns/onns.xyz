@@ -262,6 +262,35 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2022/11/05/rust-note/">Rust笔记</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2022-11-05 12:27:45
+        </span><span class="post-category">
+            <a href="/blog/categories/learn/">learn</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2022/11/05/rust-note/"
+             data-title="Rust笔记">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> RUSTUP_DIST_SERVER=<span class="string">"https://rsproxy.cn"</span></span><br><span class="line"><span class="built_in">export</span> RUSTUP_UPDATE_ROOT=<span class="string">"https://rsproxy.cn/rustup"</span></span><br><span class="line"><span class="comment"># curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</span></span><br><span class="line">curl --proto <span class="string">'=https'</span> --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh</span><br><span class="line">rustup component add rust-analyzer</span><br></pre></td></tr></table></figure>
+<ul>
+<li>break 可以单独使用，也可以带一个返回值，有些类似 return</li>
+<li>loop 是一个表达式，因此可以返回一个值</li>
+</ul>
+<p>字节提供的<code>rust</code>镜像：<a href="https://rsproxy.cn/#getStarted" target="_blank" rel="noopener">https://rsproxy.cn/#getStarted</a></p>
+<p>这种定义在 impl 中且没有 self 的函数被称之为关联函数： 因为它没有 self，不能用 f.read() 的形式调用，因此它是一个函数而不是方法，它又在 impl 中，与结构体紧密关联，因此称为关联函数。</p>
+<p>但是这种写法限制了 <code>Screen</code> 实例的 <code>Vec&lt;T&gt;</code> 中的每个元素必须是 <code>Button</code> 类型或者全是 <code>SelectBox</code> 类型。如果只需要同质（相同类型）集合，更倾向于采用泛型+特征约束这种写法，因其实现更清晰，且性能更好(特征对象，需要在运行时从 <code>vtable</code> 动态查找需要调用的方法)。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2022/10/28/vim-plug/">vim插件安装</a>
         </h1>
 
@@ -498,33 +527,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-content"><p>一些之前不懂的问题的记录。</p>
           <div class="read-more">
             <a href="/blog/2022/07/17/golang-question-1/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2022/05/02/updates-about-macos-monterey/">更新Monterey后的小结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2022-05-02 20:15:39
-        </span><span class="post-author">
-          Onns
-        </span>
-        <span class="post-category">
-            <a href="/blog/categories/software/">software</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2022/05/02/updates-about-macos-monterey/"
-             data-title="更新Monterey后的小结">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>更新系统后踩的一些坑，望周知～</p>
-          <div class="read-more">
-            <a href="/blog/2022/05/02/updates-about-macos-monterey/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/3/">

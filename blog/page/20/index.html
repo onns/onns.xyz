@@ -262,6 +262,61 @@ searchFunc(path, 'local-search-input', 'local-search-result');
           <div id="content" class="content">
             <div id="local-search-result"></div><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/">TSM Temporal Shift Module for Efficient Video Understanding</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-08-30 16:14:30
+        </span><span class="post-category">
+            <a href="/blog/categories/study/">study</a>
+            </span>
+        <span class="post-visits"
+             data-url="/blog/2020/08/30/tsm-temporal-shift-module-for-efficient-video-understanding/"
+             data-title="TSM Temporal Shift Module for Efficient Video Understanding">
+          Visits 0
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h1 id="tsm-temporal-shift-module-for-efficient-video-understanding"><a class="header-anchor" href="#tsm-temporal-shift-module-for-efficient-video-understanding">#</a>TSM: Temporal Shift Module for Efficient Video Understanding</h1>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-1.png" alt="核心思想"></p>
+</center>
+<p>文章实现了在 2D 模型上达到 3D 模型的精度，极大的降低了计算。其核心思想是通过一种<code>shift</code>操作，将时间纬度上的不同帧之间的通道进行偏移，以达到共享时间特征的目的。</p>
+<p>然而并不是所有的<code>shift</code>操作都可以达到效果的，虽然<code>shift</code>操作不需要额外的运算但是仍然需要数据的移动，太多的移动会带来延迟。</p>
+<p>除此之外，<code>shift</code>是增加时间特征的提取，太多的<code>shift</code>操作也会导致空间特征的提取受到影响。</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-2.png" alt="作者思路"></p>
+</center>
+<p>故文章中所提出的是一种改进的<code>shift</code>策略：并不是<code>shift</code>所有的<code>channels</code>，而是只选择性的<code>shift</code>其中的一部分，该策略能够有效的减少数据移动所带来的时间复杂度。</p>
+<p>另外<code>TSM</code>并不是直接被插入到从前往后的干道中的，而是以旁路的形式进行，因此在获得了时序信息的同时不会对二维卷积的空间信息进行损害。</p>
+<p>同时作者对于一些实时的在线检测提出了相应的模型策略，不同于将第一层下移第二层上移这种：</p>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-3.png" alt="在线模型"></p>
+</center>
+<p>可以有相应的借鉴思路，并且这篇也是上一篇的基准之一。</p>
+<h2 id="实验结果"><a class="header-anchor" href="#实验结果">#</a>实验结果</h2>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-7.png" alt="过程"></p>
+</center>
+<center>
+<p><img src="//onns.xyz/blog/image/20200910-8.png" alt="结果"></p>
+</center>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">#</a>相关链接</h2>
+<ul>
+<li><a href="https://github.com/mit-han-lab/temporal-shift-module" target="_blank" rel="noopener">https://github.com/mit-han-lab/temporal-shift-module</a></li>
+<li><a href="https://blog.csdn.net/justsolow/article/details/105127296" target="_blank" rel="noopener">《TSM: Temporal Shift Module for Efficient Video Understanding》学习小记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/66251207" target="_blank" rel="noopener">Temporal Shift Module</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/Amazingren/article/details/100715768" target="_blank" rel="noopener">【视频理解论文】——TSM：Temporal Shift Module for Efficient Video Understanding</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/64525610" target="_blank" rel="noopener">TSM：Temporal Shift Module for 视频理解</a></li>
+<li><a href="https://blog.csdn.net/strawqqhat/article/details/105292687" target="_blank" rel="noopener">Temporal Shift Module for Efficient Video Understanding</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/blog/2020/08/30/gate-shift-networks-for-video-action-recognition/">Gate-Shift Networks for Video Action Recognition</a>
         </h1>
 
@@ -546,36 +601,6 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> StaticTest t2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"静态块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"构造块"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StaticTest t = <span class="keyword">new</span> StaticTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <div class="read-more">
             <a href="/blog/2020/08/24/static-test/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/blog/2020/08/24/jvm-note-3/">深入理解Java虚拟机（三）</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-08-24 14:10:23
-        </span><span class="post-category">
-            <a href="/blog/categories/learn/">learn</a>
-            </span>
-        <span class="post-visits"
-             data-url="/blog/2020/08/24/jvm-note-3/"
-             data-title="深入理解Java虚拟机（三）">
-          Visits 0
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 3 版）</p>
-<h1 id="自动内存管理"><a class="header-anchor" href="#自动内存管理">#</a>自动内存管理</h1>
-<h2 id="java-内存区域与内存溢出异常"><a class="header-anchor" href="#java-内存区域与内存溢出异常">#</a>Java 内存区域与内存溢出异常</h2>
-<center>
-<p><img src="//onns.xyz/blog/image/20200822-1.jpg" alt="Java虚拟机运行时数据区"></p>
-<p>Java 虚拟机运行时数据区</p>
-</center>
-          <div class="read-more">
-            <a href="/blog/2020/08/24/jvm-note-3/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/blog/page/19/">
