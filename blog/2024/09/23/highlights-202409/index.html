@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="列表202409"/><meta name="keywords" content="zsh, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
+<meta name="description" content="列表202409"/><meta name="keywords" content="zsh, cron, crontab, tmux, Onns Blog" /><link rel="alternate" href="/blog/default" title="Onns Blog"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://onns.xyz/2024/09/23/highlights-202409/"/>
 
 <link rel="stylesheet" type="text/css" href="/blog/lib/fancybox/jquery.fancybox.css" /><script type="text/javascript">
@@ -282,7 +282,7 @@ searchFunc(path, 'local-search-input', 'local-search-result');
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#zsh-逻辑表达式写法"><span class="toc-text">zsh 逻辑表达式写法</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#zsh-逻辑表达式写法"><span class="toc-text">zsh 逻辑表达式写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sed-使用"><span class="toc-text">sed 使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cron-踩坑"><span class="toc-text">cron 踩坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tmux-插件不加载问题"><span class="toc-text">tmux 插件不加载问题</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>2024 年 9 月事记</p>
 <a id="more"></a>
@@ -302,12 +302,26 @@ searchFunc(path, 'local-search-input', 'local-search-result');
 <li>文件/文件夹一般用<code>-e file</code>这种写法。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">current_hour=$(date +%H)</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$current_hour</span> -eq 23 ]]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">cd</span> <span class="string">"<span class="variable">$(device_backup_home_dir)</span>"</span> &amp;&amp; auto_git_commit <span class="string">"<span class="variable">$(device_backup_home_dir)</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h3 id="sed-使用"><a class="header-anchor" href="#sed-使用">#</a>sed 使用</h3>
+<p>在 macOS 中，sed 的 -i 选项需要一个备份后缀参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># linux</span></span><br><span class="line">sed -E -i <span class="string">'s/xxx/yyy/g'</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line"><span class="comment"># macos</span></span><br><span class="line">sed -E -i <span class="string">''</span> <span class="string">'s/xxx/yyy/g'</span> <span class="variable">$&#123;file&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="cron-踩坑"><a class="header-anchor" href="#cron-踩坑">#</a>cron 踩坑</h3>
+<p>cron 的变量不支持嵌套</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 支持</span></span><br><span class="line">a=<span class="string">"aa"</span></span><br><span class="line"><span class="comment"># 不支持</span></span><br><span class="line">b=<span class="string">"<span class="variable">$&#123;a&#125;</span>bb"</span></span><br></pre></td></tr></table></figure>
+<h3 id="tmux-插件不加载问题"><a class="header-anchor" href="#tmux-插件不加载问题">#</a>tmux 插件不加载问题</h3>
+<p>macOS 下无异常的配置和版本，到 Linux 下会出现插件下载后又自行清除的问题，定位后和 TMUX_PLUGIN_MANAGER_PATH 变量有关。<br>
+如果不手动指定，TMUX_PLUGIN_MANAGER_PATH 会被设置为<code>$HOME/.tmux/plugins/</code>，多了一个结尾的<code>/</code>，拼接会产生异常。</p>
+<p>解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TMUX_PLUGIN_MANAGER_PATH=<span class="string">"<span class="variable">$HOME</span>/.tmux/plugins"</span></span><br></pre></td></tr></table></figure>
 
       </div>
       
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/blog/tags/zsh/">zsh</a>
+            <a href="/blog/tags/cron/">cron</a>
+            <a href="/blog/tags/crontab/">crontab</a>
+            <a href="/blog/tags/tmux/">tmux</a>
             </div>
         
         <nav class="post-nav"><a class="prev" href="/blog/2024/12/31/doing-list-2024/">
