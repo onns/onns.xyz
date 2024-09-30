@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>多行文本请求图片</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -73,6 +77,9 @@
   <body>
     <div id="container">
       <h1>炉石卡图生成</h1>
+      <label for="auth">认证代码</label>
+      <input type="text" class="form-control" id="auth" />
+      <label for="input">卡组代码</label>
       <textarea
         id="input"
         placeholder="每行输入一个卡组代码"
@@ -86,15 +93,24 @@
     <script>
       document.getElementById("requestBtn").addEventListener("click", () => {
         const inputText = document.getElementById("input").value;
+        const auth = document.getElementById("auth").value;
         const lines = inputText.split("\n");
         const resultDiv = document.getElementById("result");
         resultDiv.innerHTML = ""; // 清空之前的结果
+
+        const params = new URLSearchParams({
+          auth,
+        }).toString();
+        const newUrl = `${window.location.pathname}?${params}`;
+
+        // 更新浏览器地址栏的URL
+        window.history.pushState({}, "", newUrl);
 
         for (const line of lines) {
           const trimmedLine = line.trim();
           if (trimmedLine) {
             const img = document.createElement("img");
-            img.src = "https://onns.xyz/hs/code-gen?code=" + trimmedLine;
+            img.src = `https://onns.xyz/hs/code-gen?auth=${auth}&code=${trimmedLine}`;
             img.onerror = () => {
               img.alt = "图片无法加载";
               img.src = ""; // 可选：替换为一个默认图像
@@ -103,6 +119,15 @@
           }
         }
       });
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        for (const [key, value] of params) {
+          const input = document.querySelector(`[id="${key}"]`);
+          if (input) {
+            input.value = value;
+          }
+        }
+      };
     </script>
   </body>
 </html>
